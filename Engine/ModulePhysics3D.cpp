@@ -311,14 +311,14 @@ void DebugDrawer::drawGrid(int grid_size)
 	for (int i = -grid_size; i <= grid_size; i++)
 	{
 		btVector3 vect = { (float)i, 0 , (float)-grid_size };
-		btVector3 vect2 = { (float)i, 0 , (float)grid_size };		
+		btVector3 vect2 = { (float)i, 0 , (float)grid_size };
 		drawLine(vect, vect2, line_color);
 
 		vect = { (float)-grid_size, 0 , (float)i };
 		vect2 = { (float)grid_size, 0 , (float)i };
 		drawLine(vect, vect2, line_color);
-		
-	
+
+	}
 }
 
 // =============================================
