@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModulePhysics3D.h"
 #include "PhysBody3D.h"
-
+#include "glmath.h"
 #include "Primitive.h"
 
 #ifdef _DEBUG
@@ -90,7 +90,7 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 			if(pbodyA && pbodyB)
 			{
 				std::list<Module*>::iterator item = pbodyA->collision_listeners.begin();
-				while(*item)
+				while(item != pbodyA->collision_listeners.end())
 				{
 					(*item)->OnCollision(pbodyA, pbodyB);
 					
@@ -98,7 +98,7 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 				}
 
 				item = pbodyB->collision_listeners.begin();
-				while (*item)
+				while (item != pbodyB->collision_listeners.end())
 				{
 					(*item)->OnCollision(pbodyB, pbodyA);
 
@@ -114,6 +114,7 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 // ---------------------------------------------------------
 update_status ModulePhysics3D::Update(float dt)
 {
+	debug_draw->drawGrid(10);
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
@@ -156,7 +157,7 @@ bool ModulePhysics3D::CleanUp()
 
 
 	if(constraints.size() >0)
-	for(std::list<btTypedConstraint*>::iterator item = constraints.begin(); *item; item = item++)
+	for(std::list<btTypedConstraint*>::iterator item = constraints.begin(); item != constraints.end(); item = item++)
 	{
 		world->removeConstraint((*item));
 		delete *item;
@@ -165,19 +166,19 @@ bool ModulePhysics3D::CleanUp()
 	constraints.clear();
 
 	if (motions.size() >0)
-	for(std::list<btDefaultMotionState*>::iterator item = motions.begin(); *item; item = item++)
+	for(std::list<btDefaultMotionState*>::iterator item = motions.begin(); item != motions.end(); item++)
 		delete *item;
 
 	motions.clear();
 
 	if (shapes.size() >0)
-	for(std::list<btCollisionShape*>::iterator item = shapes.begin(); *item; item = item++)
+	for(std::list<btCollisionShape*>::iterator item = shapes.begin(); item != shapes.end(); item++)
 		delete *item;
 
 	shapes.clear();
 
 	if (bodies.size() >0)
-	for(std::list<PhysBody3D*>::iterator item = bodies.begin(); *item; item = item++)
+	for(std::list<PhysBody3D*>::iterator item = bodies.begin(); item != bodies.end(); item++)
 		delete *item;
 
 	bodies.clear();
@@ -301,6 +302,23 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 	world->addConstraint(hinge, disable_collision);
 	constraints.push_back(hinge);
 	hinge->setDbgDrawSize(2.0f);
+}
+
+void DebugDrawer::drawGrid(int grid_size)
+{
+	
+	btVector3 line_color = { 100, 100 ,100 };
+	for (int i = -grid_size; i <= grid_size; i++)
+	{
+		btVector3 vect = { (float)i, 0 , (float)-grid_size };
+		btVector3 vect2 = { (float)i, 0 , (float)grid_size };		
+		drawLine(vect, vect2, line_color);
+
+		vect = { (float)-grid_size, 0 , (float)i };
+		vect2 = { (float)grid_size, 0 , (float)i };
+		drawLine(vect, vect2, line_color);
+		
+	
 }
 
 // =============================================

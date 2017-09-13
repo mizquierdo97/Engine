@@ -8,7 +8,7 @@
 
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
-
+#define GRID_SIZE 10;
 class DebugDrawer;
 struct PhysBody3D;
 
@@ -59,6 +59,7 @@ public:
 	DebugDrawer() : line(0,0,0)
 	{}
 
+	void drawGrid(int grid_size);
 	void drawLine(const btVector3& from, const btVector3& to, const btVector3& color);
 	void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color);
 	void reportErrorWarning(const char* warningString);
