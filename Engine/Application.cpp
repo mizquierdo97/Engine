@@ -4,7 +4,7 @@ Application::Application()
 {
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	
+	gui = new ModuleGUI(this);
 	
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
@@ -24,6 +24,9 @@ Application::Application()
 	
 	// Renderer last!
 	AddModule(renderer3D);
+
+	//GUI Last, it should print on the top.
+	AddModule(gui);
 }
 
 Application::~Application()

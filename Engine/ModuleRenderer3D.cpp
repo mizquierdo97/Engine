@@ -2,14 +2,6 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 
-
-
-
-
-#include "Glew\include\glew.h"
-#include "ImGui\imgui.h"
-#include "Imgui/imgui_impl_sdl_gl3.h"
-
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -110,13 +102,6 @@ bool ModuleRenderer3D::Init()
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
-	//Init ImGui
-		glewInit();
-		ImGui_ImplSdlGL3_Init(App->window->window);
-		ImGuiIO& io = ImGui::GetIO();
-		io.IniFilename = "/Settings/imgui.ini";
-		//-----
-
 	return ret;
 }
 
@@ -137,11 +122,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	//Show test window and Render it. This should be in a separate function
-	ImGui_ImplSdlGL3_NewFrame(App->window->window);
-	ImGui::ShowTestWindow();
-	ImGui::Render();
-	//-----
+	
 
 	SDL_GL_SwapWindow(App->window->window);
 
