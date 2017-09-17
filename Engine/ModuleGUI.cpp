@@ -49,11 +49,29 @@ update_status ModuleGUI::Update(float dt)
 {
 	
 	ImGui_ImplSdlGL3_NewFrame(App->window->window);
-	ImGui::ShowTestWindow();
+
 
 	if (ImGui::BeginMainMenuBar())
 	{
-		ImGui::EndMainMenuBar();
+		if (ImGui::BeginMenu("Menu"))
+		{
+			if (ImGui::MenuItem("Show menu")) { show_example_menu = true;  }
+			if (ImGui::MenuItem("Close App"))
+			{
+				return UPDATE_STOP;
+			}
+
+
+			ImGui::EndMenu();
+		}
+
+			ImGui::EndMainMenuBar();
+		
+	}
+
+	if (show_example_menu)
+	{
+		ImGui::ShowTestWindow();
 	}
 
 	ImGui::Render();

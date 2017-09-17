@@ -27,6 +27,7 @@ public:
 
 
 	private:
-
+	
+		bool show_example_menu = false;
 	
 };
