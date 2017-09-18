@@ -127,7 +127,7 @@ update_status ModulePhysics3D::Update(float dt)
 
 		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
-			Sphere s(1);
+			PSphere s(1);
 			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 			float force = 30.0f;
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
@@ -194,7 +194,7 @@ bool ModulePhysics3D::CleanUp()
 }
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(const PSphere& sphere, float mass)
 {
 	btCollisionShape* colShape = new btSphereShape(sphere.radius);
 	shapes.push_back(colShape);
@@ -248,7 +248,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 }
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cylinder& cylinder, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(const PCylinder& cylinder, float mass)
 {
 	btCollisionShape* colShape = new btCylinderShapeX(btVector3(cylinder.height*0.5f, cylinder.radius, 0.0f));
 	shapes.push_back(colShape);
@@ -332,9 +332,9 @@ void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btV
 
 void DebugDrawer::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
 {
-	point.transform.translate(PointOnB.getX(), PointOnB.getY(), PointOnB.getZ());
+	/*point.transform.translate(PointOnB.getX(), PointOnB.getY(), PointOnB.getZ());
 	point.color.Set(color.getX(), color.getY(), color.getZ());
-	point.Render();
+	point.Render();*/
 }
 
 void DebugDrawer::reportErrorWarning(const char* warningString)

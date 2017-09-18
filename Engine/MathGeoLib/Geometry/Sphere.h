@@ -395,8 +395,8 @@ public:
 	void Triangulate(VertexBuffer &vb, int numVertices, bool ccwIsFrontFacing) const;
 #endif
 #ifdef MATH_URHO3D_INTEROP
-	Sphere(const Urho3D::Sphere &other) : pos(other.center_), r(other.radius_) {}
-	operator Urho3D::Sphere() const { return Urho3D::Sphere(pos, r); }
+	PSphere(const Urho3D::PSphere &other) : pos(other.center_), r(other.radius_) {}
+	operator Urho3D::PSphere() const { return Urho3D::PSphere(pos, r); }
 #endif
 
 	bool Equals(const Sphere &rhs, float epsilon = 1e-3f) const { return pos.Equals(rhs.pos, epsilon) && EqualAbs(r, rhs.r, epsilon); }
@@ -407,8 +407,8 @@ public:
 };
 
 #ifdef MATH_QT_INTEROP
-Q_DECLARE_METATYPE(Sphere)
-Q_DECLARE_METATYPE(Sphere*)
+Q_DECLARE_METATYPE(PSphere)
+Q_DECLARE_METATYPE(PSphere*)
 #endif
 
 Sphere operator *(const float3x3 &m, const Sphere &s);
