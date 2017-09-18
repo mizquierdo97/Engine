@@ -307,7 +307,7 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 void DebugDrawer::drawGrid(int grid_size)
 {
 	
-	btVector3 line_color = { 100, 100 ,100 };
+	btVector3 line_color = { 1, 1 ,1 };
 	for (int i = -grid_size; i <= grid_size; i++)
 	{
 		btVector3 vect = { (float)i, 0 , (float)-grid_size };

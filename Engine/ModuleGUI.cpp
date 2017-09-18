@@ -30,6 +30,7 @@ bool ModuleGUI::Init()
 	glewInit();
 	ImGui_ImplSdlGL3_Init(App->window->window);
 	ImGuiIO& io = ImGui::GetIO();
+	io.WantTextInput = true;
 	io.IniFilename = "/Settings/imgui.ini";
 	return true;
 }
@@ -42,6 +43,7 @@ bool ModuleGUI::Start()
 
 update_status ModuleGUI::PreUpdate(float dt)
 {
+	
 	return UPDATE_CONTINUE;
 }
 
