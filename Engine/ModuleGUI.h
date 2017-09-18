@@ -27,7 +27,12 @@ public:
 
 
 	private:
-	
+		int begin = 0, end = 100;
 		bool show_example_menu = false;
-	
+		bool show_menu = false;
+
+		float rand = 0;
+		float rand_2 = 0;
+		LCG random_num_i;
+		LCG random_num_f;
 };

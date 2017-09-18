@@ -57,7 +57,8 @@ update_status ModuleGUI::Update(float dt)
 	{
 		if (ImGui::BeginMenu("Menu"))
 		{
-			if (ImGui::MenuItem("Show menu")) { show_example_menu = true;  }
+			if (ImGui::MenuItem("Show example menu")) { show_example_menu = !show_example_menu; }
+			if (ImGui::MenuItem("Open menu")) { show_menu = !show_menu; }
 			if (ImGui::MenuItem("Close App"))
 			{
 				return UPDATE_STOP;
@@ -67,13 +68,38 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::EndMenu();
 		}
 
-			ImGui::EndMainMenuBar();
-		
+		ImGui::EndMainMenuBar();
+
 	}
 
 	if (show_example_menu)
 	{
 		ImGui::ShowTestWindow();
+	}
+	if (show_menu)
+	{
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
+		ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
+		ImGui::Begin("Menu", (bool*)true,window_flags);
+
+		ImGui::Text("Menu bar for Engines");
+		if (ImGui::CollapsingHeader("Random"))
+		{
+			ImGui::DragIntRange2("Int Range", &begin, &end, 0.25f, 0.0f, 100.0f, "Min: %.1f ", "Max: %.1f ");
+
+			if (ImGui::Button("Int Randomize")) 
+			{
+				rand = random_num_i.Int(begin, end);
+			}
+			ImGui::SameLine(150);  ImGui::Text("%.0f", rand);
+
+			if (ImGui::Button("Float Randomize")) 
+			{
+				rand_2 = random_num_f.Float();
+			}
+			ImGui::SameLine(150);  ImGui::Text("%.2f", rand_2);
+		}
+		ImGui::End();
 	}
 
 	ImGui::Render();
