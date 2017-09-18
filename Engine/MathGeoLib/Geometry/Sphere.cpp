@@ -1473,7 +1473,7 @@ Sphere operator *(const Quat &transform, const Sphere &sphere)
 }
 
 #ifdef MATH_GRAPHICSENGINE_INTEROP
-void PSphere::Triangulate(VertexBuffer &vb, int numVertices, bool ccwIsFrontFacing) const
+void Sphere::Triangulate(VertexBuffer &vb, int numVertices, bool ccwIsFrontFacing) const
 {
 	Array<vec> position;
 	Array<vec> normal;
