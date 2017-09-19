@@ -72,7 +72,7 @@
 
 #ifndef IMGUI_DISABLE_TEST_WINDOWS
 
-static void ShowExampleAppConsole(bool* p_open);
+//static void ShowExampleAppConsole(bool* p_open);
 static void ShowExampleAppLog(bool* p_open);
 static void ShowExampleAppLayout(bool* p_open);
 static void ShowExampleAppPropertyEditor(bool* p_open);
@@ -139,9 +139,9 @@ void ImGui::ShowTestWindow(bool* p_open)
 
     static bool show_app_metrics = false;
     static bool show_app_about = false;
-
+	
     if (show_app_main_menu_bar) ShowExampleAppMainMenuBar();
-    if (show_app_console) ShowExampleAppConsole(&show_app_console);
+   // if (show_app_console) ShowExampleAppConsole(&show_app_console);
     if (show_app_log) ShowExampleAppLog(&show_app_log);
     if (show_app_layout) ShowExampleAppLayout(&show_app_layout);
     if (show_app_property_editor) ShowExampleAppPropertyEditor(&show_app_property_editor);
@@ -2544,11 +2544,6 @@ struct ExampleAppConsole
     }
 };
 
-static void ShowExampleAppConsole(bool* p_open)
-{
-    static ExampleAppConsole console;
-    console.Draw("Example: Console", p_open);
-}
 
 // Usage:
 //  static ExampleAppLog my_log;

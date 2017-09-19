@@ -22,12 +22,14 @@ bool ModuleRenderer3D::Init()
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
 	
-	vec temp_vec = { 0,0,0 };
-	Sphere* temp = new Sphere(temp_vec, 1);
-	Sphere* temp2 = new Sphere(temp_vec, 1);
+	//MATHGEO TEST
+	vec temp_vec = { 1,0,0 };
+	test_sphere1 = new Sphere(temp_vec, 1);
+	temp_vec = { -1,0,0 };
+	test_sphere2 = new Sphere(temp_vec, 1);
 
-	bool test = false;
-	test = temp->Intersects(*temp2);
+	
+	
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);

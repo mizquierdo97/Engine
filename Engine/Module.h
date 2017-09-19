@@ -3,6 +3,9 @@
 class Application;
 struct PhysBody3D;
 
+#define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
+
+
 class Module
 {
 private :
@@ -49,4 +52,7 @@ public:
 
 	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{}
+
+	
+
 };
