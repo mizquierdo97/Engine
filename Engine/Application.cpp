@@ -24,9 +24,15 @@ Application::Application()
 	
 	// Renderer last!
 	AddModule(renderer3D);
-
 	//GUI Last, it should print on the top.
 	AddModule(gui);
+
+	window->name = "window";
+	camera->name = "camera";
+	input->name = "input";
+	physics->name = "physics";
+	renderer3D->name = "renderer3D";
+	gui->name = "gui";
 }
 
 Application::~Application()
@@ -52,6 +58,7 @@ bool Application::Init()
 	{
 		
 		ret = (*item)->Init();
+		(*item)->module_timer = new Timer();
 		item++;
 	}
 
@@ -92,26 +99,46 @@ update_status Application::Update()
 	
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
+		//PreUpdate ms
+		(*item)->StartTimer();
 		
 		ret = (*item)->PreUpdate(dt);
+	
+		//Pause timer
+		(*item)->PauseTimer();
+		
 		item++;
 	}
 
 	item = list_modules.begin();
 
+	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
+	{
+		//Update ms
+		(*item)->ResumeTimer();
+
+		ret = (*item)->Update(dt);
+		
+		//Pause timer
+		(*item)->PauseTimer();
+		
+		item++;
+		
+	}
+	
+	item = list_modules.begin();
+	
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 		
-		ret = (*item)->Update(dt);
-		item++;
-	}
-
-	item = list_modules.begin();
-
-	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
-	{
+		//PostUpdate ms
+		(*item)->ResumeTimer();
 		
 		ret = (*item)->PostUpdate(dt);
+		
+		//Pause timer
+		(*item)->StopTimer();
+		//LOG("%i", (*item)->module_timer->Read());
 		item++;
 	}
 

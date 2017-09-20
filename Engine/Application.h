@@ -29,6 +29,8 @@ private:
 
 	Timer	ms_timer;
 	float	dt;
+
+public:
 	std::list<Module*> list_modules;
 
 public:

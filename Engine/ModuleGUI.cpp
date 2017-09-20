@@ -127,9 +127,26 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::Checkbox("Colision?", &b_col);
 			
 		}
+		if (ImGui::CollapsingHeader("Performance"))
+		{
+						
+			std::list<Module*>::iterator item = App->list_modules.begin();
+
+			while (item != App->list_modules.end())
+			{
+			
+				const char* name = (*item)->name.c_str();
+				
+				(*item)->performance[(*item)->performance_offset] = (*item)->module_timer->Read_ms();
+				(*item)->performance_offset = ((*item)->performance_offset + 1) % IM_ARRAYSIZE((*item)->performance);
+								
+				ImGui::PlotHistogram((char*)name, (*item)->performance, IM_ARRAYSIZE((*item)->performance), 0, name, 0.0f, 30.f, ImVec2(0, 40));
+				item++;
+			}
+		}
 		ImGui::End();
 	}
-
+	
 	static bool show_app_console = true;
 	ShowExampleAppConsole(&show_app_console);
 	ImGui::Render();
