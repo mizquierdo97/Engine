@@ -162,6 +162,23 @@ update_status ModuleGUI::Update(float dt)
 				item++;
 			}
 		}
+
+		if (ImGui::CollapsingHeader("Hardware"))
+		{
+			Det_Cache = SDL_GetCPUCacheLineSize();
+			ImGui::Text("Cache: %i", Det_Cache);
+
+			Det_CPU = SDL_GetCPUCount();
+			ImGui::Text("CPU: %i", Det_CPU);
+
+			Det_RAM = SDL_GetSystemRAM();
+			ImGui::Text("RAM: %i Gb", Det_RAM);
+		}
+		
+		if (ImGui::CollapsingHeader("Window"))
+		{
+			
+		}
 		ImGui::End();
 	}
 	

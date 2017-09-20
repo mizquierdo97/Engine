@@ -38,6 +38,9 @@ public:
 		bool show_menu = false;
 		bool show_help = false;
 
+		int Det_RAM;
+		int Det_CPU;
+		int Det_Cache;
 		float rand = 0;
 		float rand_2 = 0;
 		LCG random_num_i;
