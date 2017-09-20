@@ -36,6 +36,7 @@ public:
 		int begin = 0, end = 100;
 		bool show_example_menu = false;
 		bool show_menu = false;
+		bool show_help = false;
 
 		float rand = 0;
 		float rand_2 = 0;

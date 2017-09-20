@@ -1,7 +1,8 @@
 
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleGUI.h"
+#include "ModuleGUI.h"]
+
 
 
 #include "Glew\include\glew.h"
@@ -11,6 +12,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include <shellapi.h>
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib  */  
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib  */ 
@@ -78,8 +80,8 @@ update_status ModuleGUI::Update(float dt)
 	{
 		if (ImGui::BeginMenu("Menu"))
 		{
-			if (ImGui::MenuItem("Show example menu")) { show_example_menu = !show_example_menu; }
 			if (ImGui::MenuItem("Open menu")) { show_menu = !show_menu; }
+			if (ImGui::MenuItem("Help")) { show_help = !show_help; }
 			if (ImGui::MenuItem("Close App"))
 			{
 				return UPDATE_STOP;
@@ -97,6 +99,22 @@ update_status ModuleGUI::Update(float dt)
 	{
 		ImGui::ShowTestWindow();
 	}
+	if (show_help)
+	{
+		if (ImGui::MenuItem("Gui Demo")) { show_example_menu = !show_example_menu; }
+		
+		if (ImGui::MenuItem("Documentation"))
+			ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/wiki", NULL, NULL, SW_SHOWNORMAL);
+
+		if (ImGui::MenuItem("Latest release"))
+			ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/releases", NULL, NULL, SW_SHOWNORMAL);
+
+		if (ImGui::MenuItem("Report a bug"))
+			ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/issues", NULL, NULL, SW_SHOWNORMAL);
+
+		
+	}
+
 	if (show_menu)
 	{
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
