@@ -8,7 +8,7 @@
 class ModuleGUI : public Module
 {
 public:
-	ModuleGUI(Application* app, bool start_enabled = true);
+	ModuleGUI( bool start_enabled = true);
 	~ModuleGUI();
 	bool Init();
 

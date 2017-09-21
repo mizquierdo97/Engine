@@ -48,3 +48,4 @@ private:
 	void PrepareUpdate();
 	void FinishUpdate();
 };
+extern Application* App;
