@@ -5,7 +5,7 @@ struct PhysBody3D;
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 #include <string>
-
+#include "Config.h"
 class Module
 {
 private :
@@ -50,6 +50,13 @@ public:
 		return true; 
 	}
 
+	virtual void LoadConfig(JSON_Object *root) {
+
+	}
+	virtual void SaveConfig(JSON_Object *root) {
+
+	}
+
 	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{}
 
@@ -71,4 +78,5 @@ public:
 	std::string name = "";
 	float performance[90] = { 0 };
 	int performance_offset = 0;
+
 };

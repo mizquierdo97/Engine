@@ -9,7 +9,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
-	config = new ModuleConfig();
+	
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -26,15 +26,15 @@ Application::Application()
 	AddModule(renderer3D);
 	//GUI Last, it should print on the top.
 	AddModule(gui);
-	AddModule(config);
 
-	window->name = "window";
-	camera->name = "camera";
-	input->name = "input";
-	physics->name = "physics";
-	renderer3D->name = "renderer3D";
-	gui->name = "gui";
-	config->name = "config";
+
+	window->name = "Window";
+	camera->name = "Camera";
+	input->name = "Input";
+	physics->name = "Physics";
+	renderer3D->name = "Renderer3D";
+	gui->name = "Gui";
+
 }
 
 Application::~Application()
@@ -54,6 +54,11 @@ bool Application::Init()
 	bool ret = true;
 
 	// Call Init() in all modules
+
+	config = new Config();
+	config->Init();
+	config->Load();
+
 	std::list<Module*>::iterator item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
@@ -64,6 +69,7 @@ bool Application::Init()
 		item++;
 	}
 
+	
 	// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
 	item = list_modules.begin();
@@ -127,7 +133,6 @@ update_status Application::Update()
 		item++;
 		
 	}
-	
 	item = list_modules.begin();
 	
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
@@ -160,6 +165,7 @@ bool Application::CleanUp()
 		item++;
 		
 	}
+	config->Save();
 	return ret;
 }
 

@@ -300,7 +300,7 @@
     <ClInclude Include="Json\parson.h">
       <Filter>Sources\JSon</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleConfig.h">
+    <ClInclude Include="Config.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -473,7 +473,7 @@
     <ClCompile Include="Json\parson.c">
       <Filter>Sources\JSon</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleConfig.cpp">
+    <ClCompile Include="Config.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>

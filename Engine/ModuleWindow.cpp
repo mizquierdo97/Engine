@@ -27,8 +27,7 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
+	
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
@@ -88,7 +87,49 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
+update_status ModuleWindow::PreUpdate(float dt)
+{
+	SDL_GetWindowSize(window,&width,&height);
+	return UPDATE_CONTINUE;
+}
+
 void ModuleWindow::SetTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
+}
+
+void ModuleWindow::LoadConfig(JSON_Object * root)
+{
+	
+	JSON_Value* value;
+	
+	if (json_object_get_value(root, "Width") == NULL) {
+		json_object_set_value(root, "Width", json_value_init_object());
+		width = SCREEN_WIDTH * SCREEN_SIZE;
+		json_object_set_number(root, "Width", width);
+	
+	}
+	else {
+		value = json_object_get_value(root, "Width");
+		width = json_value_get_number(value)  * SCREEN_SIZE;
+
+	}
+
+	if (json_object_get_value(root, "Height") == NULL) {
+		json_object_set_value(root, "Height", json_value_init_object());
+		height = SCREEN_HEIGHT * SCREEN_SIZE;
+		json_object_set_number(root, "Height", height);
+	}
+	else {
+		value = json_object_get_value(root, "Height");
+		height = json_value_get_number(value) * SCREEN_SIZE;
+
+	}
+}
+
+void ModuleWindow::SaveConfig(JSON_Object * root)
+{
+
+	json_object_set_number(root, "Width", width / SCREEN_SIZE);
+	json_object_set_number(root, "Height", height / SCREEN_SIZE);
 }
