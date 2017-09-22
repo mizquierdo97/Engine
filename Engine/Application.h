@@ -11,6 +11,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleGUI.h"
+#include "ModuleConfig.h"
 #include <list>
 
 
@@ -24,6 +25,7 @@ public:
 	ModuleCamera3D* camera;
 	ModulePhysics3D* physics;
 	ModuleGUI* gui;
+	ModuleConfig* config;
 
 private:
 

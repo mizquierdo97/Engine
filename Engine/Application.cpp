@@ -9,7 +9,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
-	
+	config = new ModuleConfig();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -26,6 +26,7 @@ Application::Application()
 	AddModule(renderer3D);
 	//GUI Last, it should print on the top.
 	AddModule(gui);
+	AddModule(config);
 
 	window->name = "window";
 	camera->name = "camera";
@@ -33,6 +34,7 @@ Application::Application()
 	physics->name = "physics";
 	renderer3D->name = "renderer3D";
 	gui->name = "gui";
+	config->name = "config";
 }
 
 Application::~Application()

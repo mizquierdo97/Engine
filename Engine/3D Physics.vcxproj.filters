@@ -25,6 +25,9 @@
     <Filter Include="Sources\MathGeo\source">
       <UniqueIdentifier>{77e89841-3b79-457a-9916-5a2460227b69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\JSon">
+      <UniqueIdentifier>{890ccb10-45a0-4ceb-8ae2-333d9f56a356}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -294,6 +297,12 @@
     <ClInclude Include="Console.h">
       <Filter>Sources\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Json\parson.h">
+      <Filter>Sources\JSon</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleConfig.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -460,6 +469,12 @@
     </ClCompile>
     <ClCompile Include="MathGeoLib\Algorithm\Random\LCG.cpp">
       <Filter>Sources\MathGeo\source</Filter>
+    </ClCompile>
+    <ClCompile Include="Json\parson.c">
+      <Filter>Sources\JSon</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleConfig.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
