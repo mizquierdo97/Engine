@@ -37,6 +37,13 @@ public:
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
 
+	Uint32 flags;
+	bool resizable = false;
+	bool resizablebox = false;
+	bool borderless = true;
+	bool borderlessbox = false;
+	bool fullScreen = false;
+	bool fullScreenbox = false;
 	int width;
 	int height;
 	const char* title;

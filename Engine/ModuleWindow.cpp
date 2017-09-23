@@ -28,7 +28,7 @@ bool ModuleWindow::Init()
 	{
 		//Create window
 	
-		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
@@ -149,6 +149,7 @@ bool ModuleWindow::Options()
 {
 
 
+
 	if (ImGui::CollapsingHeader("Window"))
 	{
 		static int temp_width = width;
@@ -160,6 +161,43 @@ bool ModuleWindow::Options()
 			height = temp_height;
 			SDL_SetWindowSize(window, width, height);
 		}
+
+			if (ImGui::Checkbox("Borderless", &borderlessbox))
+			{
+				if (borderless == false)
+				{
+					flags -= SDL_WINDOW_BORDERLESS;
+					borderless = !borderless;
+					SDL_SetWindowBordered(window, (SDL_bool)borderless);
+				}
+
+				else
+				{
+					flags |= SDL_WINDOW_BORDERLESS;
+					borderless = !borderless;
+					SDL_SetWindowBordered(window, (SDL_bool)borderless);
+				}
+
+			}
+
+			if (ImGui::Checkbox("FullScreen", &fullScreenbox))
+			{
+
+				
+				if (fullScreen == true) {
+
+					flags -= SDL_WINDOW_FULLSCREEN;
+					fullScreen = !fullScreen;
+					SDL_SetWindowFullscreen(window, flags);
+				}
+
+				else {
+					flags |= SDL_WINDOW_FULLSCREEN;
+					SDL_SetWindowFullscreen(window, flags);
+					fullScreen = !fullScreen;
+				}
+			}
+
 
 		ImGui::Separator();
 		//---------------------
