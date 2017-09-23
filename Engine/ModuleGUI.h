@@ -29,8 +29,10 @@ public:
 		ImGui_ImplSdlGL3_ProcessEvent(_event);
 		
 	}
+	void ApplicationOptions() {
 
-	void ShowExampleAppConsole(bool* p_open);
+	}
+	void ShowConsole(bool* p_open);
 	
 	private:
 		int begin = 0, end = 100;

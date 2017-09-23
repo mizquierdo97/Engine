@@ -57,6 +57,10 @@ public:
 
 	}
 
+
+	virtual bool Options() {
+		return false;
+	}
 	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{}
 

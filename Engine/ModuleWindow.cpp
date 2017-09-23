@@ -54,7 +54,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
@@ -110,8 +110,7 @@ void ModuleWindow::LoadConfig(JSON_Object * root)
 	
 	}
 	else {
-		value = json_object_get_value(root, "Width");
-		width = json_value_get_number(value)  * SCREEN_SIZE;
+		width = json_object_get_number(root, "Width")  * SCREEN_SIZE;
 
 	}
 
@@ -121,10 +120,21 @@ void ModuleWindow::LoadConfig(JSON_Object * root)
 		json_object_set_number(root, "Height", height);
 	}
 	else {
-		value = json_object_get_value(root, "Height");
-		height = json_value_get_number(value) * SCREEN_SIZE;
+		height = json_object_get_number(root, "Height") * SCREEN_SIZE;
 
 	}
+
+	if (json_object_get_value(root, "Window Name") == NULL) {
+		json_object_set_value(root, "Window Name", json_value_init_object());
+		title = TITLE;
+		json_object_set_string(root, "Window Name", title);
+	}
+	else {
+		
+		title = json_object_get_string(root, "Window Name");
+
+	}
+
 }
 
 void ModuleWindow::SaveConfig(JSON_Object * root)
@@ -132,4 +142,34 @@ void ModuleWindow::SaveConfig(JSON_Object * root)
 
 	json_object_set_number(root, "Width", width / SCREEN_SIZE);
 	json_object_set_number(root, "Height", height / SCREEN_SIZE);
+	json_object_set_string(root, "Window Name",title);
+}
+
+bool ModuleWindow::Options()
+{
+
+
+	if (ImGui::CollapsingHeader("Window"))
+	{
+		static int temp_width = width;
+		static int temp_height = height;
+		ImGui::SliderInt("Width", &temp_width, 300, 1400);
+		ImGui::SliderInt("Height", &temp_height, 300, 1400);
+		if (ImGui::Button("Save")) {
+			width = temp_width;
+			height = temp_height;
+			SDL_SetWindowSize(window, width, height);
+		}
+
+		ImGui::Separator();
+		//---------------------
+		static char name[64] = "";
+		strcpy(name, title);
+		if (ImGui::InputText("Project Title", name, IM_ARRAYSIZE(name)))
+			SetTitle(name);
+		title = name;
+
+
+	}
+	return false;
 }

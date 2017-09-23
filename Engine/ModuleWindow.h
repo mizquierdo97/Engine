@@ -16,12 +16,21 @@ public:
 	virtual ~ModuleWindow();
 
 	bool Init();
+
 	bool CleanUp();
+
 	update_status PreUpdate(float dt);
+
 	void SetTitle(const char* title);
+
 	void LoadConfig(JSON_Object*);
+
 	void SaveConfig(JSON_Object*);
+
+	bool Options();
+
 public:
+
 	//The window we'll be rendering to
 	SDL_Window* window;
 
@@ -30,6 +39,7 @@ public:
 
 	int width;
 	int height;
+	const char* title;
 };
 
 #endif // __ModuleWindow_H__

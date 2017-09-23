@@ -40,6 +40,8 @@ bool ModuleGUI::Init()
 	io.IniFilename = "/Settings/imgui.ini";
 
 
+	
+
 	return true;
 }
 
@@ -175,15 +177,25 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::Text("RAM: %i Gb", Det_RAM);
 		}
 		
-		if (ImGui::CollapsingHeader("Window"))
-		{
-			
-		}
 		ImGui::End();
 	}
 	
+	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
+	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
+	ImGui::Begin("Options");
+
+
+	std::list<Module*>::iterator item = App->list_modules.begin();
+	while (item != App->list_modules.end()) {
+		(*item)->Options();
+		item++;
+	}
+	ImGui::End();
+
 	static bool show_app_console = true;
-	ShowExampleAppConsole(&show_app_console);
+	ShowConsole(&show_app_console);
+
+	
 	ImGui::Render();
 	return UPDATE_CONTINUE;
 }
@@ -204,7 +216,7 @@ bool ModuleGUI::CleanUp()
 
 
 
-void ModuleGUI::ShowExampleAppConsole(bool * p_open)
+void ModuleGUI::ShowConsole(bool * p_open)
 {
 
 	
