@@ -89,6 +89,7 @@ bool ModuleWindow::CleanUp()
 
 update_status ModuleWindow::PreUpdate(float dt)
 {
+	
 	SDL_GetWindowSize(window,&width,&height);
 	return UPDATE_CONTINUE;
 }

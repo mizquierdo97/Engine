@@ -28,6 +28,8 @@ public:
 
 	void OnResize(int width, int height);
 
+	bool Options();
+
 public:
 
 	Light lights[MAX_LIGHTS];

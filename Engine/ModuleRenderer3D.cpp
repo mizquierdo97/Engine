@@ -39,6 +39,9 @@ bool ModuleRenderer3D::Init()
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+	else {
+		LOG("OpenGL context created");
+	}
 	
 	if(ret == true)
 	{
@@ -91,7 +94,7 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
-
+		
 		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		
@@ -109,19 +112,21 @@ bool ModuleRenderer3D::Init()
 		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 		
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
 		lights[0].Active(true);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_COLOR_MATERIAL);
+		
 	}
-
+	if (ret) {
+		LOG("OpenGL Initizlized correctly");
+	}
 	// Projection matrix for
 	OnResize(App->window->width,App->window->height);
 
-	glewInit();
-	
-	
+	if (glewInit() != GLEW_OK) {
+		LOG("Failed to initialize GLEW\n");
+	}
+	else {
+		LOG("Glew initialized correctly");
+	}
 
 	return ret;
 }
@@ -143,14 +148,16 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 
-	//glClear(GL_COLOR_BUFFER_BIT);
 
-	//Render quad
+		//TEMP---------------
 
+	
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
+
+	
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f, -0.0f, 0.0f,
 		1.0f, -0.0f, 0.0f,
@@ -176,10 +183,22 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		0,                  // stride
 		(void*)0            // array buffer offset
 	);
+
 	// Draw the triangle !
+	glLineWidth(2.0f);
+	glBegin(GL_LINE_STRIP);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
 	glDisableVertexAttribArray(0);
 	
+	glEnd();
+	//----------------------------------
+
+	//--->Render Scene
+
+	//--->Render Debug
+
+
 	ImGui::Render();
 
 	SDL_GL_SwapWindow(App->window->window);
@@ -209,4 +228,61 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+bool ModuleRenderer3D::Options()
+{
+
+	if (ImGui::CollapsingHeader("Renderer"))
+	{
+		int major=0, minor = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &major);
+		glGetIntegerv(GL_MAJOR_VERSION, &minor);
+		ImGui::Text("OpenGL Version:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
+		ImGui::Text("GPU Vendor:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
+		ImGui::Text("Model:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
+
+		//Checkboxs
+		
+		static bool depth = glIsEnabled(GL_DEPTH_TEST);
+		static bool cull =  glIsEnabled(GL_CULL_FACE);
+		static bool light = glIsEnabled(GL_LIGHTING);
+		static bool color_material = glIsEnabled(GL_COLOR_MATERIAL);		
+		static bool texture = glIsEnabled(GL_TEXTURE);
+		if (ImGui::Checkbox("Depth Test", &depth)) {
+			if (depth)glEnable(GL_DEPTH_TEST);
+			else glDisable(GL_DEPTH_TEST);
+		}
+		ImGui::SameLine();
+		if(ImGui::Checkbox("Cull Face", &cull))
+		{
+			if (cull)glEnable(GL_CULL_FACE);
+			else glDisable(GL_CULL_FACE);
+		};
+		ImGui::SameLine();
+		if(ImGui::Checkbox("Lighting", &light))
+		{
+			if (light)glEnable(GL_LIGHTING);
+			else glDisable(GL_LIGHTING);
+		};
+		
+		if (ImGui::Checkbox("Color Material", &color_material))
+		{
+			if (color_material)glEnable(GL_COLOR_MATERIAL);
+			else glDisable(GL_COLOR_MATERIAL);
+		};
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Texture", &texture))
+		{
+			if (texture)glEnable(GL_TEXTURE);
+			else glDisable(GL_TEXTURE);
+		};
+		
+
+	}
+
+	return false;
 }
