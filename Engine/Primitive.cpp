@@ -189,7 +189,7 @@ void PCylinder::InnerRender() const
 	int n = 30;
 
 	// Cylinder Bottom
-	glBegin(GL_POLYGON);
+	glBegin(GL_QUADS);
 	
 	for(int i = 360; i >= 0; i -= (360 / n))
 	{
@@ -199,7 +199,7 @@ void PCylinder::InnerRender() const
 	glEnd();
 
 	// Cylinder Top
-	glBegin(GL_POLYGON);
+	glBegin(GL_QUADS);
 	glNormal3f(0.0f, 0.0f, 1.0f);
 	for(int i = 0; i <= 360; i += (360 / n))
 	{
@@ -233,7 +233,7 @@ PLine::PLine(float x, float y, float z) : Primitive(), origin(0, 0, 0), destinat
 
 void PLine::InnerRender() const
 {
-	glLineWidth(2.0f);
+	glLineWidth(1.0f);
 
 	glBegin(GL_LINES);
 

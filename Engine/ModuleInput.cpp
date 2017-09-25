@@ -128,3 +128,14 @@ bool ModuleInput::CleanUp()
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }
+
+bool ModuleInput::Options()
+{
+	if (ImGui::CollapsingHeader("Input"))
+	{
+		ImGui::Text("Gamepads Connected:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i",SDL_NumJoysticks());
+		
+	}
+	return false;
+}

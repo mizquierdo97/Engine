@@ -131,7 +131,7 @@ update_status ModulePhysics3D::Update(float dt)
 			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 			float force = 30.0f;
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
-			s.InnerRender();
+			
 		}
 	}
 

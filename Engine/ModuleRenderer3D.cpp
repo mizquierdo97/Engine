@@ -159,9 +159,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	
 	static const GLfloat g_vertex_buffer_data[] = {
-		-1.0f, -0.0f, 0.0f,
-		1.0f, -0.0f, 0.0f,
-		0.0f,  1.4f, 0.0f,
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		-1.0f,  1.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+		-1.0f,  1.0f, 0.0f,
+		1.0f, -1.0f,0.0f,
+	
 	};
 	
 	
@@ -185,20 +189,19 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	);
 
 	// Draw the triangle !
-	glLineWidth(2.0f);
-	glBegin(GL_LINE_STRIP);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	
+	
+	glDrawArrays(GL_TRIANGLES, 0, 6); // Starting from vertex 0; 3 vertices total -> 1 triangle
 	glDisableVertexAttribArray(0);
 	
-	glEnd();
+	
 	//----------------------------------
 
 	//--->Render Scene
 
 	//--->Render Debug
 
-
+	
 	ImGui::Render();
 
 	SDL_GL_SwapWindow(App->window->window);
@@ -244,9 +247,19 @@ bool ModuleRenderer3D::Options()
 		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
 		ImGui::Text("Model:");
 		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
+		ImGui::Text("Total VRAM:");
+		GLint total_mem_kb = 0;
+		glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
+			&total_mem_kb);
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB",total_mem_kb/1024);
 
+		ImGui::Text("Free VRAM:");
+		GLint cur_avail_mem_kb = 0;
+		glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
+			&cur_avail_mem_kb);
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
 		//Checkboxs
-		
+	
 		static bool depth = glIsEnabled(GL_DEPTH_TEST);
 		static bool cull =  glIsEnabled(GL_CULL_FACE);
 		static bool light = glIsEnabled(GL_LIGHTING);
