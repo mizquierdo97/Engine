@@ -41,6 +41,10 @@ public:
 
 	
 	//
+	GLuint gProgramID = 0;
+	GLint gVertexPos2DLocation = -1;
+	GLuint gVBO = 0;
+	GLuint gIBO = 0;
 
 	GLuint vertexbuffer;
 };

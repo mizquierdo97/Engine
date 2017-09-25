@@ -2,7 +2,7 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include "ImGui\imgui_impl_sdl.h"
+#include "ImGui\imgui_impl_sdl_gl3.h"
 #include "Console.h"
 
 class ModuleGUI : public Module
@@ -26,7 +26,7 @@ public:
 	bool CleanUp();
 
 	void HandleInput(SDL_Event* _event) {
-		ImGui_ImplSdlGL2_ProcessEvent(_event);
+		ImGui_ImplSdlGL3_ProcessEvent(_event);
 		
 	}
 	void ApplicationOptions() {

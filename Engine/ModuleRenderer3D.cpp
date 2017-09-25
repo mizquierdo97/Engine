@@ -21,7 +21,7 @@ bool ModuleRenderer3D::Init()
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
 	
-	//glewInit();
+	
 
 	//MATHGEO TEST
 	vec temp_vec = { 1,0,0 };
@@ -119,21 +119,9 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(App->window->width,App->window->height);
 
-	/*static const GLfloat g_vertex_buffer_data[] = {
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f,  1.0f, 0.0f,
-	};
-
-
-
-	// Generate 1 buffer, put the resulting identifier in vertexbuffer
-	glGenBuffers(1, &vertexbuffer);
-	// The following commands will talk about our 'vertexbuffer' buffer
-	//glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	// Give our vertices to OpenGL.
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-	*/
+	glewInit();
+	
+	
 
 	return ret;
 }
@@ -154,13 +142,32 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	/*GLuint VertexArrayID;
+
+	//glClear(GL_COLOR_BUFFER_BIT);
+
+	//Render quad
+
+	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
+	static const GLfloat g_vertex_buffer_data[] = {
+		-1.0f, -0.0f, 0.0f,
+		1.0f, -0.0f, 0.0f,
+		0.0f,  1.4f, 0.0f,
+	};
+	
+	
+	// Generate 1 buffer, put the resulting identifier in vertexbuffer
+	glGenBuffers(1, &vertexbuffer);
+	// The following commands will talk about our 'vertexbuffer' buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	// Give our vertices to OpenGL.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	
 
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	
 	glVertexAttribPointer(
 		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 		3,                  // size
@@ -172,7 +179,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	// Draw the triangle !
 	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
 	glDisableVertexAttribArray(0);
-	*/
+	
+	ImGui::Render();
 
 	SDL_GL_SwapWindow(App->window->window);
 

@@ -7,7 +7,7 @@
 
 
 #include "ImGui\imgui.h"
-#include "ImGui\imgui_impl_sdl.h"
+#include "ImGui\imgui_impl_sdl_gl3.h"
 
 #include "SDL\include\SDL_opengl.h"
 
@@ -28,7 +28,7 @@ bool ModuleGUI::Init()
 {
 	
 	//ImGui_ImplSdlGL3_Init(App->window->window);
-	ImGui_ImplSdlGL2_Init(App->window->window);
+	ImGui_ImplSdlGL3_Init(App->window->window);
 	ImGuiIO& io = ImGui::GetIO();
 	io.WantCaptureKeyboard = true;
 	io.WantTextInput = true;
@@ -48,6 +48,7 @@ bool ModuleGUI::Start()
 
 update_status ModuleGUI::PreUpdate(float dt)
 {
+	ImGui_ImplSdlGL3_NewFrame(App->window->window);
 	
 	return UPDATE_CONTINUE;
 }
@@ -67,7 +68,7 @@ update_status ModuleGUI::Update(float dt)
 	}
 	//
 
-	ImGui_ImplSdlGL2_NewFrame(App->window->window);
+	//ImGui_ImplSdlGL2_NewFrame(App->window->window);
 	//ImGui_ImplSdlGL2_NewFrame(App->window->window);
 	ImGuiIO& io = ImGui::GetIO();
 		
@@ -192,7 +193,7 @@ update_status ModuleGUI::Update(float dt)
 	ShowConsole(&show_app_console);
 
 	
-	ImGui::Render();
+	//ImGui::Render();
 	return UPDATE_CONTINUE;
 }
 
