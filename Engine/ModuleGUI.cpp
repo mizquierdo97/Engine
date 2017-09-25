@@ -5,17 +5,12 @@
 
 
 
-#include "Glew\include\glew.h"
+
 #include "ImGui\imgui.h"
-#include "Imgui/imgui_impl_sdl_gl3.h"
+#include "ImGui\imgui_impl_sdl.h"
 
 #include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
-#include <shellapi.h>
 
-#pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib  */  
-#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib  */ 
 
 
 
@@ -31,9 +26,9 @@ ModuleGUI::~ModuleGUI()
 
 bool ModuleGUI::Init()
 {
-	glewInit();
-	ImGui_ImplSdlGL3_Init(App->window->window);
-
+	
+	//ImGui_ImplSdlGL3_Init(App->window->window);
+	ImGui_ImplSdlGL2_Init(App->window->window);
 	ImGuiIO& io = ImGui::GetIO();
 	io.WantCaptureKeyboard = true;
 	io.WantTextInput = true;
@@ -72,7 +67,8 @@ update_status ModuleGUI::Update(float dt)
 	}
 	//
 
-	ImGui_ImplSdlGL3_NewFrame(App->window->window);
+	ImGui_ImplSdlGL2_NewFrame(App->window->window);
+	//ImGui_ImplSdlGL2_NewFrame(App->window->window);
 	ImGuiIO& io = ImGui::GetIO();
 		
 	

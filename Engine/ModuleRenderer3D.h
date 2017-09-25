@@ -5,6 +5,14 @@
 #include "Light.h"
 #include "MathGeoLib.h"
 
+#include "Glew\include\glew.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
+#include <shellapi.h>
+
+#pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib  */  
+#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib  */ 
+
 #define MAX_LIGHTS 8
 
 class ModuleRenderer3D : public Module
@@ -31,6 +39,8 @@ public:
 	Sphere* test_sphere1;
 	Sphere* test_sphere2;
 
-
+	
 	//
+
+	GLuint vertexbuffer;
 };

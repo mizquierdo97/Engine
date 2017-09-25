@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Light.h"
-#include <gl/GL.h>
+
 #include "Application.h"
 //#include <gl/GLU.h>
 
