@@ -269,47 +269,20 @@ void ModuleRenderer3D::Render(vec * vect, vec* norm)
 	
 	vec temp[6144];
 	vec norms[6144];
-	temp[0] = *vect;
+	
 	for (int i = 0; i < 6144; i++) {
-		temp[i] = vect[i];
+		temp[i] = vect[i];		
 		norms[i] = norm[i];
 	}
 
-
-	// Generate 1 buffer, put the resulting identifier in vertexbuffer
-	glGenBuffers(1, &vertexbuffer);
-	// The following commands will talk about our 'vertexbuffer' buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	// Give our vertices to OpenGL.
-	glBufferData(GL_ARRAY_BUFFER, sizeof(temp), &temp, GL_STATIC_DRAW);
-
 	
-	GLuint normalbuffer;
-	glGenBuffers(1, &normalbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(norms), norms, GL_STATIC_DRAW);
-	
-	glEnableVertexAttribArray(0);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, App->world->normalbuffer);
+	glNormalPointer(GL_FLOAT, 0, NULL);
 
-	glVertexAttribPointer(
-		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-	glEnableVertexAttribArray(2);
-
-	glVertexAttribPointer(
-		2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, App->world->vertexbuffer);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
 
 	// Draw the triangle !
@@ -322,10 +295,9 @@ void ModuleRenderer3D::Render(vec * vect, vec* norm)
 	if (render_wireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(norms)); // Starting from vertex 0; 3 vertices total -> 1 triangle
+		glDrawArrays(GL_TRIANGLES, 0, sizeof(temp)); // Starting from vertex 0; 3 vertices total -> 1 triangle
 	}
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(2);
+	
 	
 	
 }

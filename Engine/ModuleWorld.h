@@ -27,6 +27,7 @@ public:
 	vec* temp;
 
 	GLuint vertexbuffer;
+	GLuint normalbuffer;
 	vec vect[6144];
 	vec norms[6144];
 
