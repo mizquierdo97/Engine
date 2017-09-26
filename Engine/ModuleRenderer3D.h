@@ -32,7 +32,7 @@ public:
 	void OnResize(int width, int height);
 
 	bool Options();
-
+	void Render(vec *outPos, vec* norm);
 public:
 
 	Light lights[MAX_LIGHTS];
@@ -52,4 +52,7 @@ public:
 	GLuint gIBO = 0;
 
 	GLuint vertexbuffer;
+
+	bool render_fill = false;
+	bool render_wireframe = true;
 };

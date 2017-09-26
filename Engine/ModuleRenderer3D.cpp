@@ -251,9 +251,82 @@ bool ModuleRenderer3D::Options()
 			if (texture)glEnable(GL_TEXTURE);
 			else glDisable(GL_TEXTURE);
 		};
+
+		if (ImGui::Checkbox("Shaded", &render_fill));
+		
+			ImGui::SameLine();
+		if (ImGui::Checkbox("Wireframe", &render_wireframe));
+		
 		
 
 	}
 
 	return false;
+}
+
+void ModuleRenderer3D::Render(vec * vect, vec* norm)
+{
+	
+	vec temp[6144];
+	vec norms[6144];
+	temp[0] = *vect;
+	for (int i = 0; i < 6144; i++) {
+		temp[i] = vect[i];
+		norms[i] = norm[i];
+	}
+
+
+	// Generate 1 buffer, put the resulting identifier in vertexbuffer
+	glGenBuffers(1, &vertexbuffer);
+	// The following commands will talk about our 'vertexbuffer' buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	// Give our vertices to OpenGL.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(temp), &temp, GL_STATIC_DRAW);
+
+	
+	GLuint normalbuffer;
+	glGenBuffers(1, &normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(norms), norms, GL_STATIC_DRAW);
+	
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(
+		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+	glEnableVertexAttribArray(2);
+
+	glVertexAttribPointer(
+		2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+
+
+
+	// Draw the triangle !
+
+	if (render_fill) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawArrays(GL_TRIANGLES, 0, sizeof(temp));
+	}
+
+	if (render_wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+		glDrawArrays(GL_TRIANGLES, 0, sizeof(norms)); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	}
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(2);
+	
+	delete temp;
+	delete norms;
 }

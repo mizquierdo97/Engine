@@ -905,6 +905,7 @@ int Sphere::Triangulate(vec *outPos, vec *outNormal, float2 *outUV, int numVerti
 
 	for(size_t i = oldEnd, j = 0; i < temp.size(); ++i, ++j)
 	{
+		
 		outPos[3*j] = this->pos + TRIANGLE(temp[i]).a;
 		outPos[3*j+1] = this->pos + TRIANGLE(temp[i]).b;
 		outPos[3*j+2] = this->pos + TRIANGLE(temp[i]).c;
