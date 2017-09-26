@@ -9,7 +9,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
-	
+	world = new ModuleWorld();
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -19,6 +19,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	AddModule(world);
 	AddModule(physics);
 	
 	
@@ -34,7 +35,7 @@ Application::Application()
 	physics->name = "Physics";
 	renderer3D->name = "Renderer3D";
 	gui->name = "Gui";
-
+	world->name = "World";
 }
 
 Application::~Application()
