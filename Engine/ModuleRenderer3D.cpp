@@ -327,6 +327,5 @@ void ModuleRenderer3D::Render(vec * vect, vec* norm)
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(2);
 	
-	delete temp;
-	delete norms;
+	
 }

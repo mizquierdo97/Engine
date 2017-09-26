@@ -40,9 +40,7 @@ update_status ModuleWorld::PostUpdate(float dt)
 	
 
 	App->renderer3D->Render(vect, norms);
-	if (App->input->GetKey(SDL_SCANCODE_LEFT)== KEY_DOWN) {
-		sphere->pos.z += 0.1f;
-	}
+	
 	
 	return UPDATE_CONTINUE;
 }
