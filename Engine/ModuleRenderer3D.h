@@ -32,7 +32,7 @@ public:
 	void OnResize(int width, int height);
 
 	bool Options();
-	void Render(vec *outPos, vec* norm);
+	void Render();
 public:
 
 	Light lights[MAX_LIGHTS];

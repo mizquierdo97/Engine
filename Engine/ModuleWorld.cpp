@@ -51,10 +51,10 @@ update_status ModuleWorld::Update(float dt)
 update_status ModuleWorld::PostUpdate(float dt)
 {
 	
+App->renderer3D->Render();
+	
 
-App->renderer3D->Render(vect, norms);
-	
-	
+
 	return UPDATE_CONTINUE;
 }
 
