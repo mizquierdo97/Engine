@@ -28,7 +28,14 @@ public:
 
 	GLuint vertexbuffer;
 	GLuint normalbuffer;
-	vec vect[6144];
-	vec norms[6144];
+	std::vector<vec> vect;
+	std::vector<vec> norms;
+	std::vector<unsigned int> indices;
+	GLuint my_indices = 0;
+	std::vector<GLfloat> cube_vertices;
 
+
+	GLuint vao;
+	GLuint vbo;
+	GLuint ibo;
 };

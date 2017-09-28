@@ -103,7 +103,7 @@ bool ModuleRenderer3D::Init()
 		
 		lights[0].ambient.Set(0.f, 0.f, 0.f, 1.0f);
 		lights[0].diffuse.Set(1.f, 1.f, 1.f, 1.0f);
-		lights[0].SetPos(1.0f, 0.0f, 2.5f);
+		lights[0].SetPos(0.0f, 0.0f, 0.0f);
 		lights[0].Init();
 		
 	/*	GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -140,7 +140,25 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 
-	lights[0].SetPos(0, 0, 0);
+	//lights[0].SetPos(0, 0, 0);
+	float x = lights[0].position.x;
+	float z = lights[0].position.z;
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+		z -= 0.1;
+		lights[0].SetPos(x, 0, z);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+		z += 0.1;
+		lights[0].SetPos(x, 0, z);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		x -= 0.1;
+		lights[0].SetPos(x, 0, z);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		x += 0.1;
+		lights[0].SetPos(x, 0, z);
+	}
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
@@ -159,7 +177,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//--->Render Scene
 
 	//--->Render Debug
-	glLineWidth(2.0f);	//TEMP---------------
+/*	glLineWidth(2.0f);	//TEMP---------------
 	if(render_fill)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	else
@@ -210,7 +228,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	
 
-	glEnd();
+	glEnd();*/
 	
 	ImGui::Render();
 
@@ -321,7 +339,7 @@ bool ModuleRenderer3D::Options()
 void ModuleRenderer3D::Render()
 {
 	
-
+	
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, App->world->vertexbuffer);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -334,15 +352,19 @@ void ModuleRenderer3D::Render()
 
 	if (render_fill) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(App->world->vect));
+		glDrawArrays(GL_TRIANGLES, 0, 6144);
 	}
 
 	if (render_wireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(App->world->vect)); // Starting from vertex 0; 3 vertices total -> 1 triangle
+		glDrawArrays(GL_TRIANGLES, 0, 6144); // Starting from vertex 0; 3 vertices total -> 1 triangle
 	}
 	
 	
-	
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glPopMatrix();
+	glUseProgram(0);
 }
