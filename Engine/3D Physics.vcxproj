@@ -88,6 +88,7 @@
     <ClInclude Include="ImGui\stb_rect_pack.h" />
     <ClInclude Include="ImGui\stb_textedit.h" />
     <ClInclude Include="ImGui\stb_truetype.h" />
+    <ClInclude Include="imgui_dock.h" />
     <ClInclude Include="Json\parson.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MathGeoLib.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_sdl.cpp" />
     <ClCompile Include="ImGui\imgui_impl_sdl_gl3.cpp" />
+    <ClCompile Include="imgui_dock.cpp" />
     <ClCompile Include="Json\parson.c" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
