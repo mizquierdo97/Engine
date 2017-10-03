@@ -13,6 +13,7 @@
 #include "ModuleGUI.h"
 #include "ModuleWorld.h"
 #include "Config.h"
+#include "ModuleAssimp.h"
 #include <list>
 
 
@@ -27,6 +28,8 @@ public:
 	ModulePhysics3D* physics;
 	ModuleGUI* gui;
 	ModuleWorld* world;
+	ModuleAssimp* assimp;
+
 	Config* config;
 private:
 

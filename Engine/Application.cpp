@@ -10,7 +10,7 @@ Application::Application()
 	camera = new ModuleCamera3D();
 	physics = new ModulePhysics3D();
 	world = new ModuleWorld();
-
+	assimp = new ModuleAssimp();
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -19,8 +19,10 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(world);
 	AddModule(physics);
+	AddModule(assimp);
+	AddModule(world);
+	
 	
 	
 	// Renderer last!
@@ -36,6 +38,7 @@ Application::Application()
 	renderer3D->name = "Renderer3D";
 	gui->name = "Gui";
 	world->name = "World";
+	assimp->name = "Assimp";
 }
 
 Application::~Application()

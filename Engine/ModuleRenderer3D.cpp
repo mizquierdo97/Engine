@@ -168,72 +168,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-
-
 	
-	
-	//----------------------------------
-
-	//--->Render Scene
-
-	//--->Render Debug
-/*	glLineWidth(2.0f);	//TEMP---------------
-	if(render_fill)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glBegin(GL_TRIANGLES);
-
-	
-	
-
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	
-	glVertex3f(1.0f, 0.0f, -1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
-	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, -1.0f);
-	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
-	glVertex3f(0.0f, 1.0f, -1.0f);
-	glVertex3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(0.0f, 1.0f, -1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
-	glVertex3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);
-	glVertex3f(1.0f, 0.0f, -1.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, -1.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, -1.0f);
-
-	glVertex3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.0f, -1.0f);
-	glVertex3f(1.0f, 0.0f, -1.0f);
-	glVertex3f(0.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 0.0f, -1.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-
-	
-
-	glEnd();*/
-	
-	ImGui::Render();
-
-
-
 	SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;
@@ -336,35 +271,31 @@ bool ModuleRenderer3D::Options()
 	return false;
 }
 
-void ModuleRenderer3D::Render()
+void ModuleRenderer3D::Render(Mesh m)
 {
 	
+	if (m.id_vertexs != NULL) {
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		if (m.id_norms != NULL) {
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_norms);
+			glNormalPointer(GL_FLOAT, 0, NULL);
+		}
+
+		if (m.id_colors != NULL) {
+			glEnableClientState(GL_COLOR_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_norms);
+			glColorPointer(3,GL_FLOAT, 0, NULL);
+		}
+
+
+		if(m.id_indices != NULL)
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
+		glDrawElements(GL_TRIANGLES, m.num_indices, GL_UNSIGNED_INT, NULL);
+
 	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, App->world->vertexbuffer);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, App->world->normalbuffer);
-	glNormalPointer(GL_FLOAT, 0, NULL);
-
-	// Draw the triangle !
-
-	if (render_fill) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glDrawArrays(GL_TRIANGLES, 0, 6144);
-	}
-
-	if (render_wireframe) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
-		glDrawArrays(GL_TRIANGLES, 0, 6144); // Starting from vertex 0; 3 vertices total -> 1 triangle
-	}
-	
-	
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glPopMatrix();
-	glUseProgram(0);
+		}
 }

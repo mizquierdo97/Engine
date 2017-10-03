@@ -59,6 +59,12 @@ public:
 	}
 
 	bool Options();
+	
+
+public:
+
+	char* dropped_filedir;
+	bool file_dropped = false;
 
 private:
 	KEY_STATE* keyboard;
@@ -69,4 +75,6 @@ private:
 	int mouse_x_motion;
 	int mouse_y_motion;
 	//int mouse_z_motion;
+
+	
 };

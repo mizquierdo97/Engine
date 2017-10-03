@@ -4,7 +4,7 @@
 #include "glmath.h"
 #include "Light.h"
 #include "MathGeoLib.h"
-
+#include "ModuleAssimp.h"
 #include "Glew\include\glew.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -32,7 +32,7 @@ public:
 	void OnResize(int width, int height);
 
 	bool Options();
-	void Render();
+	void Render(Mesh mesh);
 public:
 
 	Light lights[MAX_LIGHTS];

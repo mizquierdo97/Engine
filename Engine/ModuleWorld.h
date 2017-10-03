@@ -1,16 +1,16 @@
 #pragma once
+
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
 #include "MathGeoLib.h"
 
-
 class ModuleWorld : public Module
 {
 public: 
 
-	ModuleWorld(bool start_enable = true);
+	ModuleWorld(bool start_enabled = true);
 	~ModuleWorld();
 
 	bool Init();
@@ -20,6 +20,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void ImportMesh(char* path);
 
 public:
 
