@@ -20,7 +20,7 @@ bool ModuleWorld::Init()
 #define CHECKERS_WIDTH 128
 bool ModuleWorld::Start() {
 	
-	App->renderer3D->loadTextureFromFile("Baker_house.png");
+	App->renderer3D->loadTextureFromFile("Baker_house2.png");
 
 /*	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
@@ -61,11 +61,11 @@ bool ModuleWorld::Start() {
 		0,4, 5,
 		0, 5, 1,
 		// left
-		7, 4, 0,
-		7, 0, 3,
+		12, 15, 14,
+		12, 14, 13,
 		// right
-		2, 1, 5,
-		2, 5, 6,
+		11, 8, 9,
+		11, 9, 10,
 
 		
 	};
@@ -81,6 +81,16 @@ bool ModuleWorld::Start() {
 		4.0, -1.0, -1.0,
 		4.0,  1.0, -1.0,
 		2.0,  1.0, -1.0,
+
+		4.0, -1.0, 1.0,
+		4.0, -1.0, -1.0,
+		4.0,  1.0, -1.0,
+		4.0,  1.0, 1.0,
+
+		2.0, 1.0, -1.0,
+		2.0, 1.0, 1.0,
+		2.0,  -1.0, 1.0,
+		2.0,  -1.0, -1.0, //15
 	};
 
 	tex_coords = {
@@ -222,7 +232,7 @@ update_status ModuleWorld::PostUpdate(float dt)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	*/
 
-	/*
+	
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindTexture(GL_TEXTURE_2D, App->renderer3D->mTextureID);
@@ -240,7 +250,7 @@ update_status ModuleWorld::PostUpdate(float dt)
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	*/
+	
 	
 	//RENDER MESHES
 	std::vector<Mesh>::iterator temp = App->assimp->mesh_vector->begin();

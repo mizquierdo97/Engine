@@ -118,12 +118,20 @@ void ModuleAssimp::ImportMesh(char * path)
 			}
 
 			if (new_mesh->HasTextureCoords(0)) {
-				m.texture_coords = new float[m.num_vertexs * 3];
-				memcpy(m.texture_coords, new_mesh->mTextureCoords[0], sizeof(float) * m.num_vertexs * 3);
+
+				m.texture_coords = new float[m.num_vertexs * 2];
+				for (unsigned int k = 0; k < new_mesh->mNumVertices; ++k) {
+
+					m.texture_coords[k * 2] = new_mesh->mTextureCoords[0][k].x;
+					m.texture_coords[k * 2 + 1] = new_mesh->mTextureCoords[0][k].y;
+
+				}
+				//m.texture_coords = new float[m.num_vertexs * 3];
+				//memcpy(m.texture_coords, new_mesh->mTextureCoords[0], sizeof(float) * m.num_vertexs * 3);
 
 				glGenBuffers(1, (GLuint*) &(m.id_textures));
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, m.texture_coords, GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, &m.texture_coords[0], GL_STATIC_DRAW);
 			}
 			
 		
