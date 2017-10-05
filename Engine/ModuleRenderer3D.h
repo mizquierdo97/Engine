@@ -10,6 +10,9 @@
 #include <gl/GLU.h>
 #include <shellapi.h>
 
+#include "DevIL\include\il.h"
+
+#pragma comment (lib, "DevIL/libx86/DevIL.lib")
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib  */  
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib  */ 
 
@@ -33,6 +36,10 @@ public:
 
 	bool Options();
 	void Render(Mesh mesh);
+
+	bool loadTextureFromFile(char* path);
+	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height);
+	
 public:
 
 	Light lights[MAX_LIGHTS];
@@ -55,4 +62,7 @@ public:
 
 	bool render_fill = false;
 	bool render_wireframe = true;
+
+	
+	uint mTextureID = 0;
 };

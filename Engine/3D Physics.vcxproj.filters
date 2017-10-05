@@ -31,6 +31,9 @@
     <Filter Include="Sources\Assimp">
       <UniqueIdentifier>{0ba734e2-0b3e-4406-996b-6cedfd49a99d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\DevIL">
+      <UniqueIdentifier>{5dac88d9-c1fd-4a45-a726-0230b4c90bc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -432,6 +435,30 @@
     <ClInclude Include="Primitives.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="DevIL\include\config.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\devil_internal_exports.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\il.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\il_wrap.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilu.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilu_region.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilut.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL\include\ilut_config.h">
+      <Filter>Sources\DevIL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -666,6 +693,9 @@
     </None>
     <None Include="Assimp\include\vector3.inl">
       <Filter>Sources\Assimp</Filter>
+    </None>
+    <None Include="DevIL\include\config.h.win">
+      <Filter>Sources\DevIL</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@
 
 #include "SDL\include\SDL_opengl.h"
 
+
+
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -126,6 +128,17 @@ bool ModuleRenderer3D::Init()
 	}
 	else {
 		LOG("Glew initialized correctly");
+	}
+
+	ilInit();
+	ilClearColour(255, 255, 255, 000);
+
+	//Check for error
+	ILenum ilError = ilGetError();
+	if (ilError != IL_NO_ERROR)
+	{
+		
+		return false;
 	}
 
 	return ret;
@@ -291,6 +304,14 @@ void ModuleRenderer3D::Render(Mesh m)
 			glColorPointer(3,GL_FLOAT, 0, NULL);
 		}
 
+		if (m.id_textures != NULL) {
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glBindTexture(GL_TEXTURE_2D, App->renderer3D->mTextureID);
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		}
 
 		if(m.id_indices != NULL)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
@@ -298,4 +319,82 @@ void ModuleRenderer3D::Render(Mesh m)
 
 	
 		}
+	glDisable(GL_TEXTURE_2D);
+}
+
+bool ModuleRenderer3D::loadTextureFromFile(char* path)
+{
+	//Texture loading success
+	bool textureLoaded = false;
+
+	//Generate and set current image ID
+	uint imgID = 0;
+	ilGenImages(1, &imgID);
+	ilBindImage(imgID);
+
+	//Load image
+	ILboolean success = ilLoadImage(path);
+
+	//Image loaded successfully
+	if (success == IL_TRUE)
+	{
+		//Convert image to RGBA
+		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+		if (success == IL_TRUE)
+		{
+			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
+			//Create texture from file pixels
+			textureLoaded = true;
+		}
+
+		//Delete file from memory
+		ilDeleteImages(1, &imgID);
+	}
+
+	//Report error
+	if (!textureLoaded)
+	{
+		
+	}
+
+	return textureLoaded;
+}
+
+bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GLuint height)
+{
+
+	//Free texture if it exists
+	//freeTexture();
+
+	//Get texture dimensions
+	/*glGenTextures(1, &mTextureID);
+
+	//Bind texture ID
+	glBindTexture(GL_TEXTURE_2D, mTextureID);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glBindTexture( GL_TEXTURE_2D, NULL );
+	*/
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &mTextureID);
+	glBindTexture(GL_TEXTURE_2D, mTextureID);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	glBindTexture(GL_TEXTURE_2D, NULL);
+    //Check for error
+    GLenum error = glGetError();
+    if( error != GL_NO_ERROR )
+    {
+        printf( "Error loading texture from %p pixels! %s\n", pixels, gluErrorString( error ) );
+        return false;
+    }
+
+    return true;
 }

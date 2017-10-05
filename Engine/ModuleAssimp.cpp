@@ -116,6 +116,15 @@ void ModuleAssimp::ImportMesh(char * path)
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_colors);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, m.colors, GL_STATIC_DRAW);
 			}
+
+			if (new_mesh->HasTextureCoords(0)) {
+				m.texture_coords = new float[m.num_vertexs * 3];
+				memcpy(m.texture_coords, new_mesh->mTextureCoords[0], sizeof(float) * m.num_vertexs * 3);
+
+				glGenBuffers(1, (GLuint*) &(m.id_textures));
+				glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, m.texture_coords, GL_STATIC_DRAW);
+			}
 			
 		
 

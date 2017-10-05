@@ -39,4 +39,8 @@ public:
 	GLuint vao;
 	GLuint vbo;
 	GLuint ibo;
+
+	uint ImageName;
+	GLuint coords_id;
+	std::vector<GLfloat> tex_coords;
 };
