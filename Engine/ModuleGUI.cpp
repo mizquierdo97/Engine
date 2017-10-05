@@ -236,7 +236,7 @@ update_status ModuleGUI::Update(float dt)
 		ImGui::SetNextWindowPos(ImVec2(0, 0));
 		ImGui::Begin("PanelEditor", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
 			ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar );
 
 
 		ImGui::Separator();
