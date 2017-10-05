@@ -110,9 +110,7 @@ update_status ModuleGUI::PreUpdate(float dt)
 
 update_status ModuleGUI::Update(float dt)
 {
-	if (ImGui::BeginDock("hola", false, false, false,
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_MenuBar)) {
-		//TEST
+
 		static float vec4f_1[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
 		static float vec4f_2[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
 		bool b_col = false;
@@ -133,14 +131,47 @@ update_status ModuleGUI::Update(float dt)
 
 		if (ImGui::BeginMainMenuBar())
 		{
-			if (ImGui::BeginMenu("Menu"))
+			if (ImGui::BeginMenu("File"))
 			{
 				if (ImGui::MenuItem("Open menu")) { show_menu = !show_menu; }
-				if (ImGui::MenuItem("Help")) { show_help = !show_help; }
+
 				if (ImGui::MenuItem("Close App"))
 				{
 					return UPDATE_STOP;
 				}
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Edit"))
+			{
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Window"))
+			{
+				if (ImGui::MenuItem("Hardware")) { show_hardware = !show_hardware; }
+
+				ImGui::EndMenu();
+			}
+
+			
+
+			if (ImGui::BeginMenu("Help"))
+			{
+
+				if (ImGui::MenuItem("GUI Demo")) { show_example_menu = !show_example_menu; }
+
+				if (ImGui::MenuItem("Documentation"))
+					ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/wiki", NULL, NULL, SW_SHOWNORMAL);
+
+				if (ImGui::MenuItem("Latest release"))
+					ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/releases", NULL, NULL, SW_SHOWNORMAL);
+
+				if (ImGui::MenuItem("Report a bug"))
+					ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/issues", NULL, NULL, SW_SHOWNORMAL);
+
+				if (ImGui::MenuItem("About")) {}
 
 
 				ImGui::EndMenu();
@@ -150,25 +181,8 @@ update_status ModuleGUI::Update(float dt)
 
 		}
 
-		if (show_example_menu)
-		{
-			ImGui::ShowTestWindow();
-		}
-		if (show_help)
-		{
-			if (ImGui::MenuItem("Gui Demo")) { show_example_menu = !show_example_menu; }
-
-			if (ImGui::MenuItem("Documentation"))
-				ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/wiki", NULL, NULL, SW_SHOWNORMAL);
-
-			if (ImGui::MenuItem("Latest release"))
-				ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/releases", NULL, NULL, SW_SHOWNORMAL);
-
-			if (ImGui::MenuItem("Report a bug"))
-				ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/issues", NULL, NULL, SW_SHOWNORMAL);
-
-
-		}
+		if (show_example_menu) { ImGui::ShowTestWindow();}
+		
 
 		if (show_menu)
 		{
@@ -217,19 +231,29 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::End();
 		}
 
-		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
-		ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
-		ImGui::Begin("Options");
+		ImVec2 display_size = ImGui::GetIO().DisplaySize;
+		ImGui::SetNextWindowSize(display_size);
+		ImGui::SetNextWindowPos(ImVec2(0, 0));
+		ImGui::Begin("PanelEditor", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+
+
+		ImGui::Separator();
+		ImGui::BeginDockspace();
 
 		App->Options();
+		Assets();
 		std::list<Module*>::iterator item = App->list_modules.begin();
 		while (item != App->list_modules.end()) {
 			(*item)->Options();
 			item++;
 		}
+
+		ImGui::EndDockspace();
 		ImGui::End();
-		ImGui::EndDock();
-	}
+	
+	
 		static bool show_app_console = true;
 		ShowConsole(&show_app_console);
 
@@ -254,6 +278,14 @@ bool ModuleGUI::CleanUp()
 
 
 
+
+void ModuleGUI::Assets()
+{
+	if (ImGui::BeginDock("Assets", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
+
+	}
+	ImGui::EndDock();
+}
 
 void ModuleGUI::ShowConsole(bool * p_open)
 {

@@ -29,6 +29,8 @@ public:
 		ImGui_ImplSdlGL3_ProcessEvent(_event);
 		
 	}
+	void Assets();
+
 	void ApplicationOptions() {
 
 	}
@@ -39,7 +41,7 @@ public:
 		bool show_example_menu = false;
 		bool show_menu = false;
 		bool show_help = false;
-
+		bool show_hardware;
 		int Det_RAM;
 		int Det_CPU;
 		int Det_Cache;
