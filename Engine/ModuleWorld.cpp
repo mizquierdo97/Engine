@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleWorld.h"
 #include "Primitives.h"
+#include "imgui_dock.h"
+
 ModuleWorld::ModuleWorld(bool start_enabled) : Module(start_enabled)
 {
 	
@@ -142,7 +144,9 @@ bool ModuleWorld::Start() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indices.size(), &indices[0], GL_STATIC_DRAW);
 
-	
+	world_texture = new Texture();
+	world_texture->Create(nullptr, App->window->width, App->window->height);
+
 	return true;
 }
 
@@ -152,7 +156,8 @@ update_status ModuleWorld::PreUpdate(float dt)
 		ImportMesh(App->input->dropped_filedir);
 		App->input->file_dropped = false;
 	}
-
+	
+	world_texture->Bind();
 	return UPDATE_CONTINUE;
 }
 
@@ -164,7 +169,7 @@ update_status ModuleWorld::Update(float dt)
 update_status ModuleWorld::PostUpdate(float dt)
 {
 
-	/*glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindTexture(GL_TEXTURE_2D, ImageName);
 
@@ -230,12 +235,12 @@ update_status ModuleWorld::PostUpdate(float dt)
 
 	glEnd();
 	glBindTexture(GL_TEXTURE_2D, 0);
-	*/
+	
 
 	
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindTexture(GL_TEXTURE_2D, App->renderer3D->mTextureID);
+	glBindTexture(GL_TEXTURE_2D,App->renderer3D->tex->GetTexture());
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -259,6 +264,8 @@ update_status ModuleWorld::PostUpdate(float dt)
 		temp++;
 	}
 	
+	world_texture->Unbind();
+
 	ImGui::Render();
 	
 
@@ -273,4 +280,15 @@ bool ModuleWorld::CleanUp()
 void ModuleWorld::ImportMesh(char * path)
 {
 	App->assimp->ImportMesh(path);
+}
+
+
+bool ModuleWorld::Options()
+{
+	if (ImGui::BeginDock("Scene", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
+		ImVec2 size = ImGui::GetContentRegionAvail();
+			ImGui::Image((void*)world_texture->GetTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
+	}
+	ImGui::EndDock();
+	return true;
 }

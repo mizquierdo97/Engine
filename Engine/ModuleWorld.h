@@ -5,6 +5,7 @@
 #include "glmath.h"
 #include "Light.h"
 #include "MathGeoLib.h"
+#include "Texture.h"
 
 class ModuleWorld : public Module
 {
@@ -21,7 +22,7 @@ public:
 	bool CleanUp();
 
 	void ImportMesh(char* path);
-
+	bool Options();
 public:
 
 	Sphere* sphere;
@@ -43,4 +44,6 @@ public:
 	uint ImageName;
 	GLuint coords_id;
 	std::vector<GLfloat> tex_coords;
+
+	Texture* world_texture;
 };

@@ -9,20 +9,20 @@
 
 typedef unsigned int uint;
 
-class RenderTexture
+class Texture
 {
 public:
-	RenderTexture();
-	~RenderTexture();
+	Texture();
+	~Texture();
 
-	bool Create(uint width, uint height);
+	bool Create(GLuint* pixels,uint width, uint height);
 	void Resize(uint width, uint height);
 	void Clear(Color clear_color);
 	void Bind();
 	void Unbind();
 	void Draw();
 	GLuint GetTexture() const;
-
+	GLuint GetFBO() const;
 private:
 	void Destroy();
 

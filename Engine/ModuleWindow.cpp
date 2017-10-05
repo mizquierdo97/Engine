@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
-
+#include "imgui_dock.h"
 ModuleWindow::ModuleWindow( bool start_enabled) : Module( start_enabled)
 {
 	window = NULL;
@@ -149,10 +149,9 @@ void ModuleWindow::SaveConfig(JSON_Object * root)
 bool ModuleWindow::Options()
 {
 
+	if (ImGui::BeginDock("Window", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
 
-
-	if (ImGui::CollapsingHeader("Window"))
-	{
+	
 		static int temp_width = width;
 		static int temp_height = height;
 		ImGui::SliderInt("Width", &temp_width, 300, 1400);
@@ -208,7 +207,7 @@ bool ModuleWindow::Options()
 			SetTitle(name);
 		title = name;
 
-
+		ImGui::EndDock();
 	}
 	return false;
 }

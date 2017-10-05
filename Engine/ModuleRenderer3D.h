@@ -9,7 +9,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <shellapi.h>
-
+#include "Texture.h"
 #include "DevIL\include\il.h"
 
 #pragma comment (lib, "DevIL/libx86/DevIL.lib")
@@ -65,4 +65,6 @@ public:
 
 	
 	uint mTextureID = 0;
+
+	Texture* tex;
 };

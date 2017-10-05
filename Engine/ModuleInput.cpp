@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-
+#include "imgui_dock.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput( bool start_enabled) : Module(start_enabled)
@@ -140,11 +140,11 @@ bool ModuleInput::CleanUp()
 
 bool ModuleInput::Options()
 {
-	if (ImGui::CollapsingHeader("Input"))
-	{
+	if (ImGui::BeginDock("Input", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
 		ImGui::Text("Gamepads Connected:");
 		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i",SDL_NumJoysticks());
 		
+		ImGui::EndDock();
 	}
 	return false;
 }
