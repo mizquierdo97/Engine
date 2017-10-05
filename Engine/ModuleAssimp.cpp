@@ -131,14 +131,23 @@ void ModuleAssimp::ImportMesh(char * path)
 
 				glGenBuffers(1, (GLuint*) &(m.id_textures));
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, &m.texture_coords[0], GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 2, &m.texture_coords[0], GL_STATIC_DRAW);
 			}
 			
-		
+			/*const aiMaterial* pMaterial = scene->mMaterials[i];
+			aiTexture* m_Textures = NULL;
+			if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
+				aiString Path;
 
-			// Buffer for indices
-		
+				if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
+					int x = 0;
 
+				}
+				
+
+				// Buffer for indices
+			}
+			*/
 			mesh_vector->push_back(m);
 			// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		}

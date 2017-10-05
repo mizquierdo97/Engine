@@ -1,9 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
-
+#include "imgui_dock.h"
 #include "SDL\include\SDL_opengl.h"
-
+#include "Texture.h"
 
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
@@ -97,7 +97,7 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
 		
-		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
+		GLfloat LightModelAmbient[] = {0.5f, 0.5f, 0.5f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		
 		lights[0].ref = GL_LIGHT0;
@@ -108,12 +108,12 @@ bool ModuleRenderer3D::Init()
 		lights[0].SetPos(0.0f, 0.0f, 0.0f);
 		lights[0].Init();
 		
-	/*	GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
+		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
 
 		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
-		*/
+		
 		lights[0].Active(true);
 		
 	}
@@ -214,8 +214,8 @@ void ModuleRenderer3D::OnResize(int width, int height)
 bool ModuleRenderer3D::Options()
 {
 
-	if (ImGui::CollapsingHeader("Renderer"))
-	{
+	if (ImGui::BeginDock("Renderer", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
+	
 		int major=0, minor = 0;
 		glGetIntegerv(GL_MAJOR_VERSION, &major);
 		glGetIntegerv(GL_MAJOR_VERSION, &minor);
@@ -277,7 +277,7 @@ bool ModuleRenderer3D::Options()
 			ImGui::SameLine();
 		if (ImGui::Checkbox("Wireframe", &render_wireframe));
 		
-		
+		ImGui::EndDock();
 
 	}
 
@@ -307,7 +307,8 @@ void ModuleRenderer3D::Render(Mesh m)
 		if (m.id_textures != NULL) {
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
-			glBindTexture(GL_TEXTURE_2D, App->renderer3D->mTextureID);
+			glBindTexture(GL_TEXTURE_2D,App->renderer3D->tex->GetTexture());
+
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
 			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
@@ -378,6 +379,11 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
 
 	glBindTexture( GL_TEXTURE_2D, NULL );
 	*/
+
+	tex = new Texture();
+	tex->Create(pixels, width, height);
+	
+/*
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(1, &mTextureID);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
@@ -395,6 +401,6 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
         printf( "Error loading texture from %p pixels! %s\n", pixels, gluErrorString( error ) );
         return false;
     }
-
+	*/
     return true;
 }
