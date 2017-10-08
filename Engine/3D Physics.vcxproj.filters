@@ -34,6 +34,9 @@
     <Filter Include="Sources\DevIL">
       <UniqueIdentifier>{5dac88d9-c1fd-4a45-a726-0230b4c90bc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Object">
+      <UniqueIdentifier>{fad1109c-cd26-4f70-af5c-de3ce7ef79b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -432,9 +435,6 @@
     <ClInclude Include="ModuleAssimp.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Primitives.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="DevIL\include\config.h">
       <Filter>Sources\DevIL</Filter>
     </ClInclude>
@@ -461,6 +461,9 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Sources\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -649,6 +652,9 @@
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Sources\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
+#include <vector>
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -50,7 +50,7 @@ public:
 
 public:
 	
-	std::vector<Mesh>* mesh_vector;
+	//std::vector<Mesh>* mesh_vector;
 	
 
 };

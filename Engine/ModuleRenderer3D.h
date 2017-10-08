@@ -11,7 +11,7 @@
 #include <shellapi.h>
 #include "Texture.h"
 #include "DevIL\include\il.h"
-
+#include "Object.h"
 #pragma comment (lib, "DevIL/libx86/DevIL.lib")
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib  */  
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib  */ 
@@ -35,7 +35,7 @@ public:
 	void OnResize(int width, int height);
 
 	bool Options();
-	void Render(Mesh mesh);
+	void Render(Object* );
 
 	bool loadTextureFromFile(char* path);
 	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height);
@@ -53,12 +53,8 @@ public:
 
 	
 	//
-	GLuint gProgramID = 0;
-	GLint gVertexPos2DLocation = -1;
-	GLuint gVBO = 0;
-	GLuint gIBO = 0;
 
-	GLuint vertexbuffer;
+
 
 	bool render_fill = false;
 	bool render_wireframe = true;

@@ -1,5 +1,7 @@
 #include "Application.h"
 #include "imgui_dock.h"
+
+
 Application::Application()
 {
 	window = new ModuleWindow();

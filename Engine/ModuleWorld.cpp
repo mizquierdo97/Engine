@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "ModuleWorld.h"
-#include "Primitives.h"
+
 #include "imgui_dock.h"
 
 ModuleWorld::ModuleWorld(bool start_enabled) : Module(start_enabled)
@@ -48,7 +48,7 @@ bool ModuleWorld::Start() {
 */
 
 
-
+/*
 	indices = {
 		// front
 		3, 0, 1,
@@ -143,10 +143,11 @@ bool ModuleWorld::Start() {
 	glGenBuffers(1, (GLuint*)&my_indices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indices.size(), &indices[0], GL_STATIC_DRAW);
-
+	*/
 	world_texture = new Texture();
 	world_texture->Create(nullptr, App->window->width, App->window->height);
 
+	CreateObject(cylinder);
 	return true;
 }
 
@@ -168,7 +169,7 @@ update_status ModuleWorld::Update(float dt)
 
 update_status ModuleWorld::PostUpdate(float dt)
 {
-
+/*
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindTexture(GL_TEXTURE_2D, ImageName);
@@ -256,11 +257,12 @@ update_status ModuleWorld::PostUpdate(float dt)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	
-	
+	*/
 	//RENDER MESHES
-	std::vector<Mesh>::iterator temp = App->assimp->mesh_vector->begin();
-	while (temp != App->assimp->mesh_vector->end()) {		
-		App->renderer3D->Render(*temp);
+	std::vector<Object*>::iterator temp = obj_vector.begin();
+	while (temp !=obj_vector.end()) {	
+		
+		App->renderer3D->Render((*temp));
 		temp++;
 	}
 	

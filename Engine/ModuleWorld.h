@@ -6,7 +6,7 @@
 #include "Light.h"
 #include "MathGeoLib.h"
 #include "Texture.h"
-
+#include "Object.h"
 class ModuleWorld : public Module
 {
 public: 
@@ -27,9 +27,8 @@ public:
 
 	Sphere* sphere;
 	vec* temp;
+	
 
-	GLuint vertexbuffer;
-	GLuint normalbuffer;
 	std::vector<vec> vect;
 	std::vector<vec> norms;
 	std::vector<unsigned int> indices;
@@ -37,13 +36,15 @@ public:
 	std::vector<GLfloat> cube_vertices;
 
 
-	GLuint vao;
+	
 	GLuint vbo;
-	GLuint ibo;
+	
 
 	uint ImageName;
 	GLuint coords_id;
 	std::vector<GLfloat> tex_coords;
 
 	Texture* world_texture;
+
+	std::vector<Object*> obj_vector;
 };

@@ -1,7 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleAssimp.h"
-#include "Primitives.h"
 
 ModuleAssimp::ModuleAssimp(bool start_enabled) : Module(start_enabled)
 {
@@ -20,11 +19,6 @@ bool ModuleAssimp::Init()
 
 bool ModuleAssimp::Start()
 {
-	mesh_vector = new std::vector<Mesh>;
-
-
-
-	
 	
 	
 	return true;
@@ -134,22 +128,12 @@ void ModuleAssimp::ImportMesh(char * path)
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 2, &m.texture_coords[0], GL_STATIC_DRAW);
 			}
 			
-			/*const aiMaterial* pMaterial = scene->mMaterials[i];
-			aiTexture* m_Textures = NULL;
-			if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
-				aiString Path;
-
-				if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
-					int x = 0;
-
-				}
-				
-
-				// Buffer for indices
-			}
-			*/
-			mesh_vector->push_back(m);
-			// Use scene->mNumMeshes to iterate on scene->mMeshes array
+			
+			Object* temp_obj = new Object;
+			temp_obj->obj_mesh = m;
+			temp_obj->obj_id = App->world->obj_vector.size();
+			
+			App->world->obj_vector.push_back(temp_obj);
 		}
 
 			aiReleaseImport(scene);

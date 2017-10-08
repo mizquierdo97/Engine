@@ -284,9 +284,9 @@ bool ModuleRenderer3D::Options()
 	return false;
 }
 
-void ModuleRenderer3D::Render(Mesh m)
+void ModuleRenderer3D::Render(Object* obj)
 {
-	
+	Mesh m = obj->obj_mesh;
 	if (m.id_vertexs != NULL) {
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);

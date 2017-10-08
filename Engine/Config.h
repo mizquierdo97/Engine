@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Application.h"
+
 
 #include "Globals.h"
 #include "Json\parson.h"
