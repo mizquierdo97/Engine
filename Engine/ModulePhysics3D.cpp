@@ -121,10 +121,7 @@ update_status ModulePhysics3D::Update(float dt)
 	if(debug == true)
 	{
 		world->debugDrawWorld();
-
-	
 		
-
 		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			Cube s(1,1,1);
@@ -303,6 +300,18 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 	world->addConstraint(hinge, disable_collision);
 	constraints.push_back(hinge);
 	hinge->setDbgDrawSize(2.0f);
+}
+
+void ModulePhysics3D::DrawNormals(Object * obj)
+{
+	btVector3 color = { 1, 1 ,1 };
+	for (int i = 0; i < obj->obj_mesh.num_vertexs; i++) {
+		btVector3 from = { obj->obj_mesh.vertexs[3 * i],  obj->obj_mesh.vertexs[3 * i + 1], obj->obj_mesh.vertexs[3 * i + 2] };
+		
+		btVector3 to = {from.x() + obj->obj_mesh.norms[3 * i],from.y() + obj->obj_mesh.norms[3 * i + 1], from.z() + obj->obj_mesh.norms[3 * i + 2] };
+		
+		debug_draw->drawLine(from, to,color);
+	}
 }
 
 void DebugDrawer::drawGrid(int grid_size)

@@ -259,13 +259,30 @@ update_status ModuleWorld::PostUpdate(float dt)
 	
 	*/
 	//RENDER MESHES
-	std::vector<Object*>::iterator temp = obj_vector.begin();
-	while (temp !=obj_vector.end()) {	
-		
-		App->renderer3D->Render((*temp));
-		temp++;
+	if (App->renderer3D->render_fill) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		std::vector<Object*>::iterator temp = obj_vector.begin();
+		while (temp != obj_vector.end()) {
+
+			App->renderer3D->Render((*temp));
+			if ((*temp)->obj_mesh.norms != nullptr)
+				App->physics->DrawNormals((*temp));
+			temp++;
+		}
 	}
-	
+	if (App->renderer3D->render_wireframe) {
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		std::vector<Object*>::iterator temp = obj_vector.begin();
+		while (temp != obj_vector.end()) {
+
+			App->renderer3D->Render((*temp));
+			
+			temp++;
+		}
+	}
+	glColor3f(1.0f, 1.0f, 1.0f);
 	world_texture->Unbind();
 
 	ImGui::Render();

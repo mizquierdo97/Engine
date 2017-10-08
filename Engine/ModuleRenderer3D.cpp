@@ -323,6 +323,8 @@ void ModuleRenderer3D::Render(Object* obj)
 	glDisable(GL_TEXTURE_2D);
 }
 
+
+
 bool ModuleRenderer3D::loadTextureFromFile(char* path)
 {
 	//Texture loading success
