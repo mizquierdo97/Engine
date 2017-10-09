@@ -52,10 +52,24 @@ bool ModuleAssimp::CleanUp()
 void ModuleAssimp::ImportMesh(char * path)
 {
 	LOG("Start Exporting");
+
+	std::vector<Object*>::iterator it = App->world->obj_vector.begin();
+	while (it != App->world->obj_vector.end()) {
+		delete (*it)->obj_mesh.vertexs;
+		delete (*it)->obj_mesh.indices;
+		delete (*it)->obj_mesh.norms;
+		delete (*it)->obj_mesh.texture_coords;
+		delete (*it);
+		it++;
+	}
+
+	App->world->obj_vector.clear();
+	
 	const aiScene* scene;
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
-
-
+	
+	
+	
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		for (int i = 0; i < scene->mNumMeshes; i++) {
@@ -102,15 +116,7 @@ void ModuleAssimp::ImportMesh(char * path)
 
 			}
 
-			if (new_mesh->HasVertexColors(0)) {
-				m.colors = new float[m.num_vertexs * 3];
-				memcpy(m.colors, new_mesh->mColors, sizeof(float) * m.num_vertexs * 3);
-
-				glGenBuffers(1, (GLuint*) &(m.id_colors));
-				glBindBuffer(GL_ARRAY_BUFFER, m.id_colors);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, m.colors, GL_STATIC_DRAW);
-			}
-
+			
 			if (new_mesh->HasTextureCoords(0)) {
 
 				m.texture_coords = new float[m.num_vertexs * 2];
@@ -127,6 +133,22 @@ void ModuleAssimp::ImportMesh(char * path)
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 2, &m.texture_coords[0], GL_STATIC_DRAW);
 			}
+
+			if (scene->HasMaterials()) {
+				if (scene->mMaterials[0]->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+				{
+					aiString temp;
+					scene->mMaterials[0]->GetTexture(aiTextureType_DIFFUSE, 0, &temp);
+					const char* tex_path = temp.C_Str();
+					std::string final_path = path;
+					while (final_path.back() != '\\')
+					{
+						final_path.pop_back();
+					}
+					final_path += tex_path;
+					App->renderer3D->loadTextureFromFile((char*)final_path.c_str());
+				}
+			}
 			
 			
 			Object* temp_obj = new Object;
@@ -135,12 +157,13 @@ void ModuleAssimp::ImportMesh(char * path)
 			
 			App->world->obj_vector.push_back(temp_obj);
 		}
-
+		
 			aiReleaseImport(scene);
 		
 	}
-	else
-		LOG("Error loading scene");
+
+	
+	
 
 
 }

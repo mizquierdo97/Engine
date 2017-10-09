@@ -6,6 +6,7 @@
 #include "Texture.h"
 
 
+
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -131,6 +132,8 @@ bool ModuleRenderer3D::Init()
 	}
 
 	ilInit();
+	iluInit();
+	ilutInit();
 	ilClearColour(255, 255, 255, 000);
 
 	//Check for error
@@ -338,6 +341,14 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path)
 	//Load image
 	ILboolean success = ilLoadImage(path);
 
+	ILinfo ImageInfo;
+	iluGetImageInfo(&ImageInfo);
+	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+	{
+		iluFlipImage();
+	}
+
+
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
@@ -367,42 +378,12 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path)
 bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GLuint height)
 {
 
-	//Free texture if it exists
-	//freeTexture();
-
-	//Get texture dimensions
-	/*glGenTextures(1, &mTextureID);
-
-	//Bind texture ID
-	glBindTexture(GL_TEXTURE_2D, mTextureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	glBindTexture( GL_TEXTURE_2D, NULL );
-	*/
-
+	
+	if (tex != nullptr)
+	delete tex;
+	
 	tex = new Texture();
 	tex->Create(pixels, width, height);
-	
-/*
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &mTextureID);
-	glBindTexture(GL_TEXTURE_2D, mTextureID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	glBindTexture(GL_TEXTURE_2D, NULL);
-    //Check for error
-    GLenum error = glGetError();
-    if( error != GL_NO_ERROR )
-    {
-        printf( "Error loading texture from %p pixels! %s\n", pixels, gluErrorString( error ) );
-        return false;
-    }
-	*/
+
     return true;
 }
