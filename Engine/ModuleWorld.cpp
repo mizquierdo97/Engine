@@ -109,6 +109,7 @@ bool ModuleWorld::Options()
 		ImVec2 size = ImGui::GetContentRegionAvail();
 			ImGui::Image((void*)world_texture->GetTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
 	}
+	//App->renderer3D->OnResize();
 	ImGui::EndDock();
 	return true;
 }

@@ -207,7 +207,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+	ProjectionMatrix = perspective(120.0f, (float)width / (float)height, 0.125f, 512.0f);
 	glLoadMatrixf(&ProjectionMatrix);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -217,7 +217,9 @@ void ModuleRenderer3D::OnResize(int width, int height)
 bool ModuleRenderer3D::Options()
 {
 
-	if (ImGui::BeginDock("Renderer", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
+	if (ImGui::BeginDock("Renderer", false, false, false,
+			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
+			ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_ShowBorders)) {
 	
 		int major=0, minor = 0;
 		glGetIntegerv(GL_MAJOR_VERSION, &major);

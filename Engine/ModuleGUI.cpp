@@ -233,7 +233,7 @@ update_status ModuleGUI::Update(float dt)
 
 		ImVec2 display_size = ImGui::GetIO().DisplaySize;
 		ImGui::SetNextWindowSize(display_size);
-		ImGui::SetNextWindowPos(ImVec2(0, 0));
+		ImGui::SetNextWindowPos(ImVec2(0, 20));
 		ImGui::Begin("PanelEditor", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
 			ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
 			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar );
@@ -250,12 +250,12 @@ update_status ModuleGUI::Update(float dt)
 			item++;
 		}
 
+		static bool show_app_console = true;
+		ShowConsole(&show_app_console);
 		ImGui::EndDockspace();
 		ImGui::End();
 	
 	
-		static bool show_app_console = true;
-		ShowConsole(&show_app_console);
 
 
 		//ImGui::Render();
