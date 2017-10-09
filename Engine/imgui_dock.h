@@ -24,6 +24,9 @@ namespace ImGui {
 	IMGUI_API void EndDock();
 	IMGUI_API void SetDockActive();
 	IMGUI_API void DockDebugWindow();
+	IMGUI_API void SaveDocks();
+	IMGUI_API void LoadDocks();
+
 	
 
 } // namespace ImGui

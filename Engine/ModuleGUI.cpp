@@ -97,7 +97,7 @@ bool ModuleGUI::Init()
 
 bool ModuleGUI::Start()
 {
-
+	ImGui::LoadDocks();
 	return true;
 }
 
@@ -271,7 +271,7 @@ update_status ModuleGUI::PostUpdate(float dt)
 
 bool ModuleGUI::CleanUp()
 {
-	
+	ImGui::SaveDocks();
 	return false;
 }
 
