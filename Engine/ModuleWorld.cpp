@@ -41,9 +41,11 @@ update_status ModuleWorld::PreUpdate(float dt)
 		temp = path.substr(path.length()-3, 3);
 		
 		if (!strcmp((char*)temp.c_str(), "fbx"))
-			ImportMesh(App->input->dropped_filedir);
-		else if(!strcmp((char*)temp.c_str(), "png"))
-			App->renderer3D->loadTextureFromFile(App->input->dropped_filedir);
+			App->gui->path_list->push_back(path);
+			//ImportMesh(App->input->dropped_filedir);
+		else if (!strcmp((char*)temp.c_str(), "png"))
+			App->gui->path_list->push_back(path);
+			//App->renderer3D->loadTextureFromFile(App->input->dropped_filedir, &App->renderer3D->tex);
 		App->input->file_dropped = false;
 	}
 	

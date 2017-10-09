@@ -146,7 +146,8 @@ void ModuleAssimp::ImportMesh(char * path)
 						final_path.pop_back();
 					}
 					final_path += tex_path;
-					App->renderer3D->loadTextureFromFile((char*)final_path.c_str());
+					//App->gui->path_list->push_back(final_path);
+					App->renderer3D->loadTextureFromFile((char*)final_path.c_str(),&App->renderer3D->tex);
 				}
 			}
 			

@@ -97,6 +97,10 @@ bool ModuleGUI::Init()
 
 bool ModuleGUI::Start()
 {
+	App->renderer3D->loadTextureFromFile("png_icon.png", &png_tex);
+	App->renderer3D->loadTextureFromFile("fbx_icon.png", &fbx_tex);
+	
+	path_list = new std::list<std::string>;
 	ImGui::LoadDocks();
 	return true;
 }
@@ -282,15 +286,44 @@ bool ModuleGUI::CleanUp()
 void ModuleGUI::Assets()
 {
 	if (ImGui::BeginDock("Assets", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
+		ImTextureID tex_id = App->renderer3D->tex;
+		std::list<std::string>::iterator item = path_list->begin();
+		int i = 0;
+		while(item != path_list->end())
+		{
+			ImGui::PushID(i);
+			int frame_padding =1;     // -1 = uses default padding
 
+			std::string path =(*item);
+			std::string temp;
+			temp = path.substr(path.length() - 3, 3);
+
+			if (!strcmp((char*)temp.c_str(), "fbx")) {
+				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
+					App->world->ImportMesh(App->input->dropped_filedir);
+			}
+				
+			//ImportMesh(App->input->dropped_filedir);
+			else if (!strcmp((char*)temp.c_str(), "png"))
+			{
+				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
+					App->renderer3D->loadTextureFromFile(App->input->dropped_filedir, &App->renderer3D->tex);
+			}
+				
+			//
+			
+				
+			ImGui::PopID();
+			ImGui::SameLine();
+			i++; item++;
+		}
 	}
 	ImGui::EndDock();
 }
 
 void ModuleGUI::ShowConsole(bool * p_open)
 {
-
-	
+		
 	console.Draw("Example: Console", p_open);
 
 }

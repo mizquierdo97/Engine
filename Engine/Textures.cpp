@@ -112,5 +112,7 @@ uint Texture::GetFBO() const
 
 uint Texture::GetTexture() const
 {
+	if(this != nullptr)
 	return color_texture;
+	return 0;
 }

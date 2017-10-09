@@ -330,7 +330,7 @@ void ModuleRenderer3D::Render(Object* obj)
 
 
 
-bool ModuleRenderer3D::loadTextureFromFile(char* path)
+bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture)
 {
 	//Texture loading success
 	bool textureLoaded = false;
@@ -359,7 +359,7 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path)
 
 		if (success == IL_TRUE)
 		{
-			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
+			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), texture);
 			//Create texture from file pixels
 			textureLoaded = true;
 		}
@@ -377,15 +377,16 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path)
 	return textureLoaded;
 }
 
-bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GLuint height)
+bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GLuint height, Texture** texture)
 {
 
 	
 	if (tex != nullptr)
 	delete tex;
 	
-	tex = new Texture();
-	tex->Create(pixels, width, height);
-
+	texture[0] = new Texture();
+	
+	texture[0]->Create(pixels, width, height);
+	
     return true;
 }

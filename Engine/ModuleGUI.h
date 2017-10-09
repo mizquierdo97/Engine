@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "ImGui\imgui_impl_sdl_gl3.h"
 #include "Console.h"
-
+#include "Texture.h"
 class ModuleGUI : public Module
 {
 public:
@@ -50,6 +50,12 @@ public:
 		LCG random_num_i;
 		LCG random_num_f;
 
+		
+		Texture* png_tex;
+		Texture* fbx_tex;
+
+		
 public:
 	ExampleAppConsole console;
+	std::list<std::string>* path_list;
 };

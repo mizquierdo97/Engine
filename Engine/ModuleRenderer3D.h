@@ -41,8 +41,8 @@ public:
 	bool Options();
 	void Render(Object* );
 	void RenderNormals(Object*);
-	bool loadTextureFromFile(char* path);
-	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height);
+	bool loadTextureFromFile(char* path, Texture** );
+	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height, Texture**);
 	
 public:
 
