@@ -328,12 +328,12 @@ void ModuleRenderer3D::Render(Object* obj)
 		}
 	else {
 
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-		glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs * 3);
+		glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	glDisable(GL_TEXTURE_2D);
 }
