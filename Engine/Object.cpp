@@ -243,14 +243,14 @@ int CreateObject(objectType type)
 void CreateAABB(AABB b_box) {
 	vec vertexs[36];
 
-	b_box.Triangulate(1, 1, 1, vertexs, nullptr, nullptr,false);
+	b_box.Triangulate(1, 1, 1, &vertexs[0], nullptr, nullptr,false);
 	Mesh m;
 
 
-	m.num_vertexs = 8;
-	m.vertexs = new float[m.num_vertexs * 3];
+	m.num_vertexs = 36;
+	m.vertexs = new float[m.num_vertexs*3];
 
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 36; i++) {
 		m.vertexs[i * 3] = vertexs[i].x;
 		m.vertexs[i * 3+1] = vertexs[i].y;
 		m.vertexs[i * 3+2] = vertexs[i].z;
@@ -258,7 +258,7 @@ void CreateAABB(AABB b_box) {
 	}
 	glGenBuffers(1, (GLuint*)&m.id_vertexs);
 	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m.num_vertexs * 3, m.vertexs, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m.num_vertexs*3, m.vertexs, GL_STATIC_DRAW);
 
 	Object* new_object = new Object();
 	new_object->obj_mesh = m;
@@ -266,5 +266,5 @@ void CreateAABB(AABB b_box) {
 	new_object->obj_id = App->world->obj_vector.size();
 	App->world->obj_vector.push_back(new_object);
 	
-
+	
 };

@@ -145,6 +145,8 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		glScalef(20, 20, 20);
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 	
