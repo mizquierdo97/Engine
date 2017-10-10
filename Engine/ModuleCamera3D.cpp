@@ -139,14 +139,31 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 	
+	float wheel = 0;
 
+	
+	static float angle = 90;
 
+	wheel = App->input->GetMouseZ();
+
+	if (wheel > 0) angle -= 1;
+	else if(wheel < 0)angle += 1;
+	uint w = App->window->width;
+	uint h = App->window->height;
+	glViewport(0, 0, w, h);
+
+	glMatrixMode(GL_PROJECTION); //Switch to setting the camera perspective
+
+								 //Set the camera perspective
+	glLoadIdentity(); //Reset the camera
+	gluPerspective(angle,                  //The camera angle
+		(double)w / (double)h, //The width-to-height ratio
+		1.0,                   //The near z clipping coordinate
+		200.0);                //The far z clipping coordinate
 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
-
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		glScalef(20, 20, 20);
+		
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 	
