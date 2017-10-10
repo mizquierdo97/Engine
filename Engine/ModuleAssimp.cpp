@@ -104,6 +104,7 @@ void ModuleAssimp::ImportMesh(char * path)
 				glGenBuffers(1, (GLuint*)&m.id_indices);
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
 				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *m.num_indices, m.indices, GL_STATIC_DRAW);
+				LOG("Faces buffer created sucessfully");
 			}
 
 			if (new_mesh->HasNormals()) {
@@ -114,6 +115,7 @@ void ModuleAssimp::ImportMesh(char * path)
 				glGenBuffers(1, (GLuint*)&(m.id_norms));
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_norms);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_norms * 3, m.norms, GL_STATIC_DRAW);
+				LOG("Normals buffer created sucessfully");
 
 			}
 
@@ -133,6 +135,7 @@ void ModuleAssimp::ImportMesh(char * path)
 				glGenBuffers(1, (GLuint*) &(m.id_textures));
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 2, &m.texture_coords[0], GL_STATIC_DRAW);
+				LOG("Texture coords. buffer created sucessfully");
 			}
 
 			if (scene->HasMaterials()) {

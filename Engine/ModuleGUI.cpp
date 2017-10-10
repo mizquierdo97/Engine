@@ -33,7 +33,7 @@ bool ModuleGUI::Init()
 	io.WantCaptureKeyboard = true;
 	io.WantTextInput = true;
 	io.IniFilename = "/Settings/imgui.ini";
-
+	io.Fonts->AddFontFromFileTTF("..\\Game\\Fonts\\Roboto-Regular.ttf", 16);
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.WindowRounding = 8.0f;
 	style.FramePadding = { 7.0f, 3.0f };

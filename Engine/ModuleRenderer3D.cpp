@@ -219,7 +219,7 @@ bool ModuleRenderer3D::Options()
 
 	if (ImGui::BeginDock("Renderer", false, false, false,
 			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
-			ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_ShowBorders)) {
+		ImGuiWindowFlags_ShowBorders)) {
 	
 		int major=0, minor = 0;
 		glGetIntegerv(GL_MAJOR_VERSION, &major);
