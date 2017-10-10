@@ -118,7 +118,7 @@ update_status ModuleGUI::Update(float dt)
 		static float vec4f_1[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
 		static float vec4f_2[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
 		bool b_col = false;
-
+		static bool show_about = false;
 		App->renderer3D->test_sphere1->pos.x = vec4f_1[0];
 		App->renderer3D->test_sphere2->pos.x = vec4f_2[0];
 		if (App->renderer3D->test_sphere1->Intersects(*App->renderer3D->test_sphere2)) {
@@ -175,7 +175,10 @@ update_status ModuleGUI::Update(float dt)
 				if (ImGui::MenuItem("Report a bug"))
 					ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/issues", NULL, NULL, SW_SHOWNORMAL);
 
-				if (ImGui::MenuItem("About")) {}
+			
+				if (ImGui::MenuItem("About"))show_about = !show_about;
+					
+				
 
 
 				ImGui::EndMenu();
@@ -234,36 +237,58 @@ update_status ModuleGUI::Update(float dt)
 
 			ImGui::End();
 		}
+		if (show_about)
+		{
 
-		ImVec2 display_size = ImGui::GetIO().DisplaySize;
-		ImGui::SetNextWindowSize(display_size);
-		ImGui::SetNextWindowPos(ImVec2(0, 20));
-		ImGui::Begin("PanelEditor", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
-			ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar );
+			ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
+			ImGui::SetNextWindowSize(ImVec2(550, 680));
+			if (ImGui::Begin("About", &show_about, window_flags)) {
+				ImGui::Text("Video Game engine. \n\nDeveloped by:\n");
+				if (ImGui::SmallButton("Miquel Izquierdo")) ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97", NULL, NULL, SW_SHOWNORMAL);
+				if (ImGui::SmallButton("Guillermo Pinto")) ShellExecuteA(NULL, "open", "https://github.com/Guille1406", NULL, NULL, SW_SHOWNORMAL);
+				ImGui::Separator();
+				ImGui::Text("Software Used: \n\n");
+				ImGui::Bullet(); if(ImGui::SmallButton("SDL")) ShellExecuteA(NULL, "open", "https://www.libsdl.org/", NULL, NULL, SW_SHOWNORMAL);
+				ImGui::Bullet(); if (ImGui::SmallButton("OpenGL")) ShellExecuteA(NULL, "open", "https://www.opengl.org/", NULL, NULL, SW_SHOWNORMAL);
+				ImGui::Bullet(); if (ImGui::SmallButton("ImGui")) ShellExecuteA(NULL, "open", "https://github.com/ocornut/imgui", NULL, NULL, SW_SHOWNORMAL);
+				ImGui::Bullet(); if (ImGui::SmallButton("Assimp")) ShellExecuteA(NULL, "open", "http://assimp.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+				ImGui::Bullet(); if (ImGui::SmallButton("DevIL")) ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
+				ImGui::Bullet(); if (ImGui::SmallButton("MathGeoLIB")) ShellExecuteA(NULL, "open", "http://clb.demon.fi/MathGeoLib/nightly/", NULL, NULL, SW_SHOWNORMAL);
 
 
-		ImGui::Separator();
-		ImGui::BeginDockspace();
 
-		App->Options();
-		Assets();
-		std::list<Module*>::iterator item = App->list_modules.begin();
-		while (item != App->list_modules.end()) {
-			(*item)->Options();
-			item++;
+			}
+			ImGui::End();
 		}
+			ImVec2 display_size = ImGui::GetIO().DisplaySize;
+			ImGui::SetNextWindowSize(display_size);
+			ImGui::SetNextWindowPos(ImVec2(0, 20));
+			ImGui::Begin("PanelEditor", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
+				ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
 
-		static bool show_app_console = true;
-		ShowConsole(&show_app_console);
-		ImGui::EndDockspace();
-		ImGui::End();
-	
-	
+
+			ImGui::Separator();
+			ImGui::BeginDockspace();
+
+			App->Options();
+			Assets();
+			std::list<Module*>::iterator item = App->list_modules.begin();
+			while (item != App->list_modules.end()) {
+				(*item)->Options();
+				item++;
+			}
+
+			static bool show_app_console = true;
+			ShowConsole(&show_app_console);
+			ImGui::EndDockspace();
+			ImGui::End();
 
 
-		//ImGui::Render();
-		return UPDATE_CONTINUE;
+		
+
+			//ImGui::Render();
+			return UPDATE_CONTINUE;
 	
 }
 
