@@ -38,8 +38,11 @@ update_status ModuleWorld::PreUpdate(float dt)
 		
 		std::string path = App->input->dropped_filedir;
 		std::string temp;
+
+		std::transform(path.begin(), path.end(), path.begin(), ::tolower);
 		temp = path.substr(path.length()-3, 3);
-		
+
+
 		if (!strcmp((char*)temp.c_str(), "fbx"))
 			App->gui->path_list->push_back(path);
 			//ImportMesh(App->input->dropped_filedir);

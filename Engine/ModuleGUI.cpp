@@ -300,14 +300,14 @@ void ModuleGUI::Assets()
 
 			if (!strcmp((char*)temp.c_str(), "fbx")) {
 				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
-					App->world->ImportMesh(App->input->dropped_filedir);
+					App->world->ImportMesh((char*)path.c_str());
 			}
 				
 			//ImportMesh(App->input->dropped_filedir);
 			else if (!strcmp((char*)temp.c_str(), "png"))
 			{
 				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
-					App->renderer3D->loadTextureFromFile(App->input->dropped_filedir, &App->renderer3D->tex);
+					App->renderer3D->loadTextureFromFile((char*)path.c_str(), &App->renderer3D->tex);
 			}
 				
 			//
