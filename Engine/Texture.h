@@ -24,10 +24,11 @@ public:
 	GLuint GetTexture() const;
 	GLuint GetFBO() const;
 private:
+
 	void Destroy();
 
 private:
-	GLuint fbo;
+	GLuint texture_id;
 	GLuint color_texture;
 	GLuint depth_texture;
 	int width;

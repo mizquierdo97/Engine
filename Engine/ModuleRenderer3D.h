@@ -51,18 +51,8 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	//TESTING MATHGEO
-	Sphere* test_sphere1;
-	Sphere* test_sphere2;
-
-	
-	//
-
-
-
 	bool render_fill = false;
 	bool render_wireframe = true;
-
 	
 	uint mTextureID = 0;
 

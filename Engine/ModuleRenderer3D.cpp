@@ -23,17 +23,6 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	
-	
-
-	//MATHGEO TEST
-	vec temp_vec = { 1,0,0 };
-	test_sphere1 = new Sphere(temp_vec, 1);
-	temp_vec = { -1,0,0 };
-	test_sphere2 = new Sphere(temp_vec, 1);
-
-	
-	
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -220,9 +209,7 @@ bool ModuleRenderer3D::Options()
 	if (ImGui::BeginDock("Renderer", false, false, false,
 			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
 		ImGuiWindowFlags_ShowBorders)) {
-	
-		
-		//Checkboxs
+
 	
 		static bool depth = glIsEnabled(GL_DEPTH_TEST);
 		static bool cull =  glIsEnabled(GL_CULL_FACE);
@@ -307,13 +294,17 @@ void ModuleRenderer3D::Render(Object* obj)
 	
 		}
 	else {
-
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-		glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		if (obj->render_object) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		else {
+			glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+		}
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
+			glVertexPointer(3, GL_FLOAT, 0, NULL);
+			glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs);
+		
 	}
 	glDisable(GL_TEXTURE_2D);
 }

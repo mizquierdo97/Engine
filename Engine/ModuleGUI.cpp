@@ -1,17 +1,11 @@
 
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleGUI.h"]
-
-
-
-
+#include "ModuleGUI.h"
 #include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl_gl3.h"
 #include "imgui_dock.h"
 #include "SDL\include\SDL_opengl.h"
-
-
 
 
 struct ExampleAppConsole;
@@ -114,24 +108,9 @@ update_status ModuleGUI::PreUpdate(float dt)
 
 update_status ModuleGUI::Update(float dt)
 {
-
-		static float vec4f_1[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
-		static float vec4f_2[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
-		bool b_col = false;
 		static bool show_about = false;
-		App->renderer3D->test_sphere1->pos.x = vec4f_1[0];
-		App->renderer3D->test_sphere2->pos.x = vec4f_2[0];
-		if (App->renderer3D->test_sphere1->Intersects(*App->renderer3D->test_sphere2)) {
-			b_col = true;
-		}
-		//
-
-		//ImGui_ImplSdlGL2_NewFrame(App->window->window);
-		//ImGui_ImplSdlGL2_NewFrame(App->window->window);
+		
 		ImGuiIO& io = ImGui::GetIO();
-
-
-
 
 		if (ImGui::BeginMainMenuBar())
 		{
@@ -155,13 +134,8 @@ update_status ModuleGUI::Update(float dt)
 			if (ImGui::BeginMenu("Window"))
 			{
 				if (ImGui::MenuItem("Hardware")) { show_hardware = !show_hardware; }
-
-				
-
 				ImGui::EndMenu();
 			}
-
-			
 
 			if (ImGui::BeginMenu("Help"))
 			{
@@ -176,18 +150,12 @@ update_status ModuleGUI::Update(float dt)
 
 				if (ImGui::MenuItem("Report a bug"))
 					ShellExecuteA(NULL, "open", "https://github.com/mizquierdo97/Engine/issues", NULL, NULL, SW_SHOWNORMAL);
-
-			
+		
 				if (ImGui::MenuItem("About"))show_about = !show_about;
-					
-				
-
 
 				ImGui::EndMenu();
 			}
-
 			ImGui::EndMainMenuBar();
-
 		}
 
 		if (show_example_menu) { ImGui::ShowTestWindow();}
@@ -240,12 +208,8 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::SameLine();
 
 			ImGui::Text("Developer's Image Library (DevIL): version "); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "1.7.8");
-
-			
-
 			ImGui::End();
 		}
-
 
 		if (show_menu)
 		{
@@ -270,22 +234,10 @@ update_status ModuleGUI::Update(float dt)
 				}
 				ImGui::SameLine(150);  ImGui::Text("%.2f", rand_2);
 			}
-			if (ImGui::CollapsingHeader("GeoMath"))
-			{
-				ImGui::SliderFloat("First Sphere X", vec4f_1, -2.0f, 2.0f);
-				ImGui::SliderFloat("Second Sphere X", vec4f_2, -2.0f, 2.0f);
-				ImGui::Checkbox("Colision?", &b_col);
-
-			}
-
-
-		
-
-			ImGui::End();
+				ImGui::End();
 		}
 		if (show_about)
 		{
-
 			ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
 			ImGui::SetNextWindowSize(ImVec2(550, 680));
 			if (ImGui::Begin("About", &show_about, window_flags)) {
@@ -300,9 +252,6 @@ update_status ModuleGUI::Update(float dt)
 				ImGui::Bullet(); if (ImGui::SmallButton("Assimp")) ShellExecuteA(NULL, "open", "http://assimp.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
 				ImGui::Bullet(); if (ImGui::SmallButton("DevIL")) ShellExecuteA(NULL, "open", "http://openil.sourceforge.net/", NULL, NULL, SW_SHOWNORMAL);
 				ImGui::Bullet(); if (ImGui::SmallButton("MathGeoLIB")) ShellExecuteA(NULL, "open", "http://clb.demon.fi/MathGeoLib/nightly/", NULL, NULL, SW_SHOWNORMAL);
-
-
-
 			}
 			ImGui::End();
 		}
@@ -312,8 +261,7 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::Begin("PanelEditor", NULL, ImVec2(0, 0), 1.0f, ImGuiWindowFlags_NoMove |
 				ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize |
 				ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
-
-
+			
 			ImGui::Separator();
 			ImGui::BeginDockspace();
 
@@ -330,10 +278,6 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::EndDockspace();
 			ImGui::End();
 
-
-		
-
-			//ImGui::Render();
 			return UPDATE_CONTINUE;
 	
 }
@@ -351,19 +295,16 @@ bool ModuleGUI::CleanUp()
 }
 
 
-
-
-
 void ModuleGUI::Assets()
 {
-	if (ImGui::BeginDock("Assets", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
+	if (ImGui::BeginDock("Assets", false, false, ImGuiWindowFlags_HorizontalScrollbar)) {
 		ImTextureID tex_id = App->renderer3D->tex;
 		std::list<std::string>::iterator item = path_list->begin();
 		int i = 0;
 		while(item != path_list->end())
 		{
 			ImGui::PushID(i);
-			int frame_padding =1;     // -1 = uses default padding
+			int frame_padding =1;   
 
 			std::string path =(*item);
 			std::string temp;
@@ -374,16 +315,13 @@ void ModuleGUI::Assets()
 					App->world->ImportMesh((char*)path.c_str());
 			}
 				
-			//ImportMesh(App->input->dropped_filedir);
+		
 			else if (!strcmp((char*)temp.c_str(), "png"))
 			{
 				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
 					App->renderer3D->loadTextureFromFile((char*)path.c_str(), &App->renderer3D->tex);
 			}
-				
-			//
 			
-				
 			ImGui::PopID();
 			ImGui::SameLine();
 			i++; item++;

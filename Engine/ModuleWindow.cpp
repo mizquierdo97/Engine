@@ -198,7 +198,6 @@ bool ModuleWindow::Options()
 				}
 			}
 			
-
 		
 		//---------------------
 		static char name[64] = "";

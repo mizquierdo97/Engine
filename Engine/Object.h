@@ -27,4 +27,6 @@ public:
 	Texture* obj_text = nullptr;
 	objectType obj_type = objectType::null;
 	int obj_id = 0;
+	bool render_object = true;
+	bool is_mesh = true;
 };

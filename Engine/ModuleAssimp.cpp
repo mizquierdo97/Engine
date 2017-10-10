@@ -11,16 +11,12 @@ ModuleAssimp::~ModuleAssimp()
 }
 
 bool ModuleAssimp::Init()
-{
-
-	
+{	
 	return true;
 }
 
 bool ModuleAssimp::Start()
 {
-	
-	
 	return true;
 }
 
@@ -53,6 +49,7 @@ void ModuleAssimp::ImportMesh(char * path)
 {
 	LOG("Start Exporting");
 
+	//CLEAN LAST OBJ VECTOR
 	std::vector<Object*>::iterator it = App->world->obj_vector.begin();
 	while (it != App->world->obj_vector.end()) {
 		delete (*it)->obj_mesh.vertexs;
@@ -62,15 +59,12 @@ void ModuleAssimp::ImportMesh(char * path)
 		delete (*it);
 		it++;
 	}
-
 	App->world->obj_vector.clear();
 	
+
 	const aiScene* scene;
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
-	
-
-
-	
+		
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		for (int i = 0; i < scene->mNumMeshes; i++) {
@@ -128,9 +122,6 @@ void ModuleAssimp::ImportMesh(char * path)
 				m.translation.Set(translation.x, translation.y, translation.z);
 				m.scale.Set(scaling.x, scaling.y, scaling.z);
 				m.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
-				
-			
-
 			}
 
 			if (new_mesh->HasTextureCoords(0)) {
@@ -142,9 +133,7 @@ void ModuleAssimp::ImportMesh(char * path)
 					m.texture_coords[k * 2 + 1] = new_mesh->mTextureCoords[0][k].y;
 
 				}
-				//m.texture_coords = new float[m.num_vertexs * 3];
-				//memcpy(m.texture_coords, new_mesh->mTextureCoords[0], sizeof(float) * m.num_vertexs * 3);
-
+			
 				glGenBuffers(1, (GLuint*) &(m.id_textures));
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 2, &m.texture_coords[0], GL_STATIC_DRAW);
@@ -179,13 +168,7 @@ void ModuleAssimp::ImportMesh(char * path)
 			
 			App->world->obj_vector.push_back(temp_obj);
 		}
-		
+			//RELEASE SCENE
 			aiReleaseImport(scene);
-		
 	}
-
-	
-	
-
-
 }

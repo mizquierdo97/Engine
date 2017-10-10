@@ -4,7 +4,7 @@
 
 Texture::Texture()
 {
-	fbo = 0;
+	texture_id = 0;
 	color_texture = 0;
 	depth_texture = 0;
 	width = 0;
@@ -20,10 +20,8 @@ bool Texture::Create(GLuint* pixels, uint width, uint height)
 {
 	
 	//Creates Framebuffer Object
-	glGenFramebuffers(1, &fbo);
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-
-
+	glGenFramebuffers(1, &texture_id);
+	glBindFramebuffer(GL_FRAMEBUFFER, texture_id);
 
 	//Creates Color texture
 	glGenTextures(1, &color_texture);
@@ -77,7 +75,7 @@ void Texture::Resize(uint new_width, uint new_height)
 
 void Texture::Bind()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	glBindFramebuffer(GL_FRAMEBUFFER, texture_id);
 	glViewport(0, 0, width, height);
 }
 
@@ -89,7 +87,7 @@ void Texture::Unbind()
 
 void Texture::Destroy()
 {
-	glDeleteFramebuffers(1, &fbo);
+	glDeleteFramebuffers(1, &texture_id);
 	glDeleteTextures(1, &color_texture);
 	glDeleteTextures(1, &depth_texture);
 }
@@ -107,7 +105,7 @@ void Texture::Draw()
 
 uint Texture::GetFBO() const
 {
- 	return fbo;
+ 	return texture_id;
 }
 
 uint Texture::GetTexture() const
