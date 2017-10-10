@@ -68,7 +68,8 @@ void ModuleAssimp::ImportMesh(char * path)
 	const aiScene* scene;
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	
-	
+
+
 	
 	if (scene != nullptr && scene->HasMeshes())
 	{
@@ -151,8 +152,12 @@ void ModuleAssimp::ImportMesh(char * path)
 				}
 			}
 			
+			AABB* temp = new AABB();
+			temp->SetFrom((vec*)new_mesh->mVertices,m.num_vertexs);
+			m.bounding_box = *temp;
 			
-			Object* temp_obj = new Object;
+			CreateAABB(*temp);
+			Object* temp_obj = new Object();
 			temp_obj->obj_mesh = m;
 			temp_obj->obj_id = App->world->obj_vector.size();
 			

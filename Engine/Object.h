@@ -7,10 +7,12 @@ enum objectType {
 	cube,
 	sphere,
 	cylinder,
+	aabb,
 };
 
 Mesh CreateCube();
 Mesh CreateCylinder();
+void CreateAABB(AABB);
 int CreateObject(objectType type);
 
 class Object {

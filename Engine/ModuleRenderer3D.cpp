@@ -293,7 +293,7 @@ bool ModuleRenderer3D::Options()
 void ModuleRenderer3D::Render(Object* obj)
 {
 	Mesh m = obj->obj_mesh;
-	if (m.id_vertexs != NULL) {
+	if (m.id_indices != NULL) {
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -326,6 +326,15 @@ void ModuleRenderer3D::Render(Object* obj)
 
 	
 		}
+	else {
+
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs * 3);
+	}
 	glDisable(GL_TEXTURE_2D);
 }
 

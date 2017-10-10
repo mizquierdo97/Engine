@@ -29,6 +29,8 @@ struct Mesh {
 
 	uint id_textures = 0;
 	float* texture_coords = nullptr;
+
+	AABB bounding_box;
 };
 
 
