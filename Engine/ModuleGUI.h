@@ -50,7 +50,7 @@ public:
 		float rand_2 = 0;
 		LCG random_num_i;
 		LCG random_num_f;
-
+		SDL_version sdl_vers;
 		
 		Texture* png_tex;
 		Texture* fbx_tex;

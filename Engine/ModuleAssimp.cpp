@@ -77,7 +77,7 @@ void ModuleAssimp::ImportMesh(char * path)
 
 			aiMesh* new_mesh = scene->mMeshes[i];
 
-			Mesh m;;
+			Mesh m;
 			m.num_vertexs = new_mesh->mNumVertices;
 			m.vertexs = new float[m.num_vertexs * 3];
 			memcpy(m.vertexs, new_mesh->mVertices, sizeof(float) * m.num_vertexs * 3);
@@ -119,7 +119,20 @@ void ModuleAssimp::ImportMesh(char * path)
 
 			}
 
+			aiVector3D translation;
+			aiVector3D scaling;
+			aiQuaternion rotation;
+
+			for (int i = 0; i < scene->mRootNode->mNumChildren; i++) {
+				scene->mRootNode->mChildren[i]->mTransformation.Decompose(scaling, rotation, translation);
+				m.translation.Set(translation.x, translation.y, translation.z);
+				m.scale.Set(scaling.x, scaling.y, scaling.z);
+				m.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+				
 			
+
+			}
+
 			if (new_mesh->HasTextureCoords(0)) {
 
 				m.texture_coords = new float[m.num_vertexs * 2];

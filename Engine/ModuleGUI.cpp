@@ -156,6 +156,8 @@ update_status ModuleGUI::Update(float dt)
 			{
 				if (ImGui::MenuItem("Hardware")) { show_hardware = !show_hardware; }
 
+				
+
 				ImGui::EndMenu();
 			}
 
@@ -187,12 +189,66 @@ update_status ModuleGUI::Update(float dt)
 
 		if (show_example_menu) { ImGui::ShowTestWindow();}
 		
+		if (show_hardware)
+		{
+	
+			ImGui::SetNextWindowSize(ImVec2(350, 300), ImGuiCond_FirstUseEver);
+			ImGui::Begin("Hardware", &show_hardware);
+
+			int major = 0, minor = 0;
+			glGetIntegerv(GL_MAJOR_VERSION, &major);
+			glGetIntegerv(GL_MAJOR_VERSION, &minor);
+			ImGui::Text("OpenGL Version:");
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
+			ImGui::Text("GPU Vendor:");
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
+			ImGui::Text("Model:");
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
+			ImGui::Text("Total VRAM:");
+			GLint total_mem_kb = 0;
+			glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
+				&total_mem_kb);
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", total_mem_kb / 1024);
+
+			ImGui::Text("Free VRAM:");
+			GLint cur_avail_mem_kb = 0;
+			glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
+				&cur_avail_mem_kb);
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
+			Det_Cache = SDL_GetCPUCacheLineSize();
+			ImGui::Text("Cache:");
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", Det_Cache);
+
+			Det_CPU = SDL_GetCPUCount();
+			ImGui::Text("Number of CPU:");
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", Det_CPU);
+
+			Det_RAM = SDL_GetSystemRAM();
+			ImGui::Text("RAM Memory:");
+			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i Gb", Det_RAM);
+
+			SDL_GetVersion(&sdl_vers);
+			ImGui::Text("SDL Version:");
+			ImGui::Text("Patch:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.patch);
+			ImGui::SameLine();
+			ImGui::Text("Major:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.major);
+			ImGui::SameLine();
+			ImGui::Text("Minor:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.minor);
+			ImGui::SameLine();
+
+			ImGui::Text("Developer's Image Library (DevIL): version "); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "1.7.8");
+
+			
+
+			ImGui::End();
+		}
+
 
 		if (show_menu)
 		{
 			ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
 			ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
-			ImGui::Begin("Menu", (bool*)true, window_flags);
+			ImGui::Begin("Menu", &show_menu, window_flags);
 
 			ImGui::Text("Menu bar for Engines");
 			if (ImGui::CollapsingHeader("Random"))
@@ -220,17 +276,7 @@ update_status ModuleGUI::Update(float dt)
 			}
 
 
-			if (ImGui::CollapsingHeader("Hardware"))
-			{
-				Det_Cache = SDL_GetCPUCacheLineSize();
-				ImGui::Text("Cache: %i", Det_Cache);
-
-				Det_CPU = SDL_GetCPUCount();
-				ImGui::Text("CPU: %i", Det_CPU);
-
-				Det_RAM = SDL_GetSystemRAM();
-				ImGui::Text("RAM: %i Gb", Det_RAM);
-			}
+		
 
 			ImGui::End();
 		}

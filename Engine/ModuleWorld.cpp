@@ -116,5 +116,46 @@ bool ModuleWorld::Options()
 	}
 	//App->renderer3D->OnResize();
 	ImGui::EndDock();
+
+	if (ImGui::BeginDock("Configuration", false, false, false,
+		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
+		ImGuiWindowFlags_ShowBorders)) {
+
+
+		for (int i = 0;i < obj_vector.size(); i++)
+		{
+			ImGui::Separator();
+
+				ImGui::Text("Mesh %i", i + 1);
+				float3 t_temp = obj_vector[i]->obj_mesh.translation;
+
+				ImGui::Text("Translation");
+				 ImGui::Text(" X : %f", t_temp.x);
+				 ImGui::SameLine();  ImGui::Text("Y : %f", t_temp.y);
+				 ImGui::SameLine();  ImGui::Text("Z : %f", t_temp.z);
+
+
+				math::Quat q_temp = obj_vector[i]->obj_mesh.rotation;
+				float3 eul_ang = q_temp.ToEulerXYZ();
+				
+				ImGui::Text("Rotation");
+					
+				ImGui::Text("X : %f", eul_ang.x);
+				ImGui::SameLine();  ImGui::Text("Y : %f", eul_ang.y);
+				ImGui::SameLine();  ImGui::Text("Z : %f", eul_ang.z);
+
+				float3 s_temp = obj_vector[i]->obj_mesh.scale;
+				
+				ImGui::Text("Scale");
+				ImGui::Text("X : %f", s_temp.x);
+				ImGui::SameLine();  ImGui::Text("Y : %f", s_temp.y);
+				ImGui::SameLine();  ImGui::Text("Z : %f", s_temp.z);
+		
+			}
+		
+		
+	}
+	
+	ImGui::EndDock();
 	return true;
 }

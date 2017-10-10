@@ -221,26 +221,7 @@ bool ModuleRenderer3D::Options()
 			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
 		ImGuiWindowFlags_ShowBorders)) {
 	
-		int major=0, minor = 0;
-		glGetIntegerv(GL_MAJOR_VERSION, &major);
-		glGetIntegerv(GL_MAJOR_VERSION, &minor);
-		ImGui::Text("OpenGL Version:");
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
-		ImGui::Text("GPU Vendor:");
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
-		ImGui::Text("Model:");
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
-		ImGui::Text("Total VRAM:");
-		GLint total_mem_kb = 0;
-		glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
-			&total_mem_kb);
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB",total_mem_kb/1024);
-
-		ImGui::Text("Free VRAM:");
-		GLint cur_avail_mem_kb = 0;
-		glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
-			&cur_avail_mem_kb);
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
+		
 		//Checkboxs
 	
 		static bool depth = glIsEnabled(GL_DEPTH_TEST);
@@ -252,13 +233,13 @@ bool ModuleRenderer3D::Options()
 			if (depth)glEnable(GL_DEPTH_TEST);
 			else glDisable(GL_DEPTH_TEST);
 		}
-		ImGui::SameLine();
+
 		if(ImGui::Checkbox("Cull Face", &cull))
 		{
 			if (cull)glEnable(GL_CULL_FACE);
 			else glDisable(GL_CULL_FACE);
 		};
-		ImGui::SameLine();
+		
 		if(ImGui::Checkbox("Lighting", &light))
 		{
 			if (light)glEnable(GL_LIGHTING);
@@ -270,7 +251,7 @@ bool ModuleRenderer3D::Options()
 			if (color_material)glEnable(GL_COLOR_MATERIAL);
 			else glDisable(GL_COLOR_MATERIAL);
 		};
-		ImGui::SameLine();
+	
 		if (ImGui::Checkbox("Texture", &texture))
 		{
 			if (texture)glEnable(GL_TEXTURE);
@@ -279,7 +260,6 @@ bool ModuleRenderer3D::Options()
 
 		if (ImGui::Checkbox("Shaded", &render_fill));
 		
-			ImGui::SameLine();
 		if (ImGui::Checkbox("Wireframe", &render_wireframe));
 		if (ImGui::Checkbox("Normals", &App->gui->show_normals));
 		
