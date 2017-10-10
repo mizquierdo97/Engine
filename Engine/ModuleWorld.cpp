@@ -72,7 +72,7 @@ update_status ModuleWorld::PostUpdate(float dt)
 		while (temp != obj_vector.end()) {
 
 			App->renderer3D->Render((*temp));
-			if ((*temp)->obj_mesh.norms != nullptr)
+			if ((*temp)->obj_mesh.norms != nullptr && App->gui->show_normals)
 				App->physics->DrawNormals((*temp));
 			temp++;
 		}

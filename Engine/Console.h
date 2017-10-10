@@ -56,49 +56,47 @@ struct ExampleAppConsole
 		ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - console_width, SCREEN_HEIGHT - console_height), ImGuiCond_FirstUseEver);
 		if (ImGui::BeginDock("Console", false, false, false,
 			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
-			ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_ShowBorders))
-		{
-			ImGui::EndDock();
-			return;
-		}
-
-		ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()), false, ImGuiWindowFlags_HorizontalScrollbar);
-
-		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
-		static ImGuiTextFilter filter;
-
-		ImGui::PopStyleVar();
-		ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()), false, ImGuiWindowFlags_HorizontalScrollbar);
-		if (ImGui::BeginPopupContextWindow())
+			 ImGuiWindowFlags_ShowBorders))
 		{
 
-			ImGui::EndPopup();
+
+			ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()), false, ImGuiWindowFlags_HorizontalScrollbar);
+
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
+			static ImGuiTextFilter filter;
+
+			ImGui::PopStyleVar();
+			ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()), false, ImGuiWindowFlags_HorizontalScrollbar);
+			if (ImGui::BeginPopupContextWindow())
+			{
+
+				ImGui::EndPopup();
+			}
+			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1)); // Tighten spacing
+
+			for (int i = 0; i < Items.Size; i++)
+			{
+				const char* item = Items[i];
+				if (!filter.PassFilter(item))
+					continue;
+				ImVec4 col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // A better implementation may store a type per-item. For the sample let's just parse the text.
+				if (strstr(item, "[error]")) col = ImColor(1.0f, 0.4f, 0.4f, 1.0f);
+				else if (strncmp(item, "# ", 2) == 0) col = ImColor(1.0f, 0.78f, 0.58f, 1.0f);
+				ImGui::PushStyleColor(ImGuiCol_Text, col);
+				ImGui::TextUnformatted(item);
+				ImGui::PopStyleColor();
+			}
+
+			if (ScrollToBottom)
+				ImGui::SetScrollHere();
+			ScrollToBottom = false;
+			ImGui::PopStyleVar();
+			ImGui::EndChild();
+			ImGui::EndChild();
+			ImGui::Separator();
+
+			// Command-line
 		}
-		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1)); // Tighten spacing
-
-		for (int i = 0; i < Items.Size; i++)
-		{
-			const char* item = Items[i];
-			if (!filter.PassFilter(item))
-				continue;
-			ImVec4 col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // A better implementation may store a type per-item. For the sample let's just parse the text.
-			if (strstr(item, "[error]")) col = ImColor(1.0f, 0.4f, 0.4f, 1.0f);
-			else if (strncmp(item, "# ", 2) == 0) col = ImColor(1.0f, 0.78f, 0.58f, 1.0f);
-			ImGui::PushStyleColor(ImGuiCol_Text, col);
-			ImGui::TextUnformatted(item);
-			ImGui::PopStyleColor();
-		}
-
-		if (ScrollToBottom)
-			ImGui::SetScrollHere();
-		ScrollToBottom = false;
-		ImGui::PopStyleVar();
-		ImGui::EndChild();
-		ImGui::EndChild();
-		ImGui::Separator();
-
-		// Command-line
-
 		ImGui::EndDock();
 	}
 

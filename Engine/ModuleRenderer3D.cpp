@@ -281,6 +281,7 @@ bool ModuleRenderer3D::Options()
 		
 			ImGui::SameLine();
 		if (ImGui::Checkbox("Wireframe", &render_wireframe));
+		if (ImGui::Checkbox("Normals", &App->gui->show_normals));
 		
 		ImGui::EndDock();
 
