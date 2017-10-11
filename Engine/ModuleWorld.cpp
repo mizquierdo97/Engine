@@ -143,26 +143,31 @@ bool ModuleWorld::Options()
 				float3 t_temp = (*item)->obj_mesh.translation;
 
 				ImGui::Text("Translation");
-				ImGui::Text(" X : %f", t_temp.x);
-				ImGui::SameLine();  ImGui::Text("Y : %f", t_temp.y);
-				ImGui::SameLine();  ImGui::Text("Z : %f", t_temp.z);
-
+				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.x); ImGui::SameLine();
+				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.y); ImGui::SameLine();
+				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.z); 
 
 				math::Quat q_temp = (*item)->obj_mesh.rotation;
 				float3 eul_ang = q_temp.ToEulerXYZ();
 
 				ImGui::Text("Rotation");
 
-				ImGui::Text("X : %f", eul_ang.x);
-				ImGui::SameLine();  ImGui::Text("Y : %f", eul_ang.y);
-				ImGui::SameLine();  ImGui::Text("Z : %f", eul_ang.z);
+				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.x); ImGui::SameLine();
+				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.y); ImGui::SameLine();
+				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.z); 
 
 				float3 s_temp = (*item)->obj_mesh.scale;
 
 				ImGui::Text("Scale");
-				ImGui::Text("X : %f", s_temp.x);
-				ImGui::SameLine();  ImGui::Text("Y : %f", s_temp.y);
-				ImGui::SameLine();  ImGui::Text("Z : %f", s_temp.z);
+				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.x); ImGui::SameLine();
+				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.y); ImGui::SameLine();
+				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.z); 
+				
+
+				ImGui::Text("Tris:"); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", (*item)->obj_mesh.num_vertexs/3); 
+				ImGui::SameLine();
+				ImGui::Text("Vertexs:"); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", (*item)->obj_mesh.num_vertexs); 
+
 				num++;
 			}
 			item++;
