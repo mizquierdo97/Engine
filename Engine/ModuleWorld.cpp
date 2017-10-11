@@ -74,7 +74,7 @@ void ModuleWorld::FileDropped()
 	if (!strcmp((char*)temp.c_str(), "fbx"))
 		App->gui->path_list->push_back(path);
 
-	else if (!strcmp((char*)temp.c_str(), "png"))
+	else if (!strcmp((char*)temp.c_str(), "png") || !strcmp((char*)temp.c_str(), "jpg"))
 		App->gui->path_list->push_back(path);
 
 	App->input->file_dropped = false;
@@ -129,7 +129,7 @@ bool ModuleWorld::Options()
 	ImGui::EndDock();
 
 	if (ImGui::BeginDock("Configuration", false, false, false,
-		ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
+		
 		ImGuiWindowFlags_ShowBorders)) {
 
 		std::vector<Object*>::iterator item = obj_vector.begin();
@@ -164,9 +164,9 @@ bool ModuleWorld::Options()
 				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.z); 
 				
 
-				ImGui::Text("Tris:"); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", (*item)->obj_mesh.num_vertexs/3); 
+				ImGui::Text("Tris:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", (*item)->obj_mesh.num_vertexs/3);
 				ImGui::SameLine();
-				ImGui::Text("Vertexs:"); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", (*item)->obj_mesh.num_vertexs); 
+				ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", (*item)->obj_mesh.num_vertexs);
 
 				num++;
 			}

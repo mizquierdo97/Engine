@@ -237,7 +237,7 @@ update_status ModuleCamera3D::Update(float dt)
 	gluPerspective(angle,                  //The camera angle
 		(double)w / (double)h, //The width-to-height ratio
 		.1,                   //The near z clipping coordinate
-		600.0);                //The far z clipping coordinate
+		10000.0);                //The far z clipping coordinate
 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;

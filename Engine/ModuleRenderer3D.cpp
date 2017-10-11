@@ -87,6 +87,12 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
 		
+
+		texture = true;
+		render_fill = true;
+		render_wireframe = false;
+
+
 		GLfloat LightModelAmbient[] = {0.5f, 0.5f, 0.5f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		
@@ -105,6 +111,8 @@ bool ModuleRenderer3D::Init()
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 		
 		lights[0].Active(true);
+
+
 		
 	}
 	if (ret) {
@@ -215,7 +223,7 @@ bool ModuleRenderer3D::Options()
 		static bool cull =  glIsEnabled(GL_CULL_FACE);
 		static bool light = glIsEnabled(GL_LIGHTING);
 		static bool color_material = glIsEnabled(GL_COLOR_MATERIAL);		
-		static bool texture = glIsEnabled(GL_TEXTURE);
+		
 		if (ImGui::Checkbox("Depth Test", &depth)) {
 			if (depth)glEnable(GL_DEPTH_TEST);
 			else glDisable(GL_DEPTH_TEST);
@@ -239,11 +247,8 @@ bool ModuleRenderer3D::Options()
 			else glDisable(GL_COLOR_MATERIAL);
 		};
 	
-		if (ImGui::Checkbox("Texture", &texture))
-		{
-			if (texture)glEnable(GL_TEXTURE);
-			else glDisable(GL_TEXTURE);
-		};
+		if (ImGui::Checkbox("Texture", &texture));
+		
 
 		if (ImGui::Checkbox("Shaded", &render_fill));
 		
@@ -278,6 +283,7 @@ void ModuleRenderer3D::Render(Object* obj)
 		}
 
 		if (m.id_textures != NULL) {
+			if(texture)
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glBindTexture(GL_TEXTURE_2D,App->renderer3D->tex->GetTexture());
@@ -311,11 +317,11 @@ void ModuleRenderer3D::Render(Object* obj)
 
 
 
-bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture)
+bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool is_texture)
 {
 	//Texture loading success
 	bool textureLoaded = false;
-
+	LOG("Loading Texture: %s", path);
 	//Generate and set current image ID
 	uint imgID = 0;
 	ilGenImages(1, &imgID);
@@ -326,7 +332,7 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture)
 
 	ILinfo ImageInfo;
 	iluGetImageInfo(&ImageInfo);
-	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT && is_texture)
 	{
 		iluFlipImage();
 	}
@@ -335,11 +341,13 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture)
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
+		LOG("Image loaded succesfully");
 		//Convert image to RGBA
 		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 
 		if (success == IL_TRUE)
 		{
+			LOG("Image converted to RGBA");
 			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), texture);
 			//Create texture from file pixels
 			textureLoaded = true;
@@ -362,12 +370,15 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
 {
 
 	
-	if (tex != nullptr)
-	delete tex;
+	if (tex != nullptr) {
+		LOG("Deleted Last Texture");
+		delete tex;
+	}
+
 	
 	texture[0] = new Texture();
 	
 	texture[0]->Create(pixels, width, height);
-	
+	LOG("Texture Created");
     return true;
 }

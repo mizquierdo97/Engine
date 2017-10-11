@@ -47,10 +47,12 @@ bool ModuleAssimp::CleanUp()
 
 void ModuleAssimp::ImportMesh(char * path)
 {
-	LOG("Start Exporting");
+	
 
 	//CLEAN LAST OBJ VECTOR
 	std::vector<Object*>::iterator it = App->world->obj_vector.begin();
+	if(App->world->obj_vector.size())
+		LOG("Cleaning Last FBX mesh")
 	while (it != App->world->obj_vector.end()) {
 		delete (*it)->obj_mesh.vertexs;
 		delete (*it)->obj_mesh.indices;
@@ -61,6 +63,8 @@ void ModuleAssimp::ImportMesh(char * path)
 	}
 	App->world->obj_vector.clear();
 	
+
+	LOG("Start Exporting");
 
 	const aiScene* scene;
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
@@ -100,6 +104,9 @@ void ModuleAssimp::ImportMesh(char * path)
 				glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *m.num_indices, m.indices, GL_STATIC_DRAW);
 				LOG("Faces buffer created sucessfully");
 			}
+			else {
+				LOG("This mesh dont have indices buffer");
+			}
 
 			if (new_mesh->HasNormals()) {
 				m.num_norms = new_mesh->mNumVertices;
@@ -111,6 +118,9 @@ void ModuleAssimp::ImportMesh(char * path)
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_norms * 3, m.norms, GL_STATIC_DRAW);
 				LOG("Normals buffer created sucessfully");
 
+			}
+			else {
+				LOG("This mesh dont have normal buffer");
 			}
 
 			aiVector3D translation;
@@ -137,12 +147,17 @@ void ModuleAssimp::ImportMesh(char * path)
 				glGenBuffers(1, (GLuint*) &(m.id_textures));
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 2, &m.texture_coords[0], GL_STATIC_DRAW);
-				LOG("Texture coords. buffer created sucessfully");
+				LOG("Texture coords: buffer created sucessfully");
+			}
+			else {
+				LOG("This mesh dont have texture coords buffer");
 			}
 
 			if (scene->HasMaterials()) {
+				
 				if (scene->mMaterials[0]->GetTextureCount(aiTextureType_DIFFUSE) > 0)
 				{
+					
 					aiString temp;
 					scene->mMaterials[0]->GetTexture(aiTextureType_DIFFUSE, 0, &temp);
 					const char* tex_path = temp.C_Str();
@@ -155,6 +170,12 @@ void ModuleAssimp::ImportMesh(char * path)
 					//App->gui->path_list->push_back(final_path);
 					App->renderer3D->loadTextureFromFile((char*)final_path.c_str(),&App->renderer3D->tex);
 				}
+				else {
+					LOG("Cant load FBX Texture");
+				}
+			}
+			else {
+				LOG("FBX dont have an associated Texture");
 			}
 			
 			AABB* temp = new AABB();
@@ -170,5 +191,8 @@ void ModuleAssimp::ImportMesh(char * path)
 		}
 			//RELEASE SCENE
 			aiReleaseImport(scene);
+	}
+	else {
+		LOG("Can't open the file: %s", path);
 	}
 }
