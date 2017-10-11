@@ -1167,7 +1167,7 @@ namespace ImGui {
 				}
 				data.CloseSection();
 			}
-			data.SaveAsBinary("Dock_Config");
+			data.SaveAsXML("Dock_Config.xml");
 		}
 
 
@@ -1183,7 +1183,7 @@ namespace ImGui {
 			m_docks.clear();
 
 			Data data;
-			if (data.LoadBinary("Dock_Config")) {
+			if (data.LoadXML("Dock_Config.xml")) {
 				int docksCount = data.GetInt("Docks_Count");
 				for (int i = 0; i < docksCount; i++) {
 					Dock *new_dock = (Dock *)MemAlloc(sizeof(Dock));
