@@ -1141,7 +1141,7 @@ namespace ImGui {
 		{
 			Data data;
 			data.AddInt("Docks_Count", m_docks.size());
-
+			
 			for (int i = 0; i < m_docks.size(); ++i) {
 				Dock& dock = *m_docks[i];
 				data.CreateSection("Dock_" + std::to_string(i));
@@ -1175,26 +1175,43 @@ namespace ImGui {
 		
 		void load()
 		{
+
+		
+
 			for (int i = 0; i < m_docks.size(); ++i)
 			{
 				m_docks[i]->~Dock();
-				MemFree(m_docks[i]);
+				//MemFree(m_docks[i]);
+				delete m_docks[i];
 			}
 			m_docks.clear();
 
 			Data data;
 			if (data.LoadXML("Dock_Config.xml")) {
 				int docksCount = data.GetInt("Docks_Count");
-				for (int i = 0; i < docksCount; i++) {
-					Dock *new_dock = (Dock *)MemAlloc(sizeof(Dock));
+				for (int i = 0; i < docksCount; ++i) {
+					Dock* new_dock = new Dock();
+					//Dock *new_dock = (Dock *)MemAlloc(sizeof(Dock));
 					m_docks.push_back(new_dock);
 				}
+				
+				for (int i = 0; i < docksCount;++i) {
 
-				for (int i = 0; i < docksCount; i++) {
+					
 					data.EnterSection("Dock_" + std::to_string(i));
-					m_docks[i]->label = _strdup(data.GetString("label").c_str());
+
+					int child_0 = data.GetInt("child0");
+					int child_1 = data.GetInt("child1");
+					int parent = data.GetInt("parent");
+					int prev_tab = data.GetInt("prev_tab");
+					int next_tab = data.GetInt("next_tab");
+					char* label = _strdup(data.GetString("label").c_str());
+					int status = data.GetInt("status");
+
+
+					m_docks[i]->label = label;
 					m_docks[i]->id = ImHash(m_docks[i]->label, 0);
-					m_docks[i]->status = (Status_)data.GetInt("status");
+					m_docks[i]->status = (Status_)status;
 					m_docks[i]->active = data.GetBool("active");
 					m_docks[i]->opened = data.GetBool("opened");
 					std::string str = data.GetString("location");
@@ -1203,12 +1220,13 @@ namespace ImGui {
 						m_docks[i]->location[j] = *it;
 						j++;
 					}
+					
 					m_docks[i]->location[j] = '\0';
-					m_docks[i]->children[0] = getDockByIndex(data.GetInt("child0"));
-					m_docks[i]->children[1] = getDockByIndex(data.GetInt("child1"));
-					m_docks[i]->prev_tab = getDockByIndex(data.GetInt("prev_tab"));
-					m_docks[i]->next_tab = getDockByIndex(data.GetInt("next_tab"));
-					m_docks[i]->parent = getDockByIndex(data.GetInt("parent"));
+					m_docks[i]->children[0] = getDockByIndex(child_0);
+					m_docks[i]->children[1] = getDockByIndex(child_1);
+					m_docks[i]->prev_tab = getDockByIndex(prev_tab);
+					m_docks[i]->next_tab = getDockByIndex(next_tab);
+					m_docks[i]->parent = getDockByIndex(parent);
 					m_docks[i]->pos.x = data.GetInt("pos_X");
 					m_docks[i]->pos.y = data.GetInt("pos_Y");
 					m_docks[i]->size.x = data.GetInt("size_X");
