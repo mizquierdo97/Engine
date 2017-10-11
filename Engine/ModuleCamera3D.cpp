@@ -61,10 +61,21 @@ update_status ModuleCamera3D::Update(float dt)
 
 	Position += newPos;
 	Reference += newPos;
-
+	vec3 max_dist = vec3(0, 0, 0);
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		
+		std::vector<Object*>::iterator item = App->world->obj_vector.begin();
 
+		vec3 temp_vec = vec3(0, 0, 0);
+		float num = 0;
+		int i = 0;
+		while (item != App->world->obj_vector.end()) {
+			if ((*item)->is_mesh) {
+				
+				
+			}
+
+		}
 	}
 
 	// Mouse motion ----------------
@@ -114,15 +125,15 @@ update_status ModuleCamera3D::Update(float dt)
 
 				if ((*item)->is_mesh) {
 					temp_vec.x += (*item)->obj_mesh.bounding_box.CenterPoint().x;
-					temp_vec.y += 0;//(*item)->obj_mesh.bounding_box.CenterPoint().y;
+					temp_vec.y += (*item)->obj_mesh.bounding_box.CenterPoint().y;
 					temp_vec.z += (*item)->obj_mesh.bounding_box.CenterPoint().z;
 					num++;
 				}
 				
 				item++;
 			}
-			if(num>0)
-			temp_vec / num;
+			if (num > 0)
+				temp_vec /= num;
 			Reference = temp_vec;
 		}
 
