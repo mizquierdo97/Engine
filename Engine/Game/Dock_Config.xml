@@ -88,7 +88,7 @@
 		<size_X>237</size_X>
 		<size_Y>463</size_Y>
 		<status>0</status>
-		<active>0</active>
+		<active>1</active>
 		<opened>1</opened>
 		<location>12</location>
 		<child0>-1</child0>
@@ -152,7 +152,7 @@
 		<size_X>237</size_X>
 		<size_Y>463</size_Y>
 		<status>0</status>
-		<active>1</active>
+		<active>0</active>
 		<opened>1</opened>
 		<location>12</location>
 		<child0>-1</child0>

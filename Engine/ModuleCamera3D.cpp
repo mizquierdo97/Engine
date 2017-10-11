@@ -41,7 +41,10 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
-	
+
+	static vec3 temp_vec = vec3(0, 0, 0);
+	static float num = 0;
+
 	vec3 newPos(0, 0, 0);
 	float speed = 3.0f * dt;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
@@ -57,25 +60,58 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
-
+	if (num > 0) {
+		temp_vec /= num;
+		num = 0;
+	}
+	Reference = temp_vec;
 
 	Position += newPos;
 	Reference += newPos;
 	vec3 max_dist = vec3(0, 0, 0);
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		
-		std::vector<Object*>::iterator item = App->world->obj_vector.begin();
 
-		vec3 temp_vec = vec3(0, 0, 0);
-		float num = 0;
+	
+	
+		vec3 new_position = vec3(0, 0, 0);
+		num = 0;
 		int i = 0;
+		/*std::vector<Object*>::iterator item = App->world->obj_vector.begin();
 		while (item != App->world->obj_vector.end()) {
+
 			if ((*item)->is_mesh) {
-				
+				temp_vec.x += (*item)->obj_mesh.bounding_box.CenterPoint().x;
+				temp_vec.y += (*item)->obj_mesh.bounding_box.CenterPoint().y;
+				temp_vec.z += (*item)->obj_mesh.bounding_box.CenterPoint().z;
 				
 			}
 
+			item++;
 		}
+		if (num > 0)
+			temp_vec /= num;
+			*/
+		std::vector<Object*>::iterator item = App->world->obj_vector.begin();
+
+		 vec3 temp_vec2 = vec3(0, 0, 0);
+		 while (item != App->world->obj_vector.end()) {
+			 if ((*item)->is_mesh) {
+				 temp_vec2.x += (*item)->obj_mesh.bounding_box.maxPoint.x;
+				 temp_vec2.y += (*item)->obj_mesh.bounding_box.maxPoint.y;
+				 temp_vec2.z += (*item)->obj_mesh.bounding_box.maxPoint.z;
+
+				 if (max_dist.x < temp_vec2.x)max_dist.x = temp_vec2.x;
+				 if (max_dist.y < temp_vec2.y)max_dist.y = temp_vec2.y;
+				 if (max_dist.z < temp_vec2.z)max_dist.z = temp_vec2.z;
+
+
+			 }
+			 item++;
+		 }
+		 Reference = temp_vec;
+		Position = Reference + Z * length(max_dist - temp_vec);
+		
+
 	}
 
 	// Mouse motion ----------------
@@ -117,9 +153,8 @@ update_status ModuleCamera3D::Update(float dt)
 		if (App->world->obj_vector.size() > 0) {
 
 			std::vector<Object*>::iterator item = App->world->obj_vector.begin();
-
-			vec3 temp_vec = vec3(0, 0, 0);
-			float num = 0;
+			temp_vec = vec3(0, 0, 0);
+			num = 0;
 			int i = 0;
 			while (item != App->world->obj_vector.end()) {
 
@@ -132,9 +167,7 @@ update_status ModuleCamera3D::Update(float dt)
 				
 				item++;
 			}
-			if (num > 0)
-				temp_vec /= num;
-			Reference = temp_vec;
+		
 		}
 
 
@@ -142,6 +175,8 @@ update_status ModuleCamera3D::Update(float dt)
 	
 		
 	}
+
+	
 
 	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT  && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
@@ -201,8 +236,8 @@ update_status ModuleCamera3D::Update(float dt)
 	glLoadIdentity(); //Reset the camera
 	gluPerspective(angle,                  //The camera angle
 		(double)w / (double)h, //The width-to-height ratio
-		1.0,                   //The near z clipping coordinate
-		200.0);                //The far z clipping coordinate
+		.1,                   //The near z clipping coordinate
+		600.0);                //The far z clipping coordinate
 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
