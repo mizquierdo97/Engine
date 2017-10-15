@@ -53,8 +53,8 @@ update_status ModuleCamera3D::Update(float dt)
 	/*if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 */
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos.y += speed;
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos.y -= speed;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z*speed;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z*speed;
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
@@ -80,21 +80,7 @@ update_status ModuleCamera3D::Update(float dt)
 		vec3 new_position = vec3(0, 0, 0);
 		num = 0;
 		int i = 0;
-		/*std::vector<Object*>::iterator item = App->world->obj_vector.begin();
-		while (item != App->world->obj_vector.end()) {
-
-			if ((*item)->is_mesh) {
-				temp_vec.x += (*item)->obj_mesh.bounding_box.CenterPoint().x;
-				temp_vec.y += (*item)->obj_mesh.bounding_box.CenterPoint().y;
-				temp_vec.z += (*item)->obj_mesh.bounding_box.CenterPoint().z;
-				
-			}
-
-			item++;
-		}
-		if (num > 0)
-			temp_vec /= num;
-			*/
+		
 		std::vector<Object*>::iterator item = App->world->obj_vector.begin();
 
 		 vec3 temp_vec2 = vec3(0, 0, 0);
@@ -172,11 +158,7 @@ update_status ModuleCamera3D::Update(float dt)
 				item++;
 			}
 		
-		}
-
-
-
-	
+		}	
 		
 	}
 
@@ -220,29 +202,7 @@ update_status ModuleCamera3D::Update(float dt)
 	
 
 	}
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-
 	
-
-	
-
-	
-	
-
-	/*
-	uint w = App->window->width;
-	uint h = App->window->height;
-	glViewport(0, 0, w, h);
-
-	glMatrixMode(GL_PROJECTION); //Switch to setting the camera perspective
-
-								 //Set the camera perspective
-	glLoadIdentity(); //Reset the camera
-	gluPerspective(angle,                  //The camera angle
-		(double)w / (double)h, //The width-to-height ratio
-		.1,                   //The near z clipping coordinate
-		10000.0);                //The far z clipping coordinate
-	*/
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 		
