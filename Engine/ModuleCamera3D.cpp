@@ -64,10 +64,7 @@ update_status ModuleCamera3D::Update(float dt)
 	if (wheel > 0) newPos -= Z * speed;
 	else if (wheel < 0)newPos += Z * speed;
 
-	if (num > 0) {
-		temp_vec /= num;
-		num = 0;
-	}
+	
 	Reference = temp_vec;
 
 	Position += newPos;
@@ -80,8 +77,26 @@ update_status ModuleCamera3D::Update(float dt)
 		vec3 new_position = vec3(0, 0, 0);
 		num = 0;
 		int i = 0;
-		
 		std::vector<Object*>::iterator item = App->world->obj_vector.begin();
+		temp_vec = vec3(0, 0, 0);
+			
+		while (item != App->world->obj_vector.end()) {
+
+			if ((*item)->is_mesh) {
+				temp_vec.x += (*item)->obj_mesh.bounding_box.CenterPoint().x;
+				temp_vec.y += (*item)->obj_mesh.bounding_box.CenterPoint().y;
+				temp_vec.z += (*item)->obj_mesh.bounding_box.CenterPoint().z;
+				num++;
+			}
+
+			item++;
+		}
+		if (num > 0) {
+			temp_vec /= num;
+			num = 0;
+		}
+				
+	 item = App->world->obj_vector.begin();
 
 		 vec3 temp_vec2 = vec3(0, 0, 0);
 		 while (item != App->world->obj_vector.end()) {
@@ -101,7 +116,7 @@ update_status ModuleCamera3D::Update(float dt)
 		 Reference = temp_vec;
 
 		
-		Position = Reference + Z * length(max_dist - temp_vec);
+		Position = Reference + Z * length(max_dist*1.5f - temp_vec);
 		
 
 	}
@@ -159,7 +174,10 @@ update_status ModuleCamera3D::Update(float dt)
 				
 				item++;
 			}
-		
+			if (num > 0) {
+				temp_vec /= num;
+				num = 0;
+			}
 		}	
 		
 	}

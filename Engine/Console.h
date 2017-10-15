@@ -52,27 +52,27 @@ struct ExampleAppConsole
 	{
 		
 		int console_width = 500, console_height = 200;
-		ImGui::SetNextWindowSize(ImVec2(console_width, console_height), ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - console_width, SCREEN_HEIGHT - console_height), ImGuiCond_FirstUseEver);
+		//ImGui::SetNextWindowSize(ImVec2(console_width, console_height), ImGuiCond_FirstUseEver);
+		//ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - console_width, SCREEN_HEIGHT - console_height), ImGuiCond_FirstUseEver);
 		if (ImGui::BeginDock("Console", false, false, false,
 			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
 			 ImGuiWindowFlags_ShowBorders))
 		{
 
 
-			ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()), false, ImGuiWindowFlags_HorizontalScrollbar);
+			ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()+20), false, ImGuiWindowFlags_HorizontalScrollbar);
 
 			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
 			static ImGuiTextFilter filter;
 
 			ImGui::PopStyleVar();
-			ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()), false, ImGuiWindowFlags_HorizontalScrollbar);
+			ImGui::BeginChild("ScrollingRegion", ImVec2(0, -ImGui::GetItemsLineHeightWithSpacing()+20), false, ImGuiWindowFlags_HorizontalScrollbar);
 			if (ImGui::BeginPopupContextWindow())
 			{
 
 				ImGui::EndPopup();
 			}
-			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1)); // Tighten spacing
+		//	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0)); // Tighten spacing
 
 			for (int i = 0; i < Items.Size; i++)
 			{
@@ -90,10 +90,10 @@ struct ExampleAppConsole
 			if (ScrollToBottom)
 				ImGui::SetScrollHere();
 			ScrollToBottom = false;
-			ImGui::PopStyleVar();
+			//ImGui::PopStyleVar();
 			ImGui::EndChild();
 			ImGui::EndChild();
-			ImGui::Separator();
+			
 
 			// Command-line
 		}
