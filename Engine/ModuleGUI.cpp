@@ -27,7 +27,7 @@ bool ModuleGUI::Init()
 	io.WantCaptureKeyboard = true;
 	io.WantTextInput = true;
 	io.IniFilename = "/Settings/imgui.ini";
-	io.Fonts->AddFontFromFileTTF("Game\\Fonts\\Roboto-Regular.ttf", 16);
+	io.Fonts->AddFontFromFileTTF("Fonts\\Roboto-Regular.ttf", 16);
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.WindowRounding = 8.0f;
 	style.FramePadding = { 7.0f, 3.0f };
@@ -91,8 +91,8 @@ bool ModuleGUI::Init()
 
 bool ModuleGUI::Start()
 {
-	App->renderer3D->loadTextureFromFile("Game\\png_icon.png", &png_tex,false);
-	App->renderer3D->loadTextureFromFile("Game\\fbx_icon.png", &fbx_tex,false);
+	App->renderer3D->loadTextureFromFile("png_icon.png", &png_tex,false);
+	App->renderer3D->loadTextureFromFile("fbx_icon.png", &fbx_tex,false);
 	
 	path_list = new std::list<std::string>;
 	ImGui::LoadDocks();
