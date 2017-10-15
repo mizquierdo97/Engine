@@ -44,7 +44,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	static vec3 temp_vec = vec3(0, 0, 0);
 	static float num = 0;
-
+	float wheel = 0;
 	vec3 newPos(0, 0, 0);
 	float speed = 3.0f * dt;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
@@ -53,12 +53,16 @@ update_status ModuleCamera3D::Update(float dt)
 	/*if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 */
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
-
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos.y += speed;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos.y -= speed;
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+	
+	
+	wheel = App->input->GetMouseZ();
+	if (wheel > 0) newPos -= Z * speed;
+	else if (wheel < 0)newPos += Z * speed;
 
 	if (num > 0) {
 		temp_vec /= num;
@@ -115,7 +119,7 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	// Mouse motion ----------------
-
+	
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT)== KEY_IDLE)
 	{
 		int dx = -App->input->GetMouseXMotion();
@@ -216,16 +220,16 @@ update_status ModuleCamera3D::Update(float dt)
 	
 
 	}
-	
-	float wheel = 0;
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 
 	
-	static float angle = 90;
 
-	wheel = App->input->GetMouseZ();
+	
 
-	if (wheel > 0) angle -= 1;
-	else if(wheel < 0)angle += 1;
+	
+	
+
+	/*
 	uint w = App->window->width;
 	uint h = App->window->height;
 	glViewport(0, 0, w, h);
@@ -238,7 +242,7 @@ update_status ModuleCamera3D::Update(float dt)
 		(double)w / (double)h, //The width-to-height ratio
 		.1,                   //The near z clipping coordinate
 		10000.0);                //The far z clipping coordinate
-
+	*/
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 		
