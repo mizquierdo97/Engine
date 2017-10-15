@@ -99,7 +99,7 @@ update_status ModuleCamera3D::Update(float dt)
 			 item++;
 		 }
 		 Reference = temp_vec;
-		Position = Reference + Z * length(max_dist - temp_vec);
+		Position = Reference + Z * length(max_dist*0.75 - temp_vec);
 		
 
 	}

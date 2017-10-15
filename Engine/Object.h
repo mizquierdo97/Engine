@@ -29,4 +29,6 @@ public:
 	int obj_id = 0;
 	bool render_object = true;
 	bool is_mesh = true;
+
+
 };

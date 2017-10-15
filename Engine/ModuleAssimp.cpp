@@ -74,7 +74,7 @@ void ModuleAssimp::ImportMesh(char * path)
 		for (int i = 0; i < scene->mNumMeshes; i++) {
 
 			aiMesh* new_mesh = scene->mMeshes[i];
-
+			Texture* temp_tex = nullptr;
 			Mesh m;
 			m.num_vertexs = new_mesh->mNumVertices;
 			m.vertexs = new float[m.num_vertexs * 3];
@@ -152,30 +152,22 @@ void ModuleAssimp::ImportMesh(char * path)
 			else {
 				LOG("This mesh dont have texture coords buffer");
 			}
-
 			if (scene->HasMaterials()) {
+
+				aiMaterial* material = scene->mMaterials[scene->mMeshes[i]->mMaterialIndex];
 				
-				if (scene->mMaterials[0]->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+				aiString tex_path;
+				material->GetTexture(aiTextureType_DIFFUSE, 0, &tex_path);
+
+				std::string final_path = path;
+				while (final_path.back() != '\\')
 				{
-					
-					aiString temp;
-					scene->mMaterials[0]->GetTexture(aiTextureType_DIFFUSE, 0, &temp);
-					const char* tex_path = temp.C_Str();
-					std::string final_path = path;
-					while (final_path.back() != '\\')
-					{
-						final_path.pop_back();
-					}
-					final_path += tex_path;
-					//App->gui->path_list->push_back(final_path);
-					App->renderer3D->loadTextureFromFile((char*)final_path.c_str(),&App->renderer3D->tex);
+					final_path.pop_back();
 				}
-				else {
-					LOG("Cant load FBX Texture");
-				}
-			}
-			else {
-				LOG("FBX dont have an associated Texture");
+				final_path += tex_path.C_Str();
+				//App->gui->path_list->push_back(final_path);
+				App->renderer3D->loadTextureFromFile((char*)final_path.c_str(), &temp_tex);
+
 			}
 			
 			AABB* temp = new AABB();
@@ -186,7 +178,7 @@ void ModuleAssimp::ImportMesh(char * path)
 			Object* temp_obj = new Object();
 			temp_obj->obj_mesh = m;
 			temp_obj->obj_id = App->world->obj_vector.size();
-			
+			temp_obj->obj_text = temp_tex;
 			App->world->obj_vector.push_back(temp_obj);
 		}
 			//RELEASE SCENE

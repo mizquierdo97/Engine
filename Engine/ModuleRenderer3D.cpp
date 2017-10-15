@@ -286,7 +286,7 @@ void ModuleRenderer3D::Render(Object* obj)
 			if(texture)
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
-			glBindTexture(GL_TEXTURE_2D,App->renderer3D->tex->GetTexture());
+			glBindTexture(GL_TEXTURE_2D,obj->obj_text->GetTexture());
 
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
