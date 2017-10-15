@@ -1167,7 +1167,7 @@ namespace ImGui {
 				}
 				data.CloseSection();
 			}
-			data.SaveAsXML("Dock_Config.xml");
+			data.SaveAsJSON("Dock_Config.json");
 		}
 
 
@@ -1187,7 +1187,7 @@ namespace ImGui {
 			m_docks.clear();
 
 			Data data;
-			if (data.LoadXML("Dock_Config.xml")) {
+			if (data.LoadJSON("Dock_Config.json")) {
 				int docksCount = data.GetInt("Docks_Count");
 				for (int i = 0; i < docksCount; ++i) {
 					Dock* new_dock = new Dock();

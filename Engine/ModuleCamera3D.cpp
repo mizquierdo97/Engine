@@ -86,20 +86,22 @@ update_status ModuleCamera3D::Update(float dt)
 		 vec3 temp_vec2 = vec3(0, 0, 0);
 		 while (item != App->world->obj_vector.end()) {
 			 if ((*item)->is_mesh) {
-				 temp_vec2.x += (*item)->obj_mesh.bounding_box.maxPoint.x;
-				 temp_vec2.y += (*item)->obj_mesh.bounding_box.maxPoint.y;
-				 temp_vec2.z += (*item)->obj_mesh.bounding_box.maxPoint.z;
+				 temp_vec2.x = ((*item)->obj_mesh.bounding_box.maxPoint.x);
+				 temp_vec2.y = ((*item)->obj_mesh.bounding_box.maxPoint.y  );
+				 temp_vec2.z = ( (*item)->obj_mesh.bounding_box.maxPoint.z);
 
-				 if (max_dist.x < temp_vec2.x)max_dist.x = temp_vec2.x;
-				 if (max_dist.y < temp_vec2.y)max_dist.y = temp_vec2.y;
-				 if (max_dist.z < temp_vec2.z)max_dist.z = temp_vec2.z;
+				 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
+				 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
+				 if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
 
 
 			 }
 			 item++;
 		 }
 		 Reference = temp_vec;
-		Position = Reference + Z * length(max_dist*0.75 - temp_vec);
+
+		
+		Position = Reference + Z * length(max_dist - temp_vec);
 		
 
 	}

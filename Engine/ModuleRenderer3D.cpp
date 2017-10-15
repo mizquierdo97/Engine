@@ -360,7 +360,7 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool i
 	//Report error
 	if (!textureLoaded)
 	{
-		
+		LOG("Can't load Image")
 	}
 
 	return textureLoaded;
