@@ -149,8 +149,8 @@ void ModuleWindow::SaveConfig(JSON_Object * root)
 bool ModuleWindow::Options()
 {
 
-	if (ImGui::BeginDock("Window", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
-
+	if (ImGui::BeginDock("Window", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar )) {
+		ImGui::Columns(2);
 	
 		static int temp_width = width;
 		static int temp_height = height;
@@ -161,7 +161,7 @@ bool ModuleWindow::Options()
 			height = temp_height;
 			SDL_SetWindowSize(window, width, height);
 		}
-
+		ImGui::NextColumn();
 			if (ImGui::Checkbox("Borderless", &borderlessbox))
 			{
 				if (borderless == false)
@@ -197,9 +197,8 @@ bool ModuleWindow::Options()
 					fullScreen = !fullScreen;
 				}
 			}
-
-
-		ImGui::Separator();
+			
+		
 		//---------------------
 		static char name[64] = "";
 		strcpy(name, title);

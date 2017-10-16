@@ -145,5 +145,6 @@ bool ModuleInput::Options()
 		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i",SDL_NumJoysticks());
 		ImGui::EndDock();
 	}
+	
 	return false;
 }

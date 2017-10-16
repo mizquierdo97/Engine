@@ -23,17 +23,6 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	
-	
-
-	//MATHGEO TEST
-	vec temp_vec = { 1,0,0 };
-	test_sphere1 = new Sphere(temp_vec, 1);
-	temp_vec = { -1,0,0 };
-	test_sphere2 = new Sphere(temp_vec, 1);
-
-	
-	
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -98,6 +87,12 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
 		
+
+		texture = true;
+		render_fill = true;
+		render_wireframe = false;
+
+
 		GLfloat LightModelAmbient[] = {0.5f, 0.5f, 0.5f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		
@@ -116,6 +111,8 @@ bool ModuleRenderer3D::Init()
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 		
 		lights[0].Active(true);
+
+
 		
 	}
 	if (ret) {
@@ -217,46 +214,27 @@ void ModuleRenderer3D::OnResize(int width, int height)
 bool ModuleRenderer3D::Options()
 {
 
-	if (ImGui::BeginDock("Renderer", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
-	
-		int major=0, minor = 0;
-		glGetIntegerv(GL_MAJOR_VERSION, &major);
-		glGetIntegerv(GL_MAJOR_VERSION, &minor);
-		ImGui::Text("OpenGL Version:");
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
-		ImGui::Text("GPU Vendor:");
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
-		ImGui::Text("Model:");
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
-		ImGui::Text("Total VRAM:");
-		GLint total_mem_kb = 0;
-		glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
-			&total_mem_kb);
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB",total_mem_kb/1024);
+	if (ImGui::BeginDock("Renderer", false, false, false,
+			ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse |
+		ImGuiWindowFlags_ShowBorders)) {
 
-		ImGui::Text("Free VRAM:");
-		GLint cur_avail_mem_kb = 0;
-		glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
-			&cur_avail_mem_kb);
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
-		//Checkboxs
 	
 		static bool depth = glIsEnabled(GL_DEPTH_TEST);
 		static bool cull =  glIsEnabled(GL_CULL_FACE);
 		static bool light = glIsEnabled(GL_LIGHTING);
 		static bool color_material = glIsEnabled(GL_COLOR_MATERIAL);		
-		static bool texture = glIsEnabled(GL_TEXTURE);
+		
 		if (ImGui::Checkbox("Depth Test", &depth)) {
 			if (depth)glEnable(GL_DEPTH_TEST);
 			else glDisable(GL_DEPTH_TEST);
 		}
-		ImGui::SameLine();
+
 		if(ImGui::Checkbox("Cull Face", &cull))
 		{
 			if (cull)glEnable(GL_CULL_FACE);
 			else glDisable(GL_CULL_FACE);
 		};
-		ImGui::SameLine();
+		
 		if(ImGui::Checkbox("Lighting", &light))
 		{
 			if (light)glEnable(GL_LIGHTING);
@@ -268,17 +246,14 @@ bool ModuleRenderer3D::Options()
 			if (color_material)glEnable(GL_COLOR_MATERIAL);
 			else glDisable(GL_COLOR_MATERIAL);
 		};
-		ImGui::SameLine();
-		if (ImGui::Checkbox("Texture", &texture))
-		{
-			if (texture)glEnable(GL_TEXTURE);
-			else glDisable(GL_TEXTURE);
-		};
+	
+		if (ImGui::Checkbox("Texture", &texture));
+		
 
 		if (ImGui::Checkbox("Shaded", &render_fill));
 		
-			ImGui::SameLine();
 		if (ImGui::Checkbox("Wireframe", &render_wireframe));
+		if (ImGui::Checkbox("Normals", &App->gui->show_normals));
 		
 		ImGui::EndDock();
 
@@ -290,7 +265,7 @@ bool ModuleRenderer3D::Options()
 void ModuleRenderer3D::Render(Object* obj)
 {
 	Mesh m = obj->obj_mesh;
-	if (m.id_vertexs != NULL) {
+	if (m.id_indices != NULL) {
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -308,9 +283,10 @@ void ModuleRenderer3D::Render(Object* obj)
 		}
 
 		if (m.id_textures != NULL) {
+			if(texture)
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
-			glBindTexture(GL_TEXTURE_2D,App->renderer3D->tex->GetTexture());
+			glBindTexture(GL_TEXTURE_2D,obj->obj_text->GetTexture());
 
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
@@ -323,16 +299,29 @@ void ModuleRenderer3D::Render(Object* obj)
 
 	
 		}
+	else {
+		if (obj->render_object) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		else {
+			glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+		}
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
+			glVertexPointer(3, GL_FLOAT, 0, NULL);
+			glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs);
+		
+	}
 	glDisable(GL_TEXTURE_2D);
 }
 
 
 
-bool ModuleRenderer3D::loadTextureFromFile(char* path)
+bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool is_texture)
 {
 	//Texture loading success
 	bool textureLoaded = false;
-
+	LOG("Loading Texture: %s", path);
 	//Generate and set current image ID
 	uint imgID = 0;
 	ilGenImages(1, &imgID);
@@ -343,7 +332,9 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path)
 
 	ILinfo ImageInfo;
 	iluGetImageInfo(&ImageInfo);
-	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+
+	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT && is_texture)
+
 	{
 		iluFlipImage();
 	}
@@ -352,12 +343,14 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path)
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
+		LOG("Image loaded succesfully");
 		//Convert image to RGBA
 		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 
 		if (success == IL_TRUE)
 		{
-			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
+			LOG("Image converted to RGBA");
+			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), texture);
 			//Create texture from file pixels
 			textureLoaded = true;
 		}
@@ -369,21 +362,27 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path)
 	//Report error
 	if (!textureLoaded)
 	{
-		
+		LOG("Can't load Image")
 	}
 
 	return textureLoaded;
 }
 
-bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GLuint height)
+bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GLuint height, Texture** texture)
 {
 
 	
-	if (tex != nullptr)
-	delete tex;
+
+	if (tex != nullptr) {
+		LOG("Deleted Last Texture");
+		delete tex;
+	}
+
 	
-	tex = new Texture();
-	tex->Create(pixels, width, height);
+	texture[0] = new Texture();
+	
+	texture[0]->Create(pixels, width, height);
+	LOG("Texture Created");
 
     return true;
 }

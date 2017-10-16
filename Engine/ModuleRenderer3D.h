@@ -41,8 +41,8 @@ public:
 	bool Options();
 	void Render(Object* );
 	void RenderNormals(Object*);
-	bool loadTextureFromFile(char* path);
-	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height);
+	bool loadTextureFromFile(char* path, Texture**, bool is_texture = true);
+	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height, Texture**);
 	
 public:
 
@@ -51,20 +51,15 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	//TESTING MATHGEO
-	Sphere* test_sphere1;
-	Sphere* test_sphere2;
-
-	
-	//
-
-
-
-	bool render_fill = false;
-	bool render_wireframe = true;
-
+	bool render_fill = true;
+	bool render_wireframe = false;
 	
 	uint mTextureID = 0;
 
 	Texture* tex = nullptr;
+
+
+	//OPTIONS
+	bool texture = true;
+
 };
