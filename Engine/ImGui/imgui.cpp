@@ -718,7 +718,9 @@ ImGuiStyle::ImGuiStyle()
     Colors[ImGuiCol_CheckMark]              = ImVec4(0.90f, 0.90f, 0.90f, 0.50f);
     Colors[ImGuiCol_SliderGrab]             = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
     Colors[ImGuiCol_SliderGrabActive]       = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
-    Colors[ImGuiCol_Button]                 = ImVec4(0.67f, 0.40f, 0.40f, 0.60f);
+	Colors[ImGuiCol_PanelLines]				= ImVec4(0.31f, 0.32f, 0.32f, 1.00f);
+	Colors[ImGuiCol_PanelLinesHovered]		= ImVec4(0.60f, 0.80f, 0.80f, 1.00f);
+	Colors[ImGuiCol_Button]                 = ImVec4(0.67f, 0.40f, 0.40f, 0.60f);
     Colors[ImGuiCol_ButtonHovered]          = ImVec4(0.67f, 0.40f, 0.40f, 1.00f);
     Colors[ImGuiCol_ButtonActive]           = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
     Colors[ImGuiCol_Header]                 = ImVec4(0.40f, 0.40f, 0.90f, 0.45f);
@@ -4907,6 +4909,8 @@ const char* ImGui::GetStyleColorName(ImGuiCol idx)
     case ImGuiCol_CheckMark: return "CheckMark";
     case ImGuiCol_SliderGrab: return "SliderGrab";
     case ImGuiCol_SliderGrabActive: return "SliderGrabActive";
+	case ImGuiCol_PanelLines: return "PanelLines";
+	case ImGuiCol_PanelLinesHovered: return "PanelLinesHovered";
     case ImGuiCol_Button: return "Button";
     case ImGuiCol_ButtonHovered: return "ButtonHovered";
     case ImGuiCol_ButtonActive: return "ButtonActive";
@@ -4929,7 +4933,7 @@ const char* ImGui::GetStyleColorName(ImGuiCol idx)
     case ImGuiCol_TextSelectedBg: return "TextSelectedBg";
     case ImGuiCol_ModalWindowDarkening: return "ModalWindowDarkening";
     }
-    IM_ASSERT(0);
+    //IM_ASSERT(0);
     return "Unknown";
 }
 
@@ -7246,7 +7250,7 @@ void ImGui::PlotEx(ImGuiPlotType plot_type, const char* label, float (*values_ge
             scale_max = v_max;
     }
 
-    RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), true, style.FrameRounding);
+    RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), true, 3.0f);
 
     if (values_count > 0)
     {

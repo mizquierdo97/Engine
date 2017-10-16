@@ -76,18 +76,9 @@ Mesh CreateCube()
 		1.f,  0.f,
 		0.f,  0.f,
 
-/*		1.f,  1.f,
-		0.f,  1.f,
-		0.f,  0.f,
-		1.f,  0.f,
-
-		0.f,  1.f,
-		1.f,  1.f,
-		1.f,  0.f,
-		0.f,  0.f,*/
-
-
 	};
+
+
 	m.num_vertexs = cube_vertices.size()/3;
 	m.vertexs = new float[m.num_vertexs * 3];
 	memcpy(m.vertexs, &cube_vertices[0], sizeof(float) * m.num_vertexs * 3);
@@ -169,9 +160,7 @@ Mesh CreateCylinder()
 		else
 			indices.push_back(i + 2);
 	}
-
-
-
+	
 	for (int i = 1; i <= num; i++) {
 
 		indices.push_back(i);
@@ -232,8 +221,36 @@ int CreateObject(objectType type)
 		new_object->obj_id = App->world->obj_vector.size();
 		App->world->obj_vector.push_back(new_object);
 		break;
-
 	}
 
 	return new_object->obj_id;
 }
+
+void CreateAABB(AABB b_box) {
+	vec vertexs[36];
+
+	b_box.Triangulate(1, 1, 1, &vertexs[0], nullptr, nullptr,false);
+	Mesh m;
+
+	m.num_vertexs = 36;
+	m.vertexs = new float[m.num_vertexs*3];
+
+	for (int i = 0; i < 36; i++) {
+		m.vertexs[i * 3] = vertexs[i].x;
+		m.vertexs[i * 3+1] = vertexs[i].y;
+		m.vertexs[i * 3+2] = vertexs[i].z;
+
+	}
+	glGenBuffers(1, (GLuint*)&m.id_vertexs);
+	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m.num_vertexs*3, m.vertexs, GL_STATIC_DRAW);
+
+	Object* new_object = new Object();
+	new_object->obj_mesh = m;
+	new_object->obj_type = objectType::aabb;
+	new_object->render_object = false;
+	new_object->is_mesh = false;
+	new_object->obj_id = App->world->obj_vector.size();
+	App->world->obj_vector.push_back(new_object);
+	
+};

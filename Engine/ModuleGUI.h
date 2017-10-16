@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "ImGui\imgui_impl_sdl_gl3.h"
 #include "Console.h"
-
+#include "Texture.h"
 class ModuleGUI : public Module
 {
 public:
@@ -41,7 +41,8 @@ public:
 		bool show_example_menu = false;
 		bool show_menu = false;
 		bool show_help = false;
-		bool show_hardware;
+		bool show_hardware = false;
+	
 		int Det_RAM;
 		int Det_CPU;
 		int Det_Cache;
@@ -49,7 +50,15 @@ public:
 		float rand_2 = 0;
 		LCG random_num_i;
 		LCG random_num_f;
+		SDL_version sdl_vers;
+		
+		Texture* png_tex;
+		Texture* fbx_tex;
 
+		
 public:
 	ExampleAppConsole console;
+	std::list<std::string>* path_list;
+
+	bool show_normals = false;
 };

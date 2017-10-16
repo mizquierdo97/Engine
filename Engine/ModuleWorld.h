@@ -21,28 +21,11 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void ImportMesh(char* path);
-	bool Options();
+	void FileDropped();
+	void It_Render(); //Iterate Render
+	void ImportMesh(char* path); //Import meshes
+	bool Options();//World Options
 public:
-
-	Sphere* sphere;
-	vec* temp;
-	
-
-	std::vector<vec> vect;
-	std::vector<vec> norms;
-	std::vector<unsigned int> indices;
-	GLuint my_indices = 0;
-	std::vector<GLfloat> cube_vertices;
-
-
-	
-	GLuint vbo;
-	
-
-	uint ImageName;
-	GLuint coords_id;
-	std::vector<GLfloat> tex_coords;
 
 	Texture* world_texture;
 

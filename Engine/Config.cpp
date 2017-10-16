@@ -16,9 +16,7 @@ Config::Config() {
 
 Config::~Config()
 {
-	//if(root_value !=nullptr)
-	//json_value_free(root_value);
-
+	
 }
 
 void Config::Init()
@@ -27,7 +25,6 @@ void Config::Init()
 	if (root_value == NULL) {
 		root_value = json_value_init_object();
 		json_serialize_to_file(root_value, file_name);
-	
 		
 	}
 	else {
