@@ -67,19 +67,6 @@ void ModuleAssimp::ImportMesh(char * path)
 	LOG("Start Exporting");
 
 
-	const aiScene* scene;
-	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
-		
-
-	std::vector<Object*>::iterator it = App->world->obj_vector.begin();
-	while (it != App->world->obj_vector.end()) {
-		delete (*it)->obj_mesh.vertexs;
-		delete (*it)->obj_mesh.indices;
-		delete (*it)->obj_mesh.norms;
-		delete (*it)->obj_mesh.texture_coords;
-		delete (*it);
-		it++;
-	}
 
 	App->world->obj_vector.clear();
 	
@@ -190,21 +177,7 @@ void ModuleAssimp::ImportMesh(char * path)
 
 			}
 
-			if (scene->HasMaterials()) {
-				if (scene->mMaterials[0]->GetTextureCount(aiTextureType_DIFFUSE) > 0)
-				{
-					aiString temp;
-					scene->mMaterials[0]->GetTexture(aiTextureType_DIFFUSE, 0, &temp);
-					const char* tex_path = temp.C_Str();
-					std::string final_path = path;
-					while (final_path.back() != '\\')
-					{
-						final_path.pop_back();
-					}
-					final_path += tex_path;
-					App->renderer3D->loadTextureFromFile((char*)final_path.c_str());
-				}
-			}
+			
 			
 			AABB* temp = new AABB();
 			temp->SetFrom((vec*)new_mesh->mVertices,m.num_vertexs);
