@@ -1,7 +1,7 @@
 #pragma once
 #include "ModuleAssimp.h"
 #include "Texture.h"
-
+#include "MathGeoLib.h"
 enum objectType {
 	null,
 	cube,
@@ -27,6 +27,7 @@ public:
 	}
 
 	void AddComponent();
+	void Update();
 
 public:
 	Mesh obj_mesh;

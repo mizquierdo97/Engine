@@ -175,9 +175,7 @@ void ModuleAssimp::ImportMesh(char * path)
 				//App->gui->path_list->push_back(final_path);
 				App->renderer3D->loadTextureFromFile((char*)final_path.c_str(), &temp_tex);
 
-			}
-
-			
+			}			
 			
 			AABB* temp = new AABB();
 			temp->SetFrom((vec*)new_mesh->mVertices,m.num_vertexs);

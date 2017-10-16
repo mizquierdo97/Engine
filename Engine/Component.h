@@ -7,6 +7,7 @@ enum ComponentType {
 	transform,
 	mesh,
 	material,
+	camera,
 
 };
 
@@ -21,6 +22,8 @@ public:
 	}
 
 	void DeleteComponent();
+
+	virtual void UpdateComponent();
 
 public:
 

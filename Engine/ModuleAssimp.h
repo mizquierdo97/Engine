@@ -7,7 +7,7 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
-
+#include "MathGeoLib.h"
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 struct Mesh {
