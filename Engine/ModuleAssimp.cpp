@@ -66,9 +66,27 @@ void ModuleAssimp::ImportMesh(char * path)
 
 	LOG("Start Exporting");
 
+
 	const aiScene* scene;
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 		
+
+	std::vector<Object*>::iterator it = App->world->obj_vector.begin();
+	while (it != App->world->obj_vector.end()) {
+		delete (*it)->obj_mesh.vertexs;
+		delete (*it)->obj_mesh.indices;
+		delete (*it)->obj_mesh.norms;
+		delete (*it)->obj_mesh.texture_coords;
+		delete (*it);
+		it++;
+	}
+
+	App->world->obj_vector.clear();
+	
+	const aiScene* scene;
+	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
+	
+
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		for (int i = 0; i < scene->mNumMeshes; i++) {
@@ -123,6 +141,7 @@ void ModuleAssimp::ImportMesh(char * path)
 				LOG("This mesh dont have normal buffer");
 			}
 
+
 			aiVector3D translation;
 			aiVector3D scaling;
 			aiQuaternion rotation;
@@ -133,6 +152,7 @@ void ModuleAssimp::ImportMesh(char * path)
 				m.scale.Set(scaling.x, scaling.y, scaling.z);
 				m.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
 			}
+
 
 			if (new_mesh->HasTextureCoords(0)) {
 
@@ -169,6 +189,22 @@ void ModuleAssimp::ImportMesh(char * path)
 				App->renderer3D->loadTextureFromFile((char*)final_path.c_str(), &temp_tex);
 
 			}
+
+			if (scene->HasMaterials()) {
+				if (scene->mMaterials[0]->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+				{
+					aiString temp;
+					scene->mMaterials[0]->GetTexture(aiTextureType_DIFFUSE, 0, &temp);
+					const char* tex_path = temp.C_Str();
+					std::string final_path = path;
+					while (final_path.back() != '\\')
+					{
+						final_path.pop_back();
+					}
+					final_path += tex_path;
+					App->renderer3D->loadTextureFromFile((char*)final_path.c_str());
+				}
+			}
 			
 			AABB* temp = new AABB();
 			temp->SetFrom((vec*)new_mesh->mVertices,m.num_vertexs);
@@ -181,10 +217,14 @@ void ModuleAssimp::ImportMesh(char * path)
 			temp_obj->obj_text = temp_tex;
 			App->world->obj_vector.push_back(temp_obj);
 		}
+
 			//RELEASE SCENE
+
 			aiReleaseImport(scene);
 	}
+
 	else {
 		LOG("Can't open the file: %s", path);
 	}
+
 }

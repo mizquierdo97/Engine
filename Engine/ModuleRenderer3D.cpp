@@ -332,7 +332,9 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool i
 
 	ILinfo ImageInfo;
 	iluGetImageInfo(&ImageInfo);
+
 	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT && is_texture)
+
 	{
 		iluFlipImage();
 	}
@@ -370,6 +372,7 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
 {
 
 	
+
 	if (tex != nullptr) {
 		LOG("Deleted Last Texture");
 		delete tex;
@@ -380,5 +383,6 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
 	
 	texture[0]->Create(pixels, width, height);
 	LOG("Texture Created");
+
     return true;
 }

@@ -58,6 +58,8 @@ public:
 
 	Texture* tex = nullptr;
 
+
 	//OPTIONS
 	bool texture = true;
+
 };

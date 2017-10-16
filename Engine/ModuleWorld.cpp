@@ -22,7 +22,8 @@ bool ModuleWorld::Init()
 #define CHECKERS_WIDTH 128
 bool ModuleWorld::Start() {
 	
-	//Create Screen Texture
+
+
 	world_texture = new Texture();
 	world_texture->Create(nullptr, App->window->width, App->window->height);
 
@@ -34,7 +35,10 @@ update_status ModuleWorld::PreUpdate(float dt)
 {
 	//IF a files is dropped on the screen
 	if (App->input->file_dropped) {
+
 		FileDropped();
+
+
 	}
 	
 	world_texture->Bind();
@@ -48,6 +52,7 @@ update_status ModuleWorld::Update(float dt)
 
 update_status ModuleWorld::PostUpdate(float dt)
 {
+
 	//Iterate Object List and Render
 	It_Render();
 	//Render Imgui
@@ -83,6 +88,10 @@ void ModuleWorld::FileDropped()
 void ModuleWorld::It_Render()
 {
 	//Render polygons
+
+
+	//RENDER MESHES
+
 	if (App->renderer3D->render_fill) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 

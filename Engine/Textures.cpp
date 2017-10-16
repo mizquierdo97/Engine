@@ -23,6 +23,8 @@ bool Texture::Create(GLuint* pixels, uint width, uint height)
 	glGenFramebuffers(1, &texture_id);
 	glBindFramebuffer(GL_FRAMEBUFFER, texture_id);
 
+
+
 	//Creates Color texture
 	glGenTextures(1, &color_texture);
 	glBindTexture(GL_TEXTURE_2D, color_texture);
