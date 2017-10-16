@@ -91,8 +91,15 @@ void ModuleWorld::It_Render()
 
 
 	//RENDER MESHES
+	
+	std::vector<Object*>::iterator temp = obj_vector.begin();
+	while (temp != obj_vector.end()) {
+		(*temp)->Update();
+		temp++;
+	}
 
-	if (App->renderer3D->render_fill) {
+
+/*	if (App->renderer3D->render_fill) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		std::vector<Object*>::iterator temp = obj_vector.begin();
@@ -117,7 +124,7 @@ void ModuleWorld::It_Render()
 
 			temp++;
 		}
-	}
+	}*/
 	glColor3f(1.0f, 1.0f, 1.0f);
 	world_texture->Unbind();
 }

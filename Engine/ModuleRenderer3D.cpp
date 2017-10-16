@@ -4,8 +4,8 @@
 #include "imgui_dock.h"
 #include "SDL\include\SDL_opengl.h"
 #include "Texture.h"
-
-
+#include "ComponentMesh.h"
+#include "ComponentMaterial.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -262,9 +262,10 @@ bool ModuleRenderer3D::Options()
 	return false;
 }
 
-void ModuleRenderer3D::Render(Object* obj)
+void ModuleRenderer3D::Render(ComponentMesh* comp)
 {
-	Mesh m = obj->obj_mesh;
+
+	Mesh m = comp->obj_mesh;
 	if (m.id_indices != NULL) {
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
@@ -286,7 +287,7 @@ void ModuleRenderer3D::Render(Object* obj)
 			if(texture)
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, 0);
-			glBindTexture(GL_TEXTURE_2D,obj->obj_text->GetTexture());
+			glBindTexture(GL_TEXTURE_2D, comp->mesh_material->obj_tex->GetTexture());
 
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
@@ -300,7 +301,7 @@ void ModuleRenderer3D::Render(Object* obj)
 	
 		}
 	else {
-		if (obj->render_object) {
+		if (1) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 		else {

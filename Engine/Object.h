@@ -2,6 +2,7 @@
 #include "ModuleAssimp.h"
 #include "Texture.h"
 #include "MathGeoLib.h"
+
 enum objectType {
 	null,
 	cube,
@@ -16,6 +17,10 @@ void CreateAABB(AABB);
 int CreateObject(objectType type);
 
 class Component;
+class ComponentMesh;
+class ComponentMaterial;
+class ComponentTransform;
+
 class Object {
 
 public:
@@ -26,7 +31,9 @@ public:
 
 	}
 
-	void AddComponent();
+	void AddComponentMesh(Mesh);
+	void AddComponentTransform();
+	void AddComponentMaterial(Texture* );
 	void Update();
 
 public:

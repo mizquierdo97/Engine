@@ -39,7 +39,7 @@ public:
 	void OnResize(int width, int height);
 
 	bool Options();
-	void Render(Object* );
+	void Render(ComponentMesh* );
 	void RenderNormals(Object*);
 	bool loadTextureFromFile(char* path, Texture**, bool is_texture = true);
 	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height, Texture**);

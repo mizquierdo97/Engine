@@ -183,7 +183,9 @@ void ModuleAssimp::ImportMesh(char * path)
 			
 			CreateAABB(*temp);
 			Object* temp_obj = new Object();
-			temp_obj->obj_mesh = m;
+			temp_obj->AddComponentMesh(m);
+			temp_obj->AddComponentMaterial(temp_tex);
+			//temp_obj->obj_mesh = m;
 			temp_obj->obj_id = App->world->obj_vector.size();
 			temp_obj->obj_text = temp_tex;
 			App->world->obj_vector.push_back(temp_obj);

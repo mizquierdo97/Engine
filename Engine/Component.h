@@ -29,6 +29,7 @@ public:
 
 	ComponentType comp_type;
 	bool enabled;
-	
+	Object* parent;
+
 	
 };
