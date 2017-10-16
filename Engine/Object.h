@@ -15,13 +15,19 @@ Mesh CreateCylinder();
 void CreateAABB(AABB);
 int CreateObject(objectType type);
 
+class Component;
 class Object {
 
 public:
 	Object() {
 
 	}
-	
+	~Object() {
+
+	}
+
+	void AddComponent();
+
 public:
 	Mesh obj_mesh;
 	Texture* obj_text = nullptr;
@@ -30,5 +36,12 @@ public:
 	bool render_object = true;
 	bool is_mesh = true;
 
+	bool enabled;
+	char* obj_name;
+	//char* obj_tag;
 
+	//HIERARCHY
+	std::vector<Object*> obj_childs;
+	Object* obj_parent;
+	std::vector<Component*> obj_components;
 };

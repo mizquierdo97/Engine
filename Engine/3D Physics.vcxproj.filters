@@ -37,6 +37,9 @@
     <Filter Include="Sources\Object">
       <UniqueIdentifier>{fad1109c-cd26-4f70-af5c-de3ce7ef79b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Object\Components">
+      <UniqueIdentifier>{364479ab-c56d-465a-b01d-eb05a76e6a5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -468,6 +471,18 @@
     <ClInclude Include="Data.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Sources\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTransform.h">
+      <Filter>Sources\Object\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMesh.h">
+      <Filter>Sources\Object\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMaterial.h">
+      <Filter>Sources\Object\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -664,6 +679,18 @@
     </ClCompile>
     <ClCompile Include="Primitives.cpp">
       <Filter>Sources\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentTransform.cpp">
+      <Filter>Sources\Object\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMesh.cpp">
+      <Filter>Sources\Object\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentMaterial.cpp">
+      <Filter>Sources\Object\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
