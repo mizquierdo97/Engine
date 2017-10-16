@@ -35,6 +35,7 @@ struct Mesh {
 	Quat rotation;
 
 	AABB bounding_box;
+
 };
 
 
