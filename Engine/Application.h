@@ -38,7 +38,7 @@ private:
 
 public:
 	std::list<Module*> list_modules;
-
+	bool win_active = false;
 public:
 
 	Application();
@@ -47,7 +47,7 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
-
+	
 	bool Options();
 
 private:

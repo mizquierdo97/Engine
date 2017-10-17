@@ -40,28 +40,28 @@ bool ModuleGUI::Init()
 	style.WindowTitleAlign = { 0.50f,0.50f };
 
 
-	style.Colors[ImGuiCol_Text] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
+	style.Colors[ImGuiCol_Text] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
 	style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
-	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.11f, 0.11f, 0.11f, 1.00f);
-	style.Colors[ImGuiCol_ChildWindowBg] = ImVec4(0.65f, 0.61f, 0.61f, 0.00f);
-	style.Colors[ImGuiCol_PopupBg] = ImVec4(0.16f, 0.16f, 0.16f, 0.90f);
-	style.Colors[ImGuiCol_Border] = ImVec4(0.46f, 0.46f, 0.46f, 0.80f);
-	style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.19f, 0.19f, 0.19f, 0.00f);
-	style.Colors[ImGuiCol_FrameBg] = ImVec4(0.50f, 0.49f, 0.49f, 0.57f);
+	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.68f, 0.69f, 0.69f, 0.91f);
+	style.Colors[ImGuiCol_ChildWindowBg] = ImVec4(0.74f, 0.73f, 0.73f, 0.00f);
+	style.Colors[ImGuiCol_PopupBg] = ImVec4(0.69f, 0.69f, 0.69f, 0.90f);
+	style.Colors[ImGuiCol_Border] = ImVec4(1.00f, 1.00f, 1.00f, 0.80f);
+	style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+	style.Colors[ImGuiCol_FrameBg] = ImVec4(1.00f, 1.00f, 1.00f, 0.57f);
 	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.20f, 0.20f, 0.20f, 0.40f);
 	style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.59f, 0.59f, 0.59f, 0.74f);
-	style.Colors[ImGuiCol_TitleBg] = ImVec4(0.30f, 0.63f, 0.69f, 0.70f);
-	style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.37f, 0.79f, 0.86f, 0.20f);
-	style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.34f, 0.71f, 0.77f, 0.87f);
-	style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.30f, 0.38f, 0.39f, 0.80f);
+	style.Colors[ImGuiCol_TitleBg] = ImVec4(0.65f, 0.65f, 0.65f, 0.70f);
+	style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.59f, 0.60f, 0.59f, 0.73f);
+	style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.88f, 0.88f, 0.88f, 0.87f);
+	style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.42f, 0.48f, 0.55f, 1.00f);
 	style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.60f);
 	style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.35f, 0.91f, 1.00f, 0.30f);
 	style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.11f, 0.47f, 0.63f, 0.40f);
 	style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.17f, 0.67f, 0.89f, 0.40f);
 	style.Colors[ImGuiCol_ComboBg] = ImVec4(0.46f, 0.47f, 0.48f, 0.99f);
-	style.Colors[ImGuiCol_CheckMark] = ImVec4(0.90f, 0.90f, 0.90f, 0.50f);
+	style.Colors[ImGuiCol_CheckMark] = ImVec4(0.30f, 0.55f, 0.56f, 0.89f);
 	style.Colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
-	style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.31f, 0.45f, 0.54f, 1.00f);
+	style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.31f, 0.47f, 0.57f, 1.00f);
 	style.Colors[ImGuiCol_Button] = ImVec4(0.31f, 0.72f, 0.77f, 0.60f);
 	style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.16f, 0.34f, 0.43f, 1.00f);
 	style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.16f, 0.46f, 0.73f, 1.00f);
@@ -73,19 +73,17 @@ bool ModuleGUI::Init()
 	style.Colors[ImGuiCol_SeparatorActive] = ImVec4(0.70f, 0.70f, 0.90f, 1.00f);
 	style.Colors[ImGuiCol_ResizeGrip] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
 	style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(1.00f, 1.00f, 1.00f, 0.60f);
-	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(1.00f, 1.00f, 1.00f, 0.90f);
+	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.87f, 0.87f, 0.87f, 0.90f);
 	style.Colors[ImGuiCol_CloseButton] = ImVec4(0.10f, 0.17f, 0.29f, 0.50f);
 	style.Colors[ImGuiCol_CloseButtonHovered] = ImVec4(0.70f, 0.70f, 0.90f, 0.60f);
 	style.Colors[ImGuiCol_CloseButtonActive] = ImVec4(0.70f, 0.70f, 0.70f, 1.00f);
-	style.Colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+	style.Colors[ImGuiCol_PlotLines] = ImVec4(0.30f, 0.21f, 0.21f, 1.00f);
 	style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
-	style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 1.00f);
+	style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.37f, 0.63f, 0.72f, 1.00f);
 	style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
 	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
-	style.Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.20f, 0.20f, 0.20f, 0.35f);
-
-
-
+	style.Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.69f, 0.69f, 0.69f, 0.35f);
+	
 	return true;
 }
 
@@ -134,6 +132,7 @@ update_status ModuleGUI::Update(float dt)
 			if (ImGui::BeginMenu("Window"))
 			{
 				if (ImGui::MenuItem("Hardware")) { show_hardware = !show_hardware; }
+				if (ImGui::MenuItem("Window options")) { App->window->active = !App->window->active; }
 				ImGui::EndMenu();
 			}
 
@@ -155,6 +154,12 @@ update_status ModuleGUI::Update(float dt)
 
 				ImGui::EndMenu();
 			}
+
+			if (ImGui::BeginMenu("Performance"))
+			{
+				if (ImGui::MenuItem("Performance"))App->win_active = !App->win_active;
+				ImGui::EndMenu();
+			}
 			ImGui::EndMainMenuBar();
 		}
 
@@ -162,53 +167,7 @@ update_status ModuleGUI::Update(float dt)
 		
 		if (show_hardware)
 		{
-	
-			ImGui::SetNextWindowSize(ImVec2(350, 300), ImGuiCond_FirstUseEver);
-			ImGui::Begin("Hardware", &show_hardware);
-
-			int major = 0, minor = 0;
-			glGetIntegerv(GL_MAJOR_VERSION, &major);
-			glGetIntegerv(GL_MAJOR_VERSION, &minor);
-			ImGui::Text("OpenGL Version:");
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
-			ImGui::Text("GPU Vendor:");
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
-			ImGui::Text("Model:");
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
-			ImGui::Text("Total VRAM:");
-			GLint total_mem_kb = 0;
-			glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
-				&total_mem_kb);
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", total_mem_kb / 1024);
-
-			ImGui::Text("Free VRAM:");
-			GLint cur_avail_mem_kb = 0;
-			glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
-				&cur_avail_mem_kb);
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
-			Det_Cache = SDL_GetCPUCacheLineSize();
-			ImGui::Text("Cache:");
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", Det_Cache);
-
-			Det_CPU = SDL_GetCPUCount();
-			ImGui::Text("Number of CPU:");
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", Det_CPU);
-
-			Det_RAM = SDL_GetSystemRAM();
-			ImGui::Text("RAM Memory:");
-			ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i Gb", Det_RAM);
-
-			SDL_GetVersion(&sdl_vers);
-			ImGui::Text("SDL Version:");
-			ImGui::Text("Patch:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.patch);
-			ImGui::SameLine();
-			ImGui::Text("Major:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.major);
-			ImGui::SameLine();
-			ImGui::Text("Minor:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.minor);
-			ImGui::SameLine();
-
-			ImGui::Text("Developer's Image Library (DevIL): version "); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "1.7.8");
-			ImGui::End();
+			ShowHardware();
 		}
 
 		if (show_menu)
@@ -297,7 +256,7 @@ bool ModuleGUI::CleanUp()
 
 void ModuleGUI::Assets()
 {
-	if (ImGui::BeginDock("Assets", false, false, ImGuiWindowFlags_HorizontalScrollbar)) {
+	if (ImGui::BeginDock("Assets", false, false)) {
 		ImTextureID tex_id = App->renderer3D->tex;
 		std::list<std::string>::iterator item = path_list->begin();
 		int i = 0;
@@ -337,5 +296,61 @@ void ModuleGUI::ShowConsole(bool * p_open)
 {
 		
 	console.Draw("Example: Console", p_open);
+
+}
+
+void ModuleGUI::ShowHardware() 
+{
+	ImGui::SetNextWindowSize(ImVec2(350, 300), ImGuiCond_FirstUseEver);
+	ImGui::Begin("Hardware", &show_hardware);
+
+	int major = 0, minor = 0;
+	glGetIntegerv(GL_MAJOR_VERSION, &major);
+	glGetIntegerv(GL_MAJOR_VERSION, &minor);
+	ImGui::Text("OpenGL Version:");
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
+	ImGui::Text("GPU Vendor:");
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
+	ImGui::Text("Model:");
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
+	ImGui::Text("Total VRAM:");
+	GLint total_mem_kb = 0;
+	glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
+		&total_mem_kb);
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", total_mem_kb / 1024);
+
+	ImGui::Text("Free VRAM:");
+	GLint cur_avail_mem_kb = 0;
+	glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
+		&cur_avail_mem_kb);
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
+	Det_Cache = SDL_GetCPUCacheLineSize();
+	ImGui::Text("Cache:");
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", Det_Cache);
+
+	Det_CPU = SDL_GetCPUCount();
+	ImGui::Text("Number of CPU:");
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", Det_CPU);
+
+	Det_RAM = SDL_GetSystemRAM();
+	ImGui::Text("RAM Memory:");
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i Gb", Det_RAM);
+
+	SDL_GetVersion(&sdl_vers);
+	ImGui::Text("SDL Version:");
+	ImGui::Text("Patch:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.patch);
+	ImGui::SameLine();
+	ImGui::Text("Major:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.major);
+	ImGui::SameLine();
+	ImGui::Text("Minor:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.minor);
+	ImGui::SameLine();
+
+	ImGui::Text("Developer's Image Library (DevIL): version "); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "1.7.8");
+
+	ImGui::Separator();
+	ImGui::Text("Gamepads Connected:");
+	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", SDL_NumJoysticks());
+	ImGui::End();
+	ImGui::End();
 
 }

@@ -140,11 +140,9 @@ bool ModuleInput::CleanUp()
 
 bool ModuleInput::Options()
 {
-	if (ImGui::BeginDock("Input", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
-		ImGui::Text("Gamepads Connected:");
-		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i",SDL_NumJoysticks());
-		ImGui::EndDock();
-	}
+
+		
+	
 	
 	return false;
 }

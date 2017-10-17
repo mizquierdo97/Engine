@@ -37,6 +37,7 @@ public:
 	SDL_Surface* screen_surface;
 
 	Uint32 flags;
+	bool active = false;
 	bool resizable = false;
 	bool resizablebox = false;
 	bool borderless = true;

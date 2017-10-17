@@ -148,9 +148,12 @@ void ModuleWindow::SaveConfig(JSON_Object * root)
 
 bool ModuleWindow::Options()
 {
+	if(active)
+	{
 
-	if (ImGui::BeginDock("Window", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar )) {
-		ImGui::Columns(2);
+		ImGui::SetNextWindowSize(ImVec2(350, 300), ImGuiCond_FirstUseEver);
+		ImGui::Begin("Window", &active );
+		
 	
 		static int temp_width = width;
 		static int temp_height = height;
@@ -161,7 +164,7 @@ bool ModuleWindow::Options()
 			height = temp_height;
 			SDL_SetWindowSize(window, width, height);
 		}
-		ImGui::NextColumn();
+	
 			if (ImGui::Checkbox("Borderless", &borderlessbox))
 			{
 				if (borderless == false)
@@ -206,7 +209,7 @@ bool ModuleWindow::Options()
 			SetTitle(name);
 		title = name;
 
-		ImGui::EndDock();
+		ImGui::End();
 	}
 	return false;
 }

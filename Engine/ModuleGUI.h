@@ -35,7 +35,7 @@ public:
 
 	}
 	void ShowConsole(bool* p_open);
-	
+	void ShowHardware();
 	private:
 		int begin = 0, end = 100;
 		bool show_example_menu = false;

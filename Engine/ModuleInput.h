@@ -65,8 +65,9 @@ public:
 
 	char* dropped_filedir;
 	bool file_dropped = false;
-
+	bool active = false;
 private:
+	
 	KEY_STATE* keyboard;
 	KEY_STATE mouse_buttons[MAX_MOUSE_BUTTONS];
 	int mouse_x;

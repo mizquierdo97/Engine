@@ -146,9 +146,7 @@ bool ModuleWorld::Options()
 	
 	ImGui::EndDock();
 
-	if (ImGui::BeginDock("Configuration", false, false, false,
-		
-		ImGuiWindowFlags_ShowBorders)) {
+	if (ImGui::BeginDock("Configuration", false, false, false)) {
 
 		std::vector<Object*>::iterator item = obj_vector.begin();
 		int num = 0;
@@ -193,5 +191,10 @@ bool ModuleWorld::Options()
 	}
 	
 	ImGui::EndDock();
+
+	if(ImGui::BeginDock("Hierarchy", false, false, false)) {
+
+		ImGui::EndDock();
+	}
 	return true;
 }

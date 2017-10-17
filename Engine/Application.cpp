@@ -177,8 +177,10 @@ bool Application::CleanUp()
 
 bool Application::Options()
 {
-	if (ImGui::BeginDock("Application", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
-		
+	if (win_active) {
+		ImGui::SetNextWindowSize(ImVec2(350, 400), ImGuiCond_FirstUseEver);
+		if (ImGui::Begin("Application", &win_active)) {
+
 			std::list<Module*>::iterator item = App->list_modules.begin();
 
 			while (item != App->list_modules.end())
@@ -193,7 +195,8 @@ bool Application::Options()
 				item++;
 			}
 		}
-	ImGui::EndDock();
+		ImGui::End();
+	}
 	return true;
 }
 
