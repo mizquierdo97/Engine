@@ -36,13 +36,18 @@ public:
 	}
 	void ShowConsole(bool* p_open);
 	void ShowHardware();
+	//
+	void CreateGameObject();
+	//
 	private:
 		int begin = 0, end = 100;
 		bool show_example_menu = false;
 		bool show_menu = false;
 		bool show_help = false;
 		bool show_hardware = false;
-	
+		bool create_Gameobject = false;
+
+
 		int Det_RAM;
 		int Det_CPU;
 		int Det_Cache;
@@ -59,6 +64,9 @@ public:
 public:
 	ExampleAppConsole console;
 	std::list<std::string>* path_list;
-
 	bool show_normals = false;
+
+	//
+	
+	//
 };

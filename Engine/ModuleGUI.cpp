@@ -160,11 +160,17 @@ update_status ModuleGUI::Update(float dt)
 				if (ImGui::MenuItem("Performance"))App->win_active = !App->win_active;
 				ImGui::EndMenu();
 			}
+			if (ImGui::BeginMenu("Create"))
+			{
+				if (ImGui::MenuItem("GameObject")) create_Gameobject = !create_Gameobject;
+				ImGui::EndMenu();
+			}
+
 			ImGui::EndMainMenuBar();
 		}
 
 		if (show_example_menu) { ImGui::ShowTestWindow();}
-		
+		if (create_Gameobject) CreateGameObject();
 		if (show_hardware)
 		{
 			ShowHardware();
@@ -353,4 +359,37 @@ void ModuleGUI::ShowHardware()
 	ImGui::End();
 	ImGui::End();
 
+}
+
+void ModuleGUI::CreateGameObject()
+{
+	static float translation[3] = { 0.10f, 0.20f, 0.30f };
+	static float Scale[3] = { 0.10f, 0.20f, 0.30f };
+	static float Rotation[4] = { 0.10f, 0.20f, 0.30f, 0.40f };
+	ImGui::SetNextWindowSize(ImVec2(600, 700), ImGuiCond_FirstUseEver);
+
+	if(ImGui::Begin("GameObject", &create_Gameobject));
+	{
+		if(ImGui::CollapsingHeader("Transformation"))
+		{
+			ImGui::InputFloat3("Traslation", translation);
+			ImGui::InputFloat3("Scale", Scale);
+			ImGui::InputFloat4("Rotation", Rotation);
+
+		}
+
+		if(ImGui::CollapsingHeader("Mesh"))
+		{
+			ImGui::Text("Mesh :");
+
+		}
+
+		if (ImGui::CollapsingHeader("Texture")) 
+		{
+
+		}
+		
+		if (ImGui::Button("Create"));
+		ImGui::End();
+	}
 }
