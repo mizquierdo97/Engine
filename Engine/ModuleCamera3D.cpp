@@ -2,7 +2,8 @@
 #include "Application.h"
 #include "PhysBody3D.h"
 #include "ModuleCamera3D.h"
-
+#include "Component.h"
+#include "ComponentMesh.h"
 
 ModuleCamera3D::ModuleCamera3D( bool start_enabled) : Module( start_enabled)
 {
@@ -81,12 +82,17 @@ update_status ModuleCamera3D::Update(float dt)
 		temp_vec = vec3(0, 0, 0);
 			
 		while (item != App->world->obj_vector.end()) {
-
-			if ((*item)->is_mesh) {
-				temp_vec.x += (*item)->obj_mesh.bounding_box.CenterPoint().x;
-				temp_vec.y += (*item)->obj_mesh.bounding_box.CenterPoint().y;
-				temp_vec.z += (*item)->obj_mesh.bounding_box.CenterPoint().z;
-				num++;
+			std::vector<Component*>::iterator comp_item = (*item)->obj_components.begin();
+			while (comp_item != (*item)->obj_components.end()) {
+				if ((*item)->is_mesh && (*comp_item)->comp_type == ComponentType::mesh) {
+					ComponentMesh* temp_mesh = (ComponentMesh*)(*comp_item);
+					
+					temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
+					temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
+					temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
+					num++;
+				}
+				comp_item++;
 			}
 
 			item++;
@@ -100,16 +106,20 @@ update_status ModuleCamera3D::Update(float dt)
 
 		 vec3 temp_vec2 = vec3(0, 0, 0);
 		 while (item != App->world->obj_vector.end()) {
-			 if ((*item)->is_mesh) {
-				 temp_vec2.x = ((*item)->obj_mesh.bounding_box.maxPoint.x);
-				 temp_vec2.y = ((*item)->obj_mesh.bounding_box.maxPoint.y  );
-				 temp_vec2.z = ( (*item)->obj_mesh.bounding_box.maxPoint.z);
+			 std::vector<Component*>::iterator comp_item = (*item)->obj_components.begin();
+			 while (comp_item != (*item)->obj_components.end()) {
+				 if ((*item)->is_mesh && (*comp_item)->comp_type == ComponentType::mesh) {
+					 ComponentMesh* temp_mesh = (ComponentMesh*)(*comp_item);
+					 temp_vec2.x = (temp_mesh->obj_mesh.bounding_box.maxPoint.x);
+					 temp_vec2.y = (temp_mesh->obj_mesh.bounding_box.maxPoint.y);
+					 temp_vec2.z = (temp_mesh->obj_mesh.bounding_box.maxPoint.z);
 
-				 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
-				 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
-				 if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
+					 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
+					 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
+					 if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
 
-
+				 }
+				 comp_item++;
 			 }
 			 item++;
 		 }
@@ -164,12 +174,16 @@ update_status ModuleCamera3D::Update(float dt)
 			num = 0;
 			int i = 0;
 			while (item != App->world->obj_vector.end()) {
-
-				if ((*item)->is_mesh) {
-					temp_vec.x += (*item)->obj_mesh.bounding_box.CenterPoint().x;
-					temp_vec.y += (*item)->obj_mesh.bounding_box.CenterPoint().y;
-					temp_vec.z += (*item)->obj_mesh.bounding_box.CenterPoint().z;
-					num++;
+				std::vector<Component*>::iterator comp_item = (*item)->obj_components.begin();
+				while (comp_item != (*item)->obj_components.end()) {
+					if ((*item)->is_mesh && (*comp_item)->comp_type == ComponentType::mesh) {
+						ComponentMesh* temp_mesh = (ComponentMesh*)(*comp_item);
+						temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
+						temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
+						temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
+						num++;
+					}
+					comp_item++;
 				}
 				
 				item++;

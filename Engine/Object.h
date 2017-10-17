@@ -27,6 +27,10 @@ public:
 	Object() {
 
 	}
+	Object(const Object& obj): obj_components(obj.obj_components), obj_parent(obj.obj_parent), obj_childs(obj.obj_childs) {
+		
+
+	}
 	~Object() {
 
 	}

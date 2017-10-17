@@ -11,6 +11,7 @@ enum ComponentType {
 
 };
 
+class Object;
 class Component {
 
 public:

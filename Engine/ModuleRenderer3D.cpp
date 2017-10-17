@@ -284,11 +284,22 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		}
 
 		if (m.id_textures != NULL) {
-			if(texture)
-			glEnable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glBindTexture(GL_TEXTURE_2D, comp->mesh_material->obj_tex->GetTexture());
+			Texture* temp_tex;
+			std::vector<Component*>::iterator item = comp->parent->obj_components.begin();
+			while (item != comp->parent->obj_components.end()) {
+				if ((*item)->comp_type == ComponentType::material) {
+					ComponentMaterial* temp_mat = (ComponentMaterial*)(*item);
+					temp_tex = temp_mat->obj_tex;
+					break;
+				}
+				item++;
+			}
 
+			if (texture) {
+				glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, 0);
+				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
+			}
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
 			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
