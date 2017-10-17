@@ -25,3 +25,32 @@ void Object::Update() {
 	}
 
 }
+
+ComponentMesh * Object::GetMesh()
+{
+	std::vector<Component*>::iterator item = obj_components.begin();
+	while (item != obj_components.end()) {
+		if ((*item)->comp_type == ComponentType::mesh) {
+			ComponentMesh* ret = (ComponentMesh*)(*item);
+			return ret;
+		}
+
+		item++;
+	}
+
+	return nullptr;
+}
+
+ComponentMaterial * Object::GetMaterial()
+{
+	std::vector<Component*>::iterator item = obj_components.begin();
+	while (item != obj_components.end()) {
+		if ((*item)->comp_type == ComponentType::material) {
+			ComponentMaterial* ret = (ComponentMaterial*)(*item);
+			return ret;
+		}
+
+		item++;
+	}
+	return nullptr;
+}

@@ -40,6 +40,9 @@ public:
 	void AddComponentMaterial(Texture* );
 	void Update();
 
+
+	ComponentMesh* GetMesh();
+	ComponentMaterial* GetMaterial();
 public:
 	Mesh obj_mesh;
 	Texture* obj_text = nullptr;

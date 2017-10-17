@@ -82,17 +82,14 @@ update_status ModuleCamera3D::Update(float dt)
 		temp_vec = vec3(0, 0, 0);
 			
 		while (item != App->world->obj_vector.end()) {
-			std::vector<Component*>::iterator comp_item = (*item)->obj_components.begin();
-			while (comp_item != (*item)->obj_components.end()) {
-				if ((*item)->is_mesh && (*comp_item)->comp_type == ComponentType::mesh) {
-					ComponentMesh* temp_mesh = (ComponentMesh*)(*comp_item);
+			ComponentMesh* temp_mesh = (*item)->GetMesh();
+				if ((*item)->is_mesh ) {				
 					
 					temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
 					temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
 					temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
 					num++;
-				}
-				comp_item++;
+				
 			}
 
 			item++;
@@ -106,10 +103,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 		 vec3 temp_vec2 = vec3(0, 0, 0);
 		 while (item != App->world->obj_vector.end()) {
-			 std::vector<Component*>::iterator comp_item = (*item)->obj_components.begin();
-			 while (comp_item != (*item)->obj_components.end()) {
-				 if ((*item)->is_mesh && (*comp_item)->comp_type == ComponentType::mesh) {
-					 ComponentMesh* temp_mesh = (ComponentMesh*)(*comp_item);
+			 ComponentMesh* temp_mesh = (*item)->GetMesh();
+				 if ((*item)->is_mesh ) {
+				
 					 temp_vec2.x = (temp_mesh->obj_mesh.bounding_box.maxPoint.x);
 					 temp_vec2.y = (temp_mesh->obj_mesh.bounding_box.maxPoint.y);
 					 temp_vec2.z = (temp_mesh->obj_mesh.bounding_box.maxPoint.z);
@@ -117,10 +113,7 @@ update_status ModuleCamera3D::Update(float dt)
 					 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
 					 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
 					 if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
-
-				 }
-				 comp_item++;
-			 }
+					  }
 			 item++;
 		 }
 		 Reference = temp_vec;
@@ -174,16 +167,13 @@ update_status ModuleCamera3D::Update(float dt)
 			num = 0;
 			int i = 0;
 			while (item != App->world->obj_vector.end()) {
-				std::vector<Component*>::iterator comp_item = (*item)->obj_components.begin();
-				while (comp_item != (*item)->obj_components.end()) {
-					if ((*item)->is_mesh && (*comp_item)->comp_type == ComponentType::mesh) {
-						ComponentMesh* temp_mesh = (ComponentMesh*)(*comp_item);
+				ComponentMesh* temp_mesh = (*item)->GetMesh();
+					if ((*item)->is_mesh ) {
+						
 						temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
 						temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
 						temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
 						num++;
-					}
-					comp_item++;
 				}
 				
 				item++;

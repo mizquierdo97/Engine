@@ -4,7 +4,7 @@
 #include "PhysBody3D.h"
 #include "glmath.h"
 #include "Primitive.h"
-
+#include "ComponentMesh.h"
 #ifdef _DEBUG
 	#pragma comment (lib, "Bullet/libx86/BulletDynamics_debug.lib")
 	#pragma comment (lib, "Bullet/libx86/BulletCollision_debug.lib")
@@ -302,7 +302,7 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 	hinge->setDbgDrawSize(2.0f);
 }
 
-void ModulePhysics3D::DrawNormals(Object * obj)
+void ModulePhysics3D::DrawNormals(ComponentMesh * obj)
 {
 	btVector3 color = { 1, 1 ,1 };
 	for (int i = 0; i < obj->obj_mesh.num_vertexs; i++) {

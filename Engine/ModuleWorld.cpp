@@ -2,6 +2,8 @@
 #include "ModuleWorld.h"
 
 #include "imgui_dock.h"
+#include "Object.h"
+#include "ComponentMesh.h"
 #include <string>
 ModuleWorld::ModuleWorld(bool start_enabled) : Module(start_enabled)
 {
@@ -154,16 +156,16 @@ bool ModuleWorld::Options()
 		{
 			if ((*item)->is_mesh) {
 				ImGui::Separator();
-
+				Mesh m = (*item)->GetMesh()->obj_mesh;
 				ImGui::Text("Mesh %i", num + 1);
-				float3 t_temp = (*item)->obj_mesh.translation;
+				float3 t_temp = m.translation;
 
 				ImGui::Text("Translation");
 				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.x); ImGui::SameLine();
 				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.y); ImGui::SameLine();
 				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.z); 
 
-				math::Quat q_temp = (*item)->obj_mesh.rotation;
+				math::Quat q_temp = m.rotation;
 				float3 eul_ang = q_temp.ToEulerXYZ();
 
 				ImGui::Text("Rotation");
@@ -172,7 +174,7 @@ bool ModuleWorld::Options()
 				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.y); ImGui::SameLine();
 				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.z); 
 
-				float3 s_temp = (*item)->obj_mesh.scale;
+				float3 s_temp = m.scale;
 
 				ImGui::Text("Scale");
 				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.x); ImGui::SameLine();
@@ -180,9 +182,9 @@ bool ModuleWorld::Options()
 				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.z); 
 				
 
-				ImGui::Text("Tris:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", (*item)->obj_mesh.num_vertexs/3);
+				ImGui::Text("Tris:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs/3);
 				ImGui::SameLine();
-				ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", (*item)->obj_mesh.num_vertexs);
+				ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs);
 
 				num++;
 			}

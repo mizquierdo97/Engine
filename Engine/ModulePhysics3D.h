@@ -35,7 +35,7 @@ public:
 
 	btDiscreteDynamicsWorld*			world;
 
-	void DrawNormals(Object* obj);
+	void DrawNormals(ComponentMesh* obj);
 private:
 
 	bool debug;
