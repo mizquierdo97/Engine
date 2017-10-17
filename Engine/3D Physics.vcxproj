@@ -125,6 +125,7 @@
     <ClInclude Include="DevIL\include\ilut_config.h" />
     <ClInclude Include="DevIL\include\ilu_region.h" />
     <ClInclude Include="DevIL\include\il_wrap.h" />
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Config.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_demo.cpp" />

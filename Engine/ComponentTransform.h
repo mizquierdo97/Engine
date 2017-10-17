@@ -7,8 +7,8 @@
 
 class ComponentTransform : public Component{
 public:
-
-
+	ComponentTransform() {};
+	~ComponentTransform() {};
 public:
 	float3 translation;
 	float3 scale;

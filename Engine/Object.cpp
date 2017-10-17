@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "Application.h"
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
@@ -32,6 +33,8 @@ void Object::Update() {
 			obj_item++;
 		}
 	}
+
+	App->renderer3D->RenderMesh(&bb_mesh);
 
 }
 

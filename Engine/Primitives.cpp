@@ -205,7 +205,7 @@ Mesh CreateCylinder()
 
 int CreateObject(objectType type)
 {
-	Object* new_object = new Object();
+	/*Object* new_object = new Object();
 	switch (type) {
 	case cube:
 		new_object->obj_mesh = CreateCube();
@@ -221,11 +221,12 @@ int CreateObject(objectType type)
 		App->world->obj_vector.push_back(new_object);
 		break;
 	}
-
-	return new_object->obj_id;
+	*/
+	//return new_object->obj_id;
+	return 0;
 }
 
-void CreateAABB(AABB b_box) {
+ Mesh CreateAABB(AABB b_box) {
 	vec vertexs[36];
 
 	b_box.Triangulate(1, 1, 1, &vertexs[0], nullptr, nullptr, false);
@@ -244,12 +245,6 @@ void CreateAABB(AABB b_box) {
 	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m.num_vertexs * 3, m.vertexs, GL_STATIC_DRAW);
 
-	Object* new_object = new Object();
-	new_object->obj_mesh = m;
-	new_object->obj_type = objectType::aabb;
-	new_object->render_object = false;
-	new_object->is_mesh = false;
-	new_object->obj_id = App->world->obj_vector.size();
-	App->world->obj_vector.push_back(new_object);
+	return m;
 
 };

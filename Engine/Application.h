@@ -14,6 +14,7 @@
 #include "ModuleWorld.h"
 #include "Config.h"
 #include "ModuleAssimp.h"
+#include "FileSystem.h"
 #include <list>
 
 
@@ -31,6 +32,7 @@ public:
 	ModuleAssimp* assimp;
 
 	Config* config;
+	FileSystem* filesystem;
 private:
 
 	Timer	ms_timer;

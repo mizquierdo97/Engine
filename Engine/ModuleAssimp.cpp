@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleAssimp.h"
-
+#include "FileSystem.h"
 ModuleAssimp::ModuleAssimp(bool start_enabled) : Module(start_enabled)
 {
 }
@@ -50,7 +50,7 @@ void ModuleAssimp::ImportMesh(char * path)
 	
 
 	//CLEAN LAST OBJ VECTOR
-	std::vector<Object*>::iterator it = App->world->obj_vector.begin();
+/*	std::vector<Object*>::iterator it = App->world->obj_vector.begin();
 	if(App->world->obj_vector.size())
 		LOG("Cleaning Last FBX mesh")
 	while (it != App->world->obj_vector.end()) {
@@ -62,13 +62,12 @@ void ModuleAssimp::ImportMesh(char * path)
 		it++;
 	}
 	App->world->obj_vector.clear();
-	
+	*/
 
 	LOG("Start Exporting");
 
 
 
-	App->world->obj_vector.clear();
 	
 	const aiScene* scene;
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
@@ -79,7 +78,7 @@ void ModuleAssimp::ImportMesh(char * path)
 		for (int i = 0; i < scene->mNumMeshes; i++) {
 
 			aiMesh* new_mesh = scene->mMeshes[i];
-			Texture* temp_tex = nullptr;
+			/*Texture* temp_tex = nullptr;
 			Mesh m;
 			m.num_vertexs = new_mesh->mNumVertices;
 			m.vertexs = new float[m.num_vertexs * 3];
@@ -114,13 +113,13 @@ void ModuleAssimp::ImportMesh(char * path)
 			}
 
 			if (new_mesh->HasNormals()) {
-				m.num_norms = new_mesh->mNumVertices;
-				m.norms = new float[m.num_norms * 3];
-				memcpy(m.norms, new_mesh->mNormals, sizeof(float) * m.num_norms * 3);
+				
+				m.norms = new float[m.num_vertexs * 3];
+				memcpy(m.norms, new_mesh->mNormals, sizeof(float) * m.num_vertexs * 3);
 
 				glGenBuffers(1, (GLuint*)&(m.id_norms));
 				glBindBuffer(GL_ARRAY_BUFFER, m.id_norms);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_norms * 3, m.norms, GL_STATIC_DRAW);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, m.norms, GL_STATIC_DRAW);
 				LOG("Normals buffer created sucessfully");
 
 			}
@@ -175,12 +174,33 @@ void ModuleAssimp::ImportMesh(char * path)
 				//App->gui->path_list->push_back(final_path);
 				App->renderer3D->loadTextureFromFile((char*)final_path.c_str(), &temp_tex);
 
-			}			
+			}	*/		
+			std::string finalpath = path;
+			std::string str_path = path;
+			std::string str_temp;
+			int length=0;
+			while (str_path.back() != '\\')
+			{
+				str_path.pop_back();
+				length++;
+			}
+			str_temp = finalpath.substr(finalpath.length() - length, length);
+			while (str_temp.back() != '.')
+			{
+				str_temp.pop_back();
+			}
+			str_temp.pop_back();
 			
+			
+			App->filesystem->ImportMesh(new_mesh, MESHES_PATH, str_temp.c_str() );
+
+			
+
+			/*
 			AABB* temp = new AABB();
 			temp->SetFrom((vec*)new_mesh->mVertices,m.num_vertexs);
 			m.bounding_box = *temp;
-			
+
 			CreateAABB(*temp);
 			Object* temp_obj = new Object();
 			temp_obj->AddComponentMesh(m);
@@ -188,7 +208,7 @@ void ModuleAssimp::ImportMesh(char * path)
 			//temp_obj->obj_mesh = m;
 			temp_obj->obj_id = App->world->obj_vector.size();
 			temp_obj->obj_text = temp_tex;
-			App->world->obj_vector.push_back(temp_obj);
+			App->world->obj_vector.push_back(temp_obj);*/
 		}
 
 			//RELEASE SCENE

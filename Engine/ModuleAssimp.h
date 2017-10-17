@@ -21,7 +21,6 @@ struct Mesh {
 	uint* indices = nullptr;
 
 	uint id_norms = 0;
-	uint num_norms = 0;
 	float* norms = nullptr;
 
 	uint id_colors = 0;

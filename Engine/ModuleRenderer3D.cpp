@@ -277,19 +277,15 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 			glNormalPointer(GL_FLOAT, 0, NULL);
 		}
 
-		if (m.id_colors != NULL) {
-			glEnableClientState(GL_COLOR_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_norms);
-			glColorPointer(3,GL_FLOAT, 0, NULL);
-		}
+		
 
 		if (m.id_textures != NULL) {
-			Texture* temp_tex = comp->parent->GetMaterial()->obj_tex;
+			//Texture* temp_tex = comp->parent->GetMaterial()->obj_tex;
 					
 			if (texture) {
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, 0);
-				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
+				//glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
 			}
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
@@ -303,7 +299,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	
 		}
 	else {
-		if (1) {
+		if (0) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 		else {
@@ -316,6 +312,58 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		
 	}
 	glDisable(GL_TEXTURE_2D);
+}
+
+void ModuleRenderer3D::RenderMesh(Mesh * m)
+{
+	if (m->id_indices != NULL) {
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, m->id_vertexs);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+		if (m->id_norms != NULL) {
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, m->id_norms);
+			glNormalPointer(GL_FLOAT, 0, NULL);
+		}
+
+
+
+		if ( m->id_textures != NULL) {
+			//Texture* temp_tex = comp->parent->GetMaterial()->obj_tex;
+
+			if (texture) {
+				glEnable(GL_TEXTURE_2D);
+				glBindTexture(GL_TEXTURE_2D, 0);
+				//glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
+			}
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, m->id_textures);
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		}
+
+		if (m->id_indices != NULL)
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->id_indices);
+		glDrawElements(GL_TRIANGLES, m->num_indices, GL_UNSIGNED_INT, NULL);
+
+
+	}
+	else {
+		if (0) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		else {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, m->id_vertexs);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glDrawArrays(GL_TRIANGLES, 0, m->num_vertexs);
+
+	}
+	glDisable(GL_TEXTURE_2D);
+
+
 }
 
 

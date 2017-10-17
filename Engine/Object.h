@@ -13,7 +13,7 @@ enum objectType {
 
 Mesh CreateCube();
 Mesh CreateCylinder();
-void CreateAABB(AABB);
+Mesh CreateAABB(AABB);
 int CreateObject(objectType type);
 
 class Component;
@@ -44,7 +44,7 @@ public:
 	ComponentMesh* GetMesh();
 	ComponentMaterial* GetMaterial();
 public:
-	Mesh obj_mesh;
+	Mesh bb_mesh;
 	Texture* obj_text = nullptr;
 	objectType obj_type = objectType::null;
 	int obj_id = 0;

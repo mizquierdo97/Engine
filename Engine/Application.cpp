@@ -13,6 +13,8 @@ Application::Application()
 	physics = new ModulePhysics3D();
 	world = new ModuleWorld();
 	assimp = new ModuleAssimp();
+
+	filesystem = new FileSystem();
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -41,6 +43,7 @@ Application::Application()
 	gui->name = "Gui";
 	world->name = "World";
 	assimp->name = "Assimp";
+
 }
 
 Application::~Application()

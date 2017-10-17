@@ -37,3 +37,7 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "Engine"
+#define ASSETS_PATH "Assets/"
+#define LIBRARY_PATH "Library/"
+#define MESHES_PATH "Library/Meshes/"
+#define MATERIALS_PATH "Library/Materials/"

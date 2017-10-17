@@ -269,7 +269,7 @@ void ModuleGUI::Assets()
 			std::string temp;
 			temp = path.substr(path.length() - 3, 3);
 
-			if (!strcmp((char*)temp.c_str(), "fbx")) {
+			if (!strcmp((char*)temp.c_str(), "bin")) {
 				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
 					App->world->ImportMesh((char*)path.c_str());
 			}

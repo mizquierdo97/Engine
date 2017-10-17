@@ -79,7 +79,7 @@ void ModuleWorld::FileDropped()
 
 
 	if (!strcmp((char*)temp.c_str(), "fbx"))
-		App->gui->path_list->push_back(path);
+		App->assimp->ImportMesh((char*)path.c_str());
 
 	else if (!strcmp((char*)temp.c_str(), "png") || !strcmp((char*)temp.c_str(), "jpg"))
 		App->gui->path_list->push_back(path);
@@ -133,7 +133,8 @@ void ModuleWorld::It_Render()
 
 void ModuleWorld::ImportMesh(char * path)
 {
-	App->assimp->ImportMesh(path);
+	App->filesystem->LoadMesh(path);
+	//App->assimp->ImportMesh(path);
 }
 
 

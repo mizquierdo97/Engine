@@ -40,6 +40,9 @@
     <Filter Include="Sources\Object\Components">
       <UniqueIdentifier>{364479ab-c56d-465a-b01d-eb05a76e6a5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\FileSystem">
+      <UniqueIdentifier>{b3e2e602-17d2-40fc-aff4-f022963037a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -483,6 +486,9 @@
     <ClInclude Include="ComponentMaterial.h">
       <Filter>Sources\Object\Components</Filter>
     </ClInclude>
+    <ClInclude Include="FileSystem.h">
+      <Filter>Sources\FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -691,6 +697,9 @@
     </ClCompile>
     <ClCompile Include="ComponentMaterial.cpp">
       <Filter>Sources\Object\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSystem.cpp">
+      <Filter>Sources\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
