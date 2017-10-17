@@ -13,6 +13,6 @@ public:
 	}
 
 	void InitFileSystem();
-	void ImportMesh(aiMesh* m, const char* directory ,const char* name);
+	void ImportMesh(aiScene* m, const char* directory ,const char* name);
 	void LoadMesh(const char*);
 };

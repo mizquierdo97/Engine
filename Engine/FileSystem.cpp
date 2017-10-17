@@ -4,6 +4,12 @@
 #include "Globals.h"
 #include "ModuleAssimp.h"
 #include "Application.h"
+
+void CreateBinary(aiScene*,const char*, const char*);
+char* LoadBuffer(const char*);
+void CreateObjectFromMesh(char*);
+void GenGLBuffers(Mesh*);
+
 void FileSystem::InitFileSystem()
 {
 	if (CreateDirectory(ASSETS_PATH, NULL) ||
@@ -28,79 +34,138 @@ void FileSystem::InitFileSystem()
 	}
 }
 
-void FileSystem::ImportMesh(aiMesh* m, const char * directory, const char* name)
+void FileSystem::ImportMesh(aiScene* scene, const char * directory, const char* name)
 {
-
-	uint ranges[4] = { m->mNumVertices, m->mNumFaces*3,m->HasTextureCoords(0),m->HasNormals() };
-	
-	uint size = sizeof(ranges) + sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces*3;
-	if (m->HasTextureCoords(0)) {
-		size += sizeof(float)*m->mNumVertices * 2;
-	}
-	if (m->HasNormals()) {
-		size += sizeof(float)*m->mNumVertices * 3;
-	}
-	
-	char* data = new char[size];
-	char* cursor = data;
-	uint bytes = sizeof(ranges);
-	memcpy(cursor, ranges, bytes);
-	cursor += bytes;
-
-	bytes = sizeof(uint) *  m->mNumFaces * 3;
 	
 	
-	uint * indices = new uint[m->mNumFaces*3]; // assume each face is a triangle
-	for (uint i = 0; i < m->mNumFaces; ++i)
+	if (scene != nullptr && scene->HasMeshes())
 	{
-		if (m->mFaces[i].mNumIndices != 3) {
-			LOG("WARNING, geometry face with != 3 indices!");
-		}
-		else
-			memcpy(&indices[i * 3], m->mFaces[i].mIndices, 3 * sizeof(uint));
+		CreateBinary(scene, directory, name);
+		
+	}	
+
+	else {
+		LOG("Can't open the file: %s", directory);
 	}
-	memcpy(cursor, indices, bytes);
-	cursor += bytes;
-
-
-	bytes = sizeof(float) * m->mNumVertices *3;
-	memcpy(cursor, m->mVertices, bytes);
-	cursor += bytes;
 	
-	if (m->HasTextureCoords(0)) {
-		float* texture_coords = new float[m->mNumVertices * 2];
-		for (unsigned int k = 0; k < m->mNumVertices; ++k) {
+}
+			
 
-			texture_coords[k * 2] = m->mTextureCoords[0][k].x;
-			texture_coords[k * 2 + 1] = m->mTextureCoords[0][k].y;
 
+void FileSystem::LoadMesh(const char * path)
+{
+	char* buffer = LoadBuffer(path);
+	/* the whole file is now loaded in the memory buffer. */
+	
+	// amount of indices / vertices / colors / normals / texture_coords
+
+	CreateObjectFromMesh(buffer);
+	
+	// terminate
+	
+	free(buffer);
+
+}
+
+
+uint GetSize(aiScene* scene) {
+	uint size = 0;
+	aiMesh* m;
+	for (int i = 0; i < scene->mNumMeshes; i++) {
+
+
+		m = scene->mMeshes[i];
+		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+		size += sizeof(ranges) + sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
+		if (m->HasTextureCoords(0)) {
+			size += sizeof(float)*m->mNumVertices * 2;
 		}
-		bytes = sizeof(float) * m->mNumVertices * 2;
-		memcpy(cursor, texture_coords, bytes);
+		if (m->HasNormals()) {
+			size += sizeof(float)*m->mNumVertices * 3;
+		}
+
+	}
+	size = size*scene->mNumMeshes + sizeof(uint);
+	return size;
+};
+
+void CreateBinary(aiScene* scene, const char * directory, const char* name){
+
+	std::string final_name;
+	aiMesh* m;
+	uint num_meshes[1] = { scene->mNumMeshes };
+
+
+	char* data = nullptr;
+	uint size = GetSize(scene);
+	data = new char[size];
+	char* cursor = data;
+
+	uint bytes = sizeof(num_meshes);
+	memcpy(cursor, num_meshes, bytes);
+	cursor += bytes;
+	for (int i = 0; i < scene->mNumMeshes; i++) {
+
+		m = scene->mMeshes[i];
+		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+
+			
+		bytes = sizeof(ranges);
+		memcpy(cursor, ranges, bytes);
 		cursor += bytes;
+
+		bytes = sizeof(uint) *  m->mNumFaces * 3;
+		
+		uint * indices = new uint[m->mNumFaces * 3]; // assume each face is a triangle
+		for (uint i = 0; i < m->mNumFaces; ++i)
+		{
+			if (m->mFaces[i].mNumIndices != 3) {
+				LOG("WARNING, geometry face with != 3 indices!");
+			}
+			else
+				memcpy(&indices[i * 3], m->mFaces[i].mIndices, 3 * sizeof(uint));
+		}
+
+		memcpy(cursor, indices, bytes);
+		cursor += bytes;
+
+
+		bytes = sizeof(float) * m->mNumVertices * 3;
+		memcpy(cursor, m->mVertices, bytes);
+		cursor += bytes;
+
+		if (m->HasTextureCoords(0)) {
+			float* texture_coords = new float[m->mNumVertices * 2];
+			for (unsigned int k = 0; k < m->mNumVertices; ++k) {
+
+				texture_coords[k * 2] = m->mTextureCoords[0][k].x;
+				texture_coords[k * 2 + 1] = m->mTextureCoords[0][k].y;
+
+			}
+			bytes = sizeof(float) * m->mNumVertices * 2;
+			memcpy(cursor, texture_coords, bytes);
+			cursor += bytes;
+		}
+
+		if (m->HasNormals()) {
+			bytes = sizeof(float) *m->mNumVertices * 3;
+			memcpy(cursor, m->mNormals, bytes);
+			cursor += bytes;
+		}
 	}
 
-	if (m->HasNormals()) {
-		bytes = sizeof(float) *m->mNumVertices * 3;
-		memcpy(cursor, m->mNormals, bytes);
-		cursor += bytes;
-	}
-
+	//FINALLY CREATE THE FILE
 	FILE * pFile;
-	std::string final_name = MESHES_PATH;
+	final_name = MESHES_PATH;
 	final_name += name; final_name += ".bin";
 	pFile = fopen(final_name.c_str(), "wb");
 	fwrite(data, sizeof(char), size, pFile);
 	fclose(pFile);
-	
-	App->gui->path_list->push_back(final_name);
-	
 
-	//LoadMesh("myfile.bin");
+	App->gui->path_list->push_back(final_name);
 }
 
-void FileSystem::LoadMesh(const char * path)
-{
+char* LoadBuffer(const char* path) {
 	FILE * pFile;
 	long lSize;
 	char * buffer;
@@ -121,90 +186,101 @@ void FileSystem::LoadMesh(const char * path)
 	// copy the file into the buffer:
 	result = fread(buffer, 1, lSize, pFile);
 	if (result != lSize) { fputs("Reading error", stderr); exit(3); }
-	uint total_size =0;
-	/* the whole file is now loaded in the memory buffer. */
-	char* cursor = buffer;
-	// amount of indices / vertices / colors / normals / texture_coords
-	uint ranges[4];
-	uint bytes = sizeof(ranges);
-	total_size += bytes;
-	memcpy(ranges, cursor, bytes);
-	Mesh m;
 
-	m.num_vertexs = ranges[0];
-	m.num_indices = ranges[1];
-	cursor += bytes;
-
-
-	bytes = sizeof(uint) * m.num_indices;
-	total_size += bytes;
-	m.indices = new uint[m.num_indices];
-	memcpy(m.indices, cursor, bytes);
-	
-	cursor += bytes;
-	
-	bytes = sizeof(float) * m.num_vertexs *3 ;
-	total_size += bytes;
-	m.vertexs = new float[m.num_vertexs *3];
-	memcpy(m.vertexs, cursor, bytes);
-	cursor += bytes;
-
-	if (ranges[2]) {
-		bytes = sizeof(float) * m.num_vertexs * 2;
-		total_size += bytes;
-		m.texture_coords = new float[m.num_vertexs * 2];
-		memcpy(m.texture_coords, cursor, bytes);
-		cursor += bytes;
-	}
-
-	if (ranges[3]) {
-		bytes = sizeof(float) * m.num_vertexs * 3;
-		total_size += bytes;
-		m.norms = new float[m.num_vertexs * 3];
-		memcpy(m.norms, cursor, bytes);
-	}
-
-	glGenBuffers(1, (GLuint*)&(m.id_vertexs));
-	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, m.vertexs, GL_STATIC_DRAW);
-
-
-	glGenBuffers(1, (GLuint*)&m.id_indices);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *m.num_indices, m.indices, GL_STATIC_DRAW);
-	LOG("Faces buffer created sucessfully");
-
-
-	glGenBuffers(1, (GLuint*)&(m.id_norms));
-	glBindBuffer(GL_ARRAY_BUFFER, m.id_norms);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 3, m.norms, GL_STATIC_DRAW);
-	LOG("Normals buffer created sucessfully");
-
-	glGenBuffers(1, (GLuint*) &(m.id_textures));
-	glBindBuffer(GL_ARRAY_BUFFER, m.id_textures);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m.num_vertexs * 2, &m.texture_coords, GL_STATIC_DRAW);
-	LOG("Texture coords: buffer created sucessfully");
-
-
-	AABB* temp = new AABB();
-	temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
-	m.bounding_box = *temp;
-
-	
-	Object* temp_obj = new Object();
-	temp_obj->bb_mesh = CreateAABB(*temp);
-	temp_obj->AddComponentMesh(m);
-	//temp_obj->AddComponentMaterial(temp_tex);
-	//temp_obj->obj_mesh = m;
-	temp_obj->obj_id = App->world->obj_vector.size();
-	//temp_obj->obj_text = temp_tex;
-	App->world->obj_vector.push_back(temp_obj);
-
-
-	// terminate
 	fclose(pFile);
-	free(buffer);
+
+	return buffer;
+}
+
+void CreateObjectFromMesh(char* buffer){
+	uint num_meshes[1];
+	uint ranges[4];
+
+	char* cursor = buffer;
+
+	uint bytes = sizeof(num_meshes);
+	memcpy(num_meshes, cursor, bytes);
+	cursor += bytes;
+
+	for (int i = 0; i < num_meshes[0]; i++) {
+		uint bytes = sizeof(ranges);
+		memcpy(ranges, cursor, bytes);
+		cursor += bytes;
+		Mesh m;
+
+		m.num_vertexs = ranges[0];
+		m.num_indices = ranges[1];
+		
+		bytes = sizeof(uint) * m.num_indices;
+
+		m.indices = new uint[m.num_indices];
+		memcpy(m.indices, cursor, bytes);
+
+		cursor += bytes;
+
+		bytes = sizeof(float) * m.num_vertexs * 3;
+		m.vertexs = new float[m.num_vertexs * 3];
+		memcpy(m.vertexs, cursor, bytes);
+		cursor += bytes;
+
+		if (ranges[2]) {
+			bytes = sizeof(float) * m.num_vertexs * 2;
+			m.texture_coords = new float[m.num_vertexs * 2];
+			memcpy(m.texture_coords, cursor, bytes);
+			cursor += bytes;
+		}
+
+		if (ranges[3]) {
+			bytes = sizeof(float) * m.num_vertexs * 3;
+			m.norms = new float[m.num_vertexs * 3];
+			memcpy(m.norms, cursor, bytes);
+			cursor += bytes;
+		}
+
+
+		GenGLBuffers(&m);
+
+		AABB* temp = new AABB();
+		temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
+		m.bounding_box = *temp;
+
+		
+
+
+		Object* temp_obj = new Object();
+		temp_obj->bb_mesh = CreateAABB(*temp);
+		temp_obj->AddComponentMesh(m);
+		//temp_obj->AddComponentMaterial(temp_tex);
+		//temp_obj->obj_mesh = m;
+		temp_obj->obj_id = App->world->obj_vector.size();
+		//temp_obj->obj_text = temp_tex;
+		App->world->obj_vector.push_back(temp_obj);
+	}
 
 }
 
+void GenGLBuffers(Mesh* m) {
 
+	glGenBuffers(1, (GLuint*)&(m->id_vertexs));
+	glBindBuffer(GL_ARRAY_BUFFER, m->id_vertexs);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 3, m->vertexs, GL_STATIC_DRAW);
+
+
+	glGenBuffers(1, (GLuint*)&m->id_indices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *m->num_indices, m->indices, GL_STATIC_DRAW);
+	LOG("Faces buffer created sucessfully");
+
+	glGenBuffers(1, (GLuint*) &m->id_textures);
+	glBindBuffer(GL_ARRAY_BUFFER, m->id_textures);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 2, &m->texture_coords[0], GL_STATIC_DRAW);
+	LOG("Texture coords: buffer created sucessfully");
+
+
+	glGenBuffers(1, (GLuint*)&(m->id_norms));
+	glBindBuffer(GL_ARRAY_BUFFER, m->id_norms);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 3, m->norms, GL_STATIC_DRAW);
+	LOG("Normals buffer created sucessfully");
+
+
+}

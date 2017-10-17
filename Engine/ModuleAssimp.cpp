@@ -73,7 +73,7 @@ void ModuleAssimp::ImportMesh(char * path)
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	
 
-	if (scene != nullptr && scene->HasMeshes())
+	/*if (scene != nullptr && scene->HasMeshes())
 	{
 		for (int i = 0; i < scene->mNumMeshes; i++) {
 
@@ -192,32 +192,11 @@ void ModuleAssimp::ImportMesh(char * path)
 			str_temp.pop_back();
 			
 			
-			App->filesystem->ImportMesh(new_mesh, MESHES_PATH, str_temp.c_str() );
-
+			App->filesystem->ImportMesh((aiScene*)scene, MESHES_PATH, str_temp.c_str() );
 			
-
-			/*
-			AABB* temp = new AABB();
-			temp->SetFrom((vec*)new_mesh->mVertices,m.num_vertexs);
-			m.bounding_box = *temp;
-
-			CreateAABB(*temp);
-			Object* temp_obj = new Object();
-			temp_obj->AddComponentMesh(m);
-			temp_obj->AddComponentMaterial(temp_tex);
-			//temp_obj->obj_mesh = m;
-			temp_obj->obj_id = App->world->obj_vector.size();
-			temp_obj->obj_text = temp_tex;
-			App->world->obj_vector.push_back(temp_obj);*/
 		}
 
 			//RELEASE SCENE
 
-			aiReleaseImport(scene);
-	}
 
-	else {
-		LOG("Can't open the file: %s", path);
-	}
 
-}
