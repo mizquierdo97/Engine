@@ -19,9 +19,18 @@ void Object::AddComponentMaterial(Texture * tex)
 void Object::Update() {
 
 	std::vector<Component*>::iterator item = obj_components.begin();
-	while (item != obj_components.end()) {
-		(*item)->UpdateComponent();
-		item++;
+	if (obj_components.size() > 0) {
+		while (item != obj_components.end()) {
+			(*item)->UpdateComponent();
+			item++;
+		}
+	}
+	std::vector<Object*>::iterator obj_item = obj_childs.begin(); 
+	if (obj_childs.size() > 0) {
+		while (obj_item != obj_childs.end()) {
+			(*obj_item)->Update();
+			obj_item++;
+		}
 	}
 
 }
