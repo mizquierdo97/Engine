@@ -29,6 +29,8 @@ struct Mesh {
 	uint id_textures = 0;
 	float* texture_coords = nullptr;
 
+
+	
 	float3 translation;
 	float3 scale;
 	Quat rotation;

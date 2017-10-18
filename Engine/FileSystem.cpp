@@ -111,6 +111,9 @@ uint GetRecursiveSize(aiNode* root,aiScene* scene) {
 		uint ranges[4] = { 0,0,0,0};
 		size += sizeof(ranges);
 	}
+		
+	size += sizeof(aiVector3D) * 2 + sizeof(aiQuaternion);
+
 	size += sizeof(uint);
 	for (int i = 0; i < root->mNumChildren; i++) {
 		size += GetRecursiveSize(root->mChildren[i], scene);
@@ -262,7 +265,26 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 			memcpy(cursor[0], m->mNormals, bytes);
 			cursor[0] += bytes;
 		}
+		//GET TRANSFORM
+		aiVector3D translation;
+		aiVector3D scaling;
+		aiQuaternion rotation;
+		root->mTransformation.Decompose(scaling, rotation, translation);
+			
+		bytes = sizeof(aiVector3D);
+		memcpy(cursor[0], &translation, bytes);
+		cursor[0] += bytes;
 
+		bytes = sizeof(aiQuaternion);
+		memcpy(cursor[0], &rotation, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(aiVector3D);
+		memcpy(cursor[0], &scaling, bytes);
+		cursor[0] += bytes;
+		//
+
+		//NUMBER OF CHILDS
 		bytes = sizeof(uint);
 		memcpy(cursor[0], &root->mNumChildren, bytes);
 		cursor[0] += bytes;
@@ -273,6 +295,26 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 		bytes = sizeof(ranges);
 		memcpy(cursor[0], ranges, bytes);
 		cursor[0] += bytes;
+
+		//GET TRANSFORM
+		aiVector3D translation = {0,0,0};
+		aiVector3D scaling = {1,1,1};
+		aiQuaternion rotation = {0,0,0,0};
+		
+		bytes = sizeof(aiVector3D);
+		memcpy(cursor[0], &translation, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(aiQuaternion);
+		memcpy(cursor[0], &rotation, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(aiVector3D);
+		memcpy(cursor[0], &scaling, bytes);
+		cursor[0] += bytes;
+		//
+
+		//NUMBER OF CHILDS
 
 		bytes = sizeof(uint);
 		memcpy(cursor[0], &root->mNumChildren, bytes);
@@ -372,6 +414,26 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
 
 			
 		}
+
+		bytes = sizeof(aiVector3D);
+		aiVector3D translation;
+		memcpy(&translation, cursor[0], bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(aiQuaternion);
+		aiQuaternion rotation;
+		memcpy(&rotation, cursor[0], bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(aiVector3D);
+		aiVector3D scaling;
+		memcpy(&scaling, cursor[0], bytes);
+		cursor[0] += bytes;
+
+		m.translation.Set(translation.x, translation.y, translation.z);
+		m.scale.Set(scaling.x, scaling.y, scaling.z);
+		m.rotation.Set(rotation.x, rotation.y, rotation.z, rotation.w);
+
 		bytes = sizeof(uint);
 		memcpy(num_childs, cursor[0], bytes);
 		cursor[0] += bytes;
