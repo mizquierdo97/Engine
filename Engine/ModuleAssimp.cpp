@@ -194,7 +194,7 @@ void ModuleAssimp::ImportMesh(char * path)
 			
 			App->filesystem->ImportMesh((aiScene*)scene, MESHES_PATH, str_temp.c_str() );
 			
-		}
+}
 
 			//RELEASE SCENE
 

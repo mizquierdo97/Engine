@@ -13,7 +13,7 @@ void RecursiveLoad(char** cursor, Object* parent);
 void GenGLBuffers(Mesh*);
 void Recursive(aiNode* root, char** cursor, aiScene* scene, int i);
 void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i);
-
+uint GetRecursiveSize(aiNode* root, aiScene* scene);
 
 void FileSystem::InitFileSystem()
 {
@@ -76,9 +76,10 @@ void FileSystem::LoadMesh(const char * path)
 uint GetSize(aiScene* scene) {
 	uint size = 0;
 	aiMesh* m;
-	for (int i = 0; i < scene->mNumMeshes; i++) {
-
-
+	
+		aiNode* root = scene->mRootNode;
+		size = GetRecursiveSize(root, scene);
+/*
 		m = scene->mMeshes[i];
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 		size += sizeof(ranges) + sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
@@ -87,12 +88,37 @@ uint GetSize(aiScene* scene) {
 		}
 		if (m->HasNormals()) {
 			size += sizeof(float)*m->mNumVertices * 3;
-		}
-
-	}
-	size = size*scene->mNumMeshes + scene->mNumMeshes*sizeof(uint) + sizeof(uint);
+		}*/	
+	size += scene->mNumMeshes * sizeof(uint);
 	return size;
 };
+
+uint GetRecursiveSize(aiNode* root,aiScene* scene) {
+	aiMesh* m;
+	uint size = 0;
+	if (root->mNumMeshes) {
+		m = scene->mMeshes[root->mMeshes[0]];
+		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+		size += sizeof(ranges) + sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
+		if (m->HasTextureCoords(0)) {
+			size += sizeof(float)*m->mNumVertices * 2;
+		}
+		if (m->HasNormals()) {
+			size += sizeof(float)*m->mNumVertices * 3;
+		}
+	}
+	else {
+		uint ranges[4] = { 0,0,0,0};
+		size += sizeof(ranges);
+	}
+	size += sizeof(uint);
+	for (int i = 0; i < root->mNumChildren; i++) {
+		size += GetRecursiveSize(root->mChildren[i], scene);
+	}
+
+	return size;
+
+}
 
 void CreateBinary(aiScene* scene, const char * directory, const char* name){
 
