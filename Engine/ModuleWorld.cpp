@@ -69,6 +69,8 @@ bool ModuleWorld::CleanUp()
 	return true;
 }
 
+
+
 void ModuleWorld::FileDropped()
 {
 	std::string path = App->input->dropped_filedir;
@@ -193,9 +195,77 @@ bool ModuleWorld::Options()
 	
 	ImGui::EndDock();
 
-	if(ImGui::BeginDock("Hierarchy", false, false, false)) {
+	if (ImGui::BeginDock("Hierarchy", false, false, false)) {
 
+		static int selection_mask = (1 << 2); // Dumb representation of what may be user-side selection state. You may carry selection state inside or outside your objects in whatever format you see fit.
+		int node_clicked = -1;                // Temporary storage of what node we have clicked to process selection at the end of the loop. May be a pointer to your own node type, etc.
+		
+		static int i = -1;
+		std::vector<Object*>::iterator item = obj_vector.begin();
+		if (obj_vector.size() > 0) {
+			while (item != obj_vector.end()) {
+				
+				i = HierarchyRecurs((*item));
+				
+				ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
+
+				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo", i);
+				if (ImGui::IsItemClicked())
+					node_clicked = i;
+				if (node_open)
+				{
+					ImGui::Text("Blah blah\nBlah Blah");
+					ImGui::TreePop();
+				}
+				if (node_clicked != -1)
+				{
+					selection_mask = (1 << node_clicked);           // Click to single-select
+				}
+
+				item++;
+			}
+		}
+		else {
+
+		}
+		if (ImGui::TreeNode("Advanced, with Selectable nodes"))
+		{
+			for (int i = 0; i < 6; i++)
+			{
+				// Disable the default open on single-click behavior and pass in Selected flag according to our selection state.
+				
+				if (i < 3)
+				{
+					// Node
+					
+					
+				}
+			}
+			
+			
+			
+			ImGui::TreePop();
+		}
+		
 		ImGui::EndDock();
 	}
 	return true;
+}
+
+int ModuleWorld::HierarchyRecurs(Object* parent)
+{
+	static int i = 0;
+	i++;
+	std::vector<Object*>::iterator item = (*parent).obj_childs.begin();
+	while (item != (*parent).obj_childs.end())
+	{
+	if ((*item)->obj_childs.size() > 0) {
+		
+			 i = HierarchyRecurs(parent);
+
+		}
+
+	item++;
+		}
+	return i;
 }

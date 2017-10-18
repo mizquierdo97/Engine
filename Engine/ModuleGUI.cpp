@@ -6,7 +6,7 @@
 #include "ImGui\imgui_impl_sdl_gl3.h"
 #include "imgui_dock.h"
 #include "SDL\include\SDL_opengl.h"
-
+#include "Object.h"
 
 struct ExampleAppConsole;
 
@@ -162,7 +162,7 @@ update_status ModuleGUI::Update(float dt)
 			}
 			if (ImGui::BeginMenu("Create"))
 			{
-				if (ImGui::MenuItem("GameObject")) create_Gameobject = !create_Gameobject;
+				if (ImGui::MenuItem("GameObject"));
 				ImGui::EndMenu();
 			}
 
@@ -170,7 +170,7 @@ update_status ModuleGUI::Update(float dt)
 		}
 
 		if (show_example_menu) { ImGui::ShowTestWindow();}
-		if (create_Gameobject) CreateGameObject();
+		
 		if (show_hardware)
 		{
 			ShowHardware();
@@ -266,12 +266,12 @@ void ModuleGUI::Assets()
 		ImTextureID tex_id = App->renderer3D->tex;
 		std::list<std::string>::iterator item = path_list->begin();
 		int i = 0;
-		while(item != path_list->end())
+		while (item != path_list->end())
 		{
 			ImGui::PushID(i);
-			int frame_padding =1;   
+			int frame_padding = 1;
 
-			std::string path =(*item);
+			std::string path = (*item);
 			std::string temp;
 			temp = path.substr(path.length() - 3, 3);
 
@@ -279,25 +279,62 @@ void ModuleGUI::Assets()
 				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
 					App->world->ImportMesh((char*)path.c_str());
 			}
-				
-		
+
+
 			else if (!strcmp((char*)temp.c_str(), "png") || !strcmp((char*)temp.c_str(), "jpg"))
 			{
 				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
 					std::vector<Object*>::iterator item = App->world->obj_vector.begin();
-					for(;item!= App->world->obj_vector.end();item++)
-					App->renderer3D->loadTextureFromFile((char*)path.c_str(), &(*item)->obj_text);
+					for (; item != App->world->obj_vector.end(); item++)
+						App->renderer3D->loadTextureFromFile((char*)path.c_str(), &(*item)->obj_text);
 				}
 			}
-			
+
 			ImGui::PopID();
 			ImGui::SameLine();
 			i++; item++;
 		}
 	}
 	ImGui::EndDock();
+
+if (ImGui::BeginDock("Inspector", false, false, false)) {
+
+
+
+	ImGui::Separator();
+	
+		if (ImGui::Button("Add Component", ImVec2(400,30)))
+			ImGui::OpenPopup("AddComponent");
+	if (ImGui::BeginPopup("AddComponent"))
+	{
+		showaddComponent();
+		ImGui::EndPopup();
+	}
+
+}
+ImGui::EndDock();
 }
 
+
+ void ModuleGUI::showaddComponent()
+{
+	if (ImGui::MenuItem("Mesh")) 
+	{
+
+		//Selected->AddComponentMesh(Mesh);
+	}
+	if (ImGui::MenuItem("Material")) 
+	{
+		//Selected->AddComponentMaterial(Texture*);
+	}
+	if (ImGui::MenuItem("Transformation")) 
+	{
+		// Selected->AddComponentTransform()
+	}
+
+	
+	
+}
 void ModuleGUI::ShowConsole(bool * p_open)
 {
 		
@@ -361,35 +398,3 @@ void ModuleGUI::ShowHardware()
 
 }
 
-void ModuleGUI::CreateGameObject()
-{
-	static float translation[3] = { 0.10f, 0.20f, 0.30f };
-	static float Scale[3] = { 0.10f, 0.20f, 0.30f };
-	static float Rotation[4] = { 0.10f, 0.20f, 0.30f, 0.40f };
-	ImGui::SetNextWindowSize(ImVec2(600, 700), ImGuiCond_FirstUseEver);
-
-	if(ImGui::Begin("GameObject", &create_Gameobject));
-	{
-		if(ImGui::CollapsingHeader("Transformation"))
-		{
-			ImGui::InputFloat3("Traslation", translation);
-			ImGui::InputFloat3("Scale", Scale);
-			ImGui::InputFloat4("Rotation", Rotation);
-
-		}
-
-		if(ImGui::CollapsingHeader("Mesh"))
-		{
-			ImGui::Text("Mesh :");
-
-		}
-
-		if (ImGui::CollapsingHeader("Texture")) 
-		{
-
-		}
-		
-		if (ImGui::Button("Create"));
-		ImGui::End();
-	}
-}

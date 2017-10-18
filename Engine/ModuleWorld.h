@@ -20,7 +20,7 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
-
+	int HierarchyRecurs(Object* item);
 	void FileDropped();
 	void It_Render(); //Iterate Render
 	void ImportMesh(char* path); //Import meshes
