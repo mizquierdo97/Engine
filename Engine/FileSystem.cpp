@@ -7,8 +7,13 @@
 
 void CreateBinary(aiScene*,const char*, const char*);
 char* LoadBuffer(const char*);
-void CreateObjectFromMesh(char*);
+Object* CreateObjectFromMesh(char** buffer, Object* parent, int* num_childs);
+void RecursiveLoad(char** cursor, Object* parent);
+
 void GenGLBuffers(Mesh*);
+void Recursive(aiNode* root, char** cursor, aiScene* scene, int i);
+void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i);
+
 
 void FileSystem::InitFileSystem()
 {
@@ -56,10 +61,10 @@ void FileSystem::LoadMesh(const char * path)
 {
 	char* buffer = LoadBuffer(path);
 	/* the whole file is now loaded in the memory buffer. */
-	
+	char* cursor = buffer;
 	// amount of indices / vertices / colors / normals / texture_coords
-
-	CreateObjectFromMesh(buffer);
+	RecursiveLoad(&cursor,nullptr);
+	//CreateObjectFromMesh(buffer);
 	
 	// terminate
 	
@@ -85,7 +90,7 @@ uint GetSize(aiScene* scene) {
 		}
 
 	}
-	size = size*scene->mNumMeshes + sizeof(uint);
+	size = size*scene->mNumMeshes + scene->mNumMeshes*sizeof(uint) + sizeof(uint);
 	return size;
 };
 
@@ -95,15 +100,17 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 	aiMesh* m;
 	uint num_meshes[1] = { scene->mNumMeshes };
 
-
 	char* data = nullptr;
 	uint size = GetSize(scene);
 	data = new char[size];
 	char* cursor = data;
 
-	uint bytes = sizeof(num_meshes);
-	memcpy(cursor, num_meshes, bytes);
-	cursor += bytes;
+	//recursive
+	
+
+	aiNode* root = scene->mRootNode;
+	Recursive(root, &cursor, scene, 0);
+/*
 	for (int i = 0; i < scene->mNumMeshes; i++) {
 
 		m = scene->mMeshes[i];
@@ -153,7 +160,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 			cursor += bytes;
 		}
 	}
-
+	*/
 	//FINALLY CREATE THE FILE
 	FILE * pFile;
 	final_name = MESHES_PATH;
@@ -164,6 +171,92 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 
 	App->gui->path_list->push_back(final_name);
 }
+
+void Recursive(aiNode* root, char** cursor, aiScene* scene, int i) {
+	
+	
+		//Create Mesh from children i
+		TransformMeshToBinary(root, cursor, scene, i);
+		//Create mesh from son of 1
+		for (int i = 0; i < root->mNumChildren; i++) {
+		Recursive(root->mChildren[i], cursor, scene, i);
+	}
+}
+
+
+void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
+
+	aiMesh* m;
+	uint bytes = 0;
+	
+	if (root->mNumMeshes > 0) {
+		m = scene->mMeshes[root->mMeshes[0]];
+		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+
+
+		bytes = sizeof(ranges);
+		memcpy(cursor[0], ranges, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(uint) *  m->mNumFaces * 3;
+
+		uint * indices = new uint[m->mNumFaces * 3]; // assume each face is a triangle
+		for (uint i = 0; i < m->mNumFaces; ++i)
+		{
+			if (m->mFaces[i].mNumIndices != 3) {
+				LOG("WARNING, geometry face with != 3 indices!");
+			}
+			else
+				memcpy(&indices[i * 3], m->mFaces[i].mIndices, 3 * sizeof(uint));
+		}
+
+		memcpy(cursor[0], indices, bytes);
+		cursor[0] += bytes;
+
+
+		bytes = sizeof(float) * m->mNumVertices * 3;
+		memcpy(cursor[0], m->mVertices, bytes);
+		cursor[0] += bytes;
+
+		if (m->HasTextureCoords(0)) {
+			float* texture_coords = new float[m->mNumVertices * 2];
+			for (unsigned int k = 0; k < m->mNumVertices; ++k) {
+
+				texture_coords[k * 2] = m->mTextureCoords[0][k].x;
+				texture_coords[k * 2 + 1] = m->mTextureCoords[0][k].y;
+
+			}
+			bytes = sizeof(float) * m->mNumVertices * 2;
+			memcpy(cursor[0], texture_coords, bytes);
+			cursor[0] += bytes;
+		}
+
+		if (m->HasNormals()) {
+			bytes = sizeof(float) *m->mNumVertices * 3;
+			memcpy(cursor[0], m->mNormals, bytes);
+			cursor[0] += bytes;
+		}
+
+		bytes = sizeof(uint);
+		memcpy(cursor[0], &root->mNumChildren, bytes);
+		cursor[0] += bytes;
+	}
+	else {
+		uint ranges[4] = { 0,0,0,0 };
+
+		bytes = sizeof(ranges);
+		memcpy(cursor[0], ranges, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(uint);
+		memcpy(cursor[0], &root->mNumChildren, bytes);
+		cursor[0] += bytes;
+	}
+	
+};
+
+
+
 
 char* LoadBuffer(const char* path) {
 	FILE * pFile;
@@ -192,70 +285,91 @@ char* LoadBuffer(const char* path) {
 	return buffer;
 }
 
-void CreateObjectFromMesh(char* buffer){
-	uint num_meshes[1];
+void RecursiveLoad(char** cursor,Object* parent) {
+	
+	int num_childs;
+	parent = CreateObjectFromMesh(&cursor[0], parent, &num_childs);
+	
+	for (int i = 0; i < num_childs; i++) {
+		RecursiveLoad(&cursor[0], parent);
+	}
+
+	//cursor
+}
+Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
+
 	uint ranges[4];
 
-	char* cursor = buffer;
-
-	uint bytes = sizeof(num_meshes);
-	memcpy(num_meshes, cursor, bytes);
-	cursor += bytes;
-
-	for (int i = 0; i < num_meshes[0]; i++) {
+	
+	
+	//for (int i = 0; i < num_meshes[0]; i++) {
 		uint bytes = sizeof(ranges);
-		memcpy(ranges, cursor, bytes);
-		cursor += bytes;
+		memcpy(ranges, cursor[0], bytes);
+		cursor[0] += bytes;
 		Mesh m;
-
-		m.num_vertexs = ranges[0];
-		m.num_indices = ranges[1];
-		
-		bytes = sizeof(uint) * m.num_indices;
-
-		m.indices = new uint[m.num_indices];
-		memcpy(m.indices, cursor, bytes);
-
-		cursor += bytes;
-
-		bytes = sizeof(float) * m.num_vertexs * 3;
-		m.vertexs = new float[m.num_vertexs * 3];
-		memcpy(m.vertexs, cursor, bytes);
-		cursor += bytes;
-
-		if (ranges[2]) {
-			bytes = sizeof(float) * m.num_vertexs * 2;
-			m.texture_coords = new float[m.num_vertexs * 2];
-			memcpy(m.texture_coords, cursor, bytes);
-			cursor += bytes;
+		if (ranges[0] == 0) {
+			
 		}
+		else {
+			
+			m.num_vertexs = ranges[0];
+			m.num_indices = ranges[1];
 
-		if (ranges[3]) {
+			bytes = sizeof(uint) * m.num_indices;
+
+			m.indices = new uint[m.num_indices];
+			memcpy(m.indices, cursor[0], bytes);
+
+			cursor[0] += bytes;
+
 			bytes = sizeof(float) * m.num_vertexs * 3;
-			m.norms = new float[m.num_vertexs * 3];
-			memcpy(m.norms, cursor, bytes);
-			cursor += bytes;
+			m.vertexs = new float[m.num_vertexs * 3];
+			memcpy(m.vertexs, cursor[0], bytes);
+			cursor[0] += bytes;
+
+			if (ranges[2]) {
+				bytes = sizeof(float) * m.num_vertexs * 2;
+				m.texture_coords = new float[m.num_vertexs * 2];
+				memcpy(m.texture_coords, cursor[0], bytes);
+				cursor[0] += bytes;
+			}
+
+			if (ranges[3]) {
+				bytes = sizeof(float) * m.num_vertexs * 3;
+				m.norms = new float[m.num_vertexs * 3];
+				memcpy(m.norms, cursor[0], bytes);
+				cursor[0] += bytes;
+			}
+
+
+			GenGLBuffers(&m);
+
+			
 		}
-
-
-		GenGLBuffers(&m);
-
+		bytes = sizeof(uint);
+		memcpy(num_childs, cursor[0], bytes);
+		cursor[0] += bytes;
+		
 		AABB* temp = new AABB();
 		temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
 		m.bounding_box = *temp;
-
 		
-
-
 		Object* temp_obj = new Object();
 		temp_obj->bb_mesh = CreateAABB(*temp);
 		temp_obj->AddComponentMesh(m);
+		temp_obj->obj_parent = parent;
 		//temp_obj->AddComponentMaterial(temp_tex);
 		//temp_obj->obj_mesh = m;
-		temp_obj->obj_id = App->world->obj_vector.size();
+		//temp_obj->obj_id = App->world->obj_vector.size();
 		//temp_obj->obj_text = temp_tex;
-		App->world->obj_vector.push_back(temp_obj);
-	}
+		if (parent != nullptr) {
+			parent->obj_childs.push_back(temp_obj);
+		}
+		else {
+			App->world->obj_vector.push_back(temp_obj);
+		}
+		return temp_obj;
+	//}
 
 }
 
