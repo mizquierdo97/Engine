@@ -262,6 +262,9 @@ bool ModuleGUI::CleanUp()
 
 void ModuleGUI::Assets()
 {
+
+
+
 	if (ImGui::BeginDock("Assets", false, false)) {
 		ImTextureID tex_id = App->renderer3D->tex;
 		std::list<std::string>::iterator item = path_list->begin();
@@ -294,25 +297,27 @@ void ModuleGUI::Assets()
 			ImGui::SameLine();
 			i++; item++;
 		}
+		ImGui::EndDock();
 	}
-	ImGui::EndDock();
-
-if (ImGui::BeginDock("Inspector", false, false, false)) {
+	if (ImGui::BeginDock("Inspector", false, false)) {
 
 
 
-	ImGui::Separator();
-	
-		if (ImGui::Button("Add Component", ImVec2(400,30)))
+		ImGui::Separator();
+
+		if (ImGui::Button("Add Component", ImVec2(400, 30)))
 			ImGui::OpenPopup("AddComponent");
-	if (ImGui::BeginPopup("AddComponent"))
-	{
-		showaddComponent();
-		ImGui::EndPopup();
+		if (ImGui::BeginPopup("AddComponent"))
+		{
+			showaddComponent();
+			ImGui::EndPopup();
+		}
+
+		ImGui::EndDock();
 	}
 
-}
-ImGui::EndDock();
+
+
 }
 
 

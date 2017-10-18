@@ -200,35 +200,37 @@ bool ModuleWorld::Options()
 		static int selection_mask = (1 << 2); // Dumb representation of what may be user-side selection state. You may carry selection state inside or outside your objects in whatever format you see fit.
 		int node_clicked = -1;                // Temporary storage of what node we have clicked to process selection at the end of the loop. May be a pointer to your own node type, etc.
 		
-		static int i = -1;
+		int i = -1;
 		std::vector<Object*>::iterator item = obj_vector.begin();
 		if (obj_vector.size() > 0) {
+			
 			while (item != obj_vector.end()) {
-				
-				i = HierarchyRecurs((*item));
-				
+				i++;
+				ImGui::PushID(i);
 				ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
-
-				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo", i);
+			
+				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolob %i", i);
+				
+				
 				if (ImGui::IsItemClicked())
 					node_clicked = i;
 				if (node_open)
 				{
-					ImGui::Text("Blah blah\nBlah Blah");
+				
+					HierarchyRecurs((*item),&i);
+
 					ImGui::TreePop();
 				}
 				if (node_clicked != -1)
 				{
 					selection_mask = (1 << node_clicked);           // Click to single-select
 				}
-
+				ImGui::PopID();
 				item++;
 			}
 		}
-		else {
-
-		}
-		if (ImGui::TreeNode("Advanced, with Selectable nodes"))
+	
+	/*	if (ImGui::TreeNode("Advanced, with Selectable nodes"))
 		{
 			for (int i = 0; i < 6; i++)
 			{
@@ -246,26 +248,45 @@ bool ModuleWorld::Options()
 			
 			ImGui::TreePop();
 		}
-		
+		*/
 		ImGui::EndDock();
 	}
 	return true;
 }
 
-int ModuleWorld::HierarchyRecurs(Object* parent)
+void ModuleWorld::HierarchyRecurs(Object* parent, int* i)
 {
-	static int i = 0;
-	i++;
+
+	static int selection_mask = (1 << 2);
+	int node_clicked = -1;
 	std::vector<Object*>::iterator item = (*parent).obj_childs.begin();
 	while (item != (*parent).obj_childs.end())
 	{
-	if ((*item)->obj_childs.size() > 0) {
-		
-			 i = HierarchyRecurs(parent);
+		i[0]++;
+		ImGui::PushID(i);
+		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << *i)) ? ImGuiTreeNodeFlags_Selected : 0);
 
+		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo %i",*i);
+
+
+		if (ImGui::IsItemClicked())
+			node_clicked = *i;
+		if (node_open)
+		{
+			HierarchyRecurs((*item),&i[0]);
+
+			ImGui::TreePop();
 		}
+	
+	if (node_clicked != -1)
+	{
+		selection_mask = (1 << node_clicked);           // Click to single-select
+	}
+	
+		ImGui::PopID();
 
 	item++;
 		}
-	return i;
+	
+	
 }
