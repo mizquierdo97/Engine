@@ -25,7 +25,7 @@ public:
 	void DeleteComponent();
 
 	virtual void UpdateComponent();
-
+	virtual void ShowInspectorComponents();
 public:
 
 	ComponentType comp_type;

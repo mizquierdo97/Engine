@@ -7,7 +7,10 @@
 #include "imgui_dock.h"
 #include "SDL\include\SDL_opengl.h"
 #include "Object.h"
-
+#include "Component.h"
+#include "ComponentMaterial.h"
+#include "ComponentMesh.h"
+#include "ComponentTransform.h"
 struct ExampleAppConsole;
 
 ModuleGUI::ModuleGUI( bool start_enabled) : Module( start_enabled)
@@ -301,6 +304,35 @@ void ModuleGUI::Assets()
 	}
 	if (ImGui::BeginDock("Inspector", false, false)) {
 
+
+		Object* object = App->world->Selected;
+
+		if (object != nullptr) {
+			std::vector<Component*>::iterator item = object->obj_components.begin();
+			for (; item != object->obj_components.end(); item++)
+			{
+
+				switch ((*item)->comp_type) {
+				case material: {
+					ComponentMaterial* temp_mat = (ComponentMaterial*)(*item);
+					temp_mat->ShowInspectorComponents();
+					break;
+				}
+				case mesh: {
+					ComponentMesh* temp_mesh = (ComponentMesh*)(*item);
+					temp_mesh->ShowInspectorComponents();
+					break;
+				}
+
+				case transform: {
+					ComponentTransform* temp_trans = (ComponentTransform*)(*item);
+					temp_trans->ShowInspectorComponents();
+					break;
+				}
+				}
+
+			}
+		}
 
 
 		ImGui::Separator();

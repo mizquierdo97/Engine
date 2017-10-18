@@ -9,3 +9,7 @@ void Component::UpdateComponent()
 {
 
 }
+
+void Component::ShowInspectorComponents()
+{
+}

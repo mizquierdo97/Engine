@@ -208,8 +208,10 @@ bool ModuleWorld::Options()
 				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo %i", i);
 				
 				
-				if (ImGui::IsItemClicked())
+				if (ImGui::IsItemClicked()) {
 					node_clicked = i;
+					Selected = (*item);
+				}
 				if (node_open)
 				{
 				
