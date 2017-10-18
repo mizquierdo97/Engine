@@ -133,11 +133,7 @@ void ModuleWorld::It_Render()
 	world_texture->Unbind();
 }
 
-void ModuleWorld::ImportMesh(char * path)
-{
-	App->filesystem->LoadMesh(path);
-	//App->assimp->ImportMesh(path);
-}
+
 
 
 bool ModuleWorld::Options()
@@ -223,7 +219,10 @@ bool ModuleWorld::Options()
 				}
 				if (node_clicked != -1)
 				{
-					selection_mask = (1 << node_clicked);           // Click to single-select
+					if (ImGui::GetIO().KeyCtrl)
+						selection_mask ^= (1 << node_clicked);          // CTRL+click to toggle
+					else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
+						selection_mask = (1 << node_clicked);       // Click to single-select
 				}
 				ImGui::PopID();
 				item++;

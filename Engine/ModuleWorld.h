@@ -23,7 +23,7 @@ public:
 	void HierarchyRecurs(Object* item, int*);
 	void FileDropped();
 	void It_Render(); //Iterate Render
-	void ImportMesh(char* path); //Import meshes
+
 	bool Options();//World Options
 public:
 
