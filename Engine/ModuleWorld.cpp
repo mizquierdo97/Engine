@@ -209,7 +209,7 @@ bool ModuleWorld::Options()
 				ImGui::PushID(i);
 				ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
 			
-				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolob %i", i);
+				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo %i", i);
 				
 				
 				if (ImGui::IsItemClicked())
@@ -263,10 +263,10 @@ void ModuleWorld::HierarchyRecurs(Object* parent, int* i)
 	while (item != (*parent).obj_childs.end())
 	{
 		i[0]++;
-		ImGui::PushID(i);
+		ImGui::PushID(i[0]);
 		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << *i)) ? ImGuiTreeNodeFlags_Selected : 0);
 
-		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo %i",*i);
+		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i[0], node_flags, (*item)->obj_name,*i);
 
 
 		if (ImGui::IsItemClicked())
@@ -280,7 +280,10 @@ void ModuleWorld::HierarchyRecurs(Object* parent, int* i)
 	
 	if (node_clicked != -1)
 	{
-		selection_mask = (1 << node_clicked);           // Click to single-select
+		if (ImGui::GetIO().KeyCtrl)
+			selection_mask ^= (1 << node_clicked);          // CTRL+click to toggle
+		else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
+			selection_mask = (1 << node_clicked);       // Click to single-select
 	}
 	
 		ImGui::PopID();
