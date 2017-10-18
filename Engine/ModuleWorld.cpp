@@ -198,8 +198,10 @@ bool ModuleWorld::Options()
 		
 		int i = -1;
 		std::vector<Object*>::iterator item = obj_vector.begin();
+		
 		if (obj_vector.size() > 0) {
 			
+
 			while (item != obj_vector.end()) {
 				i++;
 				ImGui::PushID(i);
@@ -208,10 +210,6 @@ bool ModuleWorld::Options()
 				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo %i", i);
 				
 				
-				if (ImGui::IsItemClicked()) {
-					node_clicked = i;
-					Selected = (*item);
-				}
 				if (node_open)
 				{
 				
@@ -219,6 +217,12 @@ bool ModuleWorld::Options()
 
 					ImGui::TreePop();
 				}
+
+				if (ImGui::IsItemClicked()) {
+					node_clicked = i;
+					Selected = (*item);
+				}
+
 				if (node_clicked != -1)
 				{
 					if (ImGui::GetIO().KeyCtrl)
@@ -261,6 +265,8 @@ void ModuleWorld::HierarchyRecurs(Object* parent, int* i)
 	static int selection_mask = (1 << 2);
 	int node_clicked = -1;
 	std::vector<Object*>::iterator item = (*parent).obj_childs.begin();
+
+	
 	while (item != (*parent).obj_childs.end())
 	{
 		i[0]++;
@@ -269,15 +275,17 @@ void ModuleWorld::HierarchyRecurs(Object* parent, int* i)
 
 		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i[0], node_flags, (*item)->obj_name,*i);
 
-
-		if (ImGui::IsItemClicked())
-			node_clicked = *i;
 		if (node_open)
 		{
-			HierarchyRecurs((*item),&i[0]);
+			HierarchyRecurs((*item), &i[0]);
 
 			ImGui::TreePop();
 		}
+		if (ImGui::IsItemClicked()) {
+			node_clicked = *i;
+			Selected = (*item);
+		}
+	
 	
 	if (node_clicked != -1)
 	{

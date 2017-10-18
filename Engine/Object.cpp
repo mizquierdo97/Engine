@@ -3,11 +3,18 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
+#include "ComponentTransform.h"
 void Object::AddComponentMesh(Mesh mesh)
 {
 	ComponentMesh* m = new ComponentMesh(mesh, this);
 	obj_components.push_back(m);
 	
+
+}
+void Object::AddComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D scale)
+{
+	ComponentTransform* trans = new ComponentTransform(pos,rot,scale);
+	obj_components.push_back(trans);
 
 }
 void Object::AddComponentMaterial(Texture * tex)
@@ -59,6 +66,20 @@ ComponentMaterial * Object::GetMaterial()
 	while (item != obj_components.end()) {
 		if ((*item)->comp_type == ComponentType::material) {
 			ComponentMaterial* ret = (ComponentMaterial*)(*item);
+			return ret;
+		}
+
+		item++;
+	}
+	return nullptr;
+}
+
+ComponentTransform * Object::GetTransform()
+{
+	std::vector<Component*>::iterator item = obj_components.begin();
+	while (item != obj_components.end()) {
+		if ((*item)->comp_type == ComponentType::transform) {
+			ComponentTransform* ret = (ComponentTransform*)(*item);
 			return ret;
 		}
 

@@ -20,6 +20,9 @@
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib  */  
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib  */ 
 
+
+
+
 #define MAX_LIGHTS 8
 
 #define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048

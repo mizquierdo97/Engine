@@ -6,7 +6,7 @@
 #include "Texture.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
-
+#include "ComponentTransform.h"
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -264,6 +264,34 @@ bool ModuleRenderer3D::Options()
 
 void ModuleRenderer3D::Render(ComponentMesh* comp)
 {
+	//NEEDS IMPROVEMENT
+	GLfloat mat[16] = 
+	{ 1,0,0,0,
+	  0,1,0,0,
+	  0,0,1,0,
+	  0,0,0,1
+	
+	};
+	math::float3 parent_pos = { 0,0,0 };
+	math::Quat parent_rot = { 0,0,0,1 };
+	math::float3 parent_scale = { 1,1,1 };
+
+	if (comp->parent->obj_parent != nullptr) {
+		ComponentTransform* parent_trans = comp->parent->obj_parent->GetTransform();
+		parent_pos = parent_trans->translation;
+		parent_rot = parent_trans->rotation;
+		parent_scale = parent_trans->scale;
+	}
+	ComponentTransform* temp_trans = comp->parent->GetTransform();
+	float* pos = &temp_trans->translation[0];
+	math::Quat  rot = temp_trans->rotation;
+	float* scale = &temp_trans->scale[0];
+
+	mat[12] = pos[0] + parent_pos[0];
+	mat[13] = pos[1] + parent_pos[1];
+	mat[14] = pos[2] + parent_pos[2];
+	
+	//
 
 	Mesh m = comp->obj_mesh;
 	if (m.id_indices != NULL) {
@@ -294,8 +322,10 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 
 		if(m.id_indices != NULL)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
+		glPushMatrix();
+		glMultMatrixf(mat);
 		glDrawElements(GL_TRIANGLES, m.num_indices, GL_UNSIGNED_INT, NULL);
-
+		glPopMatrix();
 	
 		}
 	else {
@@ -308,7 +338,9 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
 			glVertexPointer(3, GL_FLOAT, 0, NULL);
+			
 			glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs);
+			
 		
 	}
 	glDisable(GL_TEXTURE_2D);

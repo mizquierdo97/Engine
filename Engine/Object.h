@@ -37,13 +37,14 @@ public:
 	}
 
 	void AddComponentMesh(Mesh);
-	void AddComponentTransform();
+	void AddComponentTransform(aiVector3D, aiQuaternion, aiVector3D);
 	void AddComponentMaterial(Texture* );
 	void Update();
 
 
 	ComponentMesh* GetMesh();
 	ComponentMaterial* GetMaterial();
+	ComponentTransform* GetTransform();
 public:
 	Mesh bb_mesh;
 	Texture* obj_text = nullptr;

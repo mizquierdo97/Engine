@@ -445,6 +445,7 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
 		Object* temp_obj = new Object();
 		temp_obj->bb_mesh = CreateAABB(*temp);
 		temp_obj->AddComponentMesh(m);
+		temp_obj->AddComponentTransform(translation, rotation, scaling);
 		temp_obj->obj_parent = parent;
 		//temp_obj->AddComponentMaterial(temp_tex);
 		//temp_obj->obj_mesh = m;
