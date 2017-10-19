@@ -164,8 +164,19 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 
 		//GET_NAME
 
-		char* mesh_name = (char*)m->mName.C_Str();
-	
+	//	char* mesh_name = (char*)m->mName.C_Str();
+		char mesh_name[50] = {0};
+		if (strcmp(m->mName.C_Str(), "")) {
+			strcpy(mesh_name, (char*)m->mName.C_Str());
+			//mesh_name = (char*)m->mName.C_Str();
+		}
+		else {
+			strcpy(mesh_name, (char*)m->mName.C_Str());
+			char* num = new char[4];
+			itoa(i, num, 10);
+			strcat(mesh_name, num);
+		}
+
 
 		//PROBLEM-----------------------
 		bytes = sizeof(uint) *  m->mNumFaces * 3;
