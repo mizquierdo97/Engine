@@ -39,22 +39,17 @@ void FileSystem::InitFileSystem()
 	}
 }
 
+
 void FileSystem::ImportMesh(aiScene* scene, const char * directory, const char* name)
-{
-	
-	
+{	
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		CreateBinary(scene, directory, name);
-		
+		//CreateBinary(scene, directory, name);
 	}	
-
 	else {
 		LOG("Can't open the file: %s", directory);
-	}
-	
-}
-			
+	}	
+}			
 
 
 void FileSystem::LoadMesh(const char * path)
@@ -64,31 +59,31 @@ void FileSystem::LoadMesh(const char * path)
 	char* cursor = buffer;
 	// amount of indices / vertices / colors / normals / texture_coords
 	RecursiveLoad(&cursor,nullptr);
-	//CreateObjectFromMesh(buffer);
 	
-	// terminate
-	
+	delete[] buffer;
 	free(buffer);
-
 }
 
 //OK
 
 
 uint GetSize(aiScene* scene) {
-	uint size = 0;
-	aiMesh* m;
-	
-		aiNode* root = scene->mRootNode;
-		size = GetRecursiveSize(root, scene);
 
+	uint size = 0;
+	aiMesh* m;	
+	aiNode* root = scene->mRootNode;
+
+	size = GetRecursiveSize(root, scene);
 	size += scene->mNumMeshes * sizeof(uint);
+
 	return size;
 };
 
 uint GetRecursiveSize(aiNode* root,aiScene* scene) {
+
 	aiMesh* m;
 	uint size = 0;
+
 	if (root->mNumMeshes) {
 		m = scene->mMeshes[root->mMeshes[0]];
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
@@ -102,9 +97,11 @@ uint GetRecursiveSize(aiNode* root,aiScene* scene) {
 	size += sizeof(aiVector3D) * 2 + sizeof(aiQuaternion);
 	size += sizeof(char)*50;
 	size += sizeof(uint);
+
 	for (int i = 0; i < root->mNumChildren; i++) {
 		size += GetRecursiveSize(root->mChildren[i], scene);
 	}
+
 	return size;
 }
 
@@ -113,8 +110,7 @@ uint GetRecursiveSize(aiNode* root,aiScene* scene) {
 
 void CreateBinary(aiScene* scene, const char * directory, const char* name){
 
-	std::string final_name;
-	
+	std::string final_name;	
 	uint num_meshes[1] = { scene->mNumMeshes };
 
 	//ALLOCATE MEMORY
@@ -126,6 +122,8 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 	aiNode* root = scene->mRootNode;
 	Recursive(root, &cursor, scene, 0);
 
+
+	//WRITE FILE
 	FILE * pFile;
 	final_name = MESHES_PATH;
 	final_name += name; final_name += ".bin";
@@ -133,15 +131,14 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 	fwrite(data, sizeof(char), size, pFile);
 	fclose(pFile);
 	App->gui->path_list->push_back(final_name);
-//OK
+
 	if (data != nullptr)
 		delete[] data;
 
 	for (int i = 0; i < scene->mNumMeshes; i++) {
 
 		uint bytes = 0;
-		size = 0;
-		
+		size = 0;		
 		char* data_mesh = nullptr;
 
 		aiMesh* m;
@@ -161,24 +158,19 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 		cursor = data_mesh;
 		//
 
-
-		//GET_NAME
-
-	//	char* mesh_name = (char*)m->mName.C_Str();
 		char mesh_name[50] = {0};
 		if (strcmp(m->mName.C_Str(), "")) {
 			strcpy(mesh_name, (char*)m->mName.C_Str());
-			//mesh_name = (char*)m->mName.C_Str();
 		}
 		else {
 			strcpy(mesh_name, (char*)m->mName.C_Str());
 			char* num = new char[4];
 			itoa(i, num, 10);
 			strcat(mesh_name, num);
+			delete[] num;
 		}
 
-
-		//PROBLEM-----------------------
+	
 		bytes = sizeof(uint) *  m->mNumFaces * 3;
 		
 		uint * indices = new uint[m->mNumFaces * 3]; // assume each face is a triangle
@@ -190,6 +182,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 			else
 				memcpy(&indices[i * 3], m->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
+		
 
 		memcpy(cursor, indices, bytes);
 		cursor += bytes;
@@ -200,15 +193,16 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 
 		if (m->HasTextureCoords(0)) {
 			float* texture_coords = new float[m->mNumVertices * 2];
+
 			for (unsigned int k = 0; k < m->mNumVertices; ++k) {
 
 				texture_coords[k * 2] = m->mTextureCoords[0][k].x;
 				texture_coords[k * 2 + 1] = m->mTextureCoords[0][k].y;
-
 			}
 			bytes = sizeof(float) * m->mNumVertices * 2;
 			memcpy(cursor, texture_coords, bytes);
 			cursor += bytes;
+			delete[] texture_coords;
 		}
 
 		if (m->HasNormals()) {
@@ -216,7 +210,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 			memcpy(cursor, m->mNormals, bytes);
 			cursor += bytes;
 		}
-		///////////////////////
+	
 
 		//OK~
 		FILE * mesh_pFile;
@@ -227,6 +221,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 		fwrite(data_mesh, sizeof(char), size, pFile);
 		fclose(pFile);
 
+		delete[] indices;
 		if (data_mesh != nullptr)
 			 delete[] data_mesh;
 	}
@@ -240,7 +235,7 @@ void Recursive(aiNode* root, char** cursor, aiScene* scene, int i) {
 		TransformMeshToBinary(root, cursor, scene, i);
 		//Create mesh from son of 1
 		for (int n = 0; n < root->mNumChildren; n++) {
-		Recursive(root->mChildren[n], cursor, scene, n);
+			Recursive(root->mChildren[n], cursor, scene, n);
 	}
 }
 
@@ -255,7 +250,6 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 	aiVector3D translation = { 0,0,0 };
 	aiVector3D scaling = { 1,1,1 };
 	aiQuaternion rotation = { 0,0,0,0 };
-
 	uint ranges[4] = {0,0,0,0};
 
 	if (root->mNumMeshes > 0) {
@@ -270,15 +264,12 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 			char* num = new char[4];
 			itoa(root->mMeshes[0], num, 10);
 			strcat(mesh_name, num);		
+			delete[] num;
 		}
 
 		root->mTransformation.Decompose(scaling, rotation, translation);
-			
 	}
-	else {
-			
-
-	}
+	
 	//HEADER
 	bytes = sizeof(ranges);
 	memcpy(cursor[0], ranges, bytes);
@@ -347,7 +338,6 @@ void RecursiveLoad(char** cursor,Object* parent) {
 	for (int i = 0; i < num_childs; i++) {
 		RecursiveLoad(&cursor[0], parent);
 	}
-
 }
 
 
@@ -422,7 +412,8 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
 			
 			
 			GenGLBuffers(&m);
-			
+			delete[] buffer;
+			free(buffer);
 		}
 
 		AABB* temp = new AABB();
@@ -435,6 +426,21 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
 		temp_obj->obj_parent = parent;
 		
+		//FREE MEMORY
+		delete[] name;
+		free(name);
+		delete[] m.indices;
+		free(m.indices);
+		delete[] m.vertexs;
+		free(m.vertexs);
+		delete[] m.norms;
+		free(m.norms);
+		delete[] m.texture_coords;
+		free(m.texture_coords);
+		delete[] temp;
+		free(temp);
+
+
 		if (parent != nullptr) {
 			parent->obj_childs.push_back(temp_obj);
 		}
