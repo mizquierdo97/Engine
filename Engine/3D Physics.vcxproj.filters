@@ -43,6 +43,9 @@
     <Filter Include="Sources\FileSystem">
       <UniqueIdentifier>{b3e2e602-17d2-40fc-aff4-f022963037a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Helpers\mmgr">
+      <UniqueIdentifier>{852852e1-d436-40f2-94af-7bb54e3e26cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -700,6 +703,9 @@
     </ClCompile>
     <ClCompile Include="FileSystem.cpp">
       <Filter>Sources\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Mmgr\mmgr.cpp">
+      <Filter>Sources\Helpers\mmgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -171,10 +171,15 @@ bool Application::CleanUp()
 	{
 		
 		ret = (*item)->CleanUp();
+		delete (*item)->module_timer;
+		
 		item++;
 		
 	}
-	config->Save();
+
+	config->Save();	
+	delete config;
+	delete filesystem;
 	return ret;
 }
 

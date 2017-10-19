@@ -51,7 +51,7 @@ void ModuleAssimp::ImportMesh(char * path)
 	
 	const aiScene* scene;
 	scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
-		/*
+		
 			std::string finalpath = path;
 			std::string str_path = path;
 			std::string str_temp;
@@ -69,7 +69,7 @@ void ModuleAssimp::ImportMesh(char * path)
 			str_temp.pop_back();
 			
 			
-			App->filesystem->ImportMesh((aiScene*)scene, MESHES_PATH, str_temp.c_str() );*/
+			App->filesystem->ImportMesh((aiScene*)scene, MESHES_PATH, str_temp.c_str() );
 			aiReleaseImport(scene);
 		
 			

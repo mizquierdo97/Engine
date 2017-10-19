@@ -279,6 +279,7 @@
     <ClCompile Include="MathGeoLib\Math\SSEMath.cpp" />
     <ClCompile Include="MathGeoLib\Math\TransformOps.cpp" />
     <ClCompile Include="MathGeoLib\Time\Clock.cpp" />
+    <ClCompile Include="Mmgr\mmgr.cpp" />
     <ClCompile Include="ModuleAssimp.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="Config.cpp" />

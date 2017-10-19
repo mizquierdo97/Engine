@@ -44,7 +44,7 @@ void FileSystem::ImportMesh(aiScene* scene, const char * directory, const char* 
 {	
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		//CreateBinary(scene, directory, name);
+		CreateBinary(scene, directory, name);
 	}	
 	else {
 		LOG("Can't open the file: %s", directory);
@@ -61,7 +61,7 @@ void FileSystem::LoadMesh(const char * path)
 	RecursiveLoad(&cursor,nullptr);
 	
 	delete[] buffer;
-	free(buffer);
+	
 }
 
 //OK
@@ -413,7 +413,7 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
 			
 			GenGLBuffers(&m);
 			delete[] buffer;
-			free(buffer);
+			
 		}
 
 		AABB* temp = new AABB();
@@ -427,19 +427,13 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
 		temp_obj->obj_parent = parent;
 		
 		//FREE MEMORY
-		delete[] name;
-		free(name);
-		delete[] m.indices;
-		free(m.indices);
-		delete[] m.vertexs;
-		free(m.vertexs);
-		delete[] m.norms;
-		free(m.norms);
-		delete[] m.texture_coords;
-		free(m.texture_coords);
-		delete[] temp;
-		free(temp);
-
+		delete[] name;		
+		delete[] m.indices;		
+		delete[] m.vertexs;		
+		delete[] m.norms;		
+		delete[] m.texture_coords;	
+		delete temp;
+	
 
 		if (parent != nullptr) {
 			parent->obj_childs.push_back(temp_obj);

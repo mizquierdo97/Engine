@@ -57,7 +57,9 @@ namespace ImGui {
 			}
 
 
-			~Dock() { MemFree(label); }
+			~Dock() { 
+				MemFree(label);
+			}
 
 
 			ImVec2 getMinSize() const
@@ -1248,8 +1250,9 @@ namespace ImGui {
 	{
 		for (int i = 0; i < g_dock.m_docks.size(); ++i)
 		{
-			g_dock.m_docks[i]->~Dock();
-			MemFree(g_dock.m_docks[i]);
+			//g_dock.m_docks[i]->~Dock();
+			//MemFree(g_dock.m_docks[i]);
+			delete g_dock.m_docks[i];
 		}
 		g_dock.m_docks.clear();
 	}
