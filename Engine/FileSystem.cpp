@@ -99,13 +99,13 @@ uint GetRecursiveSize(aiNode* root,aiScene* scene) {
 	if (root->mNumMeshes) {
 		m = scene->mMeshes[root->mMeshes[0]];
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
-		size += sizeof(ranges) + sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
+		size += sizeof(ranges);/*sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
 		if (m->HasTextureCoords(0)) {
 			size += sizeof(float)*m->mNumVertices * 2;
 		}
 		if (m->HasNormals()) {
 			size += sizeof(float)*m->mNumVertices * 3;
-		}
+		}*/
 	}
 	else {
 		uint ranges[4] = { 0,0,0,0};
@@ -113,7 +113,7 @@ uint GetRecursiveSize(aiNode* root,aiScene* scene) {
 	}
 		
 	size += sizeof(aiVector3D) * 2 + sizeof(aiQuaternion);
-
+	size += sizeof(char[50]);
 	size += sizeof(uint);
 	for (int i = 0; i < root->mNumChildren; i++) {
 		size += GetRecursiveSize(root->mChildren[i], scene);
@@ -139,11 +139,43 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 
 	aiNode* root = scene->mRootNode;
 	Recursive(root, &cursor, scene, 0);
-/*
+
+	FILE * pFile;
+	final_name = MESHES_PATH;
+	final_name += name; final_name += ".bin";
+	pFile = fopen(final_name.c_str(), "wb");
+	fwrite(data, sizeof(char), size, pFile);
+	fclose(pFile);
+	App->gui->path_list->push_back(final_name);
+
+	
+
 	for (int i = 0; i < scene->mNumMeshes; i++) {
 
+		uint bytes = 0;
+		size = 0;
+		delete[] data;
+		data = nullptr;
+		
 		m = scene->mMeshes[i];
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+		
+		size += sizeof(ranges) + sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
+		if (m->HasTextureCoords(0)) {
+			size += sizeof(float)*m->mNumVertices * 2;
+		}
+		if (m->HasNormals()) {
+			size += sizeof(float)*m->mNumVertices * 3;
+		}	
+		data = new char[size];
+		cursor = data;
+		char* mesh_name = (char*)m->mName.C_Str();
+		char* num = new char[4];
+		itoa(i,num,10);
+
+		strcat(mesh_name, num);
+		m = scene->mMeshes[i];
+		
 
 			
 		bytes = sizeof(ranges);
@@ -188,17 +220,19 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 			memcpy(cursor, m->mNormals, bytes);
 			cursor += bytes;
 		}
-	}
-	*/
-	//FINALLY CREATE THE FILE
-	FILE * pFile;
-	final_name = MESHES_PATH;
-	final_name += name; final_name += ".bin";
-	pFile = fopen(final_name.c_str(), "wb");
-	fwrite(data, sizeof(char), size, pFile);
-	fclose(pFile);
+		FILE * mesh_pFile;
+		std::string final_mesh_name = MESHES_PATH;
+		
+		final_mesh_name += mesh_name; final_mesh_name += ".mesh";
+		pFile = fopen(final_mesh_name.c_str(), "wb");
+		fwrite(data, sizeof(char), size, pFile);
+		fclose(pFile);
 
-	App->gui->path_list->push_back(final_name);
+	}
+	
+	//FINALLY CREATE THE FILE
+	
+	
 }
 
 void Recursive(aiNode* root, char** cursor, aiScene* scene, int i) {
@@ -222,12 +256,15 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 		m = scene->mMeshes[root->mMeshes[0]];
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 
+		bytes = sizeof(char[50]);
+		memcpy(cursor[0], m->mName.C_Str(),bytes);
+		cursor[0] += bytes;
 
 		bytes = sizeof(ranges);
 		memcpy(cursor[0], ranges, bytes);
 		cursor[0] += bytes;
 
-		bytes = sizeof(uint) *  m->mNumFaces * 3;
+		/*bytes = sizeof(uint) *  m->mNumFaces * 3;
 
 		uint * indices = new uint[m->mNumFaces * 3]; // assume each face is a triangle
 		for (uint i = 0; i < m->mNumFaces; ++i)
@@ -264,7 +301,7 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 			bytes = sizeof(float) *m->mNumVertices * 3;
 			memcpy(cursor[0], m->mNormals, bytes);
 			cursor[0] += bytes;
-		}
+		}*/
 		//GET TRANSFORM
 		aiVector3D translation;
 		aiVector3D scaling;
