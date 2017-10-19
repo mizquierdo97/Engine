@@ -113,7 +113,7 @@ uint GetRecursiveSize(aiNode* root,aiScene* scene) {
 	}
 		
 	size += sizeof(aiVector3D) * 2 + sizeof(aiQuaternion);
-	size += sizeof(char[50]);
+	size += sizeof(char)*50;
 	size += sizeof(uint);
 	for (int i = 0; i < root->mNumChildren; i++) {
 		size += GetRecursiveSize(root->mChildren[i], scene);
@@ -160,7 +160,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 		m = scene->mMeshes[i];
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 		
-		size += sizeof(ranges) + sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
+		size += sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
 		if (m->HasTextureCoords(0)) {
 			size += sizeof(float)*m->mNumVertices * 2;
 		}
@@ -169,19 +169,20 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name){
 		}	
 		data = new char[size];
 		cursor = data;
-		char* mesh_name = (char*)m->mName.C_Str();
-		char* num = new char[4];
-		itoa(i,num,10);
 
-		strcat(mesh_name, num);
+		//GET_NAME
+		char* mesh_name = (char*)m->mName.C_Str();
+		
+
+
 		m = scene->mMeshes[i];
 		
 
-			
+		/*	
 		bytes = sizeof(ranges);
 		memcpy(cursor, ranges, bytes);
 		cursor += bytes;
-
+		*/
 		bytes = sizeof(uint) *  m->mNumFaces * 3;
 		
 		uint * indices = new uint[m->mNumFaces * 3]; // assume each face is a triangle
@@ -251,19 +252,31 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 
 	aiMesh* m;
 	uint bytes = 0;
-	
+	static int n = 0;
 	if (root->mNumMeshes > 0) {
 		m = scene->mMeshes[root->mMeshes[0]];
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 
-		bytes = sizeof(char[50]);
-		memcpy(cursor[0], m->mName.C_Str(),bytes);
-		cursor[0] += bytes;
+	
+
+	
 
 		bytes = sizeof(ranges);
 		memcpy(cursor[0], ranges, bytes);
 		cursor[0] += bytes;
 
+		bytes = sizeof(char) * 50;
+		if (strcmp(m->mName.C_Str(),""))
+			memcpy(cursor[0], m->mName.C_Str(), bytes);
+		else {
+			char* mesh_name = (char*)m->mName.C_Str();
+			char* num = new char[4];
+			itoa(n, num, 10);
+			strcat(mesh_name, num);
+			memcpy(cursor[0], mesh_name, bytes);
+		}
+		n++;
+		cursor[0] += bytes;
 		/*bytes = sizeof(uint) *  m->mNumFaces * 3;
 
 		uint * indices = new uint[m->mNumFaces * 3]; // assume each face is a triangle
@@ -327,10 +340,15 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 		cursor[0] += bytes;
 	}
 	else {
-		uint ranges[4] = { 0,0,0,0 };
+		uint ranges[4] = { 0,0,0,0 };		
 
 		bytes = sizeof(ranges);
 		memcpy(cursor[0], ranges, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(char)*50;
+		char name[50] = { 0 };
+		memcpy(cursor[0], name, bytes);
 		cursor[0] += bytes;
 
 		//GET TRANSFORM
@@ -411,39 +429,77 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs){
 		uint bytes = sizeof(ranges);
 		memcpy(ranges, cursor[0], bytes);
 		cursor[0] += bytes;
+
+	
 		Mesh m;
 		if (ranges[0] == 0) {
 			
 		}
 		else {
 			
+			char* name = new char[50];
+			bytes = sizeof(char)*50;
+			memcpy(name, cursor[0], bytes);
+			cursor[0] += bytes;
+
+			char path[80] = "Library/Meshes/";
+			strcat(path, name);
+			char* test = ".mesh";
+			strcat(path, ".mesh");
+
+			FILE * pFile_mesh;
+			long lSize;
+			char * buffer;
+			
+			size_t result;
+
+			pFile_mesh = fopen(path, "rb");
+			if (pFile_mesh == NULL) { fputs("File error", stderr); exit(1); }
+
+			// obtain file size:
+			fseek(pFile_mesh, 0, SEEK_END);
+			lSize = ftell(pFile_mesh);
+			rewind(pFile_mesh);
+
+			// allocate memory to contain the whole file:
+			buffer = new char[lSize];// (char*)malloc(sizeof(char)*lSize);
+			if (buffer == NULL) { fputs("Memory error", stderr); exit(2); }
+
+			// copy the file into the buffer:
+			result = fread(buffer, 1, lSize, pFile_mesh);
+			if (result != lSize) { fputs("Reading error", stderr); exit(3); }
+
+			fclose(pFile_mesh);
+
+			char* cursor2 = buffer;
+
 			m.num_vertexs = ranges[0];
 			m.num_indices = ranges[1];
 
 			bytes = sizeof(uint) * m.num_indices;
 
 			m.indices = new uint[m.num_indices];
-			memcpy(m.indices, cursor[0], bytes);
+			memcpy(m.indices, cursor2, bytes);
 
-			cursor[0] += bytes;
+			cursor2 += bytes;
 
 			bytes = sizeof(float) * m.num_vertexs * 3;
 			m.vertexs = new float[m.num_vertexs * 3];
-			memcpy(m.vertexs, cursor[0], bytes);
-			cursor[0] += bytes;
+			memcpy(m.vertexs, cursor2, bytes);
+			cursor2 += bytes;
 
 			if (ranges[2]) {
 				bytes = sizeof(float) * m.num_vertexs * 2;
 				m.texture_coords = new float[m.num_vertexs * 2];
-				memcpy(m.texture_coords, cursor[0], bytes);
-				cursor[0] += bytes;
+				memcpy(m.texture_coords, cursor2, bytes);
+				cursor2 += bytes;
 			}
 
 			if (ranges[3]) {
 				bytes = sizeof(float) * m.num_vertexs * 3;
 				m.norms = new float[m.num_vertexs * 3];
-				memcpy(m.norms, cursor[0], bytes);
-				cursor[0] += bytes;
+				memcpy(m.norms, cursor2, bytes);
+				cursor2 += bytes;
 			}
 
 

@@ -272,7 +272,7 @@ void ModuleGUI::Assets()
 		ImTextureID tex_id = App->renderer3D->tex;
 		std::list<std::string>::iterator item = path_list->begin();
 		int i = 0;
-		/*while (item != path_list->end())
+		while (item != path_list->end())
 		{
 			ImGui::PushID(i);
 			int frame_padding = 1;
@@ -299,7 +299,7 @@ void ModuleGUI::Assets()
 			ImGui::PopID();
 			ImGui::SameLine();
 			i++; item++;
-		}*/
+		}
 		ImGui::EndDock();
 	}
 	if (ImGui::BeginDock("Inspector", false, false)) {
