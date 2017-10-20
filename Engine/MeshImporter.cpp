@@ -52,7 +52,7 @@ uint GetSize(aiScene* scene) {
 	aiNode* root = scene->mRootNode;
 
 	size = GetRecursiveSize(root, scene);
-	size += scene->mNumMeshes * sizeof(uint);
+	//size += scene->mNumMeshes * sizeof(uint);
 
 	return size;
 };
@@ -61,24 +61,27 @@ uint GetRecursiveSize(aiNode* root, aiScene* scene) {
 
 	aiMesh* m;
 	uint size = 0;
+	int num = 0;
 
-	if (root->mNumMeshes) {
-		m = scene->mMeshes[root->mMeshes[0]];
-		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
-		size += sizeof(ranges);
-	}
-	else {
+	do {
+		
 		uint ranges[4] = { 0,0,0,0 };
 		size += sizeof(ranges);
-	}
+		
 
-	size += sizeof(aiVector3D) * 2 + sizeof(aiQuaternion);
-	size += sizeof(char) * 50;
+		size += sizeof(aiVector3D) * 2 + sizeof(aiQuaternion);
+		size += sizeof(char) * 50;
+		size += sizeof(uint);
+		
+
+		for (int i = 0; i < root->mNumChildren; i++) {
+			size += GetRecursiveSize(root->mChildren[i], scene);
+		}
+		num++;
+	}
+	while (num < root->mNumMeshes);
+
 	size += sizeof(uint);
-
-	for (int i = 0; i < root->mNumChildren; i++) {
-		size += GetRecursiveSize(root->mChildren[i], scene);
-	}
 
 	return size;
 }
@@ -228,52 +231,63 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 	aiVector3D scaling = { 1,1,1 };
 	aiQuaternion rotation = { 0,0,0,0 };
 	uint ranges[4] = { 0,0,0,0 };
+	int num_mesh = 0;
 
-	if (root->mNumMeshes > 0) {
-		m = scene->mMeshes[root->mMeshes[0]];
-		uint temp[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
-		memcpy(ranges, temp, sizeof(ranges));
-		if (strcmp(m->mName.C_Str(), ""))
-			strcpy(mesh_name, (char*)m->mName.C_Str());
-
-		else {
-			strcpy(mesh_name, (char*)m->mName.C_Str());
-			char* num = new char[4];
-			itoa(root->mMeshes[0], num, 10);
-			strcat(mesh_name, num);
-			delete[] num;
-		}
-
-		root->mTransformation.Decompose(scaling, rotation, translation);
-	}
-
-	//HEADER
-	bytes = sizeof(ranges);
-	memcpy(cursor[0], ranges, bytes);
-	cursor[0] += bytes;
-
-	//NAME
-	bytes = sizeof(char) * 50;
-	memcpy(cursor[0], mesh_name, bytes);
-	cursor[0] += bytes;
-
-	//TRANSFORMATION
-	bytes = sizeof(aiVector3D);
-	memcpy(cursor[0], &translation, bytes);
-	cursor[0] += bytes;
-
-	bytes = sizeof(aiQuaternion);
-	memcpy(cursor[0], &rotation, bytes);
-	cursor[0] += bytes;
-
-	bytes = sizeof(aiVector3D);
-	memcpy(cursor[0], &scaling, bytes);
-	cursor[0] += bytes;
-
-	//NUMCHILDS
 	bytes = sizeof(uint);
-	memcpy(cursor[0], &root->mNumChildren, bytes);
+	memcpy(cursor[0], &root->mNumMeshes, bytes);
 	cursor[0] += bytes;
+
+	do {
+		
+		if (root->mNumMeshes > 0) {
+			m = scene->mMeshes[root->mMeshes[num_mesh]];
+			uint temp[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+			memcpy(ranges, temp, sizeof(ranges));
+			if (strcmp(m->mName.C_Str(), ""))
+				strcpy(mesh_name, (char*)m->mName.C_Str());
+
+			else {
+				strcpy(mesh_name, (char*)m->mName.C_Str());
+				char* num = new char[4];
+				itoa(root->mMeshes[num_mesh], num, 10);
+				strcat(mesh_name, num);
+				delete[] num;
+			}
+
+			root->mTransformation.Decompose(scaling, rotation, translation);
+		}		
+
+		//HEADER
+		bytes = sizeof(ranges);
+		memcpy(cursor[0], ranges, bytes);
+		cursor[0] += bytes;
+
+		//NAME
+		bytes = sizeof(char) * 50;
+		memcpy(cursor[0], mesh_name, bytes);
+		cursor[0] += bytes;
+
+		//TRANSFORMATION
+		bytes = sizeof(aiVector3D);
+		memcpy(cursor[0], &translation, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(aiQuaternion);
+		memcpy(cursor[0], &rotation, bytes);
+		cursor[0] += bytes;
+
+		bytes = sizeof(aiVector3D);
+		memcpy(cursor[0], &scaling, bytes);
+		cursor[0] += bytes;
+
+		//NUMCHILDS
+		bytes = sizeof(uint);
+		memcpy(cursor[0], &root->mNumChildren, bytes);
+		cursor[0] += bytes;
+
+
+		num_mesh++;
+	} while (num_mesh < root->mNumMeshes);
 };
 
 
@@ -325,102 +339,116 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs) {
 	aiVector3D translation;
 	aiQuaternion rotation;
 	aiVector3D scaling;
-
-	uint bytes = sizeof(ranges);
-	memcpy(ranges, cursor[0], bytes);
+	Object* temp_obj;
+	int num_meshes = 0;
+	int num = 0;
+	uint bytes = sizeof(uint);
+	memcpy(&num_meshes, cursor[0], bytes);
 	cursor[0] += bytes;
+	
+	do{
 
-	char* name = new char[50];
-	bytes = sizeof(char) * 50;
-	memcpy(name, cursor[0], bytes);
-	cursor[0] += bytes;
 
-	bytes = sizeof(aiVector3D);
-	memcpy(&translation, cursor[0], bytes);
-	cursor[0] += bytes;
+		bytes = sizeof(ranges);
+		memcpy(ranges, cursor[0], bytes);
+		cursor[0] += bytes;
 
-	bytes = sizeof(aiQuaternion);
-	memcpy(&rotation, cursor[0], bytes);
-	cursor[0] += bytes;
+		char* name = new char[50];
+		bytes = sizeof(char) * 50;
+		memcpy(name, cursor[0], bytes);
+		cursor[0] += bytes;
 
-	bytes = sizeof(aiVector3D);
-	memcpy(&scaling, cursor[0], bytes);
-	cursor[0] += bytes;
+		bytes = sizeof(aiVector3D);
+		memcpy(&translation, cursor[0], bytes);
+		cursor[0] += bytes;
 
-	bytes = sizeof(uint);
-	memcpy(num_childs, cursor[0], bytes);
-	cursor[0] += bytes;
+		bytes = sizeof(aiQuaternion);
+		memcpy(&rotation, cursor[0], bytes);
+		cursor[0] += bytes;
 
-	if (ranges[0] != 0) {
+		bytes = sizeof(aiVector3D);
+		memcpy(&scaling, cursor[0], bytes);
+		cursor[0] += bytes;
 
-		char path[80] = "Library/Meshes/";
-		strcat(path, name);
-		strcat(path, ".mesh");
+		bytes = sizeof(uint);
+		memcpy(num_childs, cursor[0], bytes);
+		cursor[0] += bytes;
 
-		char * buffer = LoadBuffer(path);
-		char* cursor_mesh = buffer;
 
-		m.num_vertexs = ranges[0];
-		m.num_indices = ranges[1];
 
-		bytes = sizeof(uint) * m.num_indices;
-		m.indices = new uint[m.num_indices];
-		memcpy(m.indices, cursor_mesh, bytes);
-		cursor_mesh += bytes;
 
-		bytes = sizeof(float) * m.num_vertexs * 3;
-		m.vertexs = new float[m.num_vertexs * 3];
-		memcpy(m.vertexs, cursor_mesh, bytes);
-		cursor_mesh += bytes;
+		if (ranges[0] != 0) {
 
-		if (ranges[2]) {
-			bytes = sizeof(float) * m.num_vertexs * 2;
-			m.texture_coords = new float[m.num_vertexs * 2];
-			memcpy(m.texture_coords, cursor_mesh, bytes);
+			char path[80] = "Library/Meshes/";
+			strcat(path, name);
+			strcat(path, ".mesh");
+
+			char * buffer = LoadBuffer(path);
+			char* cursor_mesh = buffer;
+
+			m.num_vertexs = ranges[0];
+			m.num_indices = ranges[1];
+
+			bytes = sizeof(uint) * m.num_indices;
+			m.indices = new uint[m.num_indices];
+			memcpy(m.indices, cursor_mesh, bytes);
 			cursor_mesh += bytes;
-		}
 
-		if (ranges[3]) {
 			bytes = sizeof(float) * m.num_vertexs * 3;
-			m.norms = new float[m.num_vertexs * 3];
-			memcpy(m.norms, cursor_mesh, bytes);
+			m.vertexs = new float[m.num_vertexs * 3];
+			memcpy(m.vertexs, cursor_mesh, bytes);
 			cursor_mesh += bytes;
+
+			if (ranges[2]) {
+				bytes = sizeof(float) * m.num_vertexs * 2;
+				m.texture_coords = new float[m.num_vertexs * 2];
+				memcpy(m.texture_coords, cursor_mesh, bytes);
+				cursor_mesh += bytes;
+			}
+
+			if (ranges[3]) {
+				bytes = sizeof(float) * m.num_vertexs * 3;
+				m.norms = new float[m.num_vertexs * 3];
+				memcpy(m.norms, cursor_mesh, bytes);
+				cursor_mesh += bytes;
+			}
+
+
+			GenGLBuffers(&m);
+			delete[] buffer;
+
 		}
 
+		AABB* temp = new AABB();
+		temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
+		m.bounding_box = *temp;
 
-		GenGLBuffers(&m);
-		delete[] buffer;
+		temp_obj = new Object();
+		temp_obj->bb_mesh = CreateAABB(*temp);
+		temp_obj->AddComponentMesh(m);
+		temp_obj->AddComponentTransform(translation, rotation, scaling);
+		/*Texture* text;
+		App->renderer3D->loadTextureFromFile("Library/Meshes/image.dds", &text);
+		temp_obj->AddComponentMaterial(text);*/
+		temp_obj->obj_parent = parent;
 
-	}
-
-	AABB* temp = new AABB();
-	temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
-	m.bounding_box = *temp;
-
-	Object* temp_obj = new Object();
-	temp_obj->bb_mesh = CreateAABB(*temp);
-	temp_obj->AddComponentMesh(m);
-	temp_obj->AddComponentTransform(translation, rotation, scaling);
-	/*Texture* text;
-	App->renderer3D->loadTextureFromFile("Library/Meshes/image.dds", &text);
-	temp_obj->AddComponentMaterial(text);*/
-	temp_obj->obj_parent = parent;
-
-	//FREE MEMORY
-	delete[] name;
-	delete[] m.indices;
-	delete[] m.vertexs;
-	delete[] m.norms;
-	delete[] m.texture_coords;
-	delete temp;
+		//FREE MEMORY
+		delete[] name;
+		delete[] m.indices;
+		delete[] m.vertexs;
+		delete[] m.norms;
+		delete[] m.texture_coords;
+		delete temp;
 
 
-	if (parent != nullptr) {
-		parent->obj_childs.push_back(temp_obj);
-	}
-	else {
-		App->world->obj_vector.push_back(temp_obj);
-	}
+		if (parent != nullptr) {
+			parent->obj_childs.push_back(temp_obj);
+		}
+		else {
+			App->world->obj_vector.push_back(temp_obj);
+		}
+		num++;
+	}while (num<num_meshes);
 	return temp_obj;
 
 }

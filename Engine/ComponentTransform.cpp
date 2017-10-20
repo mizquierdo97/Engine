@@ -15,20 +15,18 @@ void ComponentTransform::UpdateComponent()
 	if (parent->obj_parent != nullptr) {
 		
 		float4x4 parent_matrix = parent->obj_parent->GetTransform()->matrix;
-		matrix = matrix*parent_matrix;
+		matrix = GetMatrix()*parent_matrix;
+
+		matrix.Decompose(translation, rotation, scale);
 	}
-	else {
-		matrix = matrix* float4x4::identity;
-	}
+
 }
 
 void ComponentTransform::ShowInspectorComponents()
 {
 	
 	if (ImGui::CollapsingHeader("Transform", &header_open)) {
-		ImGui::InputFloat("input float", &translation[0], -10000.0f, 100000.0f); ImGui::SameLine();
-		ImGui::InputFloat("input float", &translation[1], -10000.0f, 100000.0f); ImGui::SameLine();
-		ImGui::InputFloat("input float", &translation[2], -10000.0f, 100000.0f); 
+		ImGui::DragFloat3("Pos", &translation[0]);
 	}
 
 }
