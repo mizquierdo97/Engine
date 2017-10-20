@@ -308,12 +308,12 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		
 
 		if (m.id_textures != NULL) {
-			//Texture* temp_tex = comp->parent->GetMaterial()->obj_tex;
-					
-			if (texture) {
+		
+			if (texture && comp->parent->GetMaterial() != nullptr) {
+				Texture* temp_tex = comp->parent->GetMaterial()->obj_tex;			
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, 0);
-				//glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
+				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
 			}
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
@@ -417,11 +417,9 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool i
 	iluGetImageInfo(&ImageInfo);
 
 	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT && is_texture)
-
 	{
 		iluFlipImage();
 	}
-
 
 	//Image loaded successfully
 	if (success == IL_TRUE)

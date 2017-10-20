@@ -23,13 +23,9 @@ bool ModuleWorld::Init()
 #define CHECKERS_HEIGHT 128
 #define CHECKERS_WIDTH 128
 bool ModuleWorld::Start() {
-	
-
-
 	world_texture = new Texture();
 	world_texture->Create(nullptr, App->window->width, App->window->height);
-
-	
+		
 	return true;
 }
 
@@ -39,8 +35,6 @@ update_status ModuleWorld::PreUpdate(float dt)
 	if (App->input->file_dropped) {
 
 		FileDropped();
-
-
 	}
 	
 	world_texture->Bind();
