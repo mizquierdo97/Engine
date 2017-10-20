@@ -18,7 +18,7 @@
 #include <list>
 
 
-
+class FileSystem;
 class Application
 {
 public:

@@ -287,7 +287,7 @@ void ModuleGUI::Assets()
 
 			if (!strcmp((char*)temp.c_str(), "bin")) {
 				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
-					App->filesystem->LoadMesh(path.c_str());
+					App->filesystem->mesh_importer->LoadMesh(path.c_str());
 			}
 
 

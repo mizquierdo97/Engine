@@ -1,19 +1,24 @@
 #pragma once
 #include "ModuleAssimp.h"
-
+#include "MeshImporter.h"
 struct Mesh;
+
 class FileSystem {
-	
+
 public:
 	FileSystem() {
 		InitFileSystem();
+		mesh_importer = new MeshImporter();
 	}
 	~FileSystem() {
-
+		//delete mesh_importer;
 	}
 
-	void InitFileSystem();
-	void ImportMesh(aiScene* m, const char* directory ,const char* name);
-	void LoadMesh(const char*);
-	void ImportImage(const char* name);
+	void InitFileSystem();	
+	const char* ImportImage(const char* name);
+
+public:
+	MeshImporter* mesh_importer; public:
+	
+
 };

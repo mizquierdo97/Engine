@@ -69,7 +69,7 @@ void ModuleAssimp::ImportMesh(char * path)
 			str_temp.pop_back();
 			
 			
-			App->filesystem->ImportMesh((aiScene*)scene, MESHES_PATH, str_temp.c_str() );
+			App->filesystem->mesh_importer->ImportMesh((aiScene*)scene, MESHES_PATH, str_temp.c_str() );
 			aiReleaseImport(scene);
 		
 			
