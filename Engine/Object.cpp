@@ -13,7 +13,7 @@ void Object::AddComponentMesh(Mesh mesh)
 }
 void Object::AddComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D scale)
 {
-	ComponentTransform* trans = new ComponentTransform(pos,rot,scale);
+	ComponentTransform* trans = new ComponentTransform(pos,rot,scale,this);
 	obj_components.push_back(trans);
 
 }

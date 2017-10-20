@@ -264,15 +264,31 @@ bool ModuleRenderer3D::Options()
 
 void ModuleRenderer3D::Render(ComponentMesh* comp)
 {
+	/*float4x4 mat = float4x4::identity;
+	if (comp->parent != nullptr) {
+		mat = comp->parent->GetTransform()->GetMatrix();		
+	}
+	mat.Transpose();
+	GLfloat mat_float[16];
+	for (int i = 0; i < 4; i++) {
+		for (int n = 0; n < 4; n++) {
+			mat_float[n + i * 4] = mat[n][i];
+		}
+	}*/
 	//NEEDS IMPROVEMENT
-	GLfloat mat[16] = 
+	float4x4 mat_float = float4x4::identity;
+	if (comp->parent != nullptr) {
+		mat_float = comp->parent->GetTransform()->GetMatrix();
+	}
+
+	GLfloat mat[16] =
 	{ 1,0,0,0,
-	  0,1,0,0,
-	  0,0,1,0,
-	  0,0,0,1
-	
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1
+
 	};
-	math::float3 parent_pos = { 0,0,0 };
+/*	math::float3 parent_pos = { 0,0,0 };
 	math::Quat parent_rot = { 0,0,0,1 };
 	math::float3 parent_scale = { 1,1,1 };
 
@@ -281,17 +297,28 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		parent_pos = parent_trans->translation;
 		parent_rot = parent_trans->rotation;
 		parent_scale = parent_trans->scale;
+
 	}
 	ComponentTransform* temp_trans = comp->parent->GetTransform();
 	float* pos = &temp_trans->translation[0];
 	math::Quat  rot = temp_trans->rotation;
 	float* scale = &temp_trans->scale[0];
-
-	mat[12] = pos[0] + parent_pos[0];
-	mat[13] = pos[1] + parent_pos[1];
-	mat[14] = pos[2] + parent_pos[2];
+	*/
 	
-	//
+	float4x4 matrixfloat = comp->parent->GetTransform()->GetMatrix();
+	GLfloat matrix[16] =
+	{
+		matrixfloat[0][0],matrixfloat[1][0],matrixfloat[2][0],matrixfloat[3][0],
+		matrixfloat[0][1],matrixfloat[1][1],matrixfloat[2][1],matrixfloat[3][1],
+		matrixfloat[0][2],matrixfloat[1][2],matrixfloat[2][2],matrixfloat[3][2],
+		matrixfloat[0][3],matrixfloat[1][3],matrixfloat[2][3],matrixfloat[3][3]
+	};
+	
+/*
+	mat[12] = mat_float[0][3];
+	mat[13] = mat_float[1][3];
+	mat[14] = mat_float[2][3];
+	*/
 
 	Mesh m = comp->obj_mesh;
 	if (m.id_indices != NULL) {
@@ -319,11 +346,10 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
 			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 		}
-
+		glPushMatrix();
+		glMultMatrixf(matrix);
 		if(m.id_indices != NULL)
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
-		glPushMatrix();
-		glMultMatrixf(mat);
 		glDrawElements(GL_TRIANGLES, m.num_indices, GL_UNSIGNED_INT, NULL);
 		glPopMatrix();
 	
