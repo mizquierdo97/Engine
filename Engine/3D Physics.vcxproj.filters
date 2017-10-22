@@ -498,6 +498,9 @@
     <ClInclude Include="Importer.h">
       <Filter>Sources\FileSystem</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\Object\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -715,6 +718,9 @@
     </ClCompile>
     <ClCompile Include="MeshImporter.cpp">
       <Filter>Sources\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\Object\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

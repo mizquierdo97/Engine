@@ -264,18 +264,7 @@ bool ModuleRenderer3D::Options()
 
 void ModuleRenderer3D::Render(ComponentMesh* comp)
 {
-	/*float4x4 mat = float4x4::identity;
-	if (comp->parent != nullptr) {
-		mat = comp->parent->GetTransform()->GetMatrix();		
-	}
-	mat.Transpose();
-	GLfloat mat_float[16];
-	for (int i = 0; i < 4; i++) {
-		for (int n = 0; n < 4; n++) {
-			mat_float[n + i * 4] = mat[n][i];
-		}
-	}*/
-	//NEEDS IMPROVEMENT
+	
 	float4x4 mat_float = float4x4::identity;
 	if (comp->parent != nullptr) {
 		mat_float = comp->parent->GetTransform()->GetMatrix();
@@ -288,22 +277,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		0,0,0,1
 
 	};
-/*	math::float3 parent_pos = { 0,0,0 };
-	math::Quat parent_rot = { 0,0,0,1 };
-	math::float3 parent_scale = { 1,1,1 };
-
-	if (comp->parent->obj_parent != nullptr) {
-		ComponentTransform* parent_trans = comp->parent->obj_parent->GetTransform();
-		parent_pos = parent_trans->translation;
-		parent_rot = parent_trans->rotation;
-		parent_scale = parent_trans->scale;
-
-	}
-	ComponentTransform* temp_trans = comp->parent->GetTransform();
-	float* pos = &temp_trans->translation[0];
-	math::Quat  rot = temp_trans->rotation;
-	float* scale = &temp_trans->scale[0];
-	*/
+	
 	
 	float4x4 matrixfloat = comp->parent->GetTransform()->GetMatrix();
 	GLfloat matrix[16] =
@@ -314,11 +288,6 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		matrixfloat[0][3],matrixfloat[1][3],matrixfloat[2][3],matrixfloat[3][3]
 	};
 	
-/*
-	mat[12] = mat_float[0][3];
-	mat[13] = mat_float[1][3];
-	mat[14] = mat_float[2][3];
-	*/
 
 	Mesh m = comp->obj_mesh;
 	if (m.id_indices != NULL) {
@@ -354,21 +323,12 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		glPopMatrix();
 	
 		}
-	else {
-		if (0) {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-		else {
-			glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-		}
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
-			glVertexPointer(3, GL_FLOAT, 0, NULL);
-			
-			glDrawArrays(GL_TRIANGLES, 0, m.num_vertexs);
-			
-		
-	}
+
+
+	Mesh bb_mesh = comp->bb_mesh;	
+	App->renderer3D->RenderMesh(&bb_mesh);
+
+	
 	glDisable(GL_TEXTURE_2D);
 }
 
@@ -384,8 +344,6 @@ void ModuleRenderer3D::RenderMesh(Mesh * m)
 			glBindBuffer(GL_ARRAY_BUFFER, m->id_norms);
 			glNormalPointer(GL_FLOAT, 0, NULL);
 		}
-
-
 
 		if ( m->id_textures != NULL) {
 			//Texture* temp_tex = comp->parent->GetMaterial()->obj_tex;

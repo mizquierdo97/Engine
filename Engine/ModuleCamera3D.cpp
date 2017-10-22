@@ -83,15 +83,12 @@ update_status ModuleCamera3D::Update(float dt)
 			
 		while (item != App->world->obj_vector.end()) {
 			ComponentMesh* temp_mesh = (*item)->GetMesh();
-				if ((*item)->is_mesh ) {				
-					
-					temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
-					temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
-					temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
-					num++;
-				
-			}
 
+
+			temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
+			temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
+			temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
+			num++;
 			item++;
 		}
 		if (num > 0) {
@@ -104,16 +101,15 @@ update_status ModuleCamera3D::Update(float dt)
 		 vec3 temp_vec2 = vec3(0, 0, 0);
 		 while (item != App->world->obj_vector.end()) {
 			 ComponentMesh* temp_mesh = (*item)->GetMesh();
-				 if ((*item)->is_mesh ) {
-				
-					 temp_vec2.x = (temp_mesh->obj_mesh.bounding_box.maxPoint.x);
-					 temp_vec2.y = (temp_mesh->obj_mesh.bounding_box.maxPoint.y);
-					 temp_vec2.z = (temp_mesh->obj_mesh.bounding_box.maxPoint.z);
 
-					 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
-					 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
-					 if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
-					  }
+			 temp_vec2.x = (temp_mesh->obj_mesh.bounding_box.maxPoint.x);
+			 temp_vec2.y = (temp_mesh->obj_mesh.bounding_box.maxPoint.y);
+			 temp_vec2.z = (temp_mesh->obj_mesh.bounding_box.maxPoint.z);
+
+			 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
+			 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
+			 if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
+				
 			 item++;
 		 }
 		 Reference = temp_vec;
@@ -168,14 +164,10 @@ update_status ModuleCamera3D::Update(float dt)
 			int i = 0;
 			while (item != App->world->obj_vector.end()) {
 				ComponentMesh* temp_mesh = (*item)->GetMesh();
-					if ((*item)->is_mesh ) {
-						
-						temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
-						temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
-						temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
-						num++;
-				}
-				
+				temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
+				temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
+				temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
+				num++;
 				item++;
 			}
 			if (num > 0) {

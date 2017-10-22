@@ -41,7 +41,7 @@ void Object::Update() {
 		}
 	}
 
-	App->renderer3D->RenderMesh(&bb_mesh);
+	
 
 }
 

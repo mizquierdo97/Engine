@@ -14,6 +14,7 @@ enum objectType {
 Mesh CreateCube();
 Mesh CreateCylinder();
 Mesh CreateAABB(AABB);
+Mesh UpdateAABB(Mesh, AABB);
 int CreateObject(objectType type);
 
 class Component;
@@ -46,16 +47,12 @@ public:
 	ComponentMaterial* GetMaterial();
 	ComponentTransform* GetTransform();
 public:
-	Mesh bb_mesh;
-	Texture* obj_text = nullptr;
+	
 	objectType obj_type = objectType::null;
-	int obj_id = 0;
-	bool render_object = true;
-	bool is_mesh = true;
-
+	int obj_id = 0;	
 	bool enabled;
 	char* obj_name;
-	//char* obj_tag;
+
 
 	//HIERARCHY
 	std::vector<Object*> obj_childs;

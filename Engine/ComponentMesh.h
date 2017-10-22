@@ -9,6 +9,13 @@ public:
 		parent = obj;
 		mesh_material = nullptr;
 		comp_type = ComponentType::mesh;
+
+		AABB temp;
+		temp.SetFrom((vec*)m.vertexs, m.num_vertexs);
+		obj_mesh.bounding_box = temp;
+		bb_mesh = CreateAABB(temp);
+		
+
 	}
 	~ComponentMesh() {};
 
@@ -16,4 +23,5 @@ public:
 public:
 	Mesh obj_mesh;
 	ComponentMaterial* mesh_material;
+	Mesh bb_mesh;
 };

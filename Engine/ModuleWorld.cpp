@@ -96,33 +96,6 @@ void ModuleWorld::It_Render()
 		temp++;
 	}
 
-
-/*	if (App->renderer3D->render_fill) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-		std::vector<Object*>::iterator temp = obj_vector.begin();
-		while (temp != obj_vector.end()) {
-			if ((*temp)->render_object)
-				App->renderer3D->Render((*temp));
-
-			temp++;
-		}
-	}
-
-	//Render Wireframe
-	if (App->renderer3D->render_wireframe) {
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		std::vector<Object*>::iterator temp = obj_vector.begin();
-		while (temp != obj_vector.end()) {
-
-			App->renderer3D->Render((*temp));
-			if ((*temp)->obj_mesh.norms != nullptr && App->gui->show_normals)
-				App->physics->DrawNormals((*temp));
-
-			temp++;
-		}
-	}*/
 	glColor3f(1.0f, 1.0f, 1.0f);
 	world_texture->Unbind();
 }
@@ -145,7 +118,7 @@ bool ModuleWorld::Options()
 		int num = 0;
 		while(item != obj_vector.end())		
 		{
-			if ((*item)->is_mesh) {
+			
 				ImGui::Separator();
 				Mesh m = (*item)->GetMesh()->obj_mesh;
 				ImGui::Text("Mesh %i", num + 1);
@@ -178,7 +151,7 @@ bool ModuleWorld::Options()
 				ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs);
 
 				num++;
-			}
+			
 			item++;
 		}
 	}

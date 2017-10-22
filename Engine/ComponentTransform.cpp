@@ -60,3 +60,7 @@ const float4x4 ComponentTransform::GetMatrix()
 	}
 	
 }
+const float4x4 ComponentTransform::GetMyMatrix()
+{
+	return float4x4::FromTRS(translation, rotation, scale);
+}

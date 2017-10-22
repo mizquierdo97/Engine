@@ -424,7 +424,7 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs) {
 		m.bounding_box = *temp;
 
 		temp_obj = new Object();
-		temp_obj->bb_mesh = CreateAABB(*temp);
+		
 		temp_obj->AddComponentMesh(m);
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
 		/*Texture* text;
@@ -438,7 +438,7 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs) {
 		delete[] m.vertexs;
 		delete[] m.norms;
 		delete[] m.texture_coords;
-		delete temp;
+	
 
 
 		if (parent != nullptr) {

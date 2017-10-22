@@ -39,6 +39,8 @@
 #include "../Algorithm/Random/LCG.h"
 #include "../Algorithm/GJK.h"
 
+
+#include "../../Glew/include/glew.h"
 #ifdef MATH_ENABLE_STL_SUPPORT
 #include <iostream>
 #endif
@@ -1034,6 +1036,41 @@ PBVolume<6> Frustum::ToPBVolume() const
 
 	return frustumVolume;
 }
+void Frustum::Draw(float width, float color[4])const
+{
+	math::float3 bb_vertex[8];
+	GetCornerPoints(bb_vertex);
+
+	//Draw bounding box
+	glLineWidth(3.f);
+	glColor4f(color[0], color[1], color[2], color[3]);
+
+	glBegin(GL_LINES);
+
+	for (unsigned int k = 0; k < 4; k++)
+	{
+		glVertex3f(bb_vertex[k + 4].x, bb_vertex[k + 4].y, bb_vertex[k + 4].z);
+		glVertex3f(bb_vertex[k].x, bb_vertex[k].y, bb_vertex[k].z);
+	}
+
+	for (unsigned int k = 0; k <= 4; k += 4)
+	{
+		glVertex3f(bb_vertex[k].x, bb_vertex[k].y, bb_vertex[k].z);
+		glVertex3f(bb_vertex[k + 1].x, bb_vertex[k + 1].y, bb_vertex[k + 1].z);
+
+		glVertex3f(bb_vertex[k + 2].x, bb_vertex[k + 2].y, bb_vertex[k + 2].z);
+		glVertex3f(bb_vertex[k + 3].x, bb_vertex[k + 3].y, bb_vertex[k + 3].z);
+
+		glVertex3f(bb_vertex[k].x, bb_vertex[k].y, bb_vertex[k].z);
+		glVertex3f(bb_vertex[k + 2].x, bb_vertex[k + 2].y, bb_vertex[k + 2].z);
+
+		glVertex3f(bb_vertex[k + 1].x, bb_vertex[k + 1].y, bb_vertex[k + 1].z);
+		glVertex3f(bb_vertex[k + 3].x, bb_vertex[k + 3].y, bb_vertex[k + 3].z);
+	}
+	glEnd();
+}
+
+
 
 bool Frustum::Intersects(const Ray &ray) const
 {
