@@ -20,7 +20,7 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
-	void HierarchyRecurs(Object* item, int*);
+	int HierarchyRecurs(std::vector<Object*> item,int*, int,int);
 	void FileDropped();
 	void It_Render(); //Iterate Render
 

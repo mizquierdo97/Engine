@@ -187,112 +187,61 @@ bool ModuleWorld::Options()
 
 	if (ImGui::BeginDock("Hierarchy", false, false, false)) {
 
-		static int selection_mask = (1 << 2); // Dumb representation of what may be user-side selection state. You may carry selection state inside or outside your objects in whatever format you see fit.
+		static int selection_mask = 0; // Dumb representation of what may be user-side selection state. You may carry selection state inside or outside your objects in whatever format you see fit.
 		int node_clicked = -1;                // Temporary storage of what node we have clicked to process selection at the end of the loop. May be a pointer to your own node type, etc.
 		
 		int i = -1;
-		std::vector<Object*>::iterator item = obj_vector.begin();
-		
-		if (obj_vector.size() > 0) {
-			
+		int node_selected = -1;
+		//std::vector<Object*> item = obj_vector.begin();
+		HierarchyRecurs(obj_vector,&node_selected,i,selection_mask);
 
-			while (item != obj_vector.end()) {
-				i++;
-				ImGui::PushID(i);
-				ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
-			
-				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, "lolo %i", i);
-				
-				
-				if (node_open)
-				{
-				
-					HierarchyRecurs((*item),&i);
-
-					ImGui::TreePop();
-				}
-
-				if (ImGui::IsItemClicked()) {
-					node_clicked = i;
-					Selected = (*item);
-				}
-
-				if (node_clicked != -1)
-				{
-					if (ImGui::GetIO().KeyCtrl)
-						selection_mask ^= (1 << node_clicked);          // CTRL+click to toggle
-					else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
-						selection_mask = (1 << node_clicked);       // Click to single-select
-				}
-				ImGui::PopID();
-				item++;
-			}
-		}
-	
-	/*	if (ImGui::TreeNode("Advanced, with Selectable nodes"))
+		if (node_selected != -1)
 		{
-			for (int i = 0; i < 6; i++)
-			{
-				// Disable the default open on single-click behavior and pass in Selected flag according to our selection state.
-				
-				if (i < 3)
-				{
-					// Node
-					
-					
-				}
-			}
-			
-			
-			
-			ImGui::TreePop();
+			// Update selection state. Process outside of tree loop to avoid visual inconsistencies during the clicking-frame.
+			if (ImGui::GetIO().KeyCtrl)
+				selection_mask ^= (1 << node_selected);          // CTRL+click to toggle
+			else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
+				selection_mask = (1 << node_selected);           // Click to single-select
 		}
-		*/
+		
 		ImGui::EndDock();
 	}
 	return true;
 }
 
-void ModuleWorld::HierarchyRecurs(Object* parent, int* i)
+int ModuleWorld::HierarchyRecurs(std::vector<Object*> vector,int* node_selected, int i,int selection_mask)
 {
-
-	static int selection_mask = (1 << 2);
-	int node_clicked = -1;
-	std::vector<Object*>::iterator item = (*parent).obj_childs.begin();
-
 	
-	while (item != (*parent).obj_childs.end())
-	{
-		i[0]++;
-		ImGui::PushID(i[0]);
-		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << *i)) ? ImGuiTreeNodeFlags_Selected : 0);
 
-		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i[0], node_flags, (*item)->obj_name,*i);
+
+	int node_clicked = -1;
+	
+	int temp_i = 0;
+	std::vector<Object*>::iterator item = vector.begin();
+	while (item != vector.end())
+	{
+		i++;
+		ImGui::PushID(i);
+		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
+
+		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->obj_name,i);
+
+		if (ImGui::IsItemClicked()) {
+			//node_clicked = *i;
+			node_selected[0] = i;
+			Selected = (*item);
+			//return i;
+		}
 
 		if (node_open)
 		{
-			HierarchyRecurs((*item), &i[0]);
+			i = HierarchyRecurs((*item)->obj_childs,node_selected, i,selection_mask);
 
 			ImGui::TreePop();
-		}
-		if (ImGui::IsItemClicked()) {
-			node_clicked = *i;
-			Selected = (*item);
-		}
-	
-	
-	if (node_clicked != -1)
-	{
-		if (ImGui::GetIO().KeyCtrl)
-			selection_mask ^= (1 << node_clicked);          // CTRL+click to toggle
-		else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
-			selection_mask = (1 << node_clicked);       // Click to single-select
-	}
-	
+		}	
 		ImGui::PopID();
-
-	item++;
+		item++;
 		}
 	
-	
+	return i;
 }
