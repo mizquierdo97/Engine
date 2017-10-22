@@ -30,5 +30,5 @@ public:
 	Texture* world_texture;
 
 	std::vector<Object*> obj_vector;
-	Object* Selected = nullptr;
+	Object* selected_object = nullptr;
 };

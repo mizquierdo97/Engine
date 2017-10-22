@@ -7,6 +7,8 @@
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
+#include "ComponentCamera.h"
+
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -450,4 +452,16 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
 	LOG("Texture Created");
 
     return true;
+}
+
+ComponentCamera * ModuleRenderer3D::GetActiveCamera()
+{
+	ComponentCamera* ret = nullptr;
+	std::vector<Object*>::iterator item = App->world->obj_vector.begin();
+	while (item != App->world->obj_vector.end()) {
+		ret = (*item)->GetCamera();
+		if (ret != nullptr)return ret;
+		item++;
+	}
+	return ret;
 }

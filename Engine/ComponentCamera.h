@@ -1,15 +1,15 @@
 #pragma once
-
 #include "Component.h"
 #include "MathGeoLib/Geometry/Frustum.h"
+#include "ComponentTransform.h"
+#include "Object.h"
+#include "ModuleWindow.h"
+
 class ComponentCamera : public Component {
-
-	ComponentCamera(){
-
-	}
-	~ComponentCamera() {
-
-	}
+public:
+	ComponentCamera() {};
+	ComponentCamera(Object*);
+	~ComponentCamera();
 
 	void UpdateComponent();
 

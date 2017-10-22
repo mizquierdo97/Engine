@@ -146,6 +146,11 @@ void ModuleWindow::SaveConfig(JSON_Object * root)
 	json_object_set_string(root, "Window Name",title);
 }
 
+float ModuleWindow::GetAspectRatio()
+{
+	return width / height;
+}
+
 bool ModuleWindow::Options()
 {
 	if(active)

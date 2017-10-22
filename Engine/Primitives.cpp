@@ -203,8 +203,10 @@ Mesh CreateCylinder()
 	return m;
 }
 
-int CreateObject(objectType type)
+int CreateObject()
 {
+	Object* new_object = new Object();
+	App->world->obj_vector.push_back(new_object);
 	/*Object* new_object = new Object();
 	switch (type) {
 	case cube:

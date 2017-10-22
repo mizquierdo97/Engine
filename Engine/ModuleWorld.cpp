@@ -202,7 +202,7 @@ int ModuleWorld::HierarchyRecurs(std::vector<Object*> vector,int* node_selected,
 		if (ImGui::IsItemClicked()) {
 			//node_clicked = *i;
 			node_selected[0] = i;
-			Selected = (*item);
+			selected_object = (*item);
 			//return i;
 		}
 

@@ -22,7 +22,6 @@
 
 
 
-
 #define MAX_LIGHTS 8
 
 #define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
@@ -48,6 +47,8 @@ public:
 	bool loadTextureFromFile(char* path, Texture**, bool is_texture = true);
 	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height, Texture**);
 	
+
+	ComponentCamera* GetActiveCamera();
 public:
 
 	Light lights[MAX_LIGHTS];

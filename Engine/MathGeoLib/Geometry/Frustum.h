@@ -624,6 +624,7 @@ public:
 	bool Intersects(const Polyhedron &polyhedron) const;
 
 	void Draw(float width, float color[4])const;
+	int ContainsAaBox(const AABB& refBox) const;
 
 #if defined(MATH_TINYXML_INTEROP) && defined(MATH_CONTAINERLIB_SUPPORT)
 	void DeserializeFromXml(TiXmlElement *e);

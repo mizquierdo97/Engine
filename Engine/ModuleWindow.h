@@ -27,6 +27,8 @@ public:
 
 	void SaveConfig(JSON_Object*);
 
+	float GetAspectRatio();
+
 	bool Options();
 
 public:
