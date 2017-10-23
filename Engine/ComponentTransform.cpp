@@ -15,17 +15,14 @@ void ComponentTransform::UpdateComponent()
 {
 	if (parent->obj_parent != nullptr) {
 		
-		//float4x4 parent_matrix = parent->obj_parent->GetTransform()->matrix;
 		
-		//float4x4 temp_matrix = GetMatrix();
-
 		matrix.Decompose(translation, rotation, scale);
-		//parent_matrix.Decompose(parent_trans, parent_rot, parent_scale);
+	
 
 		
 	}
 	else {
-		//matrix = GetMatrix();
+	
 		matrix.Decompose(translation, rotation, scale);
 	}
 	
@@ -53,7 +50,9 @@ void ComponentTransform::ShowInspectorComponents()
 const float4x4 ComponentTransform::GetMatrix()
 {
 	if (parent->obj_parent != nullptr) {
-		return float4x4::FromTRS(translation, rotation, scale)* parent->obj_parent->GetTransform()->GetMatrix();
+		float4x4 temp = float4x4::FromTRS(translation, rotation, scale);
+
+		return  parent->obj_parent->GetTransform()->GetMatrix()* temp;
 	}
 	else {
 		return float4x4::FromTRS(translation, rotation, scale);
