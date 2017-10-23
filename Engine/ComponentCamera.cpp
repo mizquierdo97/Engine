@@ -33,7 +33,7 @@ void ComponentCamera::UpdateComponent()
 	cam_frustum.SetPos(parent_transform->translation);
 
 	cam_frustum.SetFront(parent_transform->GetMatrix().Col3(2));
-	//cam_frustum.SetUp(parent_transform->GetMatrix().Col3(1));
+	cam_frustum.SetUp(parent_transform->GetMatrix().Col3(1));
 
 	float color[4] = { 0.7f, 0.7f, 0.7f, 1 };
 	cam_frustum.Draw(3.0f,color );
