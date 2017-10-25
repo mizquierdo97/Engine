@@ -138,7 +138,7 @@ update_status ModuleGUI::Update(float dt)
 
 				}
 				if (ImGui::MenuItem("LoadScene")) {
-					
+					App->world->LoadScene();
 
 				}
 				ImGui::EndMenu();

@@ -1,8 +1,8 @@
 {
     "GameObjects": {
-        "Object": {
-            "UUID": "84260d39-87ed-42a3-8884-a4c01998c0ee",
-            "Name": "%i",
+        "Object_0": {
+            "UUID": "8ea6b289-069c-4703-a807-40a30530be2a",
+            "Name": "ÎúíÞÀ­ÞÞÀ­ÞÞÀ­ÞÞÀ­Þýýýý",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -21,9 +21,9 @@
             },
             "Components": {}
         },
-        "Object": {
-            "UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
-            "Name": "%i",
+        "Object_1": {
+            "UUID": "9e751436-f48f-46a9-9dc8-a2210f01b732",
+            "Name": "ÎúíÞÀ­ÞÞÀ­ÞÞÀ­ÞÞÀ­Þýýýý",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -42,10 +42,9 @@
             },
             "Components": {}
         },
-        "Object": {
-            "UUID": "0a11f215-1d53-4755-bd8b-0175255ef9be",
-            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
-            "Name": "%i",
+        "Object_2": {
+            "UUID": "bde27dc8-48df-43c0-83bf-060e2956936d",
+            "Name": "",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -62,42 +61,32 @@
                 "value_Y": "1.000000",
                 "value_Z": "1.000000"
             },
-            "Components": {
-                "Mesh": {
-                    "Mesh_Path": "0"
-                }
-            }
+            "Components": {}
         },
-        "Object": {
-            "UUID": "848a78a6-169d-4062-9c37-6150dc436cb2",
-            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
-            "Name": "%i",
+        "Object_3": {
+            "UUID": "6f4724e0-e3cc-46f3-8c5b-f0061ba3fad7",
+            "Name": "batman70_0",
             "Translation": {
-                "value_X": "0.000000",
+                "value_X": "-24.600000",
                 "value_Y": "0.000000",
-                "value_Z": "0.000000"
+                "value_Z": "-7.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
-                "value_Y": "0.000000",
+                "value_Y": "0.057564",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.998342"
             },
             "Scale": {
                 "value_X": "1.000000",
                 "value_Y": "1.000000",
                 "value_Z": "1.000000"
             },
-            "Components": {
-                "Mesh": {
-                    "Mesh_Path": "1"
-                }
-            }
+            "Components": {}
         },
-        "Object": {
-            "UUID": "2be7940c-43af-40a2-bea2-0441a7e1050b",
-            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
-            "Name": "%i",
+        "Object_4": {
+            "UUID": "f3fdf7e1-475f-4772-b170-4a1b645898be",
+            "Name": "batman70_1",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -114,16 +103,11 @@
                 "value_Y": "1.000000",
                 "value_Z": "1.000000"
             },
-            "Components": {
-                "Mesh": {
-                    "Mesh_Path": "2"
-                }
-            }
+            "Components": {}
         },
-        "Object": {
-            "UUID": "7c7a7375-2c28-4a29-9f1e-e5c0d4a1c6b7",
-            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
-            "Name": "%i",
+        "Object_5": {
+            "UUID": "d6b32ba5-d345-4841-a3a7-bbb6dc585a79",
+            "Name": "batman70_2",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -140,11 +124,28 @@
                 "value_Y": "1.000000",
                 "value_Z": "1.000000"
             },
-            "Components": {
-                "Mesh": {
-                    "Mesh_Path": "3"
-                }
-            }
+            "Components": {}
+        },
+        "Object_6": {
+            "UUID": "56a65c0c-0282-41e0-8679-1b7b0aa608b2",
+            "Name": "batman70_3",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
         }
     }
 }

@@ -11,6 +11,16 @@ ComponentTransform::ComponentTransform(aiVector3D pos, aiQuaternion rot, aiVecto
 	matrix = float4x4::FromTRS(translation, rotation, scale);
 }
 
+ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameObject* obj_parent) {
+	translation = float3(pos.x, pos.y, pos.z);
+	rotation = Quat(rot.x, rot.y, rot.z, rot.w);
+	scale = float3(sc.x, sc.y, sc.z);
+	SetParent(obj_parent);
+	comp_type = ComponentType::transform;
+	matrix = float4x4::FromTRS(translation, rotation, scale);
+}
+
+
 void ComponentTransform::UpdateComponent()
 {
 	if (GetParent()->obj_parent != nullptr) {

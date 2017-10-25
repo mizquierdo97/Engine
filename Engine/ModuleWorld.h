@@ -29,8 +29,9 @@ public:
 	void DebugDraw();
 
 	void SaveScene()const;
-	void RecursiveSaveScene(std::vector<GameObject*>,Data*);
+	void RecursiveSaveScene(std::vector<GameObject*>,Data*,int* i);
 	void LoadScene();
+	
 
 	bool Options();//World Options
 

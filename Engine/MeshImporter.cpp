@@ -13,8 +13,8 @@ GameObject* CreateObjectFromMesh(char** buffer, GameObject* parent, int* num_chi
 void RecursiveLoad(char** cursor, GameObject* parent);
 
 void GenGLBuffers(Mesh*);
-void Recursive(aiNode* root, char** cursor, aiScene* scene, int i);
-void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i);
+void Recursive(aiNode* root, char** cursor, aiScene* scene, int i,const char* name);
+void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i,const char* path_name);
 uint GetRecursiveSize(aiNode* root, aiScene* scene);
 
 
@@ -101,7 +101,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 	char* cursor = data;
 
 	aiNode* root = scene->mRootNode;
-	Recursive(root, &cursor, scene, 0);
+	Recursive(root, &cursor, scene, 0, name);
 
 
 	//WRITE FILE
@@ -140,16 +140,14 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 		//
 
 		char mesh_name[50] = { 0 };
-		if (strcmp(m->mName.C_Str(), "")) {
-			strcpy(mesh_name, (char*)m->mName.C_Str());
-		}
-		else {
-			strcpy(mesh_name, (char*)m->mName.C_Str());
+	
+			strcpy(mesh_name, name);
 			char* num = new char[4];
 			itoa(i, num, 10);
+			strcat(mesh_name, "_");
 			strcat(mesh_name, num);
 			delete[] num;
-		}
+		
 
 
 		bytes = sizeof(uint) *  m->mNumFaces * 3;
@@ -209,18 +207,18 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 }
 
 //OK
-void Recursive(aiNode* root, char** cursor, aiScene* scene, int i) {
+void Recursive(aiNode* root, char** cursor, aiScene* scene, int i,const char* name) {
 
 	//Create Mesh from children i
-	TransformMeshToBinary(root, cursor, scene, i);
+	TransformMeshToBinary(root, cursor, scene, i,name);
 	//Create mesh from son of 1
 	for (int n = 0; n < root->mNumChildren; n++) {
-		Recursive(root->mChildren[n], cursor, scene, n);
+		Recursive(root->mChildren[n], cursor, scene, n,name);
 	}
 }
 
 
-void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
+void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, const char* path_name) {
 
 
 	aiMesh* m;
@@ -243,19 +241,21 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i) {
 			m = scene->mMeshes[root->mMeshes[num_mesh]];
 			uint temp[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 			memcpy(ranges, temp, sizeof(ranges));
-			if (strcmp(m->mName.C_Str(), ""))
-				strcpy(mesh_name, (char*)m->mName.C_Str());
-
-			else {
-				strcpy(mesh_name, (char*)m->mName.C_Str());
+			
+				strcpy(mesh_name,path_name);
 				char* num = new char[4];
 				itoa(root->mMeshes[num_mesh], num, 10);
+				strcat(mesh_name, "_");
 				strcat(mesh_name, num);
 				delete[] num;
-			}
+		
 
 			root->mTransformation.Decompose(scaling, rotation, translation);
-		}		
+		}	
+		else {
+			strcpy(mesh_name, "root_");
+			strcat(mesh_name, path_name);
+		}
 
 		//HEADER
 		bytes = sizeof(ranges);
@@ -419,6 +419,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			delete[] buffer;
 
 		}
+	
 
 		AABB* temp = new AABB();
 		temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
@@ -430,7 +431,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		if(m.id_vertexs!=0)
 		temp_obj->AddComponentMesh(m);
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
-		
+		temp_obj->SetName((char*)m.mesh_path.c_str());
 		temp_obj->obj_parent = parent;
 
 		CreateObject(temp_obj);

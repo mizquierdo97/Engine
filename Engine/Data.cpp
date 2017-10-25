@@ -545,6 +545,103 @@ ImVec4 Data::GetVector4(std::string valueName)
 	return ret;
 }
 
+float2 Data::GetVector2f(std::string valueName)
+{
+	float2 ret;
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+
+	std::vector<std::string> vec_names;
+	std::vector<std::string> vec_values;
+
+	if (getting_from_section) {
+		vec_names = in_section_names;
+		vec_values = in_section_values;
+	}
+	else {
+		vec_names = out_section_names;
+		vec_values = out_section_values;
+	}
+
+	std::vector<std::string>::iterator it = find(vec_names.begin(), vec_names.end(), valueName);
+	if (it != vec_names.end()) {
+		int index = it - vec_names.begin();
+		ret.x = stof(vec_values[index + 1]);
+		ret.y = stof(vec_values[index + 2]);
+	}
+	else {
+		ret.x = -1.0f;
+		ret.y = -1.0f;
+	}
+	return ret;
+}
+
+float3 Data::GetVector3f(std::string valueName)
+{
+	float3 ret;
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+
+	std::vector<std::string> vec_names;
+	std::vector<std::string> vec_values;
+
+	if (getting_from_section) {
+		vec_names = in_section_names;
+		vec_values = in_section_values;
+	}
+	else {
+		vec_names = out_section_names;
+		vec_values = out_section_values;
+	}
+
+	std::vector<std::string>::iterator it = find(vec_names.begin(), vec_names.end(), valueName);
+	if (it != vec_names.end()) {
+		int index = it - vec_names.begin();
+		ret.x = stof(vec_values[index + 1]);
+		ret.y = stof(vec_values[index + 2]);
+		ret.z = stof(vec_values[index + 3]);
+	}
+	else {
+		ret.x = -1.0f;
+		ret.y = -1.0f;
+		ret.z = -1.0f;
+	}
+	return ret;
+}
+
+float4 Data::GetVector4f(std::string valueName)
+{
+	float4 ret;
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+
+	std::vector<std::string> vec_names;
+	std::vector<std::string> vec_values;
+
+	if (getting_from_section) {
+		vec_names = in_section_names;
+		vec_values = in_section_values;
+	}
+	else {
+		vec_names = out_section_names;
+		vec_values = out_section_values;
+	}
+
+	std::vector<std::string>::iterator it = find(vec_names.begin(), vec_names.end(), valueName);
+	if (it != vec_names.end()) {
+		int index = it - vec_names.begin();
+		ret.x = stof(vec_values[index + 1]);
+		ret.y = stof(vec_values[index + 2]);
+		ret.z = stof(vec_values[index + 3]);
+		ret.w = stof(vec_values[index + 4]);
+	}
+	else {
+		ret.x = -1.0f;
+		ret.y = -1.0f;
+		ret.z = -1.0f;
+		ret.w = -1.0f;
+	}
+	return ret;
+}
+
+
 void Data::AddBool(std::string valueName, bool value)
 {
 	std::replace(valueName.begin(), valueName.end(), ' ', '_');

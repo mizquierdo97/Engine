@@ -121,21 +121,48 @@ void ModuleWorld::DebugDraw()
 		App->renderer3D->DebugDraw((*it)->bounds, Yellow);
 
 }
+void ModuleWorld::LoadScene() {
+	Data scene_data;
+	int i = 0;
+	if (scene_data.LoadJSON("Scene.json")) {
+		scene_data.EnterSection("GameObjects");
+		while (scene_data.EnterSection("Object_"+ std::to_string(i++))) {
+			GameObject* go = new GameObject();
+
+			//TEST IF THERES AN OBJECT WITH THIS UUID
+			UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &go->obj_uuid);
+			go->SetName(scene_data.GetString("Name"));
+
+			float3 trans = scene_data.GetVector3f("Translation");
+			float4 rot = scene_data.GetVector4f("Rotation");
+			float3 scale = scene_data.GetVector3f("Scale");
+
+			go->AddComponentTransform(trans,rot,scale);
+
+			App->world->obj_vector.push_back(go);
+		}
+
+	}
+
+}
 
 void ModuleWorld::SaveScene() const
 {
 	Data scene_data;
+	int i = 0;
 	scene_data.CreateSection("GameObjects");
-	App->world->RecursiveSaveScene(obj_vector, &scene_data);
+	App->world->RecursiveSaveScene(obj_vector, &scene_data,&i);
 	scene_data.CloseSection();
 	scene_data.SaveAsJSON("Scene.json");
 }
 
-void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data) {
+
+void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data, int* i) {
 	std::vector<GameObject*>::iterator item = vect.begin();
 	while (item != vect.end()) {
 		char *str;
-		data->CreateSection("Object");
+		data->CreateSection("Object_"+ std::to_string(*i));
+		(*i) += 1;
 		UuidToStringA(&(*item)->obj_uuid, (RPC_CSTR*)&str);		
 		data->AddString("UUID", str);	
 		if ((*item)->obj_parent != nullptr) {
@@ -149,13 +176,13 @@ void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data) {
 		data->AddVector3("Scale", temp_trans->scale);
 		
 		data->CreateSection("Components");
-		for (int i = 0; i < (*item)->obj_components.size(); i++) {
-			(*item)->obj_components[i]->SaveComponentScene(data);
+		for (int n = 0; n < (*item)->obj_components.size(); n++) {
+			(*item)->obj_components[n]->SaveComponentScene(data);
 
 		}
 		data->CloseSection();
 		data->CloseSection();
-		RecursiveSaveScene((*item)->obj_childs, data);
+		RecursiveSaveScene((*item)->obj_childs, data,i);
 
 		item++;
 	}
@@ -254,7 +281,7 @@ int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector,int* node_selec
 		ImGui::PushID(i);
 		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
 
-		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->GetName(),i);
+		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->GetName().c_str());
 
 		if (ImGui::IsItemClicked()) {
 			//node_clicked = *i;

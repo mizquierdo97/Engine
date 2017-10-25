@@ -33,7 +33,7 @@ class GameObject {
 public:
 	GameObject() {
 		obj_name = new char[3];
-		obj_name = "%i";
+		//obj_name = "%i";
 		obj_parent = nullptr;
 		local_bbox.SetNegativeInfinity();
 	}
@@ -47,6 +47,7 @@ public:
 
 	void AddComponentMesh(Mesh);
 	void AddComponentTransform(aiVector3D, aiQuaternion, aiVector3D);
+	void AddComponentTransform(float3, float4, float3);
 	void AddComponentTransform();
 	void AddComponentMaterial(Texture* );
 	void AddComponentCamera();
@@ -89,11 +90,11 @@ public:
 	};
 
 
-	char* GetName() {
+	std::string GetName() {
 		return obj_name;
 	};
 
-	void SetName(char* name) {
+	void SetName(std::string name) {
 		obj_name = name;
 	};
 
@@ -102,7 +103,7 @@ private:
 	objectType obj_type = objectType::null;
 	int obj_id = 0;	
 	bool enabled = true;
-	char* obj_name = "";
+	std::string obj_name = "";
 	bool is_static = false;
 
 

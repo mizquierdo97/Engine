@@ -32,6 +32,14 @@ void GameObject::AddComponentTransform(aiVector3D pos, aiQuaternion rot, aiVecto
 	}
 
 }
+void GameObject::AddComponentTransform(float3 pos, float4 rot, float3 scale)
+{
+	if (GetTransform() == nullptr) {
+		ComponentTransform* trans = new ComponentTransform(pos, rot, scale, this);
+		obj_components.push_back(trans);
+	}
+
+}
 void GameObject::AddComponentMaterial(Texture * tex)
 {
 	ComponentMaterial* mat = new ComponentMaterial(tex, this);

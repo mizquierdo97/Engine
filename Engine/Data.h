@@ -41,6 +41,9 @@ public:
 	ImVec2 GetVector2(std::string valueName);
 	ImVec3 GetVector3(std::string valueName);
 	ImVec4 GetVector4(std::string valueName);
+	float2 GetVector2f(std::string valueName);
+	float3 GetVector3f(std::string valueName);
+	float4 GetVector4f(std::string valueName);
 
 	void AddBool(std::string valueName, bool value);
 	void AddInt(std::string valueName, int value);
