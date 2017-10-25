@@ -6,14 +6,14 @@ ComponentTransform::ComponentTransform(aiVector3D pos, aiQuaternion rot, aiVecto
 	translation = float3(pos.x,pos.y,pos.z) ;
 	rotation = Quat(rot.x, rot.y, rot.z, rot.w);
 	scale = float3(sc.x, sc.y, sc.z);
-	parent = obj_parent;
+	SetParent(obj_parent);
 	comp_type = ComponentType::transform;
 	matrix = float4x4::FromTRS(translation, rotation, scale);
 }
 
 void ComponentTransform::UpdateComponent()
 {
-	if (parent->obj_parent != nullptr) {
+	if (GetParent()->obj_parent != nullptr) {
 		
 		
 		matrix.Decompose(translation, rotation, scale);
@@ -49,10 +49,10 @@ void ComponentTransform::ShowInspectorComponents()
 
 const float4x4 ComponentTransform::GetMatrix()
 {
-	if (parent->obj_parent != nullptr) {
+	if (GetParent()->obj_parent != nullptr) {
 		float4x4 temp = float4x4::FromTRS(translation, rotation, scale);
 
-		return  parent->obj_parent->GetTransform()->GetMatrix()* temp;
+		return  GetParent()->obj_parent->GetTransform()->GetMatrix()* temp;
 	}
 	else {
 		return float4x4::FromTRS(translation, rotation, scale);

@@ -3,6 +3,8 @@
 #include "Texture.h"
 #include "MathGeoLib.h"
 
+#pragma comment(lib, "rpcrt4.lib")
+
 enum objectType {
 	null,
 	cube,
@@ -11,17 +13,21 @@ enum objectType {
 	aabb,
 };
 
+class GameObject;
 Mesh CreateCube();
 Mesh CreateCylinder();
 Mesh CreateAABB(AABB);
 Mesh UpdateAABB(Mesh, AABB);
 int CreateObject();
+void CreateObject(GameObject*);
 
 class Component;
 class ComponentMesh;
 class ComponentMaterial;
 class ComponentTransform;
 class ComponentCamera;
+
+
 class GameObject {
 
 public:
@@ -51,7 +57,47 @@ public:
 	ComponentMaterial* GetMaterial();
 	ComponentTransform* GetTransform();
 	ComponentCamera* GetCamera();
-public:
+
+	AABB GetLocalBBox() {
+		return local_bbox;
+	};
+	void SetLocalBox(AABB box) {
+		local_bbox = box;
+	}
+
+	AABB GetGlobalBBox() {
+		return global_bbox;
+	};
+	void SetGlobalBox(AABB box) {
+		global_bbox = box;
+	}
+
+
+	bool IsStatic() {
+		return is_static;
+	};
+	void SetStatic(bool val) {
+		is_static = val;
+	};
+
+
+	bool IsEnabled() {
+		return enabled;
+	};
+	void SetEnable(bool val) {
+		enabled = val;
+	};
+
+
+	char* GetName() {
+		return obj_name;
+	};
+
+	void SetName(char* name) {
+		obj_name = name;
+	};
+
+private:
 	
 	objectType obj_type = objectType::null;
 	int obj_id = 0;	
@@ -62,7 +108,11 @@ public:
 
 	AABB local_bbox;
 	AABB global_bbox;
+
+public:
 	//HIERARCHY
+	UUID obj_uuid;
+
 	std::vector<GameObject*> obj_childs;
 	GameObject* obj_parent;
 	std::vector<Component*> obj_components;

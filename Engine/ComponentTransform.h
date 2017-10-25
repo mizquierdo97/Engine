@@ -13,6 +13,7 @@ public:
 
 	void UpdateComponent();
 	void ShowInspectorComponents();
+
 	const float4x4 GetMatrix();
 	const float4x4 GetMyMatrix();
 public:

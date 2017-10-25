@@ -268,8 +268,8 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 {
 	
 	float4x4 mat_float = float4x4::identity;
-	if (comp->parent != nullptr) {
-		mat_float = comp->parent->GetTransform()->GetMatrix();
+	if (comp->GetParent() != nullptr) {
+		mat_float = comp->GetParent()->GetTransform()->GetMatrix();
 	}
 
 	GLfloat mat[16] =
@@ -281,7 +281,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	};
 	
 	
-	float4x4 matrixfloat = comp->parent->GetTransform()->GetMatrix();
+	float4x4 matrixfloat = comp->GetParent()->GetTransform()->GetMatrix();
 	GLfloat matrix[16] =
 	{
 		matrixfloat[0][0],matrixfloat[1][0],matrixfloat[2][0],matrixfloat[3][0],
@@ -307,8 +307,8 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 
 		if (m.id_textures != NULL) {
 		
-			if (texture && comp->parent->GetMaterial() != nullptr) {
-				Texture* temp_tex = comp->parent->GetMaterial()->obj_tex;			
+			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
+				Texture* temp_tex = comp->GetParent()->GetMaterial()->obj_tex;
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, 0);
 				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
@@ -326,7 +326,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	
 		}
 
-	App->renderer3D->DebugDraw(comp->parent->global_bbox);
+	App->renderer3D->DebugDraw(comp->GetParent()->GetGlobalBBox());
 /*	Mesh bb_mesh = comp->bb_mesh;	
 	App->renderer3D->RenderMesh(&bb_mesh);*/
 

@@ -8,6 +8,7 @@
 void GameObject::AddComponentMesh(Mesh mesh)
 {
 	ComponentMesh* m = new ComponentMesh(mesh, this);
+	//m->path_name = mesh.mesh_path;
 	obj_components.push_back(m);
 	
 
@@ -19,7 +20,7 @@ void GameObject::AddComponentTransform()
 		aiQuaternion rot = aiQuaternion(1, 0, 0, 0);
 		aiVector3D scale = aiVector3D(1, 1, 1);
 		AddComponentTransform(pos, rot, scale);
-
+		
 	}
 
 }

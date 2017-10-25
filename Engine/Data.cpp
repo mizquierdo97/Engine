@@ -625,3 +625,42 @@ void Data::AddVector4(std::string valueName, ImVec4 value)
 	data_names.push_back("value_W");
 	CloseSection();
 }
+
+void Data::AddVector2(std::string valueName, float2 value)
+{
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+	CreateSection(valueName);
+	data_values.push_back(std::to_string(value.x));
+	data_names.push_back("value_X");
+	data_values.push_back(std::to_string(value.y));
+	data_names.push_back("value_Y");
+	CloseSection();
+}
+
+void Data::AddVector3(std::string valueName, float3 value)
+{
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+	CreateSection(valueName);
+	data_values.push_back(std::to_string(value.x));
+	data_names.push_back("value_X");
+	data_values.push_back(std::to_string(value.y));
+	data_names.push_back("value_Y");
+	data_values.push_back(std::to_string(value.z));
+	data_names.push_back("value_Z");
+	CloseSection();
+}
+
+void Data::AddVector4(std::string valueName, float4 value)
+{
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+	CreateSection(valueName);
+	data_values.push_back(std::to_string(value.x));
+	data_names.push_back("value_X");
+	data_values.push_back(std::to_string(value.y));
+	data_names.push_back("value_Y");
+	data_values.push_back(std::to_string(value.z));
+	data_names.push_back("value_Z");
+	data_values.push_back(std::to_string(value.w));
+	data_names.push_back("value_W");
+	CloseSection();
+}

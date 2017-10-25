@@ -9,6 +9,8 @@
 #include "cereal-1.2.2\include\cereal\archives\binary.hpp"
 #include "cereal-1.2.2\include\cereal\types\string.hpp"
 #include "cereal-1.2.2\include\cereal\types\vector.hpp"
+#include "MathGeoLib.h"
+
 
 class Data
 {
@@ -49,6 +51,9 @@ public:
 	void AddVector2(std::string valueName, ImVec2 value);
 	void AddVector3(std::string valueName, ImVec3 value);
 	void AddVector4(std::string valueName, ImVec4 value);
+	void AddVector2(std::string valueName, float2 value);
+	void AddVector3(std::string valueName, float3 value);
+	void AddVector4(std::string valueName, float4 value);
 
 private:
 

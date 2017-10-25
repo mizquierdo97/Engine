@@ -1,26 +1,30 @@
 #pragma once
 #include "Component.h"
 #include "ModuleAssimp.h"
+#include <string>
 class ComponentMesh : public Component {
 public:
 
 	ComponentMesh() {};
 	ComponentMesh(Mesh m,GameObject* obj) : obj_mesh(m)  {
-		parent = obj;
+		SetParent(obj);
 		mesh_material = nullptr;
 		comp_type = ComponentType::mesh;
 
 		AABB temp;
 		temp.SetFrom((vec*)m.vertexs, m.num_vertexs);
-		parent->local_bbox = temp;
+		GetParent()->SetLocalBox(temp);
 		bb_mesh = CreateAABB(temp);
 		
+		path_name = m.mesh_path;
 
 	}
 	~ComponentMesh() {};
 
 	void UpdateComponent();
+	void SaveComponentScene(Data* data);
 public:
+	std::string path_name;
 	Mesh obj_mesh;
 	ComponentMaterial* mesh_material;
 	Mesh bb_mesh;

@@ -1,0 +1,150 @@
+{
+    "GameObjects": {
+        "Object": {
+            "UUID": "84260d39-87ed-42a3-8884-a4c01998c0ee",
+            "Name": "%i",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object": {
+            "UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
+            "Name": "%i",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object": {
+            "UUID": "0a11f215-1d53-4755-bd8b-0175255ef9be",
+            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
+            "Name": "%i",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "0"
+                }
+            }
+        },
+        "Object": {
+            "UUID": "848a78a6-169d-4062-9c37-6150dc436cb2",
+            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
+            "Name": "%i",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "1"
+                }
+            }
+        },
+        "Object": {
+            "UUID": "2be7940c-43af-40a2-bea2-0441a7e1050b",
+            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
+            "Name": "%i",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "2"
+                }
+            }
+        },
+        "Object": {
+            "UUID": "7c7a7375-2c28-4a29-9f1e-e5c0d4a1c6b7",
+            "Parent_UUID": "583cf56e-3539-43e5-82de-f34f9e9252c5",
+            "Name": "%i",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "3"
+                }
+            }
+        }
+    }
+}

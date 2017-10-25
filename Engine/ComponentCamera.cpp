@@ -4,12 +4,12 @@
 
 ComponentCamera::ComponentCamera(GameObject* obj_parent)
 {
-	parent = obj_parent;
+	SetParent(obj_parent);
 	comp_type = ComponentType::camera;
 	cam_frustum.SetViewPlaneDistances(1, 15);
 
 	//Set frustum looking to GameObject Z axis
-	ComponentTransform* parent_transform = parent->GetTransform();
+	ComponentTransform* parent_transform = GetParent()->GetTransform();
 
 	cam_frustum.SetPos(parent_transform->translation);
 	cam_frustum.SetFront(parent_transform->GetMatrix().Col3(2));
@@ -29,7 +29,7 @@ ComponentCamera::~ComponentCamera()
 
 void ComponentCamera::UpdateComponent()
 {
-	ComponentTransform* parent_transform = parent->GetTransform();
+	ComponentTransform* parent_transform = GetParent()->GetTransform();
 	cam_frustum.SetPos(parent_transform->translation);
 
 	cam_frustum.SetFront(parent_transform->GetMatrix().Col3(2));

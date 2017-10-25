@@ -8,16 +8,16 @@
 void ComponentMesh::UpdateComponent()
 {
 
-	float4x4 matrix = parent->GetTransform()->GetMatrix();
-	float4 new_min_point = matrix * float4(parent->local_bbox.minPoint, 1);
-	float4 new_max_point = matrix * float4(parent->local_bbox.maxPoint, 1);
+	float4x4 matrix = GetParent()->GetTransform()->GetMatrix();
+	float4 new_min_point = matrix * float4(GetParent()->GetLocalBBox().minPoint, 1);
+	float4 new_max_point = matrix * float4(GetParent()->GetLocalBBox().maxPoint, 1);
 
-	AABB transformed_bounding_box = parent->local_bbox;
+	AABB transformed_bounding_box = GetParent()->GetLocalBBox();
 	transformed_bounding_box.minPoint = { new_min_point.x, new_min_point.y, new_min_point.z };
 	transformed_bounding_box.maxPoint = { new_max_point.x, new_max_point.y, new_max_point.z };
 
 	bb_mesh = UpdateAABB(bb_mesh, transformed_bounding_box);
-	parent->global_bbox = transformed_bounding_box;
+	GetParent()->SetGlobalBox(transformed_bounding_box);
 	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
 	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box)) {
 		if (App->renderer3D->render_fill) {
@@ -34,4 +34,12 @@ void ComponentMesh::UpdateComponent()
 			App->physics->DrawNormals(this);
 
 	}
+}
+
+void ComponentMesh::SaveComponentScene(Data* data)
+{
+	data->CreateSection("Mesh");
+	data->AddString("Mesh Path", path_name);
+
+	data->CloseSection();
 }

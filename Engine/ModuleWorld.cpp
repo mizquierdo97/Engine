@@ -5,6 +5,8 @@
 #include "Object.h"
 #include "ComponentMesh.h"
 #include <string>
+#include "Data.h"
+#include "ComponentTransform.h"
 ModuleWorld::ModuleWorld(bool start_enabled) : Module(start_enabled)
 {
 	
@@ -120,6 +122,45 @@ void ModuleWorld::DebugDraw()
 
 }
 
+void ModuleWorld::SaveScene() const
+{
+	Data scene_data;
+	scene_data.CreateSection("GameObjects");
+	App->world->RecursiveSaveScene(obj_vector, &scene_data);
+	scene_data.CloseSection();
+	scene_data.SaveAsJSON("Scene.json");
+}
+
+void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data) {
+	std::vector<GameObject*>::iterator item = vect.begin();
+	while (item != vect.end()) {
+		char *str;
+		data->CreateSection("Object");
+		UuidToStringA(&(*item)->obj_uuid, (RPC_CSTR*)&str);		
+		data->AddString("UUID", str);	
+		if ((*item)->obj_parent != nullptr) {
+			UuidToStringA(&(*item)->obj_parent->obj_uuid, (RPC_CSTR*)&str);
+			data->AddString("Parent UUID", str);
+		}
+		data->AddString("Name",(*item)->GetName());
+		ComponentTransform* temp_trans = (*item)->GetTransform();
+		data->AddVector3("Translation", temp_trans->translation);
+		data->AddVector4("Rotation", temp_trans->rotation.CastToFloat4());
+		data->AddVector3("Scale", temp_trans->scale);
+		
+		data->CreateSection("Components");
+		for (int i = 0; i < (*item)->obj_components.size(); i++) {
+			(*item)->obj_components[i]->SaveComponentScene(data);
+
+		}
+		data->CloseSection();
+		data->CloseSection();
+		RecursiveSaveScene((*item)->obj_childs, data);
+
+		item++;
+	}
+}
+
 
 bool ModuleWorld::Options()
 {
@@ -213,7 +254,7 @@ int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector,int* node_selec
 		ImGui::PushID(i);
 		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
 
-		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->obj_name,i);
+		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->GetName(),i);
 
 		if (ImGui::IsItemClicked()) {
 			//node_clicked = *i;

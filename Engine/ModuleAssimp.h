@@ -35,7 +35,7 @@ struct Mesh {
 	float3 scale;
 	Quat rotation;
 
-	AABB bounding_box;
+	std::string mesh_path;
 
 };
 

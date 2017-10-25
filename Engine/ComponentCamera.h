@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "ModuleWindow.h"
 
+class Data;
 class ComponentCamera : public Component {
 public:
 	ComponentCamera() {};
@@ -12,6 +13,7 @@ public:
 	~ComponentCamera();
 
 	void UpdateComponent();
+	void SaveComponentScene(Data* data) {};
 
 
 public: 

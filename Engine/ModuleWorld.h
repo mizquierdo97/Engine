@@ -9,7 +9,7 @@
 #include "Object.h"
 #include "Quadtree.h"
 
-
+class Data;
 class ModuleWorld : public Module
 {
 public: 
@@ -28,13 +28,29 @@ public:
 	void It_Render(); //Iterate Render
 	void DebugDraw();
 
+	void SaveScene()const;
+	void RecursiveSaveScene(std::vector<GameObject*>,Data*);
+	void LoadScene();
+
 	bool Options();//World Options
+
+	void SetSelectedObject(GameObject* val) {
+		selected_object = val;
+	};
+	GameObject* GetSelectedObject() {
+		return selected_object;
+	};
+	bool IsObjectSelected() {
+		return selected_object != nullptr;
+	};
+
 public:
 
 	Texture* world_texture;
-
 	std::vector<GameObject*> obj_vector;
-	GameObject* selected_object = nullptr;
-
+	
 	Quadtree quadtree;
+
+private:
+	GameObject* selected_object = nullptr;
 };

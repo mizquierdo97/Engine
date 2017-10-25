@@ -6,7 +6,7 @@
 #include "Application.h"
 #include "FileSystem.h"
 #include "MeshImporter.h"
-
+#include "Object.h"
 void CreateBinary(aiScene*, const char*, const char*);
 char* LoadBuffer(const char*);
 GameObject* CreateObjectFromMesh(char** buffer, GameObject* parent, int* num_childs);
@@ -345,7 +345,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 	uint bytes = sizeof(uint);
 	memcpy(&num_meshes, cursor[0], bytes);
 	cursor[0] += bytes;
-	
+	std::string temp_name;
 	do{
 
 
@@ -412,8 +412,9 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 				memcpy(m.norms, cursor_mesh, bytes);
 				cursor_mesh += bytes;
 			}
-
-
+			temp_name = name;
+			//strcpy(m.mesh_path, temp_name.c_str());
+			m.mesh_path = (char*)temp_name.c_str();
 			GenGLBuffers(&m);
 			delete[] buffer;
 
@@ -425,14 +426,14 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 		temp_obj = new GameObject();
 		
-		temp_obj->global_bbox = *temp;
+		temp_obj->SetGlobalBox(*temp);
+		if(m.id_vertexs!=0)
 		temp_obj->AddComponentMesh(m);
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
-		/*Texture* text;
-		App->renderer3D->loadTextureFromFile("Library/Meshes/image.dds", &text);
-		temp_obj->AddComponentMaterial(text);*/
+		
 		temp_obj->obj_parent = parent;
 
+		CreateObject(temp_obj);
 		//FREE MEMORY
 		delete[] name;
 		delete[] m.indices;
@@ -442,13 +443,13 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		delete temp;
 
 
-		if (parent != nullptr) {
+		/*if (parent != nullptr) {
 			parent->obj_childs.push_back(temp_obj);
 		}
 		else {
 			App->world->obj_vector.push_back(temp_obj);
-		}
-		App->world->quadtree.Insert(temp_obj);
+		}*/
+		//App->world->quadtree.Insert(temp_obj);
 		num++;
 	}while (num<num_meshes);
 	return temp_obj;

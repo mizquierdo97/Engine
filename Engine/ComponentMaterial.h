@@ -9,7 +9,7 @@ class ComponentMaterial :public Component {
 		ComponentMaterial(Texture* tex, GameObject* obj) {
 			obj_tex = new Texture();
 			obj_tex = tex;
-			parent = obj;
+			SetParent(obj);
 			comp_type = ComponentType::material;
 		};
 		~ComponentMaterial() {
@@ -17,6 +17,7 @@ class ComponentMaterial :public Component {
 		};
 
 		void UpdateComponent();
+		void SaveComponentScene(Data* data) {};
 
 public:
 	Texture* obj_tex;

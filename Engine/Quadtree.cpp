@@ -99,7 +99,7 @@ void QuadtreeNode::RedistributeChilds()
 	{
 		GameObject* go = *it;
 
-		AABB new_box(go->global_bbox);
+		AABB new_box(go->GetGlobalBBox());
 
 		// Now distribute this new gameobject onto the childs
 		bool intersects[8];
@@ -157,7 +157,7 @@ void Quadtree::Insert(GameObject* go)
 	if (root != nullptr)
 	{
 		
-		if (go->global_bbox.Intersects(root->bounds))
+		if (go->GetGlobalBBox().Intersects(root->bounds))
 			root->Insert(go);
 	}
 }

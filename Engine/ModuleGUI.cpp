@@ -133,6 +133,14 @@ update_status ModuleGUI::Update(float dt)
 
 			if (ImGui::BeginMenu("Edit"))
 			{
+				if (ImGui::MenuItem("SaveScene")) {
+					App->world->SaveScene();
+
+				}
+				if (ImGui::MenuItem("LoadScene")) {
+					
+
+				}
 				ImGui::EndMenu();
 			}
 
@@ -312,7 +320,7 @@ void ModuleGUI::Assets()
 	if (ImGui::BeginDock("Inspector", false, false)) {
 
 
-		GameObject* object = App->world->selected_object;
+		GameObject* object = App->world->GetSelectedObject();
 
 		if (object != nullptr) {
 			std::vector<Component*>::iterator item = object->obj_components.begin();
@@ -344,7 +352,7 @@ void ModuleGUI::Assets()
 
 		ImGui::Separator();
 
-		if (ImGui::Button("Add Component", ImVec2(400, 30))&&App->world->selected_object != nullptr)
+		if (ImGui::Button("Add Component", ImVec2(400, 30))&&App->world->IsObjectSelected())
 			ImGui::OpenPopup("AddComponent");
 		if (ImGui::BeginPopup("AddComponent"))
 		{
@@ -364,7 +372,7 @@ void ModuleGUI::Assets()
 {
 	 if (ImGui::MenuItem("Transformation"))
 	 {
-		 App->world->selected_object->AddComponentTransform();
+		 App->world->GetSelectedObject()->AddComponentTransform();
 	 }
 
 	if (ImGui::MenuItem("Mesh")) 
@@ -378,7 +386,7 @@ void ModuleGUI::Assets()
 	}
 	if (ImGui::MenuItem("Camera"))
 	{
-		App->world->selected_object->AddComponentCamera();
+		App->world->GetSelectedObject()->AddComponentCamera();
 	}
 	
 

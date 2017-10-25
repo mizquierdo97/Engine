@@ -51,6 +51,7 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
+
 	/*if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
 */
@@ -71,10 +72,10 @@ update_status ModuleCamera3D::Update(float dt)
 	Position += newPos;
 	Reference += newPos;
 	vec3 max_dist = vec3(0, 0, 0);
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && App->world->IsObjectSelected()) {
 
-	
-	
+		GameObject* selected = App->world->GetSelectedObject();
+		AABB selected_AABB = selected->GetGlobalBBox();
 		vec3 new_position = vec3(0, 0, 0);
 		num = 0;
 		int i = 0;
@@ -84,10 +85,10 @@ update_status ModuleCamera3D::Update(float dt)
 		while (item != App->world->obj_vector.end()) {
 			ComponentMesh* temp_mesh = (*item)->GetMesh();
 
-
-			temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
-			temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
-			temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
+			
+			temp_vec.x += selected_AABB.CenterPoint().x;
+			temp_vec.y += selected_AABB.CenterPoint().y;
+			temp_vec.z += selected_AABB.CenterPoint().z;
 			num++;
 			item++;
 		}
@@ -102,9 +103,9 @@ update_status ModuleCamera3D::Update(float dt)
 		 while (item != App->world->obj_vector.end()) {
 			 ComponentMesh* temp_mesh = (*item)->GetMesh();
 
-			 temp_vec2.x = (temp_mesh->obj_mesh.bounding_box.maxPoint.x);
-			 temp_vec2.y = (temp_mesh->obj_mesh.bounding_box.maxPoint.y);
-			 temp_vec2.z = (temp_mesh->obj_mesh.bounding_box.maxPoint.z);
+			 temp_vec2.x = (selected_AABB.maxPoint.x);
+			 temp_vec2.y = (selected_AABB.maxPoint.y);
+			 temp_vec2.z = (selected_AABB.maxPoint.z);
 
 			 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
 			 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
@@ -122,10 +123,13 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 	
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT)== KEY_IDLE)
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT)== KEY_IDLE && App->world->IsObjectSelected())
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
+
+		GameObject* selected = App->world->GetSelectedObject();
+		AABB selected_AABB = selected->GetGlobalBBox();
 
 		float Sensitivity = 0.25f;
 
@@ -164,9 +168,9 @@ update_status ModuleCamera3D::Update(float dt)
 			int i = 0;
 			while (item != App->world->obj_vector.end()) {
 				ComponentMesh* temp_mesh = (*item)->GetMesh();
-				temp_vec.x += temp_mesh->obj_mesh.bounding_box.CenterPoint().x;
-				temp_vec.y += temp_mesh->obj_mesh.bounding_box.CenterPoint().y;
-				temp_vec.z += temp_mesh->obj_mesh.bounding_box.CenterPoint().z;
+				temp_vec.x += selected_AABB.CenterPoint().x;
+				temp_vec.y += selected_AABB.CenterPoint().y;
+				temp_vec.z += selected_AABB.CenterPoint().z;
 				num++;
 				item++;
 			}
