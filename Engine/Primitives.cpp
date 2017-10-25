@@ -205,26 +205,9 @@ Mesh CreateCylinder()
 
 int CreateObject()
 {
-	Object* new_object = new Object();
+	GameObject* new_object = new GameObject();
 	App->world->obj_vector.push_back(new_object);
-	/*Object* new_object = new Object();
-	switch (type) {
-	case cube:
-		new_object->obj_mesh = CreateCube();
-		new_object->obj_type = objectType::cube;
-		new_object->obj_id = App->world->obj_vector.size();
-		App->world->obj_vector.push_back(new_object);
-		break;
-
-	case cylinder:
-		new_object->obj_mesh = CreateCylinder();
-		new_object->obj_type = objectType::cylinder;
-		new_object->obj_id = App->world->obj_vector.size();
-		App->world->obj_vector.push_back(new_object);
-		break;
-	}
-	*/
-	//return new_object->obj_id;
+	
 	return 0;
 }
 

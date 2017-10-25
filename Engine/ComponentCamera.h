@@ -8,7 +8,7 @@
 class ComponentCamera : public Component {
 public:
 	ComponentCamera() {};
-	ComponentCamera(Object*);
+	ComponentCamera(GameObject*);
 	~ComponentCamera();
 
 	void UpdateComponent();

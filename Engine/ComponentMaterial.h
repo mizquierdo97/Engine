@@ -6,7 +6,7 @@ class ComponentMaterial :public Component {
 		ComponentMaterial() {
 			obj_tex = new Texture();
 		};
-		ComponentMaterial(Texture* tex, Object* obj) {
+		ComponentMaterial(Texture* tex, GameObject* obj) {
 			obj_tex = new Texture();
 			obj_tex = tex;
 			parent = obj;

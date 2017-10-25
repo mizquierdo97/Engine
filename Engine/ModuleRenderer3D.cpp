@@ -326,9 +326,9 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	
 		}
 
-
-	Mesh bb_mesh = comp->bb_mesh;	
-	App->renderer3D->RenderMesh(&bb_mesh);
+	App->renderer3D->DebugDraw(comp->parent->global_bbox);
+/*	Mesh bb_mesh = comp->bb_mesh;	
+	App->renderer3D->RenderMesh(&bb_mesh);*/
 
 	
 	glDisable(GL_TEXTURE_2D);
@@ -457,11 +457,70 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
 ComponentCamera * ModuleRenderer3D::GetActiveCamera()
 {
 	ComponentCamera* ret = nullptr;
-	std::vector<Object*>::iterator item = App->world->obj_vector.begin();
+	std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
 	while (item != App->world->obj_vector.end()) {
 		ret = (*item)->GetCamera();
 		if (ret != nullptr)return ret;
 		item++;
 	}
 	return ret;
+}
+
+
+void ModuleRenderer3D::DebugDraw(const AABB & aabb, Color color, const float4x4& transform)
+{
+	
+
+	static float3 corners[8];
+	aabb.GetCornerPoints(corners);
+
+	glPushMatrix();
+	glMultMatrixf((GLfloat*)transform.Transposed().ptr());
+	DebugDrawBox(corners, color);
+	glPopMatrix();
+
+
+}
+
+
+void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color)
+{
+	glColor4f(color.r, color.g, color.b,1.0f);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glDisable(GL_CULL_FACE);
+	glBegin(GL_QUADS);
+	
+	
+	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy, sz);
+	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f( sx, -sy, sz);
+	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f( sx,  sy, sz);
+	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx,  sy, sz);
+
+	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f( sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx,  sy, -sz);
+	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f( sx,  sy, -sz);
+
+	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f(sx, -sy,  sz);
+	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f(sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f(sx,  sy, -sz);
+	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f(sx,  sy,  sz);
+
+	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy,  sz);
+	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx,  sy,  sz);
+	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx,  sy, -sz);
+
+	glVertex3fv((GLfloat*)&corners[3]); //glVertex3f(-sx, sy,  sz);
+	glVertex3fv((GLfloat*)&corners[7]); //glVertex3f( sx, sy,  sz);
+	glVertex3fv((GLfloat*)&corners[6]); //glVertex3f( sx, sy, -sz);
+	glVertex3fv((GLfloat*)&corners[2]); //glVertex3f(-sx, sy, -sz);
+
+	glVertex3fv((GLfloat*)&corners[0]); //glVertex3f(-sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[4]); //glVertex3f( sx, -sy, -sz);
+	glVertex3fv((GLfloat*)&corners[5]); //glVertex3f( sx, -sy,  sz);
+	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy,  sz);
+	
+	glEnd();
+	glEnable(GL_CULL_FACE);
 }

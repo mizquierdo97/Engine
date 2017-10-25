@@ -5,14 +5,14 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
-void Object::AddComponentMesh(Mesh mesh)
+void GameObject::AddComponentMesh(Mesh mesh)
 {
 	ComponentMesh* m = new ComponentMesh(mesh, this);
 	obj_components.push_back(m);
 	
 
 }
-void Object::AddComponentTransform()
+void GameObject::AddComponentTransform()
 {
 	if (GetTransform() == nullptr) {
 		aiVector3D pos = aiVector3D(0, 0, 0);
@@ -23,7 +23,7 @@ void Object::AddComponentTransform()
 	}
 
 }
-void Object::AddComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D scale)
+void GameObject::AddComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D scale)
 {
 	if (GetTransform() == nullptr) {
 		ComponentTransform* trans = new ComponentTransform(pos, rot, scale, this);
@@ -31,20 +31,20 @@ void Object::AddComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D 
 	}
 
 }
-void Object::AddComponentMaterial(Texture * tex)
+void GameObject::AddComponentMaterial(Texture * tex)
 {
 	ComponentMaterial* mat = new ComponentMaterial(tex, this);
 	obj_components.push_back(mat);
 
 
 }
-void Object::AddComponentCamera()
+void GameObject::AddComponentCamera()
 {
 	ComponentCamera* mat = new ComponentCamera(this);
 	obj_components.push_back(mat);
 
 }
-void Object::Update() {
+void GameObject::Update() {
 
 	std::vector<Component*>::iterator item = obj_components.begin();
 	if (obj_components.size() > 0) {
@@ -53,7 +53,7 @@ void Object::Update() {
 			item++;
 		}
 	}
-	std::vector<Object*>::iterator obj_item = obj_childs.begin(); 
+	std::vector<GameObject*>::iterator obj_item = obj_childs.begin(); 
 	if (obj_childs.size() > 0) {
 		while (obj_item != obj_childs.end()) {
 			(*obj_item)->Update();
@@ -65,7 +65,7 @@ void Object::Update() {
 
 }
 
-ComponentMesh * Object::GetMesh()
+ComponentMesh * GameObject::GetMesh()
 {
 	std::vector<Component*>::iterator item = obj_components.begin();
 	while (item != obj_components.end()) {
@@ -80,7 +80,7 @@ ComponentMesh * Object::GetMesh()
 	return nullptr;
 }
 
-ComponentMaterial * Object::GetMaterial()
+ComponentMaterial * GameObject::GetMaterial()
 {
 	std::vector<Component*>::iterator item = obj_components.begin();
 	while (item != obj_components.end()) {
@@ -94,7 +94,7 @@ ComponentMaterial * Object::GetMaterial()
 	return nullptr;
 }
 
-ComponentTransform * Object::GetTransform()
+ComponentTransform * GameObject::GetTransform()
 {
 	std::vector<Component*>::iterator item = obj_components.begin();
 	while (item != obj_components.end()) {
@@ -108,7 +108,7 @@ ComponentTransform * Object::GetTransform()
 	return nullptr;
 }
 
-ComponentCamera * Object::GetCamera()
+ComponentCamera * GameObject::GetCamera()
 {
 	std::vector<Component*>::iterator item = obj_components.begin();
 	while (item != obj_components.end()) {

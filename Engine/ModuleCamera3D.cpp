@@ -78,7 +78,7 @@ update_status ModuleCamera3D::Update(float dt)
 		vec3 new_position = vec3(0, 0, 0);
 		num = 0;
 		int i = 0;
-		std::vector<Object*>::iterator item = App->world->obj_vector.begin();
+		std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
 		temp_vec = vec3(0, 0, 0);
 			
 		while (item != App->world->obj_vector.end()) {
@@ -158,7 +158,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		if (App->world->obj_vector.size() > 0) {
 
-			std::vector<Object*>::iterator item = App->world->obj_vector.begin();
+			std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
 			temp_vec = vec3(0, 0, 0);
 			num = 0;
 			int i = 0;

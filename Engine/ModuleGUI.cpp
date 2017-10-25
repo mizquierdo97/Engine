@@ -297,7 +297,7 @@ void ModuleGUI::Assets()
 			else if (!strcmp((char*)temp.c_str(), "dds") || !strcmp((char*)temp.c_str(), "jpg") || !strcmp((char*)temp.c_str(), "png"))
 			{
 				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
-					std::vector<Object*>::iterator item = App->world->obj_vector.begin();
+					std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
 					for (; item != App->world->obj_vector.end(); item++)
 						App->renderer3D->loadTextureFromFile("png_icon.png", &(*item)->GetMaterial()->obj_tex);
 				}
@@ -312,7 +312,7 @@ void ModuleGUI::Assets()
 	if (ImGui::BeginDock("Inspector", false, false)) {
 
 
-		Object* object = App->world->selected_object;
+		GameObject* object = App->world->selected_object;
 
 		if (object != nullptr) {
 			std::vector<Component*>::iterator item = object->obj_components.begin();

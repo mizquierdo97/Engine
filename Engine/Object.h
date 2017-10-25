@@ -22,19 +22,20 @@ class ComponentMesh;
 class ComponentMaterial;
 class ComponentTransform;
 class ComponentCamera;
-class Object {
+class GameObject {
 
 public:
-	Object() {
+	GameObject() {
 		obj_name = new char[3];
 		obj_name = "%i";
 		obj_parent = nullptr;
+		local_bbox.SetNegativeInfinity();
 	}
-	Object(const Object& obj): obj_components(obj.obj_components), obj_parent(obj.obj_parent), obj_childs(obj.obj_childs) {
+	GameObject(const GameObject& obj): obj_components(obj.obj_components), obj_parent(obj.obj_parent), obj_childs(obj.obj_childs) {
 		
 
 	}
-	~Object() {
+	~GameObject() {
 
 	}
 
@@ -54,12 +55,15 @@ public:
 	
 	objectType obj_type = objectType::null;
 	int obj_id = 0;	
-	bool enabled;
-	char* obj_name;
+	bool enabled = true;
+	char* obj_name = "";
+	bool is_static = false;
 
 
+	AABB local_bbox;
+	AABB global_bbox;
 	//HIERARCHY
-	std::vector<Object*> obj_childs;
-	Object* obj_parent;
+	std::vector<GameObject*> obj_childs;
+	GameObject* obj_parent;
 	std::vector<Component*> obj_components;
 };

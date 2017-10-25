@@ -9,8 +9,8 @@
 
 void CreateBinary(aiScene*, const char*, const char*);
 char* LoadBuffer(const char*);
-Object* CreateObjectFromMesh(char** buffer, Object* parent, int* num_childs);
-void RecursiveLoad(char** cursor, Object* parent);
+GameObject* CreateObjectFromMesh(char** buffer, GameObject* parent, int* num_childs);
+void RecursiveLoad(char** cursor, GameObject* parent);
 
 void GenGLBuffers(Mesh*);
 void Recursive(aiNode* root, char** cursor, aiScene* scene, int i);
@@ -321,7 +321,7 @@ char* LoadBuffer(const char* path) {
 }
 
 //OK
-void RecursiveLoad(char** cursor, Object* parent) {
+void RecursiveLoad(char** cursor, GameObject* parent) {
 
 	int num_childs;
 	parent = CreateObjectFromMesh(&cursor[0], parent, &num_childs);
@@ -332,14 +332,14 @@ void RecursiveLoad(char** cursor, Object* parent) {
 }
 
 
-Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs) {
+GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_childs) {
 
 	uint ranges[4];
 	Mesh m;
 	aiVector3D translation;
 	aiQuaternion rotation;
 	aiVector3D scaling;
-	Object* temp_obj;
+	GameObject* temp_obj;
 	int num_meshes = 0;
 	int num = 0;
 	uint bytes = sizeof(uint);
@@ -421,10 +421,11 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs) {
 
 		AABB* temp = new AABB();
 		temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
-		m.bounding_box = *temp;
-
-		temp_obj = new Object();
 		
+
+		temp_obj = new GameObject();
+		
+		temp_obj->global_bbox = *temp;
 		temp_obj->AddComponentMesh(m);
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
 		/*Texture* text;
@@ -438,7 +439,7 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs) {
 		delete[] m.vertexs;
 		delete[] m.norms;
 		delete[] m.texture_coords;
-	
+		delete temp;
 
 
 		if (parent != nullptr) {
@@ -447,6 +448,7 @@ Object* CreateObjectFromMesh(char** cursor, Object* parent, int* num_childs) {
 		else {
 			App->world->obj_vector.push_back(temp_obj);
 		}
+		App->world->quadtree.Insert(temp_obj);
 		num++;
 	}while (num<num_meshes);
 	return temp_obj;

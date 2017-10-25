@@ -11,7 +11,7 @@ enum ComponentType {
 
 };
 
-class Object;
+class GameObject;
 class Component {
 
 public:
@@ -30,7 +30,7 @@ public:
 
 	ComponentType comp_type;
 	bool enabled;
-	Object* parent;
+	GameObject* parent;
 
 	
 };

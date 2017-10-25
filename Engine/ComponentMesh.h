@@ -5,14 +5,14 @@ class ComponentMesh : public Component {
 public:
 
 	ComponentMesh() {};
-	ComponentMesh(Mesh m,Object* obj) : obj_mesh(m)  {
+	ComponentMesh(Mesh m,GameObject* obj) : obj_mesh(m)  {
 		parent = obj;
 		mesh_material = nullptr;
 		comp_type = ComponentType::mesh;
 
 		AABB temp;
 		temp.SetFrom((vec*)m.vertexs, m.num_vertexs);
-		obj_mesh.bounding_box = temp;
+		parent->local_bbox = temp;
 		bb_mesh = CreateAABB(temp);
 		
 

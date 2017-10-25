@@ -2,7 +2,7 @@
 #include "Application.h"
 
 
-ComponentCamera::ComponentCamera(Object* obj_parent)
+ComponentCamera::ComponentCamera(GameObject* obj_parent)
 {
 	parent = obj_parent;
 	comp_type = ComponentType::camera;

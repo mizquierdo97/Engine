@@ -16,7 +16,7 @@ ModuleWorld::~ModuleWorld()
 
 bool ModuleWorld::Init()
 {
-	
+	quadtree.SetBoundaries(AABB(float3(-50, -50, -50), float3(50, 50, 50)));
 	return true;
 }
 
@@ -48,9 +48,13 @@ update_status ModuleWorld::Update(float dt)
 
 update_status ModuleWorld::PostUpdate(float dt)
 {
-
+	
 	//Iterate Object List and Render
 	It_Render();
+
+	DebugDraw();
+
+	world_texture->Unbind();
 	//Render Imgui
 	ImGui::Render();	
 
@@ -90,14 +94,26 @@ void ModuleWorld::It_Render()
 
 	//RENDER MESHES
 	
-	std::vector<Object*>::iterator temp = obj_vector.begin();
+	std::vector<GameObject*>::iterator temp = obj_vector.begin();
 	while (temp != obj_vector.end()) {
 		(*temp)->Update();
 		temp++;
 	}
 
 	glColor3f(1.0f, 1.0f, 1.0f);
-	world_texture->Unbind();
+
+}
+
+void ModuleWorld::DebugDraw()
+{
+
+	std::vector<const QuadtreeNode*> boxes;
+	quadtree.CollectBoxes(boxes);
+
+	for (std::vector<const QuadtreeNode*>::const_iterator it = boxes.begin(); it != boxes.end(); ++it)
+		App->renderer3D->DebugDraw((*it)->bounds, Yellow);
+
+
 }
 
 
@@ -114,7 +130,7 @@ bool ModuleWorld::Options()
 
 	if (ImGui::BeginDock("Configuration", false, false, false)) {
 
-		std::vector<Object*>::iterator item = obj_vector.begin();
+		std::vector<GameObject*>::iterator item = obj_vector.begin();
 		int num = 0;
 		while(item != obj_vector.end())		
 		{
@@ -182,15 +198,13 @@ bool ModuleWorld::Options()
 	return true;
 }
 
-int ModuleWorld::HierarchyRecurs(std::vector<Object*> vector,int* node_selected, int i,int selection_mask)
+int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector,int* node_selected, int i,int selection_mask)
 {
 	
-
-
 	int node_clicked = -1;
 	
 	int temp_i = 0;
-	std::vector<Object*>::iterator item = vector.begin();
+	std::vector<GameObject*>::iterator item = vector.begin();
 	while (item != vector.end())
 	{
 		i++;

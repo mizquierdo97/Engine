@@ -8,7 +8,7 @@
 class ComponentTransform : public Component{
 public:
 	ComponentTransform() {};
-	ComponentTransform(aiVector3D, aiQuaternion, aiVector3D, Object*);
+	ComponentTransform(aiVector3D, aiQuaternion, aiVector3D, GameObject*);
 	~ComponentTransform() {};
 
 	void UpdateComponent();

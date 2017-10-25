@@ -43,10 +43,11 @@ public:
 	bool Options();
 	void Render(ComponentMesh* );
 	void RenderMesh(Mesh*);
-	void RenderNormals(Object*);
+	void RenderNormals(GameObject*);
 	bool loadTextureFromFile(char* path, Texture**, bool is_texture = true);
 	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height, Texture**);
-	
+	void DebugDrawBox(const float3*,Color);
+	void DebugDraw(const AABB& aabb, Color color = White, const float4x4& transform = float4x4::identity);
 
 	ComponentCamera* GetActiveCamera();
 public:

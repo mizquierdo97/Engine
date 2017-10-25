@@ -2,7 +2,7 @@
 #include "ImGui\imgui.h"
 #include "Object.h"
 
-ComponentTransform::ComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D sc, Object* obj_parent){
+ComponentTransform::ComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D sc, GameObject* obj_parent){
 	translation = float3(pos.x,pos.y,pos.z) ;
 	rotation = Quat(rot.x, rot.y, rot.z, rot.w);
 	scale = float3(sc.x, sc.y, sc.z);
