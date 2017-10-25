@@ -7,9 +7,7 @@ public:
 	QuadtreeNode(const AABB& box);
 	//virtual ~QuadtreeNode();
 
-	 bool IsLeaf() const {
-		return true;
-	}
+	bool IsLeaf() const;
 	void Insert(GameObject* go);
 	void Erase(GameObject* go);
 	void CreateChilds();
@@ -30,7 +28,7 @@ public:
 	QuadtreeNode* parent = nullptr;
 	std::list<GameObject*> objects;
 	AABB bounds;
-	QuadtreeNode* nodes[4];
+	QuadtreeNode* nodes[8];
 
 	
 };

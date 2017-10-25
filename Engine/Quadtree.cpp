@@ -4,17 +4,23 @@
 
 
 
-#define NE 0
-#define SE 1
-#define SW 2
-#define NW 3
-
+#define  U_NE 0
+#define  U_SE 1
+#define  U_SW 2
+#define  U_NW 3
+#define  D_NE 4
+#define  D_SE 5
+#define  D_SW 6
+#define  D_NW 7
 
 QuadtreeNode::QuadtreeNode(const AABB& box) : bounds(box)
 {
-	parent = nodes[NE] = nodes[SE] = nodes[SW] = nodes[NW] = nullptr;
+	parent = nodes[U_NE] = nodes[U_SE] = nodes[U_SW] = nodes[U_NW] = nodes[D_NE] = nodes[D_SE] = nodes[D_SW] = nodes[D_NW] = nullptr;
 }
-
+bool QuadtreeNode::IsLeaf() const
+{
+	return nodes[0] == nullptr;
+}
 
 void QuadtreeNode::Insert(GameObject* go)
 {
@@ -38,7 +44,7 @@ void QuadtreeNode::Erase(GameObject * go)
 
 	if (IsLeaf() == false)
 	{
-		for (int i = 0; i < 4; ++i)
+		for (int i = 0; i < 8; ++i)
 			nodes[i]->Erase(go);
 	}
 }
@@ -47,35 +53,43 @@ void QuadtreeNode::CreateChilds()
 {
 	// We need to subdivide this node ...
 	float3 size(bounds.Size());
-	float3 new_size(size.x*0.5f, size.y, size.z*0.5f); // Octree would subdivide y too
+	float3 new_size(size.x*0.5f, size.y*0.5, size.z*0.5f); // Octree would subdivide y too
 
 	float3 center(bounds.CenterPoint());
 	float3 new_center(center);
 	AABB new_box;
 
 	// NorthEast
-	new_center.x = center.x + size.x * 0.25f;
-	new_center.z = center.z + size.z * 0.25f;
-	new_box.SetFromCenterAndSize(new_center, new_size);
-	nodes[NE] = new QuadtreeNode(new_box);
+	for (int i = 0; i < 2; i++) {
+		int mult = 1;
+		if (i == 1) mult = -1;
+		new_center.x = center.x + size.x * 0.25f;
+		new_center.y = center.y + mult*size.y * 0.25f;
+		new_center.z = center.z + size.z * 0.25f;
+		new_box.SetFromCenterAndSize(new_center, new_size);
+		nodes[i*4 + U_NE] = new QuadtreeNode(new_box);
 
-	// SouthEast
-	new_center.x = center.x + size.x * 0.25f;
-	new_center.z = center.z - size.z * 0.25f;
-	new_box.SetFromCenterAndSize(new_center, new_size);
-	nodes[SE] = new QuadtreeNode(new_box);
+		// SouthEast
+		new_center.x = center.x + size.x * 0.25f;
+		new_center.y = center.y + mult*size.y * 0.25f;
+		new_center.z = center.z - size.z * 0.25f;
+		new_box.SetFromCenterAndSize(new_center, new_size);
+		nodes[i * 4 + U_SE] = new QuadtreeNode(new_box);
 
-	// SouthWest
-	new_center.x = center.x - size.x * 0.25f;
-	new_center.z = center.z - size.z * 0.25f;
-	new_box.SetFromCenterAndSize(new_center, new_size);
-	nodes[SW] = new QuadtreeNode(new_box);
+		// SouthWest
+		new_center.x = center.x - size.x * 0.25f;
+		new_center.y = center.y + mult*size.y * 0.25f;
+		new_center.z = center.z - size.z * 0.25f;
+		new_box.SetFromCenterAndSize(new_center, new_size);
+		nodes[i * 4 + U_SW] = new QuadtreeNode(new_box);
 
-	// NorthWest
-	new_center.x = center.x - size.x * 0.25f;
-	new_center.z = center.z + size.z * 0.25f;
-	new_box.SetFromCenterAndSize(new_center, new_size);
-	nodes[NW] = new QuadtreeNode(new_box);
+		// NorthWest
+		new_center.x = center.x - size.x * 0.25f;
+		new_center.y = center.y + mult*size.y * 0.25f;
+		new_center.z = center.z + size.z * 0.25f;
+		new_box.SetFromCenterAndSize(new_center, new_size);
+		nodes[i * 4 + U_NW] = new QuadtreeNode(new_box);
+	}
 }
 
 void QuadtreeNode::RedistributeChilds()
@@ -88,16 +102,16 @@ void QuadtreeNode::RedistributeChilds()
 		AABB new_box(go->global_bbox);
 
 		// Now distribute this new gameobject onto the childs
-		bool intersects[4];
-		for (int i = 0; i < 4; ++i)
+		bool intersects[8];
+		for (int i = 0; i < 8; ++i)
 			intersects[i] = nodes[i]->bounds.Intersects(new_box);
 
-		if (intersects[0] && intersects[1] && intersects[2] && intersects[3])
+		if (intersects[0] && intersects[1] && intersects[2] && intersects[3]&& intersects[4] && intersects[5] && intersects[6] && intersects[7])
 			++it; // if it hits all childs, better to just keep it here
 		else
 		{
 			it = objects.erase(it);
-			for (int i = 0; i < 4; ++i)
+			for (int i = 0; i < 8; ++i)
 				if (intersects[i]) nodes[i]->Insert(go);
 		}
 	}
@@ -108,7 +122,7 @@ void QuadtreeNode::CollectObjects(std::vector<GameObject*>& objects) const
 	for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
 		objects.push_back(*it);
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 8; ++i)
 		if (nodes[i] != nullptr) nodes[i]->CollectObjects(objects);
 }
 
@@ -117,7 +131,7 @@ void QuadtreeNode::CollectBoxes(std::vector<const QuadtreeNode*>& vec_nodes) con
 {
 	vec_nodes.push_back(this);
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 8; ++i)
 		if (nodes[i] != nullptr) nodes[i]->CollectBoxes(vec_nodes);
 }
 

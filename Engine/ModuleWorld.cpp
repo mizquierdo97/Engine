@@ -26,6 +26,11 @@ bool ModuleWorld::Start() {
 	world_texture = new Texture();
 	world_texture->Create(nullptr, App->window->width, App->window->height);
 		
+	CreateObject();
+	obj_vector[0]->AddComponentTransform();
+	obj_vector[0]->AddComponentCamera();
+
+
 	return true;
 }
 
@@ -113,10 +118,7 @@ void ModuleWorld::DebugDraw()
 	for (std::vector<const QuadtreeNode*>::const_iterator it = boxes.begin(); it != boxes.end(); ++it)
 		App->renderer3D->DebugDraw((*it)->bounds, Yellow);
 
-
 }
-
-
 
 
 bool ModuleWorld::Options()
