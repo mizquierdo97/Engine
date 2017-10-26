@@ -42,6 +42,53 @@ void MeshImporter::LoadMesh(const char * path)
 
 }
 
+Mesh MeshImporter::LoadComponentMesh(char* name, uint* ranges)
+{
+	Mesh m;
+	uint bytes;
+	std::string temp_name;
+	char path[80] = "Library/Meshes/";
+	strcat(path, name);
+	strcat(path, ".mesh");
+
+	char * buffer = LoadBuffer(path);
+	char* cursor_mesh = buffer;
+
+	m.num_vertexs = ranges[0];
+	m.num_indices = ranges[1];
+
+	bytes = sizeof(uint) * m.num_indices;
+	m.indices = new uint[m.num_indices];
+	memcpy(m.indices, cursor_mesh, bytes);
+	cursor_mesh += bytes;
+
+	bytes = sizeof(float) * m.num_vertexs * 3;
+	m.vertexs = new float[m.num_vertexs * 3];
+	memcpy(m.vertexs, cursor_mesh, bytes);
+	cursor_mesh += bytes;
+
+	if (ranges[2]) {
+		bytes = sizeof(float) * m.num_vertexs * 2;
+		m.texture_coords = new float[m.num_vertexs * 2];
+		memcpy(m.texture_coords, cursor_mesh, bytes);
+		cursor_mesh += bytes;
+	}
+
+	if (ranges[3]) {
+		bytes = sizeof(float) * m.num_vertexs * 3;
+		m.norms = new float[m.num_vertexs * 3];
+		memcpy(m.norms, cursor_mesh, bytes);
+		cursor_mesh += bytes;
+	}
+	temp_name = name;
+	//strcpy(m.mesh_path, temp_name.c_str());
+	m.mesh_path = (char*)temp_name.c_str();
+	GenGLBuffers(&m);
+	delete[] buffer;
+	return m;
+
+}
+
 //OK
 
 

@@ -156,8 +156,23 @@ void ModuleWorld::LoadScene() {
 				temp_pair.second = go->obj_uuid;
 				App->world->uuid_vect.push_back(temp_pair);
 
+
+				if (scene_data.EnterSection("Components")) {
+					if (scene_data.EnterSection("Mesh")) {
+						scene_data.GetUInt("Num Vertexs");
+						uint ranges[4] = { scene_data.GetUInt("Num Vertexs"),scene_data.GetUInt("Num Indices"),  scene_data.GetBool("Texture"), scene_data.GetBool("Norms") };
+						Mesh m = App->filesystem->mesh_importer->LoadComponentMesh((char*)scene_data.GetString("Mesh_Path").c_str(), &ranges[0]);
+						go->AddComponentMesh(m);
+
+						scene_data.LeaveSection();
+					}
+
+
+					scene_data.LeaveSection();
+				}
 				//App->world->obj_vector.push_back(go);
 			}
+			scene_data.LeaveSection();
 		}
 		
 	}
@@ -228,6 +243,7 @@ void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data, i
 		
 		data->CreateSection("Components");
 		for (int n = 0; n < (*item)->obj_components.size(); n++) {
+			
 			(*item)->obj_components[n]->SaveComponentScene(data);
 
 		}

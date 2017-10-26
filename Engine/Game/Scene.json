@@ -1,7 +1,7 @@
 {
     "GameObjects": {
         "Object_0": {
-            "UUID": "73bd5b4e-acb4-4da0-8bec-07d809999745",
+            "UUID": "f316473b-b198-4a06-a0de-38bd58e645c9",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "ÎúíÞÀ­ÞÞÀ­ÞÞÀ­ÞÞÀ­Þýýýý",
             "Translation": {
@@ -23,7 +23,7 @@
             "Components": {}
         },
         "Object_1": {
-            "UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "UUID": "63d0fbfc-1636-4dba-b36d-b410d74e542d",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "",
             "Translation": {
@@ -45,8 +45,8 @@
             "Components": {}
         },
         "Object_2": {
-            "UUID": "dfa03cd3-d5b3-469f-89bd-f8190e9922d2",
-            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "UUID": "e0cc5001-da58-4bb1-b463-3b0e5a8963c1",
+            "Parent_UUID": "63d0fbfc-1636-4dba-b36d-b410d74e542d",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -67,8 +67,8 @@
             "Components": {}
         },
         "Object_3": {
-            "UUID": "30da9893-65c3-4fc5-a972-72f6b3132adb",
-            "Parent_UUID": "dfa03cd3-d5b3-469f-89bd-f8190e9922d2",
+            "UUID": "c47051a7-62cd-4bc9-8db6-a026f5e779d8",
+            "Parent_UUID": "e0cc5001-da58-4bb1-b463-3b0e5a8963c1",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -89,8 +89,8 @@
             "Components": {}
         },
         "Object_4": {
-            "UUID": "b053b98f-402a-4da8-8645-701c1332b512",
-            "Parent_UUID": "30da9893-65c3-4fc5-a972-72f6b3132adb",
+            "UUID": "97f28af7-0308-4467-95b9-cfdaf7fb20b7",
+            "Parent_UUID": "c47051a7-62cd-4bc9-8db6-a026f5e779d8",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -111,8 +111,8 @@
             "Components": {}
         },
         "Object_5": {
-            "UUID": "72f16890-2c1a-4a07-943e-9a041235209c",
-            "Parent_UUID": "b053b98f-402a-4da8-8645-701c1332b512",
+            "UUID": "10be0bcc-fa2f-48a2-ad56-d194027dd8a4",
+            "Parent_UUID": "97f28af7-0308-4467-95b9-cfdaf7fb20b7",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -133,8 +133,8 @@
             "Components": {}
         },
         "Object_6": {
-            "UUID": "55631dff-ef6e-4f29-a807-91f070a95fe6",
-            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "UUID": "ee0d2a40-a812-4992-a77f-0fdba3075ab8",
+            "Parent_UUID": "63d0fbfc-1636-4dba-b36d-b410d74e542d",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -155,8 +155,8 @@
             "Components": {}
         },
         "Object_7": {
-            "UUID": "fc232599-551c-494e-8f4b-8554fcb77d73",
-            "Parent_UUID": "55631dff-ef6e-4f29-a807-91f070a95fe6",
+            "UUID": "28bea755-51e5-4ddc-ae2e-21d3db8e82bd",
+            "Parent_UUID": "ee0d2a40-a812-4992-a77f-0fdba3075ab8",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -177,8 +177,8 @@
             "Components": {}
         },
         "Object_8": {
-            "UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
-            "Parent_UUID": "fc232599-551c-494e-8f4b-8554fcb77d73",
+            "UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
+            "Parent_UUID": "28bea755-51e5-4ddc-ae2e-21d3db8e82bd",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -199,8 +199,8 @@
             "Components": {}
         },
         "Object_9": {
-            "UUID": "7361ad2d-7505-4996-9b47-913132d56992",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "9e40e046-bddc-41ad-851f-82e0b7edca31",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_0",
             "Translation": {
                 "value_X": "-41.475891",
@@ -220,13 +220,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "3850",
+                    "Num_Indices": "5988",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_0"
                 }
             }
         },
         "Object_10": {
-            "UUID": "51c78ee4-b674-4ea8-b0c7-6555765263d7",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "d1597e8f-a33d-42a0-8b4c-33de32b45e1d",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_1",
             "Translation": {
                 "value_X": "17.707165",
@@ -246,13 +250,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "2129",
+                    "Num_Indices": "4176",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_1"
                 }
             }
         },
         "Object_11": {
-            "UUID": "a662df5d-b7f5-456e-9303-68b9b138de45",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "c412dc01-d7a4-439b-93d9-2f2027e73bbe",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "16.010492",
@@ -272,13 +280,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "436",
+                    "Num_Indices": "684",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_2"
                 }
             }
         },
         "Object_12": {
-            "UUID": "3ce1d619-f580-4cb0-bd42-208c067cb7d7",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "4ae69c5d-e992-46fd-bbf5-1ec7ed55f28d",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_3",
             "Translation": {
                 "value_X": "40.979996",
@@ -298,13 +310,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "419",
+                    "Num_Indices": "864",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_3"
                 }
             }
         },
         "Object_13": {
-            "UUID": "41f34dad-c553-4bb5-ba78-f60e1bc46878",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "7488e116-8a2e-463b-a013-1a1ffa7b6004",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_8",
             "Translation": {
                 "value_X": "-2.159772",
@@ -324,13 +340,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "48",
+                    "Num_Indices": "72",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_8"
                 }
             }
         },
         "Object_14": {
-            "UUID": "356fd5e7-f97b-4dfe-80cf-0595d52e794d",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "52a1c8a1-a509-41ff-8c6c-d0d9e005c828",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_9",
             "Translation": {
                 "value_X": "-0.028603",
@@ -350,13 +370,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "25",
+                    "Num_Indices": "96",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_9"
                 }
             }
         },
         "Object_15": {
-            "UUID": "4aba190c-57b4-431c-9998-afff28500287",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "830d4746-deb9-4312-9a14-a7d98d4a3c14",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "25.154011",
@@ -376,13 +400,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "4",
+                    "Num_Indices": "6",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_4"
                 }
             }
         },
         "Object_16": {
-            "UUID": "4e90fcfe-2716-4c47-9661-394ae537971e",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "c1004b20-5afd-487d-98d3-a524cd879396",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "25.154011",
@@ -402,13 +430,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "3268",
+                    "Num_Indices": "4998",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_5"
                 }
             }
         },
         "Object_17": {
-            "UUID": "dd2f74c0-33f0-452b-ad7f-ad5018e04f53",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "76cf3f81-770a-4ea8-83ac-ac3079dfea84",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "30.134541",
@@ -428,13 +460,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "436",
+                    "Num_Indices": "684",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_2"
                 }
             }
         },
         "Object_18": {
-            "UUID": "0bf29172-c8bf-4683-af7d-04f0648db466",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "c0db5bbd-0e4b-4095-b931-f0c592ec8b8c",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_6",
             "Translation": {
                 "value_X": "-42.288055",
@@ -454,13 +490,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "2452",
+                    "Num_Indices": "4197",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_6"
                 }
             }
         },
         "Object_19": {
-            "UUID": "9018f913-f79d-4348-927c-26e159c094bb",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "798e24b4-5f8e-4324-ba2b-3f9115e5db3a",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_10",
             "Translation": {
                 "value_X": "-19.439707",
@@ -480,13 +520,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "4218",
+                    "Num_Indices": "6636",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_10"
                 }
             }
         },
         "Object_20": {
-            "UUID": "55fc1a74-1da0-4e86-8b8b-6e06b1f7b729",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "1e7165de-569e-45ea-8d1e-49515598e8b4",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "34.270424",
@@ -506,13 +550,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "4",
+                    "Num_Indices": "6",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_4"
                 }
             }
         },
         "Object_21": {
-            "UUID": "17527593-0dbd-4de8-8c37-02cb9d639800",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "020fd67d-e753-40ca-a1dd-c2f0a2355a6e",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "34.270424",
@@ -532,13 +580,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "3268",
+                    "Num_Indices": "4998",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_5"
                 }
             }
         },
         "Object_22": {
-            "UUID": "c0473e88-c5d5-4759-93ac-b0a2ee651c75",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "0c0887c8-4699-4b13-ab8c-70282d813623",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "44.260082",
@@ -558,13 +610,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "4",
+                    "Num_Indices": "6",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_4"
                 }
             }
         },
         "Object_23": {
-            "UUID": "824fd56b-7aa3-4982-a1cb-10c028496e67",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "dd527ca1-1776-4295-bd02-50b834c9399f",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "44.260082",
@@ -584,13 +640,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "3268",
+                    "Num_Indices": "4998",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_5"
                 }
             }
         },
         "Object_24": {
-            "UUID": "3ba534ea-418e-40be-b71b-00006caadeb2",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "0da65498-dbf5-4a19-9ebf-ccb7cb77d6f7",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_11",
             "Translation": {
                 "value_X": "-20.831324",
@@ -610,13 +670,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "4670",
+                    "Num_Indices": "8496",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_11"
                 }
             }
         },
         "Object_25": {
-            "UUID": "86cf850a-24d8-471c-b0be-527b676310e6",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "93e4d2d1-e590-4926-b7aa-254b14809c9a",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "42.130642",
@@ -636,13 +700,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "436",
+                    "Num_Indices": "684",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_2"
                 }
             }
         },
         "Object_26": {
-            "UUID": "459c2d20-595b-4307-817b-686c19b2551a",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "f282a990-e691-481f-b466-e0101bb5a122",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_3",
             "Translation": {
                 "value_X": "-20.572771",
@@ -662,13 +730,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "419",
+                    "Num_Indices": "864",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_3"
                 }
             }
         },
         "Object_27": {
-            "UUID": "43449bd9-e616-4b72-abd6-104a384d8788",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "ddbdca25-8d52-401d-a045-6997b4663ca2",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_12",
             "Translation": {
                 "value_X": "31.511889",
@@ -688,13 +760,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "4523",
+                    "Num_Indices": "8232",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_12"
                 }
             }
         },
         "Object_28": {
-            "UUID": "b6de635d-c903-4243-9539-c4ad8beba728",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "c81cfdb9-8cd1-4553-b20b-f4eec5ea0935",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "13.387990",
@@ -714,13 +790,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
                 }
             }
         },
         "Object_29": {
-            "UUID": "d653fbdd-ac6a-410d-a158-685461941ea8",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "a8d4100c-82ea-47d2-82aa-0f8a9c3e4043",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_13",
             "Translation": {
                 "value_X": "-2.503353",
@@ -740,13 +820,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "1440",
+                    "Num_Indices": "2160",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_13"
                 }
             }
         },
         "Object_30": {
-            "UUID": "515c2710-8e7b-40ac-afaa-25e12c6b8d18",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "8c1429c2-6e60-42dc-b7b1-c57ef611a954",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-42.807240",
@@ -766,13 +850,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
                 }
             }
         },
         "Object_31": {
-            "UUID": "dc6bbeea-7913-45e7-a3d4-8d504c3d323e",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "34c64e54-48aa-4ff5-acfa-b5a3c0f2ab18",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-34.679482",
@@ -792,13 +880,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
                 }
             }
         },
         "Object_32": {
-            "UUID": "77e45697-7671-47e0-a3b2-4963ab18cf28",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "1c745a0d-add2-4ceb-860d-77f3a3d18bea",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_0",
             "Translation": {
                 "value_X": "-29.478403",
@@ -818,13 +910,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "3850",
+                    "Num_Indices": "5988",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_0"
                 }
             }
         },
         "Object_33": {
-            "UUID": "bf5796c3-062c-4af1-a955-29cbcc912263",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "c2e5d4e3-d464-400d-8e5d-abb55124432c",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_14",
             "Translation": {
                 "value_X": "-32.361496",
@@ -844,13 +940,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "4772",
+                    "Num_Indices": "7986",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_14"
                 }
             }
         },
         "Object_34": {
-            "UUID": "e94ecd37-e4f6-43e9-b861-8afa47d085f0",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "72a5da6c-d8fb-4811-9abd-68e4315f87a7",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_15",
             "Translation": {
                 "value_X": "16.049517",
@@ -870,13 +970,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "3481",
+                    "Num_Indices": "6378",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_15"
                 }
             }
         },
         "Object_35": {
-            "UUID": "6f302f7b-e6fe-49ae-94cd-0956c1479a48",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "1168621b-0f6c-44fe-9060-f2744acd5a2a",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "13.387990",
@@ -896,13 +1000,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
                 }
             }
         },
         "Object_36": {
-            "UUID": "06ec4a2a-36a2-4c6f-a2f6-2dfb7cc82e2d",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "9e2c79a6-3198-4f17-84c7-55fabb1302b3",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_6",
             "Translation": {
                 "value_X": "-31.216331",
@@ -922,13 +1030,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "2452",
+                    "Num_Indices": "4197",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_6"
                 }
             }
         },
         "Object_37": {
-            "UUID": "b23acb45-9e01-4f54-9561-527ae59fea1a",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "cabce95b-e01a-4d6e-90e4-79c3667e86df",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_16",
             "Translation": {
                 "value_X": "-20.317694",
@@ -948,13 +1060,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "2548",
+                    "Num_Indices": "4530",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_16"
                 }
             }
         },
         "Object_38": {
-            "UUID": "ea6d1a2e-52fa-4a04-a210-6cc3c4bc82a8",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "cd665f0e-e9a8-4f38-b505-881685499a5b",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_17",
             "Translation": {
                 "value_X": "-41.649002",
@@ -974,13 +1090,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "3972",
+                    "Num_Indices": "7392",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_17"
                 }
             }
         },
         "Object_39": {
-            "UUID": "2f2d84de-0465-459d-bac5-3a8126318d0e",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "345e926c-e1fa-4aeb-823a-182c68b38422",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-42.807240",
@@ -1000,13 +1120,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
                 }
             }
         },
         "Object_40": {
-            "UUID": "fd919fef-0a57-4454-bac8-efd0461a980c",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "0f8090af-4963-4da4-a755-0056d5b6a590",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-34.679482",
@@ -1026,13 +1150,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
                 }
             }
         },
         "Object_41": {
-            "UUID": "d8efc371-9893-460c-9f12-e9ddd3d8550b",
-            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "UUID": "7330aca4-91a8-4372-880a-54b7bf0b8bd3",
+            "Parent_UUID": "817a3408-616c-4998-8c12-7f5e2cb89088",
             "Name": "street environment_v01_1",
             "Translation": {
                 "value_X": "30.695278",
@@ -1052,13 +1180,17 @@
             },
             "Components": {
                 "Mesh": {
+                    "Num_Vertexs": "2129",
+                    "Num_Indices": "4176",
+                    "Norms": "1",
+                    "Texture": "1",
                     "Mesh_Path": "street environment_v01_1"
                 }
             }
         },
         "Object_42": {
-            "UUID": "946b663d-8e15-45e9-b31f-dc2e00308d6c",
-            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "UUID": "23a0943c-73e0-43a5-ba01-340ac05f6133",
+            "Parent_UUID": "63d0fbfc-1636-4dba-b36d-b410d74e542d",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1079,8 +1211,8 @@
             "Components": {}
         },
         "Object_43": {
-            "UUID": "b07613c8-bde1-4d02-a589-16daa549f731",
-            "Parent_UUID": "946b663d-8e15-45e9-b31f-dc2e00308d6c",
+            "UUID": "02be12ed-c954-43a7-b14c-701557a66daf",
+            "Parent_UUID": "23a0943c-73e0-43a5-ba01-340ac05f6133",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1101,8 +1233,8 @@
             "Components": {}
         },
         "Object_44": {
-            "UUID": "eed7988f-a0b9-4e8a-94e2-c9162d435028",
-            "Parent_UUID": "b07613c8-bde1-4d02-a589-16daa549f731",
+            "UUID": "4acd22a9-70f9-41dd-9a3d-eb01f80f926e",
+            "Parent_UUID": "02be12ed-c954-43a7-b14c-701557a66daf",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1123,8 +1255,8 @@
             "Components": {}
         },
         "Object_45": {
-            "UUID": "ae879a88-adcd-4cea-b90e-495b5af34e45",
-            "Parent_UUID": "eed7988f-a0b9-4e8a-94e2-c9162d435028",
+            "UUID": "862c362f-71f0-437f-a663-b3d783af82cd",
+            "Parent_UUID": "4acd22a9-70f9-41dd-9a3d-eb01f80f926e",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1145,8 +1277,8 @@
             "Components": {}
         },
         "Object_46": {
-            "UUID": "98303933-d45a-4436-b848-e85a058efc73",
-            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "UUID": "e9802287-bb53-4242-b9eb-6ec181ca4bf7",
+            "Parent_UUID": "63d0fbfc-1636-4dba-b36d-b410d74e542d",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1167,8 +1299,8 @@
             "Components": {}
         },
         "Object_47": {
-            "UUID": "78e6d3f3-1176-4c7a-afcc-b7aa5d875dff",
-            "Parent_UUID": "98303933-d45a-4436-b848-e85a058efc73",
+            "UUID": "5b98f2ba-0be5-4b2c-a43b-efcff6699e7c",
+            "Parent_UUID": "e9802287-bb53-4242-b9eb-6ec181ca4bf7",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1189,8 +1321,8 @@
             "Components": {}
         },
         "Object_48": {
-            "UUID": "40ec51d7-35ca-42d1-82be-b17cb4f14db4",
-            "Parent_UUID": "78e6d3f3-1176-4c7a-afcc-b7aa5d875dff",
+            "UUID": "30e8509e-5e51-4b5f-ab87-a8cb72b852b2",
+            "Parent_UUID": "5b98f2ba-0be5-4b2c-a43b-efcff6699e7c",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1211,8 +1343,8 @@
             "Components": {}
         },
         "Object_49": {
-            "UUID": "5dff7462-9a89-498a-bcb0-e7f111ae01d0",
-            "Parent_UUID": "40ec51d7-35ca-42d1-82be-b17cb4f14db4",
+            "UUID": "7b79b840-b78d-403e-aef9-e2ae92c0eee4",
+            "Parent_UUID": "30e8509e-5e51-4b5f-ab87-a8cb72b852b2",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1233,8 +1365,8 @@
             "Components": {}
         },
         "Object_50": {
-            "UUID": "88d4c8a4-bbf4-44ec-b770-b488b757eb2c",
-            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "UUID": "9d407085-bcdb-4c50-bb79-40f1346000ce",
+            "Parent_UUID": "63d0fbfc-1636-4dba-b36d-b410d74e542d",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1255,8 +1387,8 @@
             "Components": {}
         },
         "Object_51": {
-            "UUID": "4f037ce5-a2d3-456a-9599-3b31886d491f",
-            "Parent_UUID": "88d4c8a4-bbf4-44ec-b770-b488b757eb2c",
+            "UUID": "0783710c-e31f-4ab6-8195-cd32acea8de5",
+            "Parent_UUID": "9d407085-bcdb-4c50-bb79-40f1346000ce",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1277,8 +1409,8 @@
             "Components": {}
         },
         "Object_52": {
-            "UUID": "e0e85ea6-6eb7-45a1-b3c1-ccd821260217",
-            "Parent_UUID": "4f037ce5-a2d3-456a-9599-3b31886d491f",
+            "UUID": "52d2f652-fabe-47a3-9847-e95c9837b088",
+            "Parent_UUID": "0783710c-e31f-4ab6-8195-cd32acea8de5",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1299,8 +1431,8 @@
             "Components": {}
         },
         "Object_53": {
-            "UUID": "a8de9702-77ea-45df-a5b4-b2c414482990",
-            "Parent_UUID": "e0e85ea6-6eb7-45a1-b3c1-ccd821260217",
+            "UUID": "e713264e-721f-4078-a096-fde1687f0a6c",
+            "Parent_UUID": "52d2f652-fabe-47a3-9847-e95c9837b088",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1321,8 +1453,8 @@
             "Components": {}
         },
         "Object_54": {
-            "UUID": "01a5b2c5-b874-4d31-a8f5-7d1aa36a918f",
-            "Parent_UUID": "a8de9702-77ea-45df-a5b4-b2c414482990",
+            "UUID": "1df7c5ca-2dec-4141-b09f-71175298b5bb",
+            "Parent_UUID": "e713264e-721f-4078-a096-fde1687f0a6c",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1343,8 +1475,8 @@
             "Components": {}
         },
         "Object_55": {
-            "UUID": "c0f5111d-6f90-4e70-8425-ff75665c9105",
-            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "UUID": "44b4560c-4616-4db0-9c09-149b4a6d8f14",
+            "Parent_UUID": "63d0fbfc-1636-4dba-b36d-b410d74e542d",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1365,8 +1497,8 @@
             "Components": {}
         },
         "Object_56": {
-            "UUID": "4712190c-8581-4379-b3c6-3463f6802825",
-            "Parent_UUID": "c0f5111d-6f90-4e70-8425-ff75665c9105",
+            "UUID": "6aa88f9f-9628-4a07-a3d2-97fb08b8febd",
+            "Parent_UUID": "44b4560c-4616-4db0-9c09-149b4a6d8f14",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1387,8 +1519,8 @@
             "Components": {}
         },
         "Object_57": {
-            "UUID": "3d0f8528-f793-48b6-8ec9-9d6f76d3b81d",
-            "Parent_UUID": "4712190c-8581-4379-b3c6-3463f6802825",
+            "UUID": "08377663-9265-4944-879c-956860eac601",
+            "Parent_UUID": "6aa88f9f-9628-4a07-a3d2-97fb08b8febd",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1409,8 +1541,8 @@
             "Components": {}
         },
         "Object_58": {
-            "UUID": "c3a4d70b-37d3-4023-89c5-f60992f315f4",
-            "Parent_UUID": "3d0f8528-f793-48b6-8ec9-9d6f76d3b81d",
+            "UUID": "50b99089-8c3b-493a-a658-6c7e6954a1e1",
+            "Parent_UUID": "08377663-9265-4944-879c-956860eac601",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",

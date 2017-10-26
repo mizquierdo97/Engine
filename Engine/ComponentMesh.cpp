@@ -39,6 +39,10 @@ void ComponentMesh::UpdateComponent()
 void ComponentMesh::SaveComponentScene(Data* data)
 {
 	data->CreateSection("Mesh");
+	data->AddInt("Num Vertexs", obj_mesh.num_vertexs);
+	data->AddInt("Num Indices", obj_mesh.num_indices);
+	data->AddBool("Norms", obj_mesh.id_norms);
+	data->AddBool("Texture", obj_mesh.id_textures);
 	data->AddString("Mesh Path", path_name);
 
 	data->CloseSection();
