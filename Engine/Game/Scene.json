@@ -1,7 +1,8 @@
 {
     "GameObjects": {
         "Object_0": {
-            "UUID": "8ea6b289-069c-4703-a807-40a30530be2a",
+            "UUID": "73bd5b4e-acb4-4da0-8bec-07d809999745",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "ÎúíÞÀ­ÞÞÀ­ÞÞÀ­ÞÞÀ­Þýýýý",
             "Translation": {
                 "value_X": "0.000000",
@@ -22,8 +23,9 @@
             "Components": {}
         },
         "Object_1": {
-            "UUID": "9e751436-f48f-46a9-9dc8-a2210f01b732",
-            "Name": "ÎúíÞÀ­ÞÞÀ­ÞÞÀ­ÞÞÀ­Þýýýý",
+            "UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -43,7 +45,8 @@
             "Components": {}
         },
         "Object_2": {
-            "UUID": "bde27dc8-48df-43c0-83bf-060e2956936d",
+            "UUID": "dfa03cd3-d5b3-469f-89bd-f8190e9922d2",
+            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -64,18 +67,19 @@
             "Components": {}
         },
         "Object_3": {
-            "UUID": "6f4724e0-e3cc-46f3-8c5b-f0061ba3fad7",
-            "Name": "batman70_0",
+            "UUID": "30da9893-65c3-4fc5-a972-72f6b3132adb",
+            "Parent_UUID": "dfa03cd3-d5b3-469f-89bd-f8190e9922d2",
+            "Name": "",
             "Translation": {
-                "value_X": "-24.600000",
+                "value_X": "0.000000",
                 "value_Y": "0.000000",
-                "value_Z": "-7.000000"
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
-                "value_Y": "0.057564",
+                "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "0.998342"
+                "value_W": "1.000000"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -85,8 +89,9 @@
             "Components": {}
         },
         "Object_4": {
-            "UUID": "f3fdf7e1-475f-4772-b170-4a1b645898be",
-            "Name": "batman70_1",
+            "UUID": "b053b98f-402a-4da8-8645-701c1332b512",
+            "Parent_UUID": "30da9893-65c3-4fc5-a972-72f6b3132adb",
+            "Name": "",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -106,8 +111,9 @@
             "Components": {}
         },
         "Object_5": {
-            "UUID": "d6b32ba5-d345-4841-a3a7-bbb6dc585a79",
-            "Name": "batman70_2",
+            "UUID": "72f16890-2c1a-4a07-943e-9a041235209c",
+            "Parent_UUID": "b053b98f-402a-4da8-8645-701c1332b512",
+            "Name": "",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -127,8 +133,1285 @@
             "Components": {}
         },
         "Object_6": {
-            "UUID": "56a65c0c-0282-41e0-8679-1b7b0aa608b2",
-            "Name": "batman70_3",
+            "UUID": "55631dff-ef6e-4f29-a807-91f070a95fe6",
+            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_7": {
+            "UUID": "fc232599-551c-494e-8f4b-8554fcb77d73",
+            "Parent_UUID": "55631dff-ef6e-4f29-a807-91f070a95fe6",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_8": {
+            "UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Parent_UUID": "fc232599-551c-494e-8f4b-8554fcb77d73",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_9": {
+            "UUID": "7361ad2d-7505-4996-9b47-913132d56992",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_0",
+            "Translation": {
+                "value_X": "-41.475891",
+                "value_Y": "21.014099",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_0"
+                }
+            }
+        },
+        "Object_10": {
+            "UUID": "51c78ee4-b674-4ea8-b0c7-6555765263d7",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_1",
+            "Translation": {
+                "value_X": "17.707165",
+                "value_Y": "20.053276",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_1"
+                }
+            }
+        },
+        "Object_11": {
+            "UUID": "a662df5d-b7f5-456e-9303-68b9b138de45",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_2",
+            "Translation": {
+                "value_X": "16.010492",
+                "value_Y": "37.493286",
+                "value_Z": "-0.000002"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_2"
+                }
+            }
+        },
+        "Object_12": {
+            "UUID": "3ce1d619-f580-4cb0-bd42-208c067cb7d7",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_3",
+            "Translation": {
+                "value_X": "40.979996",
+                "value_Y": "18.270824",
+                "value_Z": "-0.000002"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_3"
+                }
+            }
+        },
+        "Object_13": {
+            "UUID": "41f34dad-c553-4bb5-ba78-f60e1bc46878",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_8",
+            "Translation": {
+                "value_X": "-2.159772",
+                "value_Y": "1.853838",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_8"
+                }
+            }
+        },
+        "Object_14": {
+            "UUID": "356fd5e7-f97b-4dfe-80cf-0595d52e794d",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_9",
+            "Translation": {
+                "value_X": "-0.028603",
+                "value_Y": "0.026032",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "0.996635",
+                "value_Y": "0.970616",
+                "value_Z": "0.996635"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_9"
+                }
+            }
+        },
+        "Object_15": {
+            "UUID": "4aba190c-57b4-431c-9998-afff28500287",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_4",
+            "Translation": {
+                "value_X": "25.154011",
+                "value_Y": "-39.153721",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_4"
+                }
+            }
+        },
+        "Object_16": {
+            "UUID": "4e90fcfe-2716-4c47-9661-394ae537971e",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_5",
+            "Translation": {
+                "value_X": "25.154011",
+                "value_Y": "-39.153721",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_5"
+                }
+            }
+        },
+        "Object_17": {
+            "UUID": "dd2f74c0-33f0-452b-ad7f-ad5018e04f53",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_2",
+            "Translation": {
+                "value_X": "30.134541",
+                "value_Y": "37.493286",
+                "value_Z": "-0.000002"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_2"
+                }
+            }
+        },
+        "Object_18": {
+            "UUID": "0bf29172-c8bf-4683-af7d-04f0648db466",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_6",
+            "Translation": {
+                "value_X": "-42.288055",
+                "value_Y": "33.201576",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_6"
+                }
+            }
+        },
+        "Object_19": {
+            "UUID": "9018f913-f79d-4348-927c-26e159c094bb",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_10",
+            "Translation": {
+                "value_X": "-19.439707",
+                "value_Y": "32.061729",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "-0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_10"
+                }
+            }
+        },
+        "Object_20": {
+            "UUID": "55fc1a74-1da0-4e86-8b8b-6e06b1f7b729",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_4",
+            "Translation": {
+                "value_X": "34.270424",
+                "value_Y": "-41.972748",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "-0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_4"
+                }
+            }
+        },
+        "Object_21": {
+            "UUID": "17527593-0dbd-4de8-8c37-02cb9d639800",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_5",
+            "Translation": {
+                "value_X": "34.270424",
+                "value_Y": "-41.972748",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "-0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_5"
+                }
+            }
+        },
+        "Object_22": {
+            "UUID": "c0473e88-c5d5-4759-93ac-b0a2ee651c75",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_4",
+            "Translation": {
+                "value_X": "44.260082",
+                "value_Y": "-39.153721",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_4"
+                }
+            }
+        },
+        "Object_23": {
+            "UUID": "824fd56b-7aa3-4982-a1cb-10c028496e67",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_5",
+            "Translation": {
+                "value_X": "44.260082",
+                "value_Y": "-39.153721",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_5"
+                }
+            }
+        },
+        "Object_24": {
+            "UUID": "3ba534ea-418e-40be-b71b-00006caadeb2",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_11",
+            "Translation": {
+                "value_X": "-20.831324",
+                "value_Y": "-27.426489",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_11"
+                }
+            }
+        },
+        "Object_25": {
+            "UUID": "86cf850a-24d8-471c-b0be-527b676310e6",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_2",
+            "Translation": {
+                "value_X": "42.130642",
+                "value_Y": "37.493286",
+                "value_Z": "-0.000002"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_2"
+                }
+            }
+        },
+        "Object_26": {
+            "UUID": "459c2d20-595b-4307-817b-686c19b2551a",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_3",
+            "Translation": {
+                "value_X": "-20.572771",
+                "value_Y": "43.060829",
+                "value_Z": "-0.069194"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_3"
+                }
+            }
+        },
+        "Object_27": {
+            "UUID": "43449bd9-e616-4b72-abd6-104a384d8788",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_12",
+            "Translation": {
+                "value_X": "31.511889",
+                "value_Y": "-16.446016",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_12"
+                }
+            }
+        },
+        "Object_28": {
+            "UUID": "b6de635d-c903-4243-9539-c4ad8beba728",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_7",
+            "Translation": {
+                "value_X": "13.387990",
+                "value_Y": "-33.755039",
+                "value_Z": "-0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_7"
+                }
+            }
+        },
+        "Object_29": {
+            "UUID": "d653fbdd-ac6a-410d-a158-685461941ea8",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_13",
+            "Translation": {
+                "value_X": "-2.503353",
+                "value_Y": "15.800846",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_13"
+                }
+            }
+        },
+        "Object_30": {
+            "UUID": "515c2710-8e7b-40ac-afaa-25e12c6b8d18",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_7",
+            "Translation": {
+                "value_X": "-42.807240",
+                "value_Y": "-41.835564",
+                "value_Z": "-0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_7"
+                }
+            }
+        },
+        "Object_31": {
+            "UUID": "dc6bbeea-7913-45e7-a3d4-8d504c3d323e",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_7",
+            "Translation": {
+                "value_X": "-34.679482",
+                "value_Y": "-41.835564",
+                "value_Z": "-0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_7"
+                }
+            }
+        },
+        "Object_32": {
+            "UUID": "77e45697-7671-47e0-a3b2-4963ab18cf28",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_0",
+            "Translation": {
+                "value_X": "-29.478403",
+                "value_Y": "21.014099",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_0"
+                }
+            }
+        },
+        "Object_33": {
+            "UUID": "bf5796c3-062c-4af1-a955-29cbcc912263",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_14",
+            "Translation": {
+                "value_X": "-32.361496",
+                "value_Y": "42.370422",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_14"
+                }
+            }
+        },
+        "Object_34": {
+            "UUID": "e94ecd37-e4f6-43e9-b861-8afa47d085f0",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_15",
+            "Translation": {
+                "value_X": "16.049517",
+                "value_Y": "-16.696884",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_15"
+                }
+            }
+        },
+        "Object_35": {
+            "UUID": "6f302f7b-e6fe-49ae-94cd-0956c1479a48",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_7",
+            "Translation": {
+                "value_X": "13.387990",
+                "value_Y": "-40.802517",
+                "value_Z": "-0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_7"
+                }
+            }
+        },
+        "Object_36": {
+            "UUID": "06ec4a2a-36a2-4c6f-a2f6-2dfb7cc82e2d",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_6",
+            "Translation": {
+                "value_X": "-31.216331",
+                "value_Y": "33.201576",
+                "value_Z": "0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_6"
+                }
+            }
+        },
+        "Object_37": {
+            "UUID": "b23acb45-9e01-4f54-9561-527ae59fea1a",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_16",
+            "Translation": {
+                "value_X": "-20.317694",
+                "value_Y": "-16.163609",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_16"
+                }
+            }
+        },
+        "Object_38": {
+            "UUID": "ea6d1a2e-52fa-4a04-a210-6cc3c4bc82a8",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_17",
+            "Translation": {
+                "value_X": "-41.649002",
+                "value_Y": "-16.495394",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_17"
+                }
+            }
+        },
+        "Object_39": {
+            "UUID": "2f2d84de-0465-459d-bac5-3a8126318d0e",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_7",
+            "Translation": {
+                "value_X": "-42.807240",
+                "value_Y": "-30.643888",
+                "value_Z": "-0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_7"
+                }
+            }
+        },
+        "Object_40": {
+            "UUID": "fd919fef-0a57-4454-bac8-efd0461a980c",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_7",
+            "Translation": {
+                "value_X": "-34.679482",
+                "value_Y": "-30.643888",
+                "value_Z": "-0.000001"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_7"
+                }
+            }
+        },
+        "Object_41": {
+            "UUID": "d8efc371-9893-460c-9f12-e9ddd3d8550b",
+            "Parent_UUID": "9428c3d8-461e-4182-b210-7fb90d4c17e4",
+            "Name": "street environment_v01_1",
+            "Translation": {
+                "value_X": "30.695278",
+                "value_Y": "21.612646",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Mesh_Path": "street environment_v01_1"
+                }
+            }
+        },
+        "Object_42": {
+            "UUID": "946b663d-8e15-45e9-b31f-dc2e00308d6c",
+            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_43": {
+            "UUID": "b07613c8-bde1-4d02-a589-16daa549f731",
+            "Parent_UUID": "946b663d-8e15-45e9-b31f-dc2e00308d6c",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_44": {
+            "UUID": "eed7988f-a0b9-4e8a-94e2-c9162d435028",
+            "Parent_UUID": "b07613c8-bde1-4d02-a589-16daa549f731",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_45": {
+            "UUID": "ae879a88-adcd-4cea-b90e-495b5af34e45",
+            "Parent_UUID": "eed7988f-a0b9-4e8a-94e2-c9162d435028",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_46": {
+            "UUID": "98303933-d45a-4436-b848-e85a058efc73",
+            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_47": {
+            "UUID": "78e6d3f3-1176-4c7a-afcc-b7aa5d875dff",
+            "Parent_UUID": "98303933-d45a-4436-b848-e85a058efc73",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_48": {
+            "UUID": "40ec51d7-35ca-42d1-82be-b17cb4f14db4",
+            "Parent_UUID": "78e6d3f3-1176-4c7a-afcc-b7aa5d875dff",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_49": {
+            "UUID": "5dff7462-9a89-498a-bcb0-e7f111ae01d0",
+            "Parent_UUID": "40ec51d7-35ca-42d1-82be-b17cb4f14db4",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_50": {
+            "UUID": "88d4c8a4-bbf4-44ec-b770-b488b757eb2c",
+            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_51": {
+            "UUID": "4f037ce5-a2d3-456a-9599-3b31886d491f",
+            "Parent_UUID": "88d4c8a4-bbf4-44ec-b770-b488b757eb2c",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_52": {
+            "UUID": "e0e85ea6-6eb7-45a1-b3c1-ccd821260217",
+            "Parent_UUID": "4f037ce5-a2d3-456a-9599-3b31886d491f",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_53": {
+            "UUID": "a8de9702-77ea-45df-a5b4-b2c414482990",
+            "Parent_UUID": "e0e85ea6-6eb7-45a1-b3c1-ccd821260217",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_54": {
+            "UUID": "01a5b2c5-b874-4d31-a8f5-7d1aa36a918f",
+            "Parent_UUID": "a8de9702-77ea-45df-a5b4-b2c414482990",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_55": {
+            "UUID": "c0f5111d-6f90-4e70-8425-ff75665c9105",
+            "Parent_UUID": "4f0e8e76-203f-43b9-8f59-d6c71fd69993",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_56": {
+            "UUID": "4712190c-8581-4379-b3c6-3463f6802825",
+            "Parent_UUID": "c0f5111d-6f90-4e70-8425-ff75665c9105",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_57": {
+            "UUID": "3d0f8528-f793-48b6-8ec9-9d6f76d3b81d",
+            "Parent_UUID": "4712190c-8581-4379-b3c6-3463f6802825",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_58": {
+            "UUID": "c3a4d70b-37d3-4023-89c5-f60992f315f4",
+            "Parent_UUID": "3d0f8528-f793-48b6-8ec9-9d6f76d3b81d",
+            "Name": "",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",

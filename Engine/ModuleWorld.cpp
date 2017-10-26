@@ -31,8 +31,7 @@ bool ModuleWorld::Start() {
 	CreateObject();
 	obj_vector[0]->AddComponentTransform();
 	obj_vector[0]->AddComponentCamera();
-
-
+	
 	return true;
 }
 
@@ -127,22 +126,68 @@ void ModuleWorld::LoadScene() {
 	if (scene_data.LoadJSON("Scene.json")) {
 		scene_data.EnterSection("GameObjects");
 		while (scene_data.EnterSection("Object_"+ std::to_string(i++))) {
-			GameObject* go = new GameObject();
+			UUID test_id;
+			UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &test_id);
 
-			//TEST IF THERES AN OBJECT WITH THIS UUID
-			UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &go->obj_uuid);
-			go->SetName(scene_data.GetString("Name"));
+			bool exists = false;
+			std::vector<std::pair<GameObject*, UUID>>::iterator item = uuid_vect.begin();
+			while (item != uuid_vect.end()) {
+				if ((*item).second == test_id)
+					exists = true;
+				item++;
+			}
+			if (!exists) {
+				GameObject* go = new GameObject();
 
-			float3 trans = scene_data.GetVector3f("Translation");
-			float4 rot = scene_data.GetVector4f("Rotation");
-			float3 scale = scene_data.GetVector3f("Scale");
+				//TEST IF THERES AN OBJECT WITH THIS UUID
+				UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &go->obj_uuid);
+				UuidFromStringA((RPC_CSTR)scene_data.GetString("Parent UUID").c_str(), &go->parent_uuid);
 
-			go->AddComponentTransform(trans,rot,scale);
+				go->SetName(scene_data.GetString("Name"));
 
-			App->world->obj_vector.push_back(go);
+				float3 trans = scene_data.GetVector3f("Translation");
+				float4 rot = scene_data.GetVector4f("Rotation");
+				float3 scale = scene_data.GetVector3f("Scale");
+
+				go->AddComponentTransform(trans, rot, scale);
+
+				std::pair<GameObject*, UUID> temp_pair;
+				temp_pair.first = go;
+				temp_pair.second = go->obj_uuid;
+				App->world->uuid_vect.push_back(temp_pair);
+
+				//App->world->obj_vector.push_back(go);
+			}
+		}
+		
+	}
+	RPC_STATUS stat;
+	UUID nil;
+	UuidCreateNil(&nil);
+	std::vector<std::pair<GameObject*, UUID>>::iterator item = uuid_vect.begin();
+	while (item != uuid_vect.end()) {		
+		UUID cmp = (*item).second;
+		
+		if((*item).first->parent_uuid == nil){
+			App->world->obj_vector.push_back((*item).first);			
+		}
+		else {
+			std::vector<std::pair<GameObject*, UUID>>::iterator item2 = uuid_vect.begin();
+			while (item2 != uuid_vect.end()) {
+				if ((*item).first->parent_uuid == (*item2).second) {
+					(*item2).first->obj_childs.push_back((*item).first);
+					(*item).first->obj_parent = (*item2).first;
+				}
+
+				item2++;
+			}
 		}
 
+		item++;
 	}
+
+	//Create Hierarchy
+	
 
 }
 
@@ -167,6 +212,12 @@ void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data, i
 		data->AddString("UUID", str);	
 		if ((*item)->obj_parent != nullptr) {
 			UuidToStringA(&(*item)->obj_parent->obj_uuid, (RPC_CSTR*)&str);
+			data->AddString("Parent UUID", str);
+		}
+		else {
+			//PROBABLY WOULD CHANGE THIS
+			UuidCreateNil(&(*item)->parent_uuid);////
+			UuidToStringA(&(*item)->parent_uuid, (RPC_CSTR*)&str);
 			data->AddString("Parent UUID", str);
 		}
 		data->AddString("Name",(*item)->GetName());

@@ -51,7 +51,8 @@ public:
 	std::vector<GameObject*> obj_vector;
 	
 	Quadtree quadtree;
-
+	std::vector<std::pair<GameObject*, UUID>> uuid_vect;
 private:
 	GameObject* selected_object = nullptr;
+	
 };

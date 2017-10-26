@@ -96,6 +96,7 @@ public:
 
 	void SetName(std::string name) {
 		obj_name = name;
+		
 	};
 
 private:
@@ -113,7 +114,7 @@ private:
 public:
 	//HIERARCHY
 	UUID obj_uuid;
-
+	UUID parent_uuid;
 	std::vector<GameObject*> obj_childs;
 	GameObject* obj_parent;
 	std::vector<Component*> obj_components;

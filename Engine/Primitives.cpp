@@ -207,6 +207,12 @@ int CreateObject()
 {
 	GameObject* new_object = new GameObject();
 	UuidCreate(&new_object->obj_uuid);
+
+	std::pair<GameObject*, UUID> temp_pair;
+	temp_pair.first = new_object;
+	temp_pair.second = new_object->obj_uuid;
+	App->world->uuid_vect.push_back(temp_pair);
+
 	App->world->obj_vector.push_back(new_object);
 	
 	return 0;
@@ -216,6 +222,12 @@ void CreateObject(GameObject* obj)
 	GameObject* new_object = new GameObject();
 	new_object = obj;
 	UuidCreate(&new_object->obj_uuid);
+
+	std::pair<GameObject*, UUID> temp_pair;
+	temp_pair.first = new_object;
+	temp_pair.second = new_object->obj_uuid;
+	App->world->uuid_vect.push_back(temp_pair);
+
 	if (new_object->obj_parent!= nullptr) {
 		new_object->obj_parent->obj_childs.push_back(new_object);
 	}
