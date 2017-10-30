@@ -14,7 +14,7 @@ public:
 
 	void UpdateComponent();
 	void SaveComponentScene(Data* data) {};
-
+	void ShowInspectorComponents();
 
 public: 
 	Frustum cam_frustum;

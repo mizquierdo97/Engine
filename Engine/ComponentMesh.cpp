@@ -19,7 +19,7 @@ void ComponentMesh::UpdateComponent()
 	bb_mesh = UpdateAABB(bb_mesh, transformed_bounding_box);
 	GetParent()->SetGlobalBox(transformed_bounding_box);
 	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
-	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box)) {
+	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) || !active_camera->frustum_culling) {
 		if (App->renderer3D->render_fill) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			App->renderer3D->Render(this);

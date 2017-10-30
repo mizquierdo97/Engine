@@ -22,5 +22,5 @@ public:
 	float3 scale;
 	Quat rotation;
 	float4x4 matrix = float4x4::identity;
-	bool header_open;
+	
 };

@@ -23,13 +23,8 @@ ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameOb
 
 void ComponentTransform::UpdateComponent()
 {
-	if (GetParent()->obj_parent != nullptr) {
-		
-		
-		matrix.Decompose(translation, rotation, scale);
-	
-
-		
+	if (GetParent()->obj_parent != nullptr) {		
+		matrix.Decompose(translation, rotation, scale);	
 	}
 	else {
 	

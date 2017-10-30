@@ -52,5 +52,6 @@ private:
 	bool enabled;
 	GameObject* parent;
 
-	
+protected:
+	bool header_open;
 };

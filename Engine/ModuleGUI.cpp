@@ -11,6 +11,8 @@
 #include "ComponentMaterial.h"
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
+#include "ComponentCamera.h"
+
 struct ExampleAppConsole;
 
 ModuleGUI::ModuleGUI( bool start_enabled) : Module( start_enabled)
@@ -342,6 +344,11 @@ void ModuleGUI::Assets()
 				case transform: {
 					ComponentTransform* temp_trans = (ComponentTransform*)(*item);
 					temp_trans->ShowInspectorComponents();
+					break;
+				}
+				case camera: {
+					ComponentCamera* temp_cam = (ComponentCamera*)(*item);
+					temp_cam->ShowInspectorComponents();
 					break;
 				}
 				}
