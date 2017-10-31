@@ -88,7 +88,7 @@ void ModuleWorld::FileDropped()
 		App->assimp->ImportMesh(path.c_str());
 
 	else if (!strcmp((char*)temp.c_str(), "png") || !strcmp((char*)temp.c_str(), "jpg"))
-		App->gui->path_list->push_back(path);
+		App->gui->path_list.push_back(path);
 
 	App->input->file_dropped = false;
 }

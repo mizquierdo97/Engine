@@ -51,7 +51,7 @@ void FileSystem::InitFileSystem()
 
 		//SWITCH
 		if (!strcmp(file_extension.c_str(), "fbx")) {
-			App->assimp->ImportMesh(str.c_str());
+			//App->assimp->ImportMesh(str.c_str());
 		}
 
 		//
@@ -98,8 +98,8 @@ const char* FileSystem::ImportImage(const char* path)
 				final_name += "image"; final_name += ".dds";
 				pFile = fopen(final_name.c_str(), "wb");
 				fwrite(data, sizeof(char), size, pFile);
-				fclose(pFile);
-				App->gui->path_list->push_back(final_name);
+				fclose(pFile);			
+				App->gui->path_list.push_back(final_name);
 			}
 				//ret = App->fs->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, "texture", "dds");
 

@@ -95,7 +95,7 @@ bool ModuleGUI::Init()
 bool ModuleGUI::Start()
 {
 	
-	path_list = new std::list<std::string>;
+	
 
 	App->filesystem->ImportImage("png_icon.png");
 	App->renderer3D->loadTextureFromFile("png_icon.png", &png_tex,false);
@@ -276,6 +276,10 @@ update_status ModuleGUI::PostUpdate(float dt)
 bool ModuleGUI::CleanUp()
 {
 	ImGui::SaveDocks();
+	path_list.clear();
+	delete png_tex;
+	delete fbx_tex;
+	
 	return false;
 }
 
@@ -285,9 +289,9 @@ void ModuleGUI::Assets()
 	
 	if (ImGui::BeginDock("Assets", false, false)) {
 		ImTextureID tex_id = App->renderer3D->tex;
-		std::list<std::string>::iterator item = path_list->begin();
+		std::list<std::string>::iterator item = path_list.begin();
 		int i = 0;
-		while (item != path_list->end())
+		while (item != path_list.end())
 		{
 			ImGui::PushID(i);
 			int frame_padding = 1;
@@ -400,9 +404,9 @@ void ModuleGUI::Assets()
 }
  void ModuleGUI::ShowTextureMenu(ComponentMaterial * comp)
  {
-	 std::list<std::string>::iterator item = path_list->begin();
+	 std::list<std::string>::iterator item = path_list.begin();
 	 int i = 0;
-	 while (item != path_list->end())
+	 while (item != path_list.end())
 	 {
 		 ImGui::PushID(i);
 		 int frame_padding = 1;

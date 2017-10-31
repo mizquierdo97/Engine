@@ -65,7 +65,7 @@ public:
 		
 public:
 	ExampleAppConsole console;
-	std::list<std::string>* path_list;
+	std::list<std::string> path_list;
 	bool show_normals = false;
 	
 

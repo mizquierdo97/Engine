@@ -158,7 +158,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 	pFile = fopen(final_name.c_str(), "wb");
 	fwrite(data, sizeof(char), size, pFile);
 	fclose(pFile);
-	App->gui->path_list->push_back(final_name);
+	App->gui->path_list.push_back(final_name);
 
 	if (data != nullptr)
 		delete[] data;

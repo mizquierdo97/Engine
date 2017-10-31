@@ -1176,9 +1176,7 @@ namespace ImGui {
 		Dock* getDockByIndex(int idx) { return idx < 0 ? nullptr : m_docks[(int)idx]; }
 		
 		void load()
-		{
-
-		
+		{	
 
 			for (int i = 0; i < m_docks.size(); ++i)
 			{
@@ -1255,6 +1253,7 @@ namespace ImGui {
 			delete g_dock.m_docks[i];
 		}
 		g_dock.m_docks.clear();
+		
 	}
 
 	void SetNextDock(ImGuiDockSlot slot) {
