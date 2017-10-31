@@ -1197,7 +1197,7 @@ namespace ImGui {
 					m_docks.push_back(new_dock);
 				}
 				
-				for (int i = 0; i < docksCount;++i) {
+				for (int i = 0; i < docksCount;i++) {
 
 					
 					data.EnterSection("Dock_" + std::to_string(i));

@@ -249,10 +249,35 @@ bool Data::EnterSection(std::string sectionName)
 	bool ret = false;
 	getting_from_section = true;
 
-	std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index, data_names.end(), "Section_Close");
+	std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index+1, data_names.end(), "Section_Close");
 	std::vector<std::string>::iterator it = find(data_names.begin() + current_index, data_names.end(), sectionName);
 
-	if (close_it <= it)
+	
+	int num_sections = 0;
+	int l_index = 0;
+	if (last_index.size()) {
+		l_index = last_index.back()+1;
+	}
+	int n = l_index;
+	std::vector<std::string>::iterator item = it;
+	while (num_sections>=0) {
+		
+		if (!strcmp(data_values[n].c_str(), "Section")) {
+			num_sections++;
+		}
+
+		if (!strcmp(data_names[n].c_str(), "Section_Close")) {
+			num_sections--;
+		}
+		if(num_sections>=0)
+		n++;
+	}
+	item = data_names.begin()+ n;
+	int close = item - data_names.begin();
+
+	int open = it - data_names.begin();
+	//int close = close_it - data_names.begin();
+	if (close < open || open < l_index)
 		return false;
 	if (it != data_names.end()) {
 		int index = it - data_names.begin();
@@ -282,11 +307,12 @@ bool Data::EnterSection(std::string sectionName)
 						is_vector = false;
 					}
 				}
-				else if (internalSectionsOpen < 2) {
+				
 					in_section_values.push_back(data_values[i]);
 					in_section_names.push_back(data_names[i]);
-				}
+				
 			}
+			//current_index++;
 			ret = true;
 		}
 	}
@@ -297,29 +323,46 @@ void Data::LeaveSection() {
 	in_section_values.clear();
 	in_section_names.clear();
 	sections_open--;
+	if (!last_index.empty() && !last_index_name.empty()) {
+		last_index.pop_back();
+		last_index_name.pop_back();
+	}
 	if (sections_open == 0) {
 		getting_from_section = false;
 	}
 	else {
-		if (!last_index.empty() && !last_index_name.empty()) {
-			last_index.pop_back();
-			last_index_name.pop_back();
-			current_index = last_index.back();
-			EnterSection(last_index_name.back());
+		
+			//current_index = last_index.back();
+			//EnterSection(last_index_name.back());
 			//remove again because we are adding those during "EnterSection"
-			last_index.pop_back();
-			last_index_name.pop_back();
-			sections_open--;
+			//last_index.pop_back();
+			//last_index_name.pop_back();
+			//sections_open--;
 		}
-	}
+	
 	MoveIndex();
 	
 }
 
 void Data::MoveIndex()
 {
-	std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index, data_names.end(), "Section_Close");
-	current_index = (close_it - data_names.begin()) + 1;
+	/*if (current_index + 1 <= data_names.size()) {
+		std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index + 1, data_names.end(), "Section_Close");
+		std::vector<std::string>::iterator open_it = find(data_values.begin() + current_index, data_values.end(), "Section");
+
+		int open = open_it - data_values.begin();
+		int close = close_it - data_names.begin();
+		if (open > close) {
+			current_index = (close_it - data_names.begin());
+			MoveIndex();
+		}
+		else {
+			current_index = (close_it - data_names.begin());
+		}
+	}
+
+	else
+		int x = 0;*/
 }
 
 void Data::CloseSection()
@@ -495,7 +538,7 @@ ImVec2 Data::GetVector2(std::string valueName)
 		ret.x = -1.0f;
 		ret.y = -1.0f;
 	}
-	MoveIndex();
+	
 	return ret;
 }
 
@@ -528,7 +571,7 @@ ImVec3 Data::GetVector3(std::string valueName)
 		ret.y = -1.0f;
 		ret.z = -1.0f;
 	}
-	MoveIndex();
+	
 	return ret;
 }
 
@@ -563,7 +606,7 @@ ImVec4 Data::GetVector4(std::string valueName)
 		ret.z = -1.0f;
 		ret.w = -1.0f;
 	}
-	MoveIndex();
+	
 	return ret;
 }
 
@@ -594,7 +637,7 @@ float2 Data::GetVector2f(std::string valueName)
 		ret.x = -1.0f;
 		ret.y = -1.0f;
 	}
-	MoveIndex();
+	
 	return ret;
 }
 
@@ -627,7 +670,7 @@ float3 Data::GetVector3f(std::string valueName)
 		ret.y = -1.0f;
 		ret.z = -1.0f;
 	}
-	MoveIndex();
+	
 	return ret;
 }
 
@@ -662,7 +705,7 @@ float4 Data::GetVector4f(std::string valueName)
 		ret.z = -1.0f;
 		ret.w = -1.0f;
 	}
-	MoveIndex();
+
 	return ret;
 }
 
