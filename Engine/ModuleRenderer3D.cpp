@@ -442,7 +442,7 @@ bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GL
 
 	if (tex != nullptr) {
 		LOG("Deleted Last Texture");
-		delete tex;
+		RELEASE(tex);
 	}
 
 	

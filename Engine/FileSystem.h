@@ -10,7 +10,7 @@ public:
 		mesh_importer = new MeshImporter();
 	}
 	~FileSystem() {
-		//delete mesh_importer;
+		RELEASE(mesh_importer);
 	}
 
 	void InitFileSystem();	

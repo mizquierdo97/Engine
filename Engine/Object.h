@@ -32,7 +32,7 @@ class GameObject {
 
 public:
 	GameObject() {
-		obj_name = new char[3];
+		
 		//obj_name = "%i";
 		obj_parent = nullptr;
 		local_bbox.SetNegativeInfinity();
@@ -42,6 +42,21 @@ public:
 
 	}
 	~GameObject() {
+
+		std::vector<GameObject*>::iterator item = obj_childs.begin();
+		while (item != obj_childs.end()) {
+			RELEASE((*item));
+			item++;
+		}
+		obj_childs.clear();
+
+		std::vector<Component*>::iterator item_comp = obj_components.begin();
+		while (item_comp != obj_components.end()) {
+			RELEASE((*item_comp));
+			item_comp++;
+		}
+		obj_components.clear();
+
 
 	}
 

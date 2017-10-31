@@ -13,7 +13,7 @@ class ComponentMaterial :public Component {
 			comp_type = ComponentType::material;
 		};
 		~ComponentMaterial() {
-			delete obj_tex;
+			RELEASE(obj_tex);
 		};
 
 		void UpdateComponent();

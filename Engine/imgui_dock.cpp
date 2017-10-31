@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------------------------------------------------------
 
 #include "imgui_dock.h"
+#include "Globals.h"
 #include "Data.h"
 #include <string>
 
@@ -234,7 +235,7 @@ namespace ImGui {
 				if (m_docks[i]->id == id) return *m_docks[i];
 			}
 
-			Dock* new_dock = (Dock*)MemAlloc(sizeof(Dock));
+			Dock* new_dock = new Dock();
 			IM_PLACEMENT_NEW(new_dock) Dock();
 			m_docks.push_back(new_dock);
 			new_dock->label = ImStrdup(label);
@@ -668,7 +669,7 @@ namespace ImGui {
 					if (container == m_next_parent)
 						m_next_parent = NULL;
 					container->~Dock();
-					MemFree(container);
+					RELEASE(container);
 				}
 			}
 			if (dock.prev_tab) dock.prev_tab->next_tab = dock.next_tab;
@@ -872,7 +873,7 @@ namespace ImGui {
 			}
 			else
 			{
-				Dock* container = (Dock*)MemAlloc(sizeof(Dock));
+				Dock* container = new Dock();
 				IM_PLACEMENT_NEW(container) Dock();
 				m_docks.push_back(container);
 				container->children[0] = &dest->getFirstTab();
@@ -1250,7 +1251,7 @@ namespace ImGui {
 		{
 			//g_dock.m_docks[i]->~Dock();
 			//MemFree(g_dock.m_docks[i]);
-			delete g_dock.m_docks[i];
+			RELEASE(g_dock.m_docks[i]);
 		}
 		g_dock.m_docks.clear();
 		

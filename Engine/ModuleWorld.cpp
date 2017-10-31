@@ -69,7 +69,18 @@ update_status ModuleWorld::PostUpdate(float dt)
 
 bool ModuleWorld::CleanUp()
 {
-	delete world_texture;
+
+	std::vector<GameObject*>::iterator item = obj_vector.begin();	
+	while (item != obj_vector.end()) {
+		RELEASE((*item));
+		item++;
+	}
+	obj_vector.clear();
+
+	
+	uuid_vect.clear();
+	
+	RELEASE(world_texture);
 	return true;
 }
 

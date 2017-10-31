@@ -214,6 +214,7 @@ int CreateObject()
 	App->world->uuid_vect.push_back(temp_pair);
 
 	App->world->obj_vector.push_back(new_object);
+
 	
 	return 0;
 }

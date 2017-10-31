@@ -38,7 +38,7 @@ void MeshImporter::LoadMesh(const char * path)
 	// amount of indices / vertices / colors / normals / texture_coords
 	RecursiveLoad(&cursor, nullptr);
 
-	delete[] buffer;
+	RELEASE_ARRAY(buffer);
 
 }
 
@@ -84,7 +84,7 @@ Mesh MeshImporter::LoadComponentMesh(char* name, uint* ranges)
 	//strcpy(m.mesh_path, temp_name.c_str());
 	m.mesh_path = (char*)temp_name.c_str();
 	GenGLBuffers(&m);
-	delete[] buffer;
+	RELEASE_ARRAY(buffer);
 	return m;
 
 }
@@ -161,7 +161,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 	App->gui->path_list.push_back(final_name);
 
 	if (data != nullptr)
-		delete[] data;
+		RELEASE_ARRAY(data);
 
 	for (int i = 0; i < scene->mNumMeshes; i++) {
 
@@ -193,7 +193,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 			itoa(i, num, 10);
 			strcat(mesh_name, "_");
 			strcat(mesh_name, num);
-			delete[] num;
+			RELEASE_ARRAY(num);
 		
 
 
@@ -228,7 +228,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 			bytes = sizeof(float) * m->mNumVertices * 2;
 			memcpy(cursor, texture_coords, bytes);
 			cursor += bytes;
-			delete[] texture_coords;
+			RELEASE_ARRAY(texture_coords);
 		}
 
 		if (m->HasNormals()) {
@@ -247,9 +247,9 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 		fwrite(data_mesh, sizeof(char), size, pFile);
 		fclose(pFile);
 
-		delete[] indices;
+		RELEASE_ARRAY(indices);
 		if (data_mesh != nullptr)
-			delete[] data_mesh;
+			RELEASE_ARRAY(data_mesh);
 	}
 }
 
@@ -294,7 +294,7 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 				itoa(root->mMeshes[num_mesh], num, 10);
 				strcat(mesh_name, "_");
 				strcat(mesh_name, num);
-				delete[] num;
+				RELEASE_ARRAY(num);
 		
 
 			root->mTransformation.Decompose(scaling, rotation, translation);
@@ -463,7 +463,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			//strcpy(m.mesh_path, temp_name.c_str());
 			m.mesh_path = (char*)temp_name.c_str();
 			GenGLBuffers(&m);
-			delete[] buffer;
+			RELEASE_ARRAY(buffer);
 
 		}
 	
@@ -483,12 +483,12 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 		CreateObject(temp_obj);
 		//FREE MEMORY
-		delete[] name;
-		delete[] m.indices;
-		delete[] m.vertexs;
-		delete[] m.norms;
-		delete[] m.texture_coords;
-		delete temp;
+		RELEASE_ARRAY( name);
+		RELEASE_ARRAY( m.indices);
+		RELEASE_ARRAY( m.vertexs);
+		RELEASE_ARRAY( m.norms);
+		RELEASE_ARRAY( m.texture_coords);
+		RELEASE(temp);
 
 
 		/*if (parent != nullptr) {

@@ -53,7 +53,7 @@ Application::~Application()
 	while (item != list_modules.begin())
 	{
 		item--;
-		delete (*item);
+		RELEASE(*item);
 		
 	}
 }
@@ -172,15 +172,15 @@ bool Application::CleanUp()
 	{
 		
 		ret = (*item)->CleanUp();
-		delete (*item)->module_timer;
+		RELEASE((*item)->module_timer);
 		
 		item++;
 		
 	}
 
 	config->Save();	
-	delete config;
-	delete filesystem;
+	RELEASE(config);
+	RELEASE(filesystem);
 	return ret;
 }
 

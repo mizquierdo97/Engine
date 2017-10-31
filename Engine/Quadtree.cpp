@@ -170,7 +170,7 @@ void Quadtree::Erase(GameObject * go)
 
 void Quadtree::Clear()
 {
-	//RELEASE(root);
+	RELEASE(root);
 }
 
 void Quadtree::CollectBoxes(std::vector<const QuadtreeNode*>& nodes) const

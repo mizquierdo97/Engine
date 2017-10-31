@@ -277,8 +277,8 @@ bool ModuleGUI::CleanUp()
 {
 	ImGui::SaveDocks();
 	path_list.clear();
-	delete png_tex;
-	delete fbx_tex;
+	RELEASE(png_tex);
+	RELEASE(fbx_tex);
 	
 	return false;
 }

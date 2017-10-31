@@ -84,7 +84,7 @@ int main(int argc, char ** argv)
 		}
 	}
 
-	delete App;
+	RELEASE(App);
 	
 	return main_return;
 }
