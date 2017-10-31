@@ -125,7 +125,12 @@ bool Data::LoadJSON(std::string path)
 			std::string nodeValue;
 			if (archive.isObject()) {
 				if (archive.isEmptyObject()) {
+					nodeName = archive.getNodeName();
+					data_names.push_back(nodeName);
+					data_values.push_back("Section");
 					archive.startNode();
+					data_names.push_back("Section_Close");
+					data_values.push_back("");					
 					archive.finishNode();
 					continue;
 				}
@@ -243,7 +248,12 @@ bool Data::EnterSection(std::string sectionName)
 {
 	bool ret = false;
 	getting_from_section = true;
+
+	std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index, data_names.end(), "Section_Close");
 	std::vector<std::string>::iterator it = find(data_names.begin() + current_index, data_names.end(), sectionName);
+
+	if (close_it <= it)
+		return false;
 	if (it != data_names.end()) {
 		int index = it - data_names.begin();
 		if (data_values[index] == "Section") {
@@ -302,6 +312,14 @@ void Data::LeaveSection() {
 			sections_open--;
 		}
 	}
+	MoveIndex();
+	
+}
+
+void Data::MoveIndex()
+{
+	std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index, data_names.end(), "Section_Close");
+	current_index = (close_it - data_names.begin()) + 1;
 }
 
 void Data::CloseSection()
@@ -446,6 +464,7 @@ std::string Data::GetString(std::string valueName)
 		int index = it - vec_names.begin();
 		return vec_values[index];
 	}
+	
 	return "value not found";
 }
 
@@ -476,6 +495,7 @@ ImVec2 Data::GetVector2(std::string valueName)
 		ret.x = -1.0f;
 		ret.y = -1.0f;
 	}
+	MoveIndex();
 	return ret;
 }
 
@@ -508,6 +528,7 @@ ImVec3 Data::GetVector3(std::string valueName)
 		ret.y = -1.0f;
 		ret.z = -1.0f;
 	}
+	MoveIndex();
 	return ret;
 }
 
@@ -542,6 +563,7 @@ ImVec4 Data::GetVector4(std::string valueName)
 		ret.z = -1.0f;
 		ret.w = -1.0f;
 	}
+	MoveIndex();
 	return ret;
 }
 
@@ -572,6 +594,7 @@ float2 Data::GetVector2f(std::string valueName)
 		ret.x = -1.0f;
 		ret.y = -1.0f;
 	}
+	MoveIndex();
 	return ret;
 }
 
@@ -604,6 +627,7 @@ float3 Data::GetVector3f(std::string valueName)
 		ret.y = -1.0f;
 		ret.z = -1.0f;
 	}
+	MoveIndex();
 	return ret;
 }
 
@@ -638,6 +662,7 @@ float4 Data::GetVector4f(std::string valueName)
 		ret.z = -1.0f;
 		ret.w = -1.0f;
 	}
+	MoveIndex();
 	return ret;
 }
 

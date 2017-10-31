@@ -166,14 +166,13 @@ void ModuleWorld::LoadScene() {
 
 						scene_data.LeaveSection();
 					}
-
-
 					scene_data.LeaveSection();
 				}
 				//App->world->obj_vector.push_back(go);
 			}
 			scene_data.LeaveSection();
 		}
+		scene_data.LeaveSection();
 		
 	}
 	RPC_STATUS stat;
