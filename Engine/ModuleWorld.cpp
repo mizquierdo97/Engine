@@ -85,7 +85,7 @@ void ModuleWorld::FileDropped()
 
 
 	if (!strcmp((char*)temp.c_str(), "fbx"))
-		App->assimp->ImportMesh((char*)path.c_str());
+		App->assimp->ImportMesh(path.c_str());
 
 	else if (!strcmp((char*)temp.c_str(), "png") || !strcmp((char*)temp.c_str(), "jpg"))
 		App->gui->path_list->push_back(path);

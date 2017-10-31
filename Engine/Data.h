@@ -31,7 +31,7 @@ public:
 	void CloseSection();
 	bool EnterSection(std::string sectionName);
 	void LeaveSection();
-	void MoveIndex();
+	int GetLastIndex(int n);
 
 	bool GetBool(std::string valueName);
 	int GetInt(std::string valueName);

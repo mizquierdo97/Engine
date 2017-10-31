@@ -18,6 +18,7 @@ class ComponentMaterial :public Component {
 
 		void UpdateComponent();
 		void SaveComponentScene(Data* data) {};
+		void ShowInspectorComponents();
 
 public:
 	Texture* obj_tex;

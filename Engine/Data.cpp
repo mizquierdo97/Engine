@@ -251,34 +251,22 @@ bool Data::EnterSection(std::string sectionName)
 
 	std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index+1, data_names.end(), "Section_Close");
 	std::vector<std::string>::iterator it = find(data_names.begin() + current_index, data_names.end(), sectionName);
-
-	
-	int num_sections = 0;
-	int l_index = 0;
-	if (last_index.size()) {
-		l_index = last_index.back()+1;
-	}
-	int n = l_index;
-	std::vector<std::string>::iterator item = it;
-	while (num_sections>=0) {
 		
-		if (!strcmp(data_values[n].c_str(), "Section")) {
-			num_sections++;
-		}
-
-		if (!strcmp(data_names[n].c_str(), "Section_Close")) {
-			num_sections--;
-		}
-		if(num_sections>=0)
-		n++;
+	
+	int first_index = 0;
+	if (last_index.size()) {
+		first_index = last_index.back()+1;
 	}
-	item = data_names.begin()+ n;
-	int close = item - data_names.begin();
+	int close_index = first_index;
 
-	int open = it - data_names.begin();
-	//int close = close_it - data_names.begin();
-	if (close < open || open < l_index)
+	close_index = GetLastIndex(close_index);
+		
+	int index = it - data_names.begin();
+
+
+	if (close_index < index || index < first_index)
 		return false;
+
 	if (it != data_names.end()) {
 		int index = it - data_names.begin();
 		if (data_values[index] == "Section") {
@@ -330,39 +318,28 @@ void Data::LeaveSection() {
 	if (sections_open == 0) {
 		getting_from_section = false;
 	}
-	else {
-		
-			//current_index = last_index.back();
-			//EnterSection(last_index_name.back());
-			//remove again because we are adding those during "EnterSection"
-			//last_index.pop_back();
-			//last_index_name.pop_back();
-			//sections_open--;
-		}
+
 	
-	MoveIndex();
 	
 }
 
-void Data::MoveIndex()
+
+int Data::GetLastIndex(int n)
 {
-	/*if (current_index + 1 <= data_names.size()) {
-		std::vector<std::string>::iterator close_it = find(data_names.begin() + current_index + 1, data_names.end(), "Section_Close");
-		std::vector<std::string>::iterator open_it = find(data_values.begin() + current_index, data_values.end(), "Section");
+	int num_sections = 0;
+	while (num_sections >= 0) {
 
-		int open = open_it - data_values.begin();
-		int close = close_it - data_names.begin();
-		if (open > close) {
-			current_index = (close_it - data_names.begin());
-			MoveIndex();
+		if (!strcmp(data_values[n].c_str(), "Section")) {
+			num_sections++;
 		}
-		else {
-			current_index = (close_it - data_names.begin());
+
+		if (!strcmp(data_names[n].c_str(), "Section_Close")) {
+			num_sections--;
 		}
+		if (num_sections >= 0)
+			n++;
 	}
-
-	else
-		int x = 0;*/
+	return n;
 }
 
 void Data::CloseSection()

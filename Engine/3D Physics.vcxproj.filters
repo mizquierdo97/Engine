@@ -518,9 +518,6 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="log.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -726,6 +723,9 @@
       <Filter>Sources\Object\Components</Filter>
     </ClCompile>
     <ClCompile Include="Quadtree.cpp">
+      <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Globals.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>

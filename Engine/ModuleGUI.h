@@ -36,7 +36,8 @@ public:
 	}
 	void ShowConsole(bool* p_open);
 	void ShowHardware();
-    void showaddComponent();
+    void ShowAddComponent();
+	void ShowTextureMenu(ComponentMaterial*);
 	//
 
 	//

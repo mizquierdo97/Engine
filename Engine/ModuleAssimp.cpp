@@ -42,7 +42,7 @@ bool ModuleAssimp::CleanUp()
 	return true;
 }
 
-void ModuleAssimp::ImportMesh(char * path)
+void ModuleAssimp::ImportMesh(const char * path)
 {
 	
 

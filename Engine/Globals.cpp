@@ -18,3 +18,18 @@ void log(const char file[], int line, const char* format, ...)
 		App->gui->console.AddLog(tmp_string);
 	}
 }
+
+std::string GetExtension(std::string path) 
+{
+	std::string str_copy = path;
+	int length = 0;
+	while (path.back() != '.')
+	{
+		path.pop_back();
+		length++;
+	}
+
+	std::string file_extension = str_copy.substr(str_copy.length() - length, length);
+
+	return file_extension;
+}

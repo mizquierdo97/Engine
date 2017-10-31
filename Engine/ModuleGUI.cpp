@@ -282,9 +282,7 @@ bool ModuleGUI::CleanUp()
 
 void ModuleGUI::Assets()
 {
-
-
-
+	
 	if (ImGui::BeginDock("Assets", false, false)) {
 		ImTextureID tex_id = App->renderer3D->tex;
 		std::list<std::string>::iterator item = path_list->begin();
@@ -295,16 +293,16 @@ void ModuleGUI::Assets()
 			int frame_padding = 1;
 
 			std::string path = (*item);
-			std::string temp;
-			temp = path.substr(path.length() - 3, 3);
+			std::string file_extension = GetExtension(path);
+			
 
-			if (!strcmp((char*)temp.c_str(), "bin")) {
+			if (!strcmp((char*)file_extension.c_str(), "bin")) {
 				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding))
 					App->filesystem->mesh_importer->LoadMesh(path.c_str());
 			}
 
 
-			else if (!strcmp((char*)temp.c_str(), "dds") || !strcmp((char*)temp.c_str(), "jpg") || !strcmp((char*)temp.c_str(), "png"))
+			else if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
 			{
 				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
 					std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
@@ -363,7 +361,7 @@ void ModuleGUI::Assets()
 			ImGui::OpenPopup("AddComponent");
 		if (ImGui::BeginPopup("AddComponent"))
 		{
-			showaddComponent();
+			ShowAddComponent();
 			ImGui::EndPopup();
 		}
 
@@ -375,7 +373,7 @@ void ModuleGUI::Assets()
 }
 
 
- void ModuleGUI::showaddComponent()
+ void ModuleGUI::ShowAddComponent()
 {
 	 if (ImGui::MenuItem("Transformation"))
 	 {
@@ -389,7 +387,7 @@ void ModuleGUI::Assets()
 	}
 	if (ImGui::MenuItem("Material")) 
 	{
-		//Selected->AddComponentMaterial(Texture*);
+		App->world->GetSelectedObject()->AddComponentMaterial(App->world->world_texture);
 	}
 	if (ImGui::MenuItem("Camera"))
 	{
@@ -400,6 +398,35 @@ void ModuleGUI::Assets()
 	
 	
 }
+ void ModuleGUI::ShowTextureMenu(ComponentMaterial * comp)
+ {
+	 std::list<std::string>::iterator item = path_list->begin();
+	 int i = 0;
+	 while (item != path_list->end())
+	 {
+		 ImGui::PushID(i);
+		 int frame_padding = 1;
+
+		 std::string path = (*item);
+		 std::string file_extension = GetExtension(path);	
+
+		 if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
+		 {
+			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
+				 std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
+				 App->renderer3D->loadTextureFromFile("png_icon.png", &comp->obj_tex);
+
+			 }
+		 }
+			 ImGui::PopID();
+			 ImGui::SameLine();
+			 i++; item++;
+
+	 }
+
+ }
+
+
 void ModuleGUI::ShowConsole(bool * p_open)
 {
 		

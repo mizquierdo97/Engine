@@ -90,6 +90,7 @@ bool Application::Init()
 		item++;
 	}
 	
+	filesystem->InitFileSystem();
 	ms_timer.Start();
 	return ret;
 }

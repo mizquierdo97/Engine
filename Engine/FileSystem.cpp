@@ -5,7 +5,10 @@
 #include "ModuleAssimp.h"
 #include "Application.h"
 
+#include <iostream>
+#include <filesystem>
 
+namespace fs = std::experimental::filesystem;
 void FileSystem::InitFileSystem()
 {
 	if (CreateDirectory(ASSETS_PATH, NULL) ||
@@ -28,6 +31,36 @@ void FileSystem::InitFileSystem()
 	{
 
 	}
+
+
+	std::string path = ASSETS_PATH;
+	for (auto & p : fs::directory_iterator(path)) {	
+
+		//GET STRING
+		const wchar_t* temp = p.path().c_str();
+		std::wstring ws(temp);
+		std::string str(ws.begin(), ws.end());
+		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+		//
+
+		//GET EXTENSION
+
+		std::string file_extension = GetExtension(str);
+		
+		//
+
+		//SWITCH
+		if (!strcmp(file_extension.c_str(), "fbx")) {
+			App->assimp->ImportMesh(str.c_str());
+		}
+
+		//
+
+
+	}
+		
+
+
 }
 
 

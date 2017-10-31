@@ -54,7 +54,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void ImportMesh(char* path);
+	void ImportMesh(const char* path);
 
 public:
 	

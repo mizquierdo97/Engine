@@ -7,7 +7,6 @@ class FileSystem {
 
 public:
 	FileSystem() {
-		InitFileSystem();
 		mesh_importer = new MeshImporter();
 	}
 	~FileSystem() {
