@@ -75,9 +75,7 @@ bool ModuleWorld::CleanUp()
 		RELEASE((*item));
 		item++;
 	}
-	obj_vector.clear();
-
-	
+	obj_vector.clear();	
 	
 	uuid_vect.clear();
 	
@@ -175,6 +173,10 @@ void ModuleWorld::LoadScene() {
 						uint ranges[4] = { scene_data.GetUInt("Num Vertexs"),scene_data.GetUInt("Num Indices"),  scene_data.GetBool("Texture"), scene_data.GetBool("Norms") };
 						Mesh m = App->filesystem->mesh_importer->LoadComponentMesh((char*)scene_data.GetString("Mesh_Path").c_str(), &ranges[0]);
 						go->AddComponentMesh(m);
+						RELEASE_ARRAY(m.indices);
+						RELEASE_ARRAY(m.vertexs);
+						RELEASE_ARRAY(m.norms);
+						RELEASE_ARRAY(m.texture_coords);
 
 						scene_data.LeaveSection();
 					}
