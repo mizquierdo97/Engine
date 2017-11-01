@@ -2,7 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 
-#include "Primitive.h"
+
 #include <list>
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
@@ -26,12 +26,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	PhysBody3D* AddBody(const PSphere& sphere, float mass = 1.0f);
-	PhysBody3D* AddBody(const Cube& cube, float mass = 1.0f);
-	PhysBody3D* AddBody(const PCylinder& cylinder, float mass = 1.0f);
-	
-	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
-	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
+	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const float3& anchorA, const float3& anchorB);
+	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const float3& anchorA, const float3& anchorB, const float3& axisS, const float3& axisB, bool disable_collision = false);
 
 	btDiscreteDynamicsWorld*			world;
 
@@ -57,11 +53,14 @@ private:
 class DebugDrawer : public btIDebugDraw
 {
 public:
-	DebugDrawer() : line(0,0,0)
-	{}
+	DebugDrawer()
+	{
+		line.pos = float3(0, 0, 0);
+	};
 
 	void drawGrid(int grid_size);
-	void drawLine(const btVector3& from, const btVector3& to, const btVector3& color);
+	void drawLine(const btVector3& from, const btVector3& to, const btVector3& color) {};
+	void drawLine(float3 from, float3 to, float3 color);
 	void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color);
 	void reportErrorWarning(const char* warningString);
 	void draw3dText(const btVector3& location, const char* textString);
@@ -69,8 +68,8 @@ public:
 	int	 getDebugMode() const;
 
 	DebugDrawModes mode;
-	PLine line;
-
+	math::Line line;
+	
 
 	
 };

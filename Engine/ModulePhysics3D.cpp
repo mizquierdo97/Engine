@@ -2,8 +2,8 @@
 #include "Application.h"
 #include "ModulePhysics3D.h"
 #include "PhysBody3D.h"
-#include "glmath.h"
-#include "Primitive.h"
+#include "MathGeoLib.h"
+
 #include "ComponentMesh.h"
 #ifdef _DEBUG
 	#pragma comment (lib, "Bullet/libx86/BulletDynamics_debug.lib")
@@ -122,14 +122,7 @@ update_status ModulePhysics3D::Update(float dt)
 	{
 		world->debugDrawWorld();
 		
-		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		{
-			Cube s(1,1,1);
-			s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-			float force = 30.0f;
-			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
-			
-		}
+	
 	}
 
 	return UPDATE_CONTINUE;
@@ -187,90 +180,13 @@ bool ModulePhysics3D::CleanUp()
 }
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const PSphere& sphere, float mass)
-{
-	btCollisionShape* colShape = new btSphereShape(sphere.radius);
-	shapes.push_back(colShape);
-	
 
-	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&sphere.transform);
-
-	btVector3 localInertia(0, 0, 0);
-	if(mass != 0.f)
-		colShape->calculateLocalInertia(mass, localInertia);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	motions.push_back(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-
-	btRigidBody* body = new btRigidBody(rbInfo);
-	PhysBody3D* pbody = new PhysBody3D(body);
-
-	world->addRigidBody(body);
-	bodies.push_back(pbody);
-
-	return pbody;
-}
-
-
-// ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
-{
-	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x*0.5f, cube.size.y*0.5f, cube.size.z*0.5f));
-	shapes.push_back(colShape);
-
-	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&cube.transform);
-
-	btVector3 localInertia(0, 0, 0);
-	if(mass != 0.f)
-		colShape->calculateLocalInertia(mass, localInertia);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	motions.push_back(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-
-	btRigidBody* body = new btRigidBody(rbInfo);
-	PhysBody3D* pbody = new PhysBody3D(body);
-
-	world->addRigidBody(body);
-	bodies.push_back(pbody);
-
-	return pbody;
-}
-
-// ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const PCylinder& cylinder, float mass)
-{
-	btCollisionShape* colShape = new btCylinderShapeX(btVector3(cylinder.height*0.5f, cylinder.radius, 0.0f));
-	shapes.push_back(colShape);
-
-	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&cylinder.transform);
-
-	btVector3 localInertia(0, 0, 0);
-	if(mass != 0.f)
-		colShape->calculateLocalInertia(mass, localInertia);
-
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	motions.push_back(myMotionState);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-
-	btRigidBody* body = new btRigidBody(rbInfo);
-	PhysBody3D* pbody = new PhysBody3D(body);
-
-	world->addRigidBody(body);
-	bodies.push_back(pbody);
-
-	return pbody;
-}
 
 // ---------------------------------------------------------
 
 
 // ---------------------------------------------------------
-void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB)
+void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const float3& anchorA, const float3& anchorB)
 {
 	btTypedConstraint* p2p = new btPoint2PointConstraint(
 		*(bodyA.body), 
@@ -282,7 +198,7 @@ void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, con
 	p2p->setDbgDrawSize(2.0f);
 }
 
-void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisA, const vec3& axisB, bool disable_collision)
+void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const float3& anchorA, const float3& anchorB, const float3& axisA, const float3& axisB, bool disable_collision)
 {
 	btHingeConstraint* hinge = new btHingeConstraint(
 		*(bodyA.body), 
@@ -312,11 +228,11 @@ void ModulePhysics3D::DrawNormals(ComponentMesh * obj)
 void DebugDrawer::drawGrid(int grid_size)
 {
 	
-	btVector3 line_color = { 1, 1 ,1 };
+	float3 line_color =float3(1, 1 ,1);
 	for (int i = -grid_size; i <= grid_size; i++)
 	{
-		btVector3 vect = { (float)i, 0 , (float)-grid_size };
-		btVector3 vect2 = { (float)i, 0 , (float)grid_size };
+		float3 vect =float3((float)i, 0 , (float)-grid_size );
+		float3 vect2 = float3((float)i, 0 , (float)grid_size);
 		drawLine(vect, vect2, line_color);
 
 		vect = { (float)-grid_size, 0 , (float)i };
@@ -327,12 +243,18 @@ void DebugDrawer::drawGrid(int grid_size)
 }
 
 // =============================================
-void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
+void DebugDrawer::drawLine(float3 from, float3 to, float3 color)
 {
-	line.origin.Set(from.getX(), from.getY(), from.getZ());
-	line.destination.Set(to.getX(), to.getY(), to.getZ());
-	line.color.Set(color.getX(), color.getY(), color.getZ());
-	line.Render();
+	float3 start = float3(from.x, from.y, from.z);
+	float3 end = float3(to.x, to.y, to.z);
+
+	glBegin(GL_LINE);
+	glColor4f(color.x, color.y, color.z,1.0f);
+	glVertex3fv(&start[0]);
+	glVertex3fv(&end[0]);
+	glEnd();
+
+	
 }
 
 void DebugDrawer::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)

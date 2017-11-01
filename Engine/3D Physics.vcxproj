@@ -222,7 +222,6 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="PhysBody3D.h" />
-    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
@@ -297,7 +296,6 @@
     <ClCompile Include="ModuleWorld.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PhysBody3D.cpp" />
-    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Textures.cpp" />
