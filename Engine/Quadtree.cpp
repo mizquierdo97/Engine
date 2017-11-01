@@ -2,8 +2,6 @@
 #define QUADTREE_MAX_ITEMS 4
 #define QUADTREE_MIN_SIZE 1.0f 
 
-
-
 #define  U_NE 0
 #define  U_SE 1
 #define  U_SW 2
@@ -16,6 +14,12 @@
 QuadtreeNode::QuadtreeNode(const AABB& box) : bounds(box)
 {
 	parent = nodes[U_NE] = nodes[U_SE] = nodes[U_SW] = nodes[U_NW] = nodes[D_NE] = nodes[D_SE] = nodes[D_SW] = nodes[D_NW] = nullptr;
+}
+QuadtreeNode::~QuadtreeNode()
+{
+		for (int i = 0; i < 8; ++i)
+			if (nodes[i] != nullptr) RELEASE(nodes[i]);
+
 }
 bool QuadtreeNode::IsLeaf() const
 {

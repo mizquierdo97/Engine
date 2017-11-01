@@ -2,7 +2,7 @@
 #include "ModuleAssimp.h"
 #include "Texture.h"
 #include "MathGeoLib.h"
-
+#include "Component.h"
 #pragma comment(lib, "rpcrt4.lib")
 
 enum objectType {
@@ -43,19 +43,24 @@ public:
 	}
 	~GameObject() {
 
-		std::vector<GameObject*>::iterator item = obj_childs.begin();
-		while (item != obj_childs.end()) {
-			RELEASE((*item));
-			item++;
+		if (obj_childs.size()) {
+			std::vector<GameObject*>::iterator item = obj_childs.begin();
+			while (item != obj_childs.end()) {
+				RELEASE((*item));
+				item++;
+			}
+			obj_childs.clear();
 		}
-		obj_childs.clear();
+		
 
-		std::vector<Component*>::iterator item_comp = obj_components.begin();
-		while (item_comp != obj_components.end()) {
-			RELEASE((*item_comp));
-			item_comp++;
+		if (obj_components.size()) {
+			std::vector<Component*>::iterator item_comp = obj_components.begin();
+			while (item_comp != obj_components.end()) {
+				RELEASE((*item_comp));
+				item_comp++;
+			}
+			obj_components.clear();
 		}
-		obj_components.clear();
 
 
 	}

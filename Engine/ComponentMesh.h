@@ -19,7 +19,9 @@ public:
 		path_name = m.mesh_path;
 
 	}
-	~ComponentMesh() {};
+	~ComponentMesh() {
+		RELEASE_ARRAY(bb_mesh.vertexs);
+	};
 
 	void UpdateComponent();
 	void SaveComponentScene(Data* data);

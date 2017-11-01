@@ -78,6 +78,7 @@ bool ModuleWorld::CleanUp()
 	obj_vector.clear();
 
 	
+	
 	uuid_vect.clear();
 	
 	RELEASE(world_texture);

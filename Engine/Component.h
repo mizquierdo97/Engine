@@ -19,7 +19,7 @@ public:
 	Component() {
 
 	}
-	~Component() {
+	virtual ~Component() {
 
 	}
 

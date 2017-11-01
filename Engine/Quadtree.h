@@ -5,7 +5,7 @@
 class QuadtreeNode {
 public:
 	QuadtreeNode(const AABB& box);
-	//virtual ~QuadtreeNode();
+	virtual ~QuadtreeNode();
 
 	bool IsLeaf() const;
 	void Insert(GameObject* go);
@@ -14,12 +14,7 @@ public:
 	void RedistributeChilds();
 	void CollectBoxes(std::vector<const QuadtreeNode*>& nodes) const;
 	void CollectObjects(std::vector<GameObject*>& objects) const;
-	/*//void CollectObjects(std::map<float, GameObject*>& objects, const float3& origin) const;
-	//template<typename TYPE>
-//	void CollectIntersections(std::map<float, GameObject*>& objects, const TYPE& primitive) const;
-	template<typename TYPE>
-	void CollectIntersections(std::vector<GameObject*>& objects, const TYPE& primitive) const;
-	*/
+
 
 
 public:
@@ -45,11 +40,7 @@ public:
 	void Clear();
 	void CollectBoxes(std::vector<const QuadtreeNode*>& nodes) const;
 	void CollectObjects(std::vector<GameObject*>& objects) const;
-	/*//void CollectObjects(std::map<float, GameObject*>& objects, const float3& origin) const;
-	//template<typename TYPE>
-	//void CollectIntersections(std::map<float, GameObject*>& objects, const TYPE& primitive) const;
-	template<typename TYPE>
-	void CollectIntersections(std::vector<GameObject*>& objects, const TYPE& primitive) const;*/
+	
 
 public:
 	QuadtreeNode* root = nullptr;

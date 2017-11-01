@@ -452,7 +452,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 				memcpy(m.texture_coords, cursor_mesh, bytes);
 				cursor_mesh += bytes;
 			}
-
+			
 			if (ranges[3]) {
 				bytes = sizeof(float) * m.num_vertexs * 3;
 				m.norms = new float[m.num_vertexs * 3];
@@ -480,7 +480,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
 		temp_obj->SetName((char*)m.mesh_path.c_str());
 		temp_obj->obj_parent = parent;
-
+		
 		CreateObject(temp_obj);
 		//FREE MEMORY
 		RELEASE_ARRAY( name);
@@ -488,16 +488,10 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		RELEASE_ARRAY( m.vertexs);
 		RELEASE_ARRAY( m.norms);
 		RELEASE_ARRAY( m.texture_coords);
+	
 		RELEASE(temp);
-
-
-		/*if (parent != nullptr) {
-			parent->obj_childs.push_back(temp_obj);
-		}
-		else {
-			App->world->obj_vector.push_back(temp_obj);
-		}*/
-		//App->world->quadtree.Insert(temp_obj);
+		
+		
 		num++;
 	}while (num<num_meshes);
 	return temp_obj;

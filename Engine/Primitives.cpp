@@ -220,22 +220,21 @@ int CreateObject()
 }
 void CreateObject(GameObject* obj)
 {
-	GameObject* new_object = new GameObject();
-	new_object = obj;
-	UuidCreate(&new_object->obj_uuid);
+	
+	UuidCreate(&obj->obj_uuid);
 
 	std::pair<GameObject*, UUID> temp_pair;
-	temp_pair.first = new_object;
-	temp_pair.second = new_object->obj_uuid;
+	temp_pair.first = obj;
+	temp_pair.second = obj->obj_uuid;
 	App->world->uuid_vect.push_back(temp_pair);
 
-	if (new_object->obj_parent!= nullptr) {
-		new_object->obj_parent->obj_childs.push_back(new_object);
+	if (obj->obj_parent!= nullptr) {
+		obj->obj_parent->obj_childs.push_back(obj);
 	}
 	else {
-		App->world->obj_vector.push_back(new_object);
+		App->world->obj_vector.push_back(obj);
 	}
-	App->world->quadtree.Insert(new_object);
+	App->world->quadtree.Insert(obj);
 
 	
 }
@@ -259,6 +258,7 @@ void CreateObject(GameObject* obj)
 	glGenBuffers(1, (GLuint*)&m.id_vertexs);
 	glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m.num_vertexs * 3, m.vertexs, GL_STATIC_DRAW);
+
 
 	return m;
 
