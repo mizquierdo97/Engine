@@ -7,17 +7,17 @@
 
 void ComponentMesh::UpdateComponent()
 {
-
+	/*
 	float4x4 matrix = GetParent()->GetTransform()->GetMatrix();
 	float4 new_min_point = matrix * float4(GetParent()->GetLocalBBox().minPoint, 1);
 	float4 new_max_point = matrix * float4(GetParent()->GetLocalBBox().maxPoint, 1);
 
 	AABB transformed_bounding_box = GetParent()->GetLocalBBox();
-	transformed_bounding_box.minPoint = { new_min_point.x, new_min_point.y, new_min_point.z };
-	transformed_bounding_box.maxPoint = { new_max_point.x, new_max_point.y, new_max_point.z };
-
-	bb_mesh = UpdateAABB(bb_mesh, transformed_bounding_box);
-	GetParent()->SetGlobalBox(transformed_bounding_box);
+	transformed_bounding_box.TransformAsAABB(matrix);
+	
+	GetParent()->SetGlobalBox(transformed_bounding_box);*/
+	AABB transformed_bounding_box = UpdateAABB(GetParent());
+	
 	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
 	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) || !active_camera->frustum_culling) {
 		if (App->renderer3D->render_fill) {

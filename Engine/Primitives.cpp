@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Object.h"
-
+#include "ComponentMesh.h"
+#include "MathGeoLib.h"
 Mesh CreateCube()
 {
 
@@ -282,4 +283,26 @@ void CreateObject(GameObject* obj)
 
 	 return m;
 
+ };
+
+AABB UpdateAABB(GameObject* obj) {
+	
+	float4x4 matrix = obj->GetTransform()->GetMatrix();
+	float4 new_min_point = matrix * float4(obj->GetLocalBBox().minPoint, 1);
+	float4 new_max_point = matrix * float4(obj->GetLocalBBox().maxPoint, 1);
+
+	AABB transformed_bounding_box = obj->GetLocalBBox();
+	transformed_bounding_box.TransformAsAABB(matrix);
+
+	obj->SetGlobalBox(transformed_bounding_box);
+
+	if (obj->GetMesh() == nullptr) return transformed_bounding_box;
+
+	 glPushMatrix();
+	 glMultMatrixf(obj->GetTransform()->GetMatrix().Transposed().ptr());
+	 glBindBuffer(GL_ARRAY_BUFFER,obj->GetMesh()->bb_mesh.id_vertexs);
+	 glPopMatrix();
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m.num_vertexs * 3, m.vertexs, GL_STATIC_DRAW);
+
+	 return transformed_bounding_box;
  };

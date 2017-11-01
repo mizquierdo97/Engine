@@ -474,10 +474,10 @@ void ModuleRenderer3D::DebugDraw(const AABB & aabb, Color color, const float4x4&
 	static float3 corners[8];
 	aabb.GetCornerPoints(corners);
 
-	glPushMatrix();
-	glMultMatrixf((GLfloat*)transform.Transposed().ptr());
+	//glPushMatrix();
+	//glMultMatrixf((GLfloat*)transform.Transposed().ptr());
 	DebugDrawBox(corners, color);
-	glPopMatrix();
+	//glPopMatrix();
 
 
 }

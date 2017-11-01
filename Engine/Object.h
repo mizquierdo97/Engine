@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "MathGeoLib.h"
 #include "Component.h"
+#include "ComponentTransform.h"
 #pragma comment(lib, "rpcrt4.lib")
 
 enum objectType {
@@ -18,6 +19,7 @@ Mesh CreateCube();
 Mesh CreateCylinder();
 Mesh CreateAABB(AABB);
 Mesh UpdateAABB(Mesh, AABB);
+AABB UpdateAABB(GameObject*);
 int CreateObject();
 void CreateObject(GameObject*);
 

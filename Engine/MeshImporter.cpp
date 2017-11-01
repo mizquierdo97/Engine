@@ -473,15 +473,16 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		
 
 		temp_obj = new GameObject();
+		temp_obj->obj_parent = parent;
 		
-		temp_obj->SetGlobalBox(*temp);
 		if(m.id_vertexs!=0)
 		temp_obj->AddComponentMesh(m);
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
-		temp_obj->SetName((char*)m.mesh_path.c_str());
-		temp_obj->obj_parent = parent;
-		
+		temp_obj->SetGlobalBox(*temp);
+		UpdateAABB(temp_obj);
+		temp_obj->SetName((char*)m.mesh_path.c_str());		
 		CreateObject(temp_obj);
+
 		//FREE MEMORY
 		RELEASE_ARRAY( name);
 		RELEASE_ARRAY( m.indices);

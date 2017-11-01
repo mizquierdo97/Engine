@@ -17,7 +17,7 @@ ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameOb
 	scale = float3(sc.x, sc.y, sc.z);
 	SetParent(obj_parent);
 	comp_type = ComponentType::transform;
-	matrix = float4x4::FromTRS(translation, rotation, scale);
+	matrix = GetMatrix();
 }
 
 
