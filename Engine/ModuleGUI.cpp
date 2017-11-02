@@ -418,7 +418,7 @@ void ModuleGUI::Assets()
 		 {
 			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
 				 std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
-				 App->renderer3D->loadTextureFromFile("png_icon.png", &comp->obj_tex);
+				 App->renderer3D->loadTextureFromFile((char*)path.c_str(), &comp->obj_tex);
 
 			 }
 		 }
@@ -441,56 +441,57 @@ void ModuleGUI::ShowConsole(bool * p_open)
 void ModuleGUI::ShowHardware() 
 {
 	ImGui::SetNextWindowSize(ImVec2(350, 300), ImGuiCond_FirstUseEver);
-	ImGui::Begin("Hardware", &show_hardware);
+	if (ImGui::Begin("Hardware", &show_hardware)) {
 
-	int major = 0, minor = 0;
-	glGetIntegerv(GL_MAJOR_VERSION, &major);
-	glGetIntegerv(GL_MAJOR_VERSION, &minor);
-	ImGui::Text("OpenGL Version:");
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
-	ImGui::Text("GPU Vendor:");
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
-	ImGui::Text("Model:");
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
-	ImGui::Text("Total VRAM:");
-	GLint total_mem_kb = 0;
-	glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
-		&total_mem_kb);
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", total_mem_kb / 1024);
+		int major = 0, minor = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &major);
+		glGetIntegerv(GL_MAJOR_VERSION, &minor);
+		ImGui::Text("OpenGL Version:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i.%i", major, minor);
+		ImGui::Text("GPU Vendor:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_VENDOR));
+		ImGui::Text("Model:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, (const char*)glGetString(GL_RENDERER));
+		ImGui::Text("Total VRAM:");
+		GLint total_mem_kb = 0;
+		glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,
+			&total_mem_kb);
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", total_mem_kb / 1024);
 
-	ImGui::Text("Free VRAM:");
-	GLint cur_avail_mem_kb = 0;
-	glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
-		&cur_avail_mem_kb);
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
-	Det_Cache = SDL_GetCPUCacheLineSize();
-	ImGui::Text("Cache:");
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", Det_Cache);
+		ImGui::Text("Free VRAM:");
+		GLint cur_avail_mem_kb = 0;
+		glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,
+			&cur_avail_mem_kb);
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", cur_avail_mem_kb / 1024);
+		Det_Cache = SDL_GetCPUCacheLineSize();
+		ImGui::Text("Cache:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i MB", Det_Cache);
 
-	Det_CPU = SDL_GetCPUCount();
-	ImGui::Text("Number of CPU:");
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", Det_CPU);
+		Det_CPU = SDL_GetCPUCount();
+		ImGui::Text("Number of CPU:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", Det_CPU);
 
-	Det_RAM = SDL_GetSystemRAM();
-	ImGui::Text("RAM Memory:");
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i Gb", Det_RAM);
+		Det_RAM = SDL_GetSystemRAM();
+		ImGui::Text("RAM Memory:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i Gb", Det_RAM);
 
-	SDL_GetVersion(&sdl_vers);
-	ImGui::Text("SDL Version:");
-	ImGui::Text("Patch:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.patch);
-	ImGui::SameLine();
-	ImGui::Text("Major:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.major);
-	ImGui::SameLine();
-	ImGui::Text("Minor:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.minor);
-	ImGui::SameLine();
+		SDL_GetVersion(&sdl_vers);
+		ImGui::Text("SDL Version:");
+		ImGui::Text("Patch:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.patch);
+		ImGui::SameLine();
+		ImGui::Text("Major:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.major);
+		ImGui::SameLine();
+		ImGui::Text("Minor:"); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", sdl_vers.minor);
+		ImGui::SameLine();
 
-	ImGui::Text("Developer's Image Library (DevIL): version "); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "1.7.8");
+		ImGui::Text("Developer's Image Library (DevIL): version "); ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "1.7.8");
 
-	ImGui::Separator();
-	ImGui::Text("Gamepads Connected:");
-	ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", SDL_NumJoysticks());
-	ImGui::End();
-	ImGui::End();
+		ImGui::Separator();
+		ImGui::Text("Gamepads Connected:");
+		ImGui::SameLine(); ImGui::TextColored({ 1,1,0,1 }, "%i", SDL_NumJoysticks());
+		ImGui::End();
+	
 
+	}
 }
 

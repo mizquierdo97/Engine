@@ -23,13 +23,9 @@ ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameOb
 
 void ComponentTransform::UpdateComponent()
 {
-	if (GetParent()->obj_parent != nullptr) {		
-		matrix.Decompose(translation, rotation, scale);	
-	}
-	else {
-	
+
 		matrix.Decompose(translation, rotation, scale);
-	}
+	
 	
 }
 
@@ -55,12 +51,10 @@ void ComponentTransform::ShowInspectorComponents()
 const float4x4 ComponentTransform::GetMatrix()
 {
 	if (GetParent()->obj_parent != nullptr) {
-		float4x4 temp = float4x4::FromTRS(translation, rotation, scale);
-
-		return  GetParent()->obj_parent->GetTransform()->GetMatrix()* temp;
+		return  GetParent()->obj_parent->GetTransform()->GetMatrix()* GetMyMatrix();
 	}
 	else {
-		return float4x4::FromTRS(translation, rotation, scale);
+		return GetMyMatrix();
 	}
 	
 }
