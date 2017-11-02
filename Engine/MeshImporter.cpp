@@ -7,6 +7,8 @@
 #include "FileSystem.h"
 #include "MeshImporter.h"
 #include "Object.h"
+#include <map>
+
 void CreateBinary(aiScene*, const char*, const char*);
 char* LoadBuffer(const char*);
 GameObject* CreateObjectFromMesh(char** buffer, GameObject* parent, int* num_childs);
@@ -23,6 +25,8 @@ void MeshImporter::ImportMesh(aiScene* scene, const char * directory, const char
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		CreateBinary(scene, directory, name);
+
+		LoadGLTextures(scene);
 	}
 	else {
 		LOG("Can't open the file: %s", directory);
@@ -155,10 +159,14 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 	FILE * pFile;
 	final_name = MESHES_PATH;
 	final_name += name; final_name += ".bin";
-	pFile = fopen(final_name.c_str(), "wb");
-	fwrite(data, sizeof(char), size, pFile);
-	fclose(pFile);
-	App->gui->path_list.push_back(final_name);
+	if (!ExistsFile(final_name.c_str())) {
+		pFile = fopen(final_name.c_str(), "wb");
+		fwrite(data, sizeof(char), size, pFile);
+		fclose(pFile);
+		
+	}
+	if (std::find(App->gui->path_list.begin(), App->gui->path_list.end(), final_name) == App->gui->path_list.end())
+		App->gui->path_list.push_back(final_name);
 
 	if (data != nullptr)
 		RELEASE_ARRAY(data);
@@ -175,7 +183,7 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 		//GET SIZE AND ALLOVATE MEMORY
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 
-		size += sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3;
+		size += sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3 + sizeof(uint);
 		if (m->HasTextureCoords(0)) {
 			size += sizeof(float)*m->mNumVertices * 2;
 		}
@@ -237,20 +245,110 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 			cursor += bytes;
 		}
 
+		bytes = sizeof(int);
+		int material_index = -1;
+
+		aiString path;
+		if (scene->mMaterials[m->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &path) == AI_SUCCESS)
+			material_index = m->mMaterialIndex;
+		memcpy(cursor, &material_index, bytes);
+		cursor += bytes;
+
 
 		//OK~
 		FILE * mesh_pFile;
 		std::string final_mesh_name = MESHES_PATH;
 
 		final_mesh_name += mesh_name; final_mesh_name += ".mesh";
-		pFile = fopen(final_mesh_name.c_str(), "wb");
-		fwrite(data_mesh, sizeof(char), size, pFile);
-		fclose(pFile);
+		if (!ExistsFile(final_mesh_name.c_str())) {
+			pFile = fopen(final_mesh_name.c_str(), "wb");
+			fwrite(data_mesh, sizeof(char), size, pFile);
+			fclose(pFile);
+		}
 
 		RELEASE_ARRAY(indices);
 		if (data_mesh != nullptr)
 			RELEASE_ARRAY(data_mesh);
 	}
+
+	
+
+}
+
+int MeshImporter::LoadGLTextures(const aiScene* scene)
+{
+	ILboolean success;
+
+	/* initialization of DevIL */
+	ilInit();
+
+	/* scan scene's materials for textures */
+	for (unsigned int m = 0; m<scene->mNumMaterials; ++m)
+	{
+		int texIndex = 0;
+		aiString path;  // filename
+
+		if (scene->mMaterials[m]->GetTexture(aiTextureType_DIFFUSE, 0, &path) == AI_SUCCESS) {
+			//while (texFound == AI_SUCCESS) {
+				//fill map with textures, OpenGL image ids set to 0
+			std::string file_name = ASSETS_PATH;
+			file_name += GetFileNameExtension(path.data);
+			textureIdMap[m] = file_name;
+			// more textures?
+			//texIndex++;
+			//texFound = scene->mMaterials[m]->GetTexture(aiTextureType_DIFFUSE, texIndex, &path);
+		}
+	}
+
+	int numTextures = textureIdMap.size();
+
+	/* create and fill array with DevIL texture ids */
+	ILuint* imageIds = new ILuint[numTextures];
+	ilGenImages(numTextures, imageIds);
+
+	/* create and fill array with GL texture ids */
+	GLuint* textureIds = new GLuint[numTextures];
+	glGenTextures(numTextures, textureIds); /* Texture name generation */
+
+											/* get iterator */
+	std::map<GLuint, std::string>::iterator itr = textureIdMap.begin();
+	
+	for (int i = 0; itr != textureIdMap.end(); ++i, ++itr)
+	{
+		//save IL image ID
+		std::string filename = (*itr).second;  // get filename
+		//(*itr).second = textureIds[i];    // save texture id for filename in map
+
+		ilBindImage(imageIds[i]); /* Binding of DevIL image name */
+		ilEnable(IL_ORIGIN_SET);
+		ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+		success = ilLoadImage((ILstring)filename.c_str());
+
+		if (success) {
+			/* Convert image to RGBA */
+			ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+			/* Create and load textures to OpenGL */
+			glBindTexture(GL_TEXTURE_2D, textureIds[i]);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH),
+				ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE,
+				ilGetData());
+		}
+		else
+			printf("Couldn't load Image: %s\n", filename.c_str());
+	}
+	/* Because we have already copied image data into texture data
+	we can release memory used by image. */
+	ilDeleteImages(numTextures, imageIds);
+
+	//Cleanup
+	delete[] imageIds;
+	delete[] textureIds;
+
+	//return success;
+	return true;
 }
 
 //OK
@@ -295,8 +393,6 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 				strcat(mesh_name, "_");
 				strcat(mesh_name, num);
 				RELEASE_ARRAY(num);
-		
-
 			
 		}	
 		else {
@@ -387,6 +483,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 	aiQuaternion rotation;
 	aiVector3D scaling;
 	GameObject* temp_obj;
+	int material_index = -1;
 	int num_meshes = 0;
 	int num = 0;
 	uint bytes = sizeof(uint);
@@ -459,11 +556,18 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 				memcpy(m.norms, cursor_mesh, bytes);
 				cursor_mesh += bytes;
 			}
+
+			bytes = sizeof(int);
+			
+			memcpy(&material_index, cursor_mesh, bytes);
+			cursor_mesh += bytes;
 			temp_name = name;
-			//strcpy(m.mesh_path, temp_name.c_str());
+
+		
+
 			m.mesh_path = (char*)temp_name.c_str();
 			GenGLBuffers(&m);
-			RELEASE_ARRAY(buffer);
+			RELEASE_ARRAY(buffer);			
 
 		}
 	
@@ -480,7 +584,21 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
 		temp_obj->SetGlobalBox(*temp);
 		UpdateAABB(temp_obj);
-		temp_obj->SetName((char*)m.mesh_path.c_str());		
+		temp_obj->SetName((char*)m.mesh_path.c_str());	
+
+		Texture* temp_text = new Texture();
+		if (material_index != -1) {
+			/*std::map<GLuint, std::string>::iterator pos */ auto temp = App->filesystem->mesh_importer->textureIdMap.find(material_index);
+			
+			if (App->renderer3D->loadTextureFromFile((char*)temp->second.c_str(), &temp_text)) {
+				LOG("TEXTURE_LOADED");
+				temp_obj->AddComponentMaterial(temp_text);
+			}
+			
+
+		}
+
+		//FINALLY CREATE OBJECT
 		CreateObject(temp_obj);
 
 		//FREE MEMORY

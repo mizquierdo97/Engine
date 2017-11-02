@@ -7,8 +7,7 @@ class ComponentMaterial :public Component {
 			obj_tex = new Texture();
 		};
 		ComponentMaterial(Texture* tex, GameObject* obj) {
-			obj_tex = new Texture();
-			obj_tex = tex;
+			obj_tex = tex;			
 			SetParent(obj);
 			comp_type = ComponentType::material;
 		};

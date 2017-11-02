@@ -288,8 +288,7 @@ void CreateObject(GameObject* obj)
 AABB UpdateAABB(GameObject* obj) {
 	
 	float4x4 matrix = obj->GetTransform()->GetMatrix();
-	float4 new_min_point = matrix * float4(obj->GetLocalBBox().minPoint, 1);
-	float4 new_max_point = matrix * float4(obj->GetLocalBBox().maxPoint, 1);
+
 
 	AABB transformed_bounding_box = obj->GetLocalBBox();
 	transformed_bounding_box.TransformAsAABB(matrix);

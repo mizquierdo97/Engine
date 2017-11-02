@@ -53,16 +53,10 @@ void FileSystem::InitFileSystem()
 		if (!strcmp(file_extension.c_str(), "fbx")) {
 			App->assimp->ImportMesh(str.c_str());
 		}
-		if (!strcmp(file_extension.c_str(), "png") || !strcmp(file_extension.c_str(), "jpg")) {
+		if (!strcmp(file_extension.c_str(), "png") || !strcmp(file_extension.c_str(), "jpg") || !strcmp(file_extension.c_str(), "tga")) {
 			App->filesystem->ImportImage(str.c_str());
 		}
-		//
-
-
 	}
-		
-
-
 }
 
 
@@ -81,10 +75,10 @@ const char* FileSystem::ImportImage(const char* path)
 	iluGetImageInfo(&ImageInfo);
 	std::string final_name;
 	std::string file_name = GetFileName(path);
-	/*if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 	{
 		iluFlipImage();
-	}*/
+	}
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
@@ -100,10 +94,15 @@ const char* FileSystem::ImportImage(const char* path)
 
 				final_name = MESHES_PATH;
 				final_name += file_name.c_str(); final_name += ".dds";
-				pFile = fopen(final_name.c_str(), "wb");
-				fwrite(data, sizeof(char), size, pFile);
-				fclose(pFile);			
-				App->gui->path_list.push_back(final_name);
+				if (!ExistsFile(final_name.c_str())) {
+					pFile = fopen(final_name.c_str(), "wb");
+					fwrite(data, sizeof(char), size, pFile);
+					fclose(pFile);
+				}
+
+				
+				if (std::find(App->gui->path_list.begin(), App->gui->path_list.end(), final_name) == App->gui->path_list.end())
+					App->gui->path_list.push_back(final_name);
 			}
 				//ret = App->fs->SaveUnique(output_file, data, size, LIBRARY_TEXTURES_FOLDER, "texture", "dds");
 

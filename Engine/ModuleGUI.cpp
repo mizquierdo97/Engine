@@ -94,7 +94,7 @@ bool ModuleGUI::Init()
 
 bool ModuleGUI::Start()
 {
-	App->filesystem->ImportImage("png_icon.png");
+	//App->filesystem->ImportImage("png_icon.png");
 	App->renderer3D->loadTextureFromFile("png_icon.png", &png_tex,false);
 	App->renderer3D->loadTextureFromFile("fbx_icon.png", &fbx_tex,false);
 	

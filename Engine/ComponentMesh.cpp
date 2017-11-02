@@ -7,15 +7,7 @@
 
 void ComponentMesh::UpdateComponent()
 {
-	/*
-	float4x4 matrix = GetParent()->GetTransform()->GetMatrix();
-	float4 new_min_point = matrix * float4(GetParent()->GetLocalBBox().minPoint, 1);
-	float4 new_max_point = matrix * float4(GetParent()->GetLocalBBox().maxPoint, 1);
-
-	AABB transformed_bounding_box = GetParent()->GetLocalBBox();
-	transformed_bounding_box.TransformAsAABB(matrix);
 	
-	GetParent()->SetGlobalBox(transformed_bounding_box);*/
 	AABB transformed_bounding_box = UpdateAABB(GetParent());
 	
 	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();

@@ -21,6 +21,7 @@ void log(const char file[], int line, const char* format, ...)
 
 std::string GetExtension(std::string path) 
 {
+	std::transform(path.begin(), path.end(), path.begin(), ::tolower);
 	std::string str_copy = path;
 	int length = 0;
 	while (path.back() != '.')
@@ -41,6 +42,7 @@ double FloatPrecision(double value, double precision)
 
 std::string GetFileName(std::string path)
 {
+	std::transform(path.begin(), path.end(), path.begin(), ::tolower);
 	std::string str_path = path;
 	std::string str_temp;
 	int length = 0;
@@ -67,4 +69,38 @@ std::string GetFileName(std::string path)
 
 	return str_temp;
 	
+}
+
+std::string GetFileNameExtension(std::string path)
+{
+	std::transform(path.begin(), path.end(), path.begin(), ::tolower);
+	std::string str_path = path;
+	std::string str_temp;
+	int length = 0;
+	int extension_length = 0;
+	
+	while (str_path.back() != '\\')
+	{
+		str_path.pop_back();
+		length++;
+		if (length >= path.length())
+			break;
+	}
+
+	str_temp = path.substr(path.length() - length, length - extension_length);
+
+	return str_temp;
+
+	
+}
+
+bool ExistsFile(const std::string & name)
+{
+	if (FILE *file = fopen(name.c_str(), "r")) {
+		fclose(file);
+		return true;
+	}
+	else {
+		return false;
+	}
 }

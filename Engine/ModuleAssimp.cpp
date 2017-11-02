@@ -75,7 +75,3 @@ void ModuleAssimp::ImportMesh(const char * path)
 			
 }
 
-			//RELEASE SCENE
-
-
-
