@@ -437,15 +437,10 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool i
 
 bool ModuleRenderer3D::loadTextureFromPixels32(GLuint * pixels, GLuint width, GLuint height, Texture** texture)
 {
-
-	
-
 	if (tex != nullptr) {
 		LOG("Deleted Last Texture");
 		RELEASE(tex);
-	}
-
-	
+	}	
 	texture[0] = new Texture();
 	
 	texture[0]->Create(pixels, width, height);
@@ -469,8 +464,6 @@ ComponentCamera * ModuleRenderer3D::GetActiveCamera()
 
 void ModuleRenderer3D::DebugDraw(const AABB & aabb, Color color, const float4x4& transform)
 {
-	
-
 	static float3 corners[8];
 	aabb.GetCornerPoints(corners);
 
@@ -478,8 +471,7 @@ void ModuleRenderer3D::DebugDraw(const AABB & aabb, Color color, const float4x4&
 	//glMultMatrixf((GLfloat*)transform.Transposed().ptr());
 	DebugDrawBox(corners, color);
 	//glPopMatrix();
-
-
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 

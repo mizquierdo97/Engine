@@ -118,7 +118,6 @@ public:
 
 	void SetName(std::string name) {
 		obj_name = name;
-		
 	};
 
 private:

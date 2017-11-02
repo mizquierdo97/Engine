@@ -13,7 +13,7 @@
 void log(const char file[], int line, const char* format, ...);
 std::string GetExtension(std::string path);
 double FloatPrecision(double value, double precision);
-
+std::string GetFileName(std::string path);
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)
 
 

@@ -38,3 +38,33 @@ double FloatPrecision(double value, double precision)
 {
 	return (floor((value * pow(10, precision) + 0.5)) / pow(10, precision));
 }
+
+std::string GetFileName(std::string path)
+{
+	std::string str_path = path;
+	std::string str_temp;
+	int length = 0;
+	int extension_length = 0;
+	while (str_path.back() != '.')
+	{
+		str_path.pop_back();
+		length++;
+		extension_length++;
+	}
+	str_path.pop_back();
+	length++;
+	extension_length++;
+
+	while (str_path.back() != '\\')
+	{
+		str_path.pop_back();
+		length++;
+		if (length >= path.length())
+			break;
+	}
+	
+	str_temp = path.substr(path.length() - length, length- extension_length);
+
+	return str_temp;
+	
+}

@@ -53,7 +53,9 @@ void FileSystem::InitFileSystem()
 		if (!strcmp(file_extension.c_str(), "fbx")) {
 			App->assimp->ImportMesh(str.c_str());
 		}
-
+		if (!strcmp(file_extension.c_str(), "png") || !strcmp(file_extension.c_str(), "jpg")) {
+			App->filesystem->ImportImage(str.c_str());
+		}
 		//
 
 
@@ -78,10 +80,11 @@ const char* FileSystem::ImportImage(const char* path)
 	ILinfo ImageInfo;
 	iluGetImageInfo(&ImageInfo);
 	std::string final_name;
-	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+	std::string file_name = GetFileName(path);
+	/*if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 	{
 		iluFlipImage();
-	}
+	}*/
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
@@ -93,9 +96,10 @@ const char* FileSystem::ImportImage(const char* path)
 			data = new ILubyte[size]; // allocate data buffer
 			if (ilSaveL(IL_DDS, data, size) > 0) { // Save to buffer with the ilSaveIL function
 				FILE * pFile;	
-			
+				
+
 				final_name = MESHES_PATH;
-				final_name += "image"; final_name += ".dds";
+				final_name += file_name.c_str(); final_name += ".dds";
 				pFile = fopen(final_name.c_str(), "wb");
 				fwrite(data, sizeof(char), size, pFile);
 				fclose(pFile);			
