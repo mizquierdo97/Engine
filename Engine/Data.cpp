@@ -783,11 +783,14 @@ void Data::AddVector3(std::string valueName, float3 value)
 {
 	std::replace(valueName.begin(), valueName.end(), ' ', '_');
 	CreateSection(valueName);
-	data_values.push_back(std::to_string(value.x));
+	
+	
+
+	data_values.push_back(std::to_string(FloatPrecision(value.x,2)));
 	data_names.push_back("value_X");
-	data_values.push_back(std::to_string(value.y));
+	data_values.push_back(std::to_string(FloatPrecision(value.y, 2)));
 	data_names.push_back("value_Y");
-	data_values.push_back(std::to_string(value.z));
+	data_values.push_back(std::to_string(FloatPrecision(value.z, 2)));
 	data_names.push_back("value_Z");
 	CloseSection();
 }

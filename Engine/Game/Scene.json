@@ -1,13 +1,13 @@
 {
     "GameObjects": {
         "Object_0": {
-            "UUID": "d45ebcbd-163e-4de6-a402-e8fc26cc45c1",
+            "UUID": "035da014-e30d-4b85-9bc5-ac7a14f93160",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
-            "Name": "ÎúíÞÀ­ÞÞÀ­ÞÞÀ­ÞÞÀ­ÞýýýýÝ×Í¿QÝ\u0017",
+            "Name": "",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
-                "value_Z": "-60.600002"
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -23,19 +23,19 @@
             "Components": {}
         },
         "Object_1": {
-            "UUID": "98452434-c4e5-455b-a6e7-b68cbb2d5323",
+            "UUID": "2f69e23d-1796-498c-b679-d63369ba6cf2",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "",
             "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
+                "value_X": "14.200000",
+                "value_Y": "-6.600000",
+                "value_Z": "-3.400000"
             },
             "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_X": "0.196646",
+                "value_Y": "-0.067082",
+                "value_Z": "-0.055846",
+                "value_W": "0.976582"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -45,13 +45,13 @@
             "Components": {}
         },
         "Object_2": {
-            "UUID": "385eb95d-ac37-4cc0-9844-d3033e5cca31",
-            "Parent_UUID": "98452434-c4e5-455b-a6e7-b68cbb2d5323",
+            "UUID": "c5e0a61a-b0e6-47c2-ac99-8f23e241509f",
+            "Parent_UUID": "2f69e23d-1796-498c-b679-d63369ba6cf2",
             "Name": "",
             "Translation": {
-                "value_X": "0.000000",
+                "value_X": "18.150000",
                 "value_Y": "0.000000",
-                "value_Z": "0.000000"
+                "value_Z": "58.960000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -67,8 +67,8 @@
             "Components": {}
         },
         "Object_3": {
-            "UUID": "ffc963e4-df91-472a-b00c-ff701be6618a",
-            "Parent_UUID": "385eb95d-ac37-4cc0-9844-d3033e5cca31",
+            "UUID": "6bf261ad-1044-41ac-bf87-c0c6ba7bceb1",
+            "Parent_UUID": "c5e0a61a-b0e6-47c2-ac99-8f23e241509f",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -76,10 +76,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -89,8 +89,8 @@
             "Components": {}
         },
         "Object_4": {
-            "UUID": "8f31ed7f-567d-4f17-be98-11d8d9bdcb42",
-            "Parent_UUID": "ffc963e4-df91-472a-b00c-ff701be6618a",
+            "UUID": "de446cc6-16b1-48bd-bf1c-0163e9d8bc28",
+            "Parent_UUID": "6bf261ad-1044-41ac-bf87-c0c6ba7bceb1",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -98,10 +98,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -111,8 +111,8 @@
             "Components": {}
         },
         "Object_5": {
-            "UUID": "a5042bb3-6f63-48bb-970c-450a7a670c0e",
-            "Parent_UUID": "8f31ed7f-567d-4f17-be98-11d8d9bdcb42",
+            "UUID": "e7046e23-27f2-45c8-90ec-bb74bfff1ade",
+            "Parent_UUID": "de446cc6-16b1-48bd-bf1c-0163e9d8bc28",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -133,8 +133,8 @@
             "Components": {}
         },
         "Object_6": {
-            "UUID": "7b51b534-dbba-4599-911e-074662d6a8a3",
-            "Parent_UUID": "98452434-c4e5-455b-a6e7-b68cbb2d5323",
+            "UUID": "5841ad9d-5787-494c-82e5-0b40fdf397cb",
+            "Parent_UUID": "2f69e23d-1796-498c-b679-d63369ba6cf2",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -142,10 +142,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -155,8 +155,8 @@
             "Components": {}
         },
         "Object_7": {
-            "UUID": "49384dcf-bf53-43c0-a030-f722bb723e32",
-            "Parent_UUID": "7b51b534-dbba-4599-911e-074662d6a8a3",
+            "UUID": "516b7293-b9e9-43c6-bbce-601e6ae3e3af",
+            "Parent_UUID": "5841ad9d-5787-494c-82e5-0b40fdf397cb",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -177,8 +177,8 @@
             "Components": {}
         },
         "Object_8": {
-            "UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
-            "Parent_UUID": "49384dcf-bf53-43c0-a030-f722bb723e32",
+            "UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
+            "Parent_UUID": "516b7293-b9e9-43c6-bbce-601e6ae3e3af",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -199,12 +199,12 @@
             "Components": {}
         },
         "Object_9": {
-            "UUID": "14435bcf-f8fe-4074-a189-9d077b0391e2",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "6a207b9b-46f7-4b87-ae2d-9584844a418e",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_0",
             "Translation": {
-                "value_X": "-41.475891",
-                "value_Y": "21.014099",
+                "value_X": "-41.480000",
+                "value_Y": "21.010000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -229,12 +229,12 @@
             }
         },
         "Object_10": {
-            "UUID": "67589cc6-eff8-4b2e-b4ba-c350a8134537",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "3d1600e1-5262-47db-bcf3-7e8139545928",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_1",
             "Translation": {
-                "value_X": "17.707165",
-                "value_Y": "20.053276",
+                "value_X": "17.710000",
+                "value_Y": "20.050000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -259,13 +259,13 @@
             }
         },
         "Object_11": {
-            "UUID": "55116d9f-7940-43b5-ac25-f06e51adf4bd",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "aca62615-7ddf-4ceb-8c95-cb4683989ea4",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_2",
             "Translation": {
-                "value_X": "16.010492",
-                "value_Y": "37.493286",
-                "value_Z": "-0.000002"
+                "value_X": "16.010000",
+                "value_Y": "37.490000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -289,13 +289,13 @@
             }
         },
         "Object_12": {
-            "UUID": "2671258f-b91e-4f7c-8e90-2885b04c71a6",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "8800465f-37db-4ea9-b45f-9f26bdcc2dbb",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_3",
             "Translation": {
-                "value_X": "40.979996",
-                "value_Y": "18.270824",
-                "value_Z": "-0.000002"
+                "value_X": "40.980000",
+                "value_Y": "18.270000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -319,12 +319,12 @@
             }
         },
         "Object_13": {
-            "UUID": "da01a5b1-c03c-4eda-a202-24fd25d1752d",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "cf565483-7a77-428c-aa0a-25f0463d0d37",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_8",
             "Translation": {
-                "value_X": "-2.159772",
-                "value_Y": "1.853838",
+                "value_X": "-2.160000",
+                "value_Y": "1.850000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -349,12 +349,12 @@
             }
         },
         "Object_14": {
-            "UUID": "8bdd43c7-34b1-4b9b-b41c-a4451125c608",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "a6ce35ff-bbb5-4e3c-bb5e-f348830272a8",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_9",
             "Translation": {
-                "value_X": "-0.028603",
-                "value_Y": "0.026032",
+                "value_X": "-0.030000",
+                "value_Y": "0.030000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -364,9 +364,9 @@
                 "value_W": "1.000000"
             },
             "Scale": {
-                "value_X": "0.996635",
-                "value_Y": "0.970616",
-                "value_Z": "0.996635"
+                "value_X": "1.000000",
+                "value_Y": "0.970000",
+                "value_Z": "1.000000"
             },
             "Components": {
                 "Mesh": {
@@ -379,13 +379,13 @@
             }
         },
         "Object_15": {
-            "UUID": "e8b6da14-f2c4-4087-a98d-1ea0b8194d34",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "3c9e6e2c-1b11-405a-bea6-ea12b915ff29",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_4",
             "Translation": {
-                "value_X": "25.154011",
-                "value_Y": "-39.153721",
-                "value_Z": "0.000001"
+                "value_X": "25.150000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -409,13 +409,13 @@
             }
         },
         "Object_16": {
-            "UUID": "893ceea4-74b6-4636-b6dd-e7efd7cd2be6",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "cad6dde6-5cac-42e7-beca-b9d5e103f504",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_5",
             "Translation": {
-                "value_X": "25.154011",
-                "value_Y": "-39.153721",
-                "value_Z": "0.000001"
+                "value_X": "25.150000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -439,13 +439,13 @@
             }
         },
         "Object_17": {
-            "UUID": "c845114a-8fe8-48a3-aad6-b5b472916fd4",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "c90390d6-92c2-4981-bc5b-7a6e9dc7f0c6",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_2",
             "Translation": {
-                "value_X": "30.134541",
-                "value_Y": "37.493286",
-                "value_Z": "-0.000002"
+                "value_X": "30.130000",
+                "value_Y": "37.490000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -469,13 +469,13 @@
             }
         },
         "Object_18": {
-            "UUID": "5c60fd6b-9448-4d27-823c-3fc036b2ea72",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "676fcb03-22e6-4fb8-9e02-fe9eab3acb53",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_6",
             "Translation": {
-                "value_X": "-42.288055",
-                "value_Y": "33.201576",
-                "value_Z": "0.000001"
+                "value_X": "-42.290000",
+                "value_Y": "33.200000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -499,12 +499,12 @@
             }
         },
         "Object_19": {
-            "UUID": "6534eac4-c783-4076-a6d0-3dce75b1ed81",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "9a20546c-cc3a-47fd-9f68-a902b9a4026b",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_10",
             "Translation": {
-                "value_X": "-19.439707",
-                "value_Y": "32.061729",
+                "value_X": "-19.440000",
+                "value_Y": "32.060000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -529,13 +529,13 @@
             }
         },
         "Object_20": {
-            "UUID": "eb13178d-ace3-4b78-b5d7-1d656219b5f0",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "c87e58b1-1e66-4f9f-bce1-1bee1ad6d9ae",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_4",
             "Translation": {
-                "value_X": "34.270424",
-                "value_Y": "-41.972748",
-                "value_Z": "0.000001"
+                "value_X": "34.270000",
+                "value_Y": "-41.970000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -559,13 +559,13 @@
             }
         },
         "Object_21": {
-            "UUID": "5b927245-7b97-445d-b1c3-702561cc4785",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "28019d4c-2f00-4835-b15c-73e7c381bab6",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_5",
             "Translation": {
-                "value_X": "34.270424",
-                "value_Y": "-41.972748",
-                "value_Z": "0.000001"
+                "value_X": "34.270000",
+                "value_Y": "-41.970000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -589,13 +589,13 @@
             }
         },
         "Object_22": {
-            "UUID": "2f05cf28-d8b6-43d7-92c2-978b41725cf8",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "eeb1b1f5-7b4b-4f1a-860a-ae82d44bf520",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_4",
             "Translation": {
-                "value_X": "44.260082",
-                "value_Y": "-39.153721",
-                "value_Z": "0.000001"
+                "value_X": "44.260000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -619,13 +619,13 @@
             }
         },
         "Object_23": {
-            "UUID": "36344d93-f9f2-4f66-8fe0-27cb7f6cf0bc",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "f569596d-1938-4bcc-935f-0049a140b14c",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_5",
             "Translation": {
-                "value_X": "44.260082",
-                "value_Y": "-39.153721",
-                "value_Z": "0.000001"
+                "value_X": "44.260000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -649,12 +649,12 @@
             }
         },
         "Object_24": {
-            "UUID": "ff1b90ca-9e69-44c2-baf6-5f67f59f8b6a",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "2e397c90-63c6-44fb-a5f7-9da8d0a01500",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_11",
             "Translation": {
-                "value_X": "-20.831324",
-                "value_Y": "-27.426489",
+                "value_X": "-20.830000",
+                "value_Y": "-27.430000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -679,13 +679,13 @@
             }
         },
         "Object_25": {
-            "UUID": "3892ee75-a2d3-43c7-bbde-ae3511403f6b",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "cc95ca8b-4ccd-4865-8103-df237354a9ca",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_2",
             "Translation": {
-                "value_X": "42.130642",
-                "value_Y": "37.493286",
-                "value_Z": "-0.000002"
+                "value_X": "42.130000",
+                "value_Y": "37.490000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -709,13 +709,13 @@
             }
         },
         "Object_26": {
-            "UUID": "4c79a71b-601d-474d-abb2-be00aff217db",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "57279bdb-951b-4746-ac06-77172ccfd06d",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_3",
             "Translation": {
-                "value_X": "-20.572771",
-                "value_Y": "43.060829",
-                "value_Z": "-0.069194"
+                "value_X": "-20.570000",
+                "value_Y": "43.060000",
+                "value_Z": "-0.070000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -739,12 +739,12 @@
             }
         },
         "Object_27": {
-            "UUID": "c2714df9-4224-472d-83c0-632f74430540",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "8439e0bd-cb7e-40c4-b3d3-2c21c548c54f",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_12",
             "Translation": {
-                "value_X": "31.511889",
-                "value_Y": "-16.446016",
+                "value_X": "31.510000",
+                "value_Y": "-16.450000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -769,13 +769,13 @@
             }
         },
         "Object_28": {
-            "UUID": "7a88b4a6-b45e-4c63-8641-273cbe6715a5",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "7c9ef5ea-6cd0-454c-a210-339d0b1253db",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_7",
             "Translation": {
-                "value_X": "13.387990",
-                "value_Y": "-33.755039",
-                "value_Z": "-0.000001"
+                "value_X": "13.390000",
+                "value_Y": "-33.760000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -799,12 +799,12 @@
             }
         },
         "Object_29": {
-            "UUID": "764c45a1-c96e-421e-95c2-f77d6c6016c6",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "df6b2777-d5d1-4041-ba62-1d4af83d490f",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_13",
             "Translation": {
-                "value_X": "-2.503353",
-                "value_Y": "15.800846",
+                "value_X": "-2.500000",
+                "value_Y": "15.800000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -829,13 +829,13 @@
             }
         },
         "Object_30": {
-            "UUID": "30c3c115-8eb1-47b0-8d5b-abcf4b511927",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "9452f871-c52f-4b0c-9277-91d6fcebe4bd",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_7",
             "Translation": {
-                "value_X": "-42.807240",
-                "value_Y": "-41.835564",
-                "value_Z": "-0.000001"
+                "value_X": "-42.810000",
+                "value_Y": "-41.840000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -859,13 +859,13 @@
             }
         },
         "Object_31": {
-            "UUID": "b1c71f1a-dfce-439b-8df1-dcc8eddce7f0",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "f15a1c5f-187c-473a-a504-e9d93a6df0b8",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_7",
             "Translation": {
-                "value_X": "-34.679482",
-                "value_Y": "-41.835564",
-                "value_Z": "-0.000001"
+                "value_X": "-34.680000",
+                "value_Y": "-41.840000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -889,12 +889,12 @@
             }
         },
         "Object_32": {
-            "UUID": "b34651d6-563a-4fb9-b2d0-2ad23666342c",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "b56c3799-d158-4625-8801-ab0852d3b48b",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_0",
             "Translation": {
-                "value_X": "-29.478403",
-                "value_Y": "21.014099",
+                "value_X": "-29.480000",
+                "value_Y": "21.010000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -919,13 +919,13 @@
             }
         },
         "Object_33": {
-            "UUID": "acec0be0-0aca-4170-aa1e-a4f4882fb72e",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "64583cb0-b6f6-47af-b2e4-a0b754feb805",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_14",
             "Translation": {
-                "value_X": "-32.361496",
-                "value_Y": "42.370422",
-                "value_Z": "0.000001"
+                "value_X": "-32.360000",
+                "value_Y": "42.370000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -949,12 +949,12 @@
             }
         },
         "Object_34": {
-            "UUID": "2de35003-9c8b-4cbc-ac57-004d419c3959",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "6ef47939-dbe4-4098-bdc9-5cf452db92e7",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_15",
             "Translation": {
-                "value_X": "16.049517",
-                "value_Y": "-16.696884",
+                "value_X": "16.050000",
+                "value_Y": "-16.700000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -979,13 +979,13 @@
             }
         },
         "Object_35": {
-            "UUID": "680f20d4-0cda-44c4-b488-b38d1592f12a",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "f6b21319-2458-4786-942f-06916e9c3410",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_7",
             "Translation": {
-                "value_X": "13.387990",
-                "value_Y": "-40.802517",
-                "value_Z": "-0.000001"
+                "value_X": "13.390000",
+                "value_Y": "-40.800000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -1009,13 +1009,13 @@
             }
         },
         "Object_36": {
-            "UUID": "eff5582b-a3eb-48e9-be8e-63f3172237e3",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "c56eadda-831d-485b-bc7d-1296873bd05f",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_6",
             "Translation": {
-                "value_X": "-31.216331",
-                "value_Y": "33.201576",
-                "value_Z": "0.000001"
+                "value_X": "-31.220000",
+                "value_Y": "33.200000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -1039,12 +1039,12 @@
             }
         },
         "Object_37": {
-            "UUID": "8152dd78-7bfc-4d1a-abfd-b86f5a093179",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "93f29a03-c0a6-4e15-a341-06ba5e11a210",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_16",
             "Translation": {
-                "value_X": "-20.317694",
-                "value_Y": "-16.163609",
+                "value_X": "-20.320000",
+                "value_Y": "-16.160000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -1069,12 +1069,12 @@
             }
         },
         "Object_38": {
-            "UUID": "00bb59c5-af78-48c6-a2e4-9ed9af6be2cc",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "ffc8f09b-739c-43ce-be39-fb29486cb577",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_17",
             "Translation": {
-                "value_X": "-41.649002",
-                "value_Y": "-16.495394",
+                "value_X": "-41.650000",
+                "value_Y": "-16.500000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -1099,13 +1099,13 @@
             }
         },
         "Object_39": {
-            "UUID": "b8c89570-07a3-4725-8e7b-5045a8be33cf",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "f5303857-af77-4749-a971-121d98662094",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_7",
             "Translation": {
-                "value_X": "-42.807240",
-                "value_Y": "-30.643888",
-                "value_Z": "-0.000001"
+                "value_X": "-42.810000",
+                "value_Y": "-30.640000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -1129,13 +1129,13 @@
             }
         },
         "Object_40": {
-            "UUID": "6f2a4fc3-c6ce-44e2-a934-75eb99e10939",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "58b0392f-5c81-46d4-9abc-fecef704d9fe",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_7",
             "Translation": {
-                "value_X": "-34.679482",
-                "value_Y": "-30.643888",
-                "value_Z": "-0.000001"
+                "value_X": "-34.680000",
+                "value_Y": "-30.640000",
+                "value_Z": "0.000000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -1159,12 +1159,12 @@
             }
         },
         "Object_41": {
-            "UUID": "e113b215-ff05-47ae-9c57-ba9df5a63153",
-            "Parent_UUID": "3fe690be-5aa6-42e5-be39-dcebfcc5166f",
+            "UUID": "c1d564bf-e09c-4c41-9695-91040116fe2f",
+            "Parent_UUID": "d7820ee8-be30-4df0-8712-872a14bd60d9",
             "Name": "street environment_v01_1",
             "Translation": {
-                "value_X": "30.695278",
-                "value_Y": "21.612646",
+                "value_X": "30.700000",
+                "value_Y": "21.610000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -1189,13 +1189,13 @@
             }
         },
         "Object_42": {
-            "UUID": "07fac3da-7165-40f3-8ee6-23b7cc7c79b1",
-            "Parent_UUID": "98452434-c4e5-455b-a6e7-b68cbb2d5323",
+            "UUID": "fb2f1ebb-5960-4b63-8129-1ad05a9877b8",
+            "Parent_UUID": "2f69e23d-1796-498c-b679-d63369ba6cf2",
             "Name": "",
             "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
+                "value_X": "-78.310000",
+                "value_Y": "45.250000",
+                "value_Z": "-97.030000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -1211,8 +1211,8 @@
             "Components": {}
         },
         "Object_43": {
-            "UUID": "87f28dc3-d403-4395-a15c-64d16518b39c",
-            "Parent_UUID": "07fac3da-7165-40f3-8ee6-23b7cc7c79b1",
+            "UUID": "12957d81-9e09-450a-ad5f-2466a636128b",
+            "Parent_UUID": "fb2f1ebb-5960-4b63-8129-1ad05a9877b8",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1220,10 +1220,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1233,8 +1233,8 @@
             "Components": {}
         },
         "Object_44": {
-            "UUID": "a838952f-5a8c-42f0-878e-06ff26f319c2",
-            "Parent_UUID": "87f28dc3-d403-4395-a15c-64d16518b39c",
+            "UUID": "e2eb0088-a99b-4d55-9c5a-bb888101ff8f",
+            "Parent_UUID": "12957d81-9e09-450a-ad5f-2466a636128b",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1242,10 +1242,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_X": "-0.198556",
+                "value_Y": "0.560705",
+                "value_Z": "0.757749",
+                "value_W": "-0.268333"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1255,8 +1255,8 @@
             "Components": {}
         },
         "Object_45": {
-            "UUID": "aa99f6ab-719f-4f72-bf20-50456610d5eb",
-            "Parent_UUID": "a838952f-5a8c-42f0-878e-06ff26f319c2",
+            "UUID": "d8f582ef-fc1e-4ce9-be88-80996f697aa4",
+            "Parent_UUID": "e2eb0088-a99b-4d55-9c5a-bb888101ff8f",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1277,13 +1277,13 @@
             "Components": {}
         },
         "Object_46": {
-            "UUID": "563ace29-141c-4f6a-8f3f-75e89772eb6c",
-            "Parent_UUID": "98452434-c4e5-455b-a6e7-b68cbb2d5323",
+            "UUID": "ed3faa64-a908-4d95-bfb1-7a04ef26d3b9",
+            "Parent_UUID": "2f69e23d-1796-498c-b679-d63369ba6cf2",
             "Name": "",
             "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
+                "value_X": "-28.130000",
+                "value_Y": "20.870000",
+                "value_Z": "-35.060000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -1299,8 +1299,8 @@
             "Components": {}
         },
         "Object_47": {
-            "UUID": "681c3253-aeb1-4524-9530-cafcf3bc2cae",
-            "Parent_UUID": "563ace29-141c-4f6a-8f3f-75e89772eb6c",
+            "UUID": "ef79f886-1e14-4050-bd5c-9f764d9323cd",
+            "Parent_UUID": "ed3faa64-a908-4d95-bfb1-7a04ef26d3b9",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1308,10 +1308,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1321,8 +1321,8 @@
             "Components": {}
         },
         "Object_48": {
-            "UUID": "000c5aaa-3560-4365-8011-34b7e872b2df",
-            "Parent_UUID": "681c3253-aeb1-4524-9530-cafcf3bc2cae",
+            "UUID": "ba4b8445-59bb-4214-bbbf-d1575f6c669c",
+            "Parent_UUID": "ef79f886-1e14-4050-bd5c-9f764d9323cd",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1330,10 +1330,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_X": "-0.198556",
+                "value_Y": "0.560705",
+                "value_Z": "0.757749",
+                "value_W": "-0.268333"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1343,8 +1343,8 @@
             "Components": {}
         },
         "Object_49": {
-            "UUID": "da17a958-0c78-4f28-8298-348798f2b025",
-            "Parent_UUID": "000c5aaa-3560-4365-8011-34b7e872b2df",
+            "UUID": "2768f191-e1c4-4e42-bca0-69d747f672eb",
+            "Parent_UUID": "ba4b8445-59bb-4214-bbbf-d1575f6c669c",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1365,12 +1365,12 @@
             "Components": {}
         },
         "Object_50": {
-            "UUID": "363e2c96-d7a3-487a-9bce-e206f8fd88f5",
-            "Parent_UUID": "98452434-c4e5-455b-a6e7-b68cbb2d5323",
+            "UUID": "1cb35543-6056-4cd8-b5ef-ed6c043a8d1b",
+            "Parent_UUID": "2f69e23d-1796-498c-b679-d63369ba6cf2",
             "Name": "",
             "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
+                "value_X": "-66.720000",
+                "value_Y": "141.930000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -1387,8 +1387,8 @@
             "Components": {}
         },
         "Object_51": {
-            "UUID": "1bef20dc-5b35-44a1-af42-be6130c46773",
-            "Parent_UUID": "363e2c96-d7a3-487a-9bce-e206f8fd88f5",
+            "UUID": "e351ebb3-3a25-45ba-85b0-3f665283a51b",
+            "Parent_UUID": "1cb35543-6056-4cd8-b5ef-ed6c043a8d1b",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1396,10 +1396,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1409,8 +1409,8 @@
             "Components": {}
         },
         "Object_52": {
-            "UUID": "a250589a-b168-4dd5-966c-0bf1aefb76bb",
-            "Parent_UUID": "1bef20dc-5b35-44a1-af42-be6130c46773",
+            "UUID": "c2645f7c-4b38-4821-bd0f-8c4bf399cabc",
+            "Parent_UUID": "e351ebb3-3a25-45ba-85b0-3f665283a51b",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1418,10 +1418,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_X": "0.154439",
+                "value_Y": "-0.154439",
+                "value_Z": "-0.690035",
+                "value_W": "0.690035"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1431,8 +1431,8 @@
             "Components": {}
         },
         "Object_53": {
-            "UUID": "836bdfcc-097b-4193-bc80-c1261f788c8a",
-            "Parent_UUID": "a250589a-b168-4dd5-966c-0bf1aefb76bb",
+            "UUID": "f28fc3f4-ee51-4062-9437-098e84a5c978",
+            "Parent_UUID": "c2645f7c-4b38-4821-bd0f-8c4bf399cabc",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1440,10 +1440,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1453,8 +1453,8 @@
             "Components": {}
         },
         "Object_54": {
-            "UUID": "0f4d4512-8e55-4c50-b177-ff14d455258e",
-            "Parent_UUID": "836bdfcc-097b-4193-bc80-c1261f788c8a",
+            "UUID": "3c0a170e-5856-4bf0-b073-b3309b5246d9",
+            "Parent_UUID": "f28fc3f4-ee51-4062-9437-098e84a5c978",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1475,12 +1475,12 @@
             "Components": {}
         },
         "Object_55": {
-            "UUID": "482c5fd2-586e-4c7d-84ff-9869895aef17",
-            "Parent_UUID": "98452434-c4e5-455b-a6e7-b68cbb2d5323",
+            "UUID": "9c404017-1713-4924-ae9c-ffe24f42bf4c",
+            "Parent_UUID": "2f69e23d-1796-498c-b679-d63369ba6cf2",
             "Name": "",
             "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
+                "value_X": "28.890000",
+                "value_Y": "-60.960000",
                 "value_Z": "0.000000"
             },
             "Rotation": {
@@ -1497,8 +1497,8 @@
             "Components": {}
         },
         "Object_56": {
-            "UUID": "ceb4317d-fed6-4872-8b9b-a40b3a772d51",
-            "Parent_UUID": "482c5fd2-586e-4c7d-84ff-9869895aef17",
+            "UUID": "421febd1-ef77-483a-b141-067b33cb35d8",
+            "Parent_UUID": "9c404017-1713-4924-ae9c-ffe24f42bf4c",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1506,10 +1506,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "-0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1519,8 +1519,8 @@
             "Components": {}
         },
         "Object_57": {
-            "UUID": "52c6f15c-b0db-47af-8ab7-f35f83e61174",
-            "Parent_UUID": "ceb4317d-fed6-4872-8b9b-a40b3a772d51",
+            "UUID": "60f52a81-a454-4511-9e33-22cca957ea93",
+            "Parent_UUID": "421febd1-ef77-483a-b141-067b33cb35d8",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1528,10 +1528,10 @@
                 "value_Z": "0.000000"
             },
             "Rotation": {
-                "value_X": "0.000000",
+                "value_X": "0.707107",
                 "value_Y": "0.000000",
                 "value_Z": "0.000000",
-                "value_W": "1.000000"
+                "value_W": "0.707107"
             },
             "Scale": {
                 "value_X": "1.000000",
@@ -1541,8 +1541,8 @@
             "Components": {}
         },
         "Object_58": {
-            "UUID": "94b0f0d9-3f41-4054-82b5-632cc7578972",
-            "Parent_UUID": "52c6f15c-b0db-47af-8ab7-f35f83e61174",
+            "UUID": "61903cc7-371f-4088-9904-22315b723a3c",
+            "Parent_UUID": "60f52a81-a454-4511-9e33-22cca957ea93",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",

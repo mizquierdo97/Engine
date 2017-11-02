@@ -33,3 +33,8 @@ std::string GetExtension(std::string path)
 
 	return file_extension;
 }
+
+double FloatPrecision(double value, double precision)
+{
+	return (floor((value * pow(10, precision) + 0.5)) / pow(10, precision));
+}

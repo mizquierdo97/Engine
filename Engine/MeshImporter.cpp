@@ -297,13 +297,13 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 				RELEASE_ARRAY(num);
 		
 
-			root->mTransformation.Decompose(scaling, rotation, translation);
+			
 		}	
 		else {
 			strcpy(mesh_name, "root_");
 			strcat(mesh_name, path_name);
 		}
-
+		root->mTransformation.Decompose(scaling, rotation, translation);
 		//HEADER
 		bytes = sizeof(ranges);
 		memcpy(cursor[0], ranges, bytes);
