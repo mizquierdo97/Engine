@@ -418,6 +418,7 @@ bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool i
 		{
 			LOG("Image converted to RGBA");
 			textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), texture);
+			texture[0]->texture_path = path;
 			//Create texture from file pixels
 			textureLoaded = true;
 		}

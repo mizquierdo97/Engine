@@ -27,11 +27,14 @@ private:
 
 	void Destroy();
 
+public:
+	std::string texture_path;
 private:
 	GLuint texture_id;
 	GLuint color_texture;
 	GLuint depth_texture;
 	int width;
 	int height;
+	
 };
 

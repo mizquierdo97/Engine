@@ -7,6 +7,12 @@ void ComponentMaterial::UpdateComponent()
 
 }
 
+void ComponentMaterial::SaveComponentScene(Data * data)
+{
+	data->AddString("Mesh Path", obj_tex->texture_path);
+
+}
+
 void ComponentMaterial::ShowInspectorComponents()
 {
 	static bool b_open = false;

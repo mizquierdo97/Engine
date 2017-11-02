@@ -23,10 +23,7 @@ ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameOb
 
 void ComponentTransform::UpdateComponent()
 {
-
-		matrix.Decompose(translation, rotation, scale);
-	
-	
+	matrix.Decompose(translation, rotation, scale);
 }
 
 void ComponentTransform::ShowInspectorComponents()
