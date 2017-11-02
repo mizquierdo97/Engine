@@ -589,8 +589,9 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		Texture* temp_text = new Texture();
 		if (material_index != -1) {
 			/*std::map<GLuint, std::string>::iterator pos */ auto temp = App->filesystem->mesh_importer->textureIdMap.find(material_index);
-			
-			if (App->renderer3D->loadTextureFromFile((char*)temp->second.c_str(), &temp_text)) {
+			std::string texture_path = MESHES_PATH + GetFileName(temp->second) + ".dds";
+
+			if (App->renderer3D->loadTextureFromFile((char*)texture_path.c_str(), &temp_text)) {
 				LOG("TEXTURE_LOADED");
 				temp_obj->AddComponentMaterial(temp_text);
 			}

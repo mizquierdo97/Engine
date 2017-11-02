@@ -1,7 +1,7 @@
 {
     "GameObjects": {
         "Object_0": {
-            "UUID": "8d7ef000-1dc3-46a9-8786-a6b9afbe2a73",
+            "UUID": "a2da8f5b-873d-4458-ad50-fd38154b31ff",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "",
             "Translation": {
@@ -23,7 +23,7 @@
             "Components": {}
         },
         "Object_1": {
-            "UUID": "f5f59f77-43b7-472e-ba96-bc95d9a08296",
+            "UUID": "986dc3d4-27d6-4bb9-8fd6-7681117f8f56",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "",
             "Translation": {
@@ -45,8 +45,8 @@
             "Components": {}
         },
         "Object_2": {
-            "UUID": "211973ac-2752-43f9-8cea-ab2cfca24c48",
-            "Parent_UUID": "f5f59f77-43b7-472e-ba96-bc95d9a08296",
+            "UUID": "97772d58-6e67-4d19-9b68-0397ab2610f1",
+            "Parent_UUID": "986dc3d4-27d6-4bb9-8fd6-7681117f8f56",
             "Name": "",
             "Translation": {
                 "value_X": "18.150000",
@@ -67,8 +67,8 @@
             "Components": {}
         },
         "Object_3": {
-            "UUID": "273c0c5b-36be-4d05-991e-64da287a53b2",
-            "Parent_UUID": "211973ac-2752-43f9-8cea-ab2cfca24c48",
+            "UUID": "aa991fd4-78f4-41d6-acfe-b55f54b289db",
+            "Parent_UUID": "97772d58-6e67-4d19-9b68-0397ab2610f1",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -89,8 +89,8 @@
             "Components": {}
         },
         "Object_4": {
-            "UUID": "26ce18f4-3691-426e-a23c-3c1ec18caa30",
-            "Parent_UUID": "273c0c5b-36be-4d05-991e-64da287a53b2",
+            "UUID": "be2d5aa5-10b4-497e-83af-a42bd75b5b77",
+            "Parent_UUID": "aa991fd4-78f4-41d6-acfe-b55f54b289db",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -111,8 +111,8 @@
             "Components": {}
         },
         "Object_5": {
-            "UUID": "0b5eedcd-a64f-4144-915b-52bad9e5b4f1",
-            "Parent_UUID": "26ce18f4-3691-426e-a23c-3c1ec18caa30",
+            "UUID": "32fe0551-0892-4d0d-8913-2af77a828686",
+            "Parent_UUID": "be2d5aa5-10b4-497e-83af-a42bd75b5b77",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -133,8 +133,8 @@
             "Components": {}
         },
         "Object_6": {
-            "UUID": "465201e3-8ebb-4b75-8f16-b3defdbed3a9",
-            "Parent_UUID": "f5f59f77-43b7-472e-ba96-bc95d9a08296",
+            "UUID": "c7acdf1e-73e1-4811-bd05-b21db30c7c90",
+            "Parent_UUID": "986dc3d4-27d6-4bb9-8fd6-7681117f8f56",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -155,8 +155,8 @@
             "Components": {}
         },
         "Object_7": {
-            "UUID": "30f49f18-7ae9-4a65-8884-86ff8df6c0d8",
-            "Parent_UUID": "465201e3-8ebb-4b75-8f16-b3defdbed3a9",
+            "UUID": "8e99325f-4585-41b3-b293-f0079836c5af",
+            "Parent_UUID": "c7acdf1e-73e1-4811-bd05-b21db30c7c90",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -177,8 +177,8 @@
             "Components": {}
         },
         "Object_8": {
-            "UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
-            "Parent_UUID": "30f49f18-7ae9-4a65-8884-86ff8df6c0d8",
+            "UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
+            "Parent_UUID": "8e99325f-4585-41b3-b293-f0079836c5af",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -199,8 +199,8 @@
             "Components": {}
         },
         "Object_9": {
-            "UUID": "1a1e6197-ca16-4971-8c2b-a79f313b3842",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "828a0aad-4535-4751-b302-eb540ec06053",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_0",
             "Translation": {
                 "value_X": "-41.480000",
@@ -225,12 +225,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_0"
-                }
+                },
+                "Mesh_Path": "Assets/building03_c.tga"
             }
         },
         "Object_10": {
-            "UUID": "c893035b-7467-434f-9780-8d55a19cdd15",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "9b717622-c7f4-41fb-9316-79e0384fe2b8",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_1",
             "Translation": {
                 "value_X": "17.710000",
@@ -255,12 +256,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_1"
-                }
+                },
+                "Mesh_Path": "Assets/building_v02_c.png"
             }
         },
         "Object_11": {
-            "UUID": "e5c2b7f4-d24d-43bb-aeea-adc4156e3259",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "f8aa481e-ae95-4058-a554-717ef41fba43",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "16.010000",
@@ -285,12 +287,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_2"
-                }
+                },
+                "Mesh_Path": "Assets/building_016_c.tga"
             }
         },
         "Object_12": {
-            "UUID": "e7f54988-bb05-48e0-a1fa-5ebcdee54bd6",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "4a66fb02-8c6c-4b41-b6c0-db650fb192c0",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_3",
             "Translation": {
                 "value_X": "40.980000",
@@ -315,12 +318,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_3"
-                }
+                },
+                "Mesh_Path": "Assets/building_025_c.tga"
             }
         },
         "Object_13": {
-            "UUID": "6670222f-b770-47f4-bd7a-a8c2030d3b98",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "bf5cbbf1-edf6-420d-940e-7621ea0abcaa",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_8",
             "Translation": {
                 "value_X": "-2.160000",
@@ -349,8 +353,8 @@
             }
         },
         "Object_14": {
-            "UUID": "73bb7336-b7aa-45b5-a0b9-d5b5edd5f274",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "7d5fddc5-8884-4c07-bde1-223ca77e4c62",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_9",
             "Translation": {
                 "value_X": "-0.030000",
@@ -379,8 +383,8 @@
             }
         },
         "Object_15": {
-            "UUID": "3b4cfcec-32a3-452e-adbf-7c9b1423776a",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "f826bac2-84bd-46e7-aba8-a14786818c9e",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "25.150000",
@@ -405,12 +409,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_4"
-                }
+                },
+                "Mesh_Path": "Assets/building 01_c.tga"
             }
         },
         "Object_16": {
-            "UUID": "13dc0867-83b0-4eb3-aac0-4f7fc77371ad",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "1935ea24-5899-4ca5-b9d3-176f6431bfb7",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "25.150000",
@@ -435,12 +440,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_5"
-                }
+                },
+                "Mesh_Path": "Assets/building 01_c.tga"
             }
         },
         "Object_17": {
-            "UUID": "cb08f566-6cad-4758-8e42-57513bf547a6",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "28049b2b-e580-4354-a28e-84df33333399",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "30.130000",
@@ -465,12 +471,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_2"
-                }
+                },
+                "Mesh_Path": "Assets/building_016_c.tga"
             }
         },
         "Object_18": {
-            "UUID": "9d893f58-9c65-4aed-80d8-9cc7dc7f11b6",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "d78fcc89-3766-47f8-8d55-9bfc6212fc52",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_6",
             "Translation": {
                 "value_X": "-42.290000",
@@ -495,12 +502,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_6"
-                }
+                },
+                "Mesh_Path": "Assets/building 06_ c.tga"
             }
         },
         "Object_19": {
-            "UUID": "0aa03e84-46ed-4f40-913f-ef9e1e296205",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "8c82453b-7fb4-4761-a989-b1515649b0a9",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_10",
             "Translation": {
                 "value_X": "-19.440000",
@@ -525,12 +533,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_10"
-                }
+                },
+                "Mesh_Path": "Assets/building03_c.tga"
             }
         },
         "Object_20": {
-            "UUID": "7902b2ef-c3f3-4dbf-88f0-93ae70c9c798",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "dc0c5c40-96de-4d79-8c81-f24764aabf77",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "34.270000",
@@ -555,12 +564,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_4"
-                }
+                },
+                "Mesh_Path": "Assets/building 01_c.tga"
             }
         },
         "Object_21": {
-            "UUID": "badb7c4c-7e47-4c0d-95b9-05774d6de88d",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "5c0095c0-d294-4bc6-99d0-ed920437af53",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "34.270000",
@@ -585,12 +595,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_5"
-                }
+                },
+                "Mesh_Path": "Assets/building 01_c.tga"
             }
         },
         "Object_22": {
-            "UUID": "d8ec7ea5-0796-4deb-8a7d-64696c19c8cb",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "f5183376-ea53-4286-a30d-cf4bbf6a79bb",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "44.260000",
@@ -615,12 +626,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_4"
-                }
+                },
+                "Mesh_Path": "Assets/building 01_c.tga"
             }
         },
         "Object_23": {
-            "UUID": "f080ec77-8ad4-41a6-87eb-69fa240470b0",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "bae359ec-3125-4a32-a837-7e76128c5fc3",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "44.260000",
@@ -645,12 +657,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_5"
-                }
+                },
+                "Mesh_Path": "Assets/building 01_c.tga"
             }
         },
         "Object_24": {
-            "UUID": "96150717-e1d9-494d-b84d-17dc5f3697b1",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "5a13aa85-c552-4964-aa6a-8b4c296fa29b",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_11",
             "Translation": {
                 "value_X": "-20.830000",
@@ -675,12 +688,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_11"
-                }
+                },
+                "Mesh_Path": "Assets/building05 _c.tga"
             }
         },
         "Object_25": {
-            "UUID": "8f243987-1de3-40e8-858d-a7aaf02a26ba",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "cebeceb7-75d8-447d-bf22-1f6215ad022f",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "42.130000",
@@ -705,12 +719,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_2"
-                }
+                },
+                "Mesh_Path": "Assets/building_016_c.tga"
             }
         },
         "Object_26": {
-            "UUID": "62d25490-7bbf-4302-a387-5b41c1ec69e6",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "8204929b-7825-41b7-8b68-a341354744cc",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_3",
             "Translation": {
                 "value_X": "-20.570000",
@@ -735,12 +750,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_3"
-                }
+                },
+                "Mesh_Path": "Assets/building_025_c.tga"
             }
         },
         "Object_27": {
-            "UUID": "1382956c-9eb9-40a5-b4be-224ae5f9ba70",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "061abfd4-2e34-4edd-9ce0-c7e48aaedbc2",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_12",
             "Translation": {
                 "value_X": "31.510000",
@@ -765,12 +781,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_12"
-                }
+                },
+                "Mesh_Path": "Assets/building05 _c.tga"
             }
         },
         "Object_28": {
-            "UUID": "c8a2c801-9857-4293-9da4-0df79a47367d",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "83d985f4-735b-4c50-949b-54579b195292",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "13.390000",
@@ -795,12 +812,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
-                }
+                },
+                "Mesh_Path": "Assets/building_v01_c.png"
             }
         },
         "Object_29": {
-            "UUID": "ee9daef8-6145-4496-b303-db082076174f",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "d5122a6a-a857-469d-b4d1-42e00e1b186f",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_13",
             "Translation": {
                 "value_X": "-2.500000",
@@ -829,8 +847,8 @@
             }
         },
         "Object_30": {
-            "UUID": "17e7b48c-01b4-48ea-be89-d4528639a5d6",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "657ad70c-e7a2-42f0-89e8-563b9ca9374f",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-42.810000",
@@ -855,12 +873,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
-                }
+                },
+                "Mesh_Path": "Assets/building_v01_c.png"
             }
         },
         "Object_31": {
-            "UUID": "f7b1dcf4-c45f-4aa6-bc3d-63d1579d4fe5",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "4cc6b5f1-5a7c-44d9-864f-694c2801d493",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-34.680000",
@@ -885,12 +904,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
-                }
+                },
+                "Mesh_Path": "Assets/building_v01_c.png"
             }
         },
         "Object_32": {
-            "UUID": "7f78236a-6683-4e79-b06a-3d6feaf7999f",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "b6542daf-f9bf-47a3-8894-e01538fc9590",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_0",
             "Translation": {
                 "value_X": "-29.480000",
@@ -915,12 +935,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_0"
-                }
+                },
+                "Mesh_Path": "Assets/building03_c.tga"
             }
         },
         "Object_33": {
-            "UUID": "55e35634-ce81-40c1-8d57-cfa20b499efd",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "f36c24eb-b8ed-4e12-9ecb-98cf04864648",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_14",
             "Translation": {
                 "value_X": "-32.360000",
@@ -945,12 +966,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_14"
-                }
+                },
+                "Mesh_Path": "Assets/building 06_ c.tga"
             }
         },
         "Object_34": {
-            "UUID": "88ee084c-ad80-46cd-b597-6ef82a1945c9",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "80048945-6108-4ba2-ae00-fc3fdf9d869d",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_15",
             "Translation": {
                 "value_X": "16.050000",
@@ -975,12 +997,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_15"
-                }
+                },
+                "Mesh_Path": "Assets/building05 _c.tga"
             }
         },
         "Object_35": {
-            "UUID": "cacb6e59-335f-4718-bd78-bd9577624984",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "c0cdb090-7b45-41f8-a3a6-dac22c1e03da",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "13.390000",
@@ -1005,12 +1028,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
-                }
+                },
+                "Mesh_Path": "Assets/building_v01_c.png"
             }
         },
         "Object_36": {
-            "UUID": "d94f1f05-eb4f-47cf-9222-19084adb4ae9",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "749ec06f-297e-4b72-9d3f-a23794d510aa",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_6",
             "Translation": {
                 "value_X": "-31.220000",
@@ -1035,12 +1059,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_6"
-                }
+                },
+                "Mesh_Path": "Assets/building 06_ c.tga"
             }
         },
         "Object_37": {
-            "UUID": "d86ad4e7-65d8-47e3-9d22-4963314d5d2d",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "58291ead-333f-46a4-91a8-706ffd920f71",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_16",
             "Translation": {
                 "value_X": "-20.320000",
@@ -1065,12 +1090,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_16"
-                }
+                },
+                "Mesh_Path": "Assets/building05 _c.tga"
             }
         },
         "Object_38": {
-            "UUID": "748b23a7-63c6-4f2f-9f8e-d4a7267ace81",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "263a2c1f-f384-481d-880b-85870953e35e",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_17",
             "Translation": {
                 "value_X": "-41.650000",
@@ -1095,12 +1121,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_17"
-                }
+                },
+                "Mesh_Path": "Assets/building05 _c.tga"
             }
         },
         "Object_39": {
-            "UUID": "19b58e05-e9ef-4193-a7a4-22065632a2b8",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "74019ad7-16be-4777-ad9d-e4788a236f06",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-42.810000",
@@ -1125,12 +1152,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
-                }
+                },
+                "Mesh_Path": "Assets/building_v01_c.png"
             }
         },
         "Object_40": {
-            "UUID": "2033c12a-70e2-45c4-88d9-9014b75076ad",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "3f505c14-2756-4fbf-a043-a2dc196a704f",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-34.680000",
@@ -1155,12 +1183,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_7"
-                }
+                },
+                "Mesh_Path": "Assets/building_v01_c.png"
             }
         },
         "Object_41": {
-            "UUID": "3c0b3e4a-b041-43cb-8bab-1db01db9d8b4",
-            "Parent_UUID": "3c5e387f-6d48-4b15-9866-42ea3f6597a6",
+            "UUID": "176f88fd-a008-4312-8527-41bee2b1a929",
+            "Parent_UUID": "7443011c-1154-4d6b-b184-9a7588258ffb",
             "Name": "street environment_v01_1",
             "Translation": {
                 "value_X": "30.700000",
@@ -1185,12 +1214,13 @@
                     "Norms": "1",
                     "Texture": "1",
                     "Mesh_Path": "street environment_v01_1"
-                }
+                },
+                "Mesh_Path": "Assets/building_v02_c.png"
             }
         },
         "Object_42": {
-            "UUID": "d1e46e07-208e-490f-ab03-43a951bd0176",
-            "Parent_UUID": "f5f59f77-43b7-472e-ba96-bc95d9a08296",
+            "UUID": "e3be9843-4097-45a8-b4ca-a4f345680ef9",
+            "Parent_UUID": "986dc3d4-27d6-4bb9-8fd6-7681117f8f56",
             "Name": "",
             "Translation": {
                 "value_X": "-78.310000",
@@ -1211,8 +1241,8 @@
             "Components": {}
         },
         "Object_43": {
-            "UUID": "d59e5162-6b8e-4cd4-bbf6-4c62772d4081",
-            "Parent_UUID": "d1e46e07-208e-490f-ab03-43a951bd0176",
+            "UUID": "8042e928-a4e3-4982-b927-3a112413e8dc",
+            "Parent_UUID": "e3be9843-4097-45a8-b4ca-a4f345680ef9",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1233,8 +1263,8 @@
             "Components": {}
         },
         "Object_44": {
-            "UUID": "bb2891ca-e495-43e1-8d25-5d25f49edec9",
-            "Parent_UUID": "d59e5162-6b8e-4cd4-bbf6-4c62772d4081",
+            "UUID": "a80a9cbe-8ef8-4f4d-84b1-cc4c6a3055c7",
+            "Parent_UUID": "8042e928-a4e3-4982-b927-3a112413e8dc",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1255,8 +1285,8 @@
             "Components": {}
         },
         "Object_45": {
-            "UUID": "da5cad00-a342-4f9b-a96c-8e75003291c5",
-            "Parent_UUID": "bb2891ca-e495-43e1-8d25-5d25f49edec9",
+            "UUID": "93e636fe-2c5b-4a66-b23d-243b1fd7a8a6",
+            "Parent_UUID": "a80a9cbe-8ef8-4f4d-84b1-cc4c6a3055c7",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1277,8 +1307,8 @@
             "Components": {}
         },
         "Object_46": {
-            "UUID": "0c13cb28-faf0-48d1-9c7e-498b3b0b2307",
-            "Parent_UUID": "f5f59f77-43b7-472e-ba96-bc95d9a08296",
+            "UUID": "cd0f1243-83aa-4736-b171-52bc6ec98d43",
+            "Parent_UUID": "986dc3d4-27d6-4bb9-8fd6-7681117f8f56",
             "Name": "",
             "Translation": {
                 "value_X": "-28.130000",
@@ -1299,8 +1329,8 @@
             "Components": {}
         },
         "Object_47": {
-            "UUID": "4ee1d48e-dfe7-43e2-aba6-ed49e1333ec6",
-            "Parent_UUID": "0c13cb28-faf0-48d1-9c7e-498b3b0b2307",
+            "UUID": "c41e8176-cf06-4705-82ae-5ce5f120105c",
+            "Parent_UUID": "cd0f1243-83aa-4736-b171-52bc6ec98d43",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1321,8 +1351,8 @@
             "Components": {}
         },
         "Object_48": {
-            "UUID": "b482b1fe-79b5-485c-920a-aad12433e1d9",
-            "Parent_UUID": "4ee1d48e-dfe7-43e2-aba6-ed49e1333ec6",
+            "UUID": "a3784e4c-acd0-4bb0-884c-054a7ac86b67",
+            "Parent_UUID": "c41e8176-cf06-4705-82ae-5ce5f120105c",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1343,8 +1373,8 @@
             "Components": {}
         },
         "Object_49": {
-            "UUID": "33058cd9-b8b9-49b2-b8dd-747ee3deaf2e",
-            "Parent_UUID": "b482b1fe-79b5-485c-920a-aad12433e1d9",
+            "UUID": "52e0576d-63fc-41cc-a9cc-fb59def50cb5",
+            "Parent_UUID": "a3784e4c-acd0-4bb0-884c-054a7ac86b67",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1365,8 +1395,8 @@
             "Components": {}
         },
         "Object_50": {
-            "UUID": "2e60448b-fa94-40c5-83a7-5bda56b6bbbe",
-            "Parent_UUID": "f5f59f77-43b7-472e-ba96-bc95d9a08296",
+            "UUID": "05d3caac-79cc-4fa1-a3c2-e765ab1cea52",
+            "Parent_UUID": "986dc3d4-27d6-4bb9-8fd6-7681117f8f56",
             "Name": "",
             "Translation": {
                 "value_X": "-66.720000",
@@ -1387,8 +1417,8 @@
             "Components": {}
         },
         "Object_51": {
-            "UUID": "91b7e7ac-32d1-4da6-acf6-fd529aef32d8",
-            "Parent_UUID": "2e60448b-fa94-40c5-83a7-5bda56b6bbbe",
+            "UUID": "151dbb14-d615-42c4-8987-a4c41bcecd02",
+            "Parent_UUID": "05d3caac-79cc-4fa1-a3c2-e765ab1cea52",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1409,8 +1439,8 @@
             "Components": {}
         },
         "Object_52": {
-            "UUID": "55c50bef-c560-4145-aaea-64f7730e0fc5",
-            "Parent_UUID": "91b7e7ac-32d1-4da6-acf6-fd529aef32d8",
+            "UUID": "8fce7007-4a55-434f-9130-2cb3d1d61026",
+            "Parent_UUID": "151dbb14-d615-42c4-8987-a4c41bcecd02",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1431,8 +1461,8 @@
             "Components": {}
         },
         "Object_53": {
-            "UUID": "0951c276-2153-49ac-a076-b1a156dd1829",
-            "Parent_UUID": "55c50bef-c560-4145-aaea-64f7730e0fc5",
+            "UUID": "95caace6-f202-4a90-bf75-4b9cfcbcf767",
+            "Parent_UUID": "8fce7007-4a55-434f-9130-2cb3d1d61026",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1453,8 +1483,8 @@
             "Components": {}
         },
         "Object_54": {
-            "UUID": "78b0cbe2-59c7-4731-bc34-72cf809cf805",
-            "Parent_UUID": "0951c276-2153-49ac-a076-b1a156dd1829",
+            "UUID": "57ca787b-90ab-4e13-8015-f5cbf00f74ff",
+            "Parent_UUID": "95caace6-f202-4a90-bf75-4b9cfcbcf767",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1475,8 +1505,8 @@
             "Components": {}
         },
         "Object_55": {
-            "UUID": "8d0a5ad6-10b0-496b-b669-499d6b3269fa",
-            "Parent_UUID": "f5f59f77-43b7-472e-ba96-bc95d9a08296",
+            "UUID": "b2778f16-394b-4f6d-b103-e1bf5f79b342",
+            "Parent_UUID": "986dc3d4-27d6-4bb9-8fd6-7681117f8f56",
             "Name": "",
             "Translation": {
                 "value_X": "28.890000",
@@ -1497,8 +1527,8 @@
             "Components": {}
         },
         "Object_56": {
-            "UUID": "9c14a10d-86de-4eb9-9f2a-618314113a3d",
-            "Parent_UUID": "8d0a5ad6-10b0-496b-b669-499d6b3269fa",
+            "UUID": "860e4373-f247-4afe-93f0-126927b99f49",
+            "Parent_UUID": "b2778f16-394b-4f6d-b103-e1bf5f79b342",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1519,8 +1549,8 @@
             "Components": {}
         },
         "Object_57": {
-            "UUID": "808d176d-75b3-4291-b723-1e1c2dfd918b",
-            "Parent_UUID": "9c14a10d-86de-4eb9-9f2a-618314113a3d",
+            "UUID": "f555d4c6-dfe9-4e78-a0a1-1f341dd38bda",
+            "Parent_UUID": "860e4373-f247-4afe-93f0-126927b99f49",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",
@@ -1541,8 +1571,8 @@
             "Components": {}
         },
         "Object_58": {
-            "UUID": "f30de4cb-303e-433b-89ca-e85ebed6eb7d",
-            "Parent_UUID": "808d176d-75b3-4291-b723-1e1c2dfd918b",
+            "UUID": "e0f78048-137e-4f7b-a67a-28bd0495fa89",
+            "Parent_UUID": "f555d4c6-dfe9-4e78-a0a1-1f341dd38bda",
             "Name": "",
             "Translation": {
                 "value_X": "0.000000",

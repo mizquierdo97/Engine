@@ -57,7 +57,7 @@ std::string GetFileName(std::string path)
 	length++;
 	extension_length++;
 
-	while (str_path.back() != '\\')
+	while (str_path.back() != '\\' && str_path.back() != '/')
 	{
 		str_path.pop_back();
 		length++;
@@ -79,7 +79,7 @@ std::string GetFileNameExtension(std::string path)
 	int length = 0;
 	int extension_length = 0;
 	
-	while (str_path.back() != '\\')
+	while (str_path.back() != '\\' && str_path.back() != '/')
 	{
 		str_path.pop_back();
 		length++;

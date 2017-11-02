@@ -6,6 +6,7 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Color.h"
+#include <string>
 
 typedef unsigned int uint;
 
