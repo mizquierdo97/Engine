@@ -168,6 +168,8 @@ void ModuleWorld::LoadScene() {
 
 
 				if (scene_data.EnterSection("Components")) {
+
+					//LOAD SCENE MESH
 					if (scene_data.EnterSection("Mesh")) {
 						scene_data.GetUInt("Num Vertexs");
 						uint ranges[4] = { scene_data.GetUInt("Num Vertexs"),scene_data.GetUInt("Num Indices"),  scene_data.GetBool("Texture"), scene_data.GetBool("Norms") };
@@ -180,6 +182,31 @@ void ModuleWorld::LoadScene() {
 
 						scene_data.LeaveSection();
 					}
+					//
+
+					//LOAD SCENE MATERIAL
+					if (scene_data.EnterSection("Material")) {
+						std::string mesh_path = scene_data.GetString("Mesh_Path");
+						std::string library_path = MESHES_PATH + GetFileName(mesh_path) + ".dds";
+
+						Texture* temp_tex = new Texture();
+						if (ExistsFile(library_path)) {
+							App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
+							go->AddComponentMaterial(temp_tex);
+						}/*
+						else if (ExistsFile(mesh_path)) {
+							App->filesystem->ImportImage(mesh_path.c_str());
+							App->renderer3D->loadTextureFromFile(library_path.c_str(), &temp_tex);
+							go->AddComponentMaterial(temp_tex);
+						}*/
+						else {
+							LOG("CANT FIND %s TEXTURE", mesh_path.c_str());
+						}
+						scene_data.LeaveSection();
+
+					}
+					//
+
 					scene_data.LeaveSection();
 				}
 				//App->world->obj_vector.push_back(go);

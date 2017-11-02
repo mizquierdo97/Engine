@@ -9,8 +9,9 @@ void ComponentMaterial::UpdateComponent()
 
 void ComponentMaterial::SaveComponentScene(Data * data)
 {
+	data->CreateSection("Material");
 	data->AddString("Mesh Path", obj_tex->texture_path);
-
+	data->CloseSection();
 }
 
 void ComponentMaterial::ShowInspectorComponents()

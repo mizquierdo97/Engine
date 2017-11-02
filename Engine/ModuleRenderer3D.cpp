@@ -386,7 +386,7 @@ void ModuleRenderer3D::RenderMesh(Mesh * m)
 
 
 
-bool ModuleRenderer3D::loadTextureFromFile(char* path, Texture** texture, bool is_texture)
+bool ModuleRenderer3D::loadTextureFromFile(const char* path, Texture** texture, bool is_texture)
 {
 	//Texture loading success
 	bool textureLoaded = false;

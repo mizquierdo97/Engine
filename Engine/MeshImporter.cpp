@@ -517,10 +517,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		bytes = sizeof(uint);
 		memcpy(num_childs, cursor[0], bytes);
 		cursor[0] += bytes;
-
-
-
-
+		
 		if (ranges[0] != 0) {
 
 			char path[80] = "Library/Meshes/";
