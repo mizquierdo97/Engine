@@ -136,9 +136,11 @@ void ModuleWorld::LoadScene() {
 	if (scene_data.LoadJSON("Scene.json")) {
 		scene_data.EnterSection("GameObjects");
 		while (scene_data.EnterSection("Object_"+ std::to_string(i++))) {
+
 			UUID test_id;
 			UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &test_id);
 
+			//Look if exists
 			bool exists = false;
 			std::vector<std::pair<GameObject*, UUID>>::iterator item = uuid_vect.begin();
 			while (item != uuid_vect.end()) {
@@ -146,104 +148,30 @@ void ModuleWorld::LoadScene() {
 					exists = true;
 				item++;
 			}
+
 			if (!exists) {
 				GameObject* go = new GameObject();
 
-				//TEST IF THERES AN OBJECT WITH THIS UUID
-				UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &go->obj_uuid);
-				UuidFromStringA((RPC_CSTR)scene_data.GetString("Parent UUID").c_str(), &go->parent_uuid);
-
-				go->SetName(scene_data.GetString("Name"));
-
-				float3 trans = scene_data.GetVector3f("Translation");
-				float4 rot = scene_data.GetVector4f("Rotation");
-				float3 scale = scene_data.GetVector3f("Scale");
-
-				go->AddComponentTransform(trans, rot, scale);
-
-				std::pair<GameObject*, UUID> temp_pair;
-				temp_pair.first = go;
-				temp_pair.second = go->obj_uuid;
-				App->world->uuid_vect.push_back(temp_pair);
-
+				//Load Object Data
+				LoadSceneGoData(scene_data, go);				
 
 				if (scene_data.EnterSection("Components")) {
 
 					//LOAD SCENE MESH
-					if (scene_data.EnterSection("Mesh")) {
-						scene_data.GetUInt("Num Vertexs");
-						uint ranges[4] = { scene_data.GetUInt("Num Vertexs"),scene_data.GetUInt("Num Indices"),  scene_data.GetBool("Texture"), scene_data.GetBool("Norms") };
-						Mesh m = App->filesystem->mesh_importer->LoadComponentMesh((char*)scene_data.GetString("Mesh_Path").c_str(), &ranges[0]);
-						go->AddComponentMesh(m);
-						RELEASE_ARRAY(m.indices);
-						RELEASE_ARRAY(m.vertexs);
-						RELEASE_ARRAY(m.norms);
-						RELEASE_ARRAY(m.texture_coords);
-
-						scene_data.LeaveSection();
-					}
-					//
-
+					LoadSceneMesh(scene_data, go);
+					
 					//LOAD SCENE MATERIAL
-					if (scene_data.EnterSection("Material")) {
-						std::string mesh_path = scene_data.GetString("Mesh_Path");
-						std::string library_path = MESHES_PATH + GetFileName(mesh_path) + ".dds";
-
-						Texture* temp_tex = new Texture();
-						if (ExistsFile(library_path)) {
-							App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
-							go->AddComponentMaterial(temp_tex);
-						}/*
-						else if (ExistsFile(mesh_path)) {
-							App->filesystem->ImportImage(mesh_path.c_str());
-							App->renderer3D->loadTextureFromFile(library_path.c_str(), &temp_tex);
-							go->AddComponentMaterial(temp_tex);
-						}*/
-						else {
-							LOG("CANT FIND %s TEXTURE", mesh_path.c_str());
-						}
-						scene_data.LeaveSection();
-
-					}
-					//
-
+					LoadSceneMaterial(scene_data, go);
+					
 					scene_data.LeaveSection();
-				}
-				//App->world->obj_vector.push_back(go);
+				}				
 			}
 			scene_data.LeaveSection();
 		}
-		scene_data.LeaveSection();
-		
+		scene_data.LeaveSection();		
 	}
-	RPC_STATUS stat;
-	UUID nil;
-	UuidCreateNil(&nil);
-	std::vector<std::pair<GameObject*, UUID>>::iterator item = uuid_vect.begin();
-	while (item != uuid_vect.end()) {		
-		UUID cmp = (*item).second;
-		
-		if((*item).first->parent_uuid == nil){
-			App->world->obj_vector.push_back((*item).first);			
-		}
-		else {
-			std::vector<std::pair<GameObject*, UUID>>::iterator item2 = uuid_vect.begin();
-			while (item2 != uuid_vect.end()) {
-				if ((*item).first->parent_uuid == (*item2).second) {
-					(*item2).first->obj_childs.push_back((*item).first);
-					(*item).first->obj_parent = (*item2).first;
-				}
-
-				item2++;
-			}
-		}
-
-		item++;
-	}
-
-	//Create Hierarchy
-	
-
+	//Set parents and childs correctly
+	RedistributeGameObjects();
 }
 
 void ModuleWorld::SaveScene() const
@@ -260,23 +188,26 @@ void ModuleWorld::SaveScene() const
 void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data, int* i) {
 	std::vector<GameObject*>::iterator item = vect.begin();
 	while (item != vect.end()) {
+
 		char *str;
 		data->CreateSection("Object_"+ std::to_string(*i));
 		(*i) += 1;
+
 		UuidToStringA(&(*item)->obj_uuid, (RPC_CSTR*)&str);		
 		data->AddString("UUID", str);	
+
 		if ((*item)->obj_parent != nullptr) {
-			UuidToStringA(&(*item)->obj_parent->obj_uuid, (RPC_CSTR*)&str);
-			data->AddString("Parent UUID", str);
+			UuidToStringA(&(*item)->obj_parent->obj_uuid, (RPC_CSTR*)&str);			
 		}
 		else {
 			//PROBABLY WOULD CHANGE THIS
 			UuidCreateNil(&(*item)->parent_uuid);////
-			UuidToStringA(&(*item)->parent_uuid, (RPC_CSTR*)&str);
-			data->AddString("Parent UUID", str);
+			UuidToStringA(&(*item)->parent_uuid, (RPC_CSTR*)&str);			
 		}
-		data->AddString("Name",(*item)->GetName());
+		data->AddString("Parent UUID", str);
 		ComponentTransform* temp_trans = (*item)->GetTransform();
+
+		data->AddString("Name",(*item)->GetName());		
 		data->AddVector3("Translation", temp_trans->translation);
 		data->AddVector4("Rotation", temp_trans->rotation.CastToFloat4());
 		data->AddVector3("Scale", temp_trans->scale);
@@ -376,8 +307,7 @@ bool ModuleWorld::Options()
 }
 
 int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector,int* node_selected, int i,int selection_mask)
-{
-	
+{	
 	int node_clicked = -1;
 	
 	int temp_i = 0;
@@ -408,4 +338,92 @@ int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector,int* node_selec
 		}
 	
 	return i;
+}
+
+void ModuleWorld::RedistributeGameObjects()
+{
+	RPC_STATUS stat;
+	UUID nil;
+	UuidCreateNil(&nil);
+	std::vector<std::pair<GameObject*, UUID>>::iterator item = uuid_vect.begin();
+	while (item != uuid_vect.end()) {
+		UUID cmp = (*item).second;
+
+		if ((*item).first->parent_uuid == nil) {
+			App->world->obj_vector.push_back((*item).first);
+		}
+		else {
+			std::vector<std::pair<GameObject*, UUID>>::iterator item2 = uuid_vect.begin();
+			while (item2 != uuid_vect.end()) {
+				if ((*item).first->parent_uuid == (*item2).second) {
+					(*item2).first->obj_childs.push_back((*item).first);
+					(*item).first->obj_parent = (*item2).first;
+				}
+				item2++;
+			}
+		}
+		item++;
+	}
+}
+
+void ModuleWorld::LoadSceneGoData(Data scene_data, GameObject * go)
+{
+	UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &go->obj_uuid);
+	UuidFromStringA((RPC_CSTR)scene_data.GetString("Parent UUID").c_str(), &go->parent_uuid);
+
+	go->SetName(scene_data.GetString("Name"));
+
+	float3 trans = scene_data.GetVector3f("Translation");
+	float4 rot = scene_data.GetVector4f("Rotation");
+	float3 scale = scene_data.GetVector3f("Scale");
+
+	go->AddComponentTransform(trans, rot, scale);
+
+	std::pair<GameObject*, UUID> temp_pair;
+	temp_pair.first = go;
+	temp_pair.second = go->obj_uuid;
+	App->world->uuid_vect.push_back(temp_pair);
+
+}
+
+void ModuleWorld::LoadSceneMesh(Data scene_data, GameObject* go)
+{
+	if (scene_data.EnterSection("Mesh")) {
+		scene_data.GetUInt("Num Vertexs");
+		uint ranges[4] = { scene_data.GetUInt("Num Vertexs"),scene_data.GetUInt("Num Indices"),  scene_data.GetBool("Texture"), scene_data.GetBool("Norms") };
+		Mesh m = App->filesystem->mesh_importer->LoadComponentMesh((char*)scene_data.GetString("Mesh_Path").c_str(), &ranges[0]);
+		go->AddComponentMesh(m);
+		RELEASE_ARRAY(m.indices);
+		RELEASE_ARRAY(m.vertexs);
+		RELEASE_ARRAY(m.norms);
+		RELEASE_ARRAY(m.texture_coords);
+
+		scene_data.LeaveSection();
+	}
+
+}
+
+void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
+{
+	if (scene_data.EnterSection("Material")) {
+		std::string mesh_path = scene_data.GetString("Mesh_Path");
+		std::string library_path = MESHES_PATH + GetFileName(mesh_path) + ".dds";
+
+		Texture* temp_tex = new Texture();
+		if (ExistsFile(library_path)) {
+			App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
+			go->AddComponentMaterial(temp_tex);
+		}/*
+		 else if (ExistsFile(mesh_path)) {
+		 App->filesystem->ImportImage(mesh_path.c_str());
+		 App->renderer3D->loadTextureFromFile(library_path.c_str(), &temp_tex);
+		 go->AddComponentMaterial(temp_tex);
+		 }*/
+		else {
+			LOG("CANT FIND %s TEXTURE", mesh_path.c_str());
+		}
+		scene_data.LeaveSection();
+
+	}
+
 }

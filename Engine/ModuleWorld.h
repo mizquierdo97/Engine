@@ -31,6 +31,11 @@ public:
 	void SaveScene()const;
 	void RecursiveSaveScene(std::vector<GameObject*>,Data*,int* i);
 	void LoadScene();
+	void RedistributeGameObjects();
+
+	void LoadSceneGoData(Data, GameObject*);
+	void LoadSceneMesh(Data,GameObject*);
+	void LoadSceneMaterial(Data, GameObject*);
 	
 
 	bool Options();//World Options
