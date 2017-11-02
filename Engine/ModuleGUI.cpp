@@ -389,7 +389,7 @@ void ModuleGUI::Assets()
 	}
 	if (ImGui::MenuItem("Material")) 
 	{
-		App->world->GetSelectedObject()->AddComponentMaterial(App->world->world_texture);
+		App->world->GetSelectedObject()->AddComponentMaterial(nullptr);
 	}
 	if (ImGui::MenuItem("Camera"))
 	{
