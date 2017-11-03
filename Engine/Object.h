@@ -114,8 +114,7 @@ public:
 
 	std::string GetName() {
 		return obj_name;
-	};
-
+	}
 	void SetName(std::string name) {
 		obj_name = name;
 	};
@@ -123,11 +122,12 @@ public:
 private:
 	
 	objectType obj_type = objectType::null;
+	
 	int obj_id = 0;	
 	bool enabled = true;
-	std::string obj_name = "";
+	
 	bool is_static = false;
-
+	std::string obj_name = "";
 
 	AABB local_bbox;
 	AABB global_bbox;
@@ -136,7 +136,7 @@ public:
 	//HIERARCHY
 	UUID obj_uuid;
 	UUID parent_uuid;
-	std::vector<GameObject*> obj_childs;
-	GameObject* obj_parent;
+	GameObject* obj_parent = nullptr;
 	std::vector<Component*> obj_components;
+	std::vector<GameObject*> obj_childs;
 };

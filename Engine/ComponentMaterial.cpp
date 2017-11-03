@@ -25,7 +25,7 @@ void ComponentMaterial::ShowInspectorComponents()
 	}
 
 	if (b_open) {
-		ImGui::SetNextWindowPos(ImVec2(App->input->GetMouseX()-100, App->input->GetMouseY()), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos(ImVec2(App->input->GetMousepositionX()-100, App->input->GetMousepositionY()), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowSize(ImVec2(300, 440), ImGuiCond_FirstUseEver);
 		ImGui::Begin("Texture", &b_open);
 		App->gui->ShowTextureMenu(this);

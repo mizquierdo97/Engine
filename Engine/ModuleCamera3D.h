@@ -36,7 +36,7 @@ public:
 	float3 X, Y, Z, Position, Reference;
 
 private:
-
+	LineSegment picking; 
 	PhysBody3D* following = NULL;
 	float min_following_dist;
 	float max_following_dist;

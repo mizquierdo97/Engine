@@ -63,7 +63,7 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 	
 	
-	wheel = App->input->GetMouseZ();
+	wheel = App->input->GetMousepositionZ();
 	if (wheel > 0) newPos -= Z * speed;
 	else if (wheel < 0)newPos += Z * speed;
 
@@ -127,8 +127,8 @@ update_status ModuleCamera3D::Update(float dt)
 	
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT)== KEY_IDLE && App->world->IsObjectSelected())
 	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
+		int dx = -App->input->GetMousepositionXMotion();
+		int dy = -App->input->GetMousepositionYMotion();
 
 		GameObject* selected = App->world->GetSelectedObject();
 		AABB selected_AABB = selected->GetGlobalBBox();
@@ -193,8 +193,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT  && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
+		int dx = -App->input->GetMousepositionXMotion();
+		int dy = -App->input->GetMousepositionYMotion();
 
 		
 		float Sensitivity = 0.25f;
@@ -233,6 +233,8 @@ update_status ModuleCamera3D::Update(float dt)
 	
 
 	}
+
+
 	
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;

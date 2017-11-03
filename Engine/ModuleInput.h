@@ -33,27 +33,27 @@ public:
 		return mouse_buttons[id];
 	}
 
-	int GetMouseX() const
+	int GetMousepositionX() const
 	{
 		return mouse_x;
 	}
 
-	int GetMouseY() const
+	int GetMousepositionY() const
 	{
 		return mouse_y;
 	}
 
-	int GetMouseZ() const
+	int GetMousepositionZ() const
 	{
 		return mouse_z;
 	}
 
-	int GetMouseXMotion() const
+	int GetMousepositionXMotion() const
 	{
 		return mouse_x_motion;
 	}
 
-	int GetMouseYMotion() const
+	int GetMousepositionYMotion() const
 	{
 		return mouse_y_motion;
 	}

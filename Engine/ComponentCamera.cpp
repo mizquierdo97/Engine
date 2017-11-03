@@ -6,20 +6,21 @@ ComponentCamera::ComponentCamera(GameObject* obj_parent)
 {
 	SetParent(obj_parent);
 	comp_type = ComponentType::camera;
-	cam_frustum.SetViewPlaneDistances(1, 5);
-
 	//Set frustum looking to GameObject Z axis
 	ComponentTransform* parent_transform = GetParent()->GetTransform();
 
+	
+	//Position
 	cam_frustum.SetPos(parent_transform->translation);
+	//Front
 	cam_frustum.SetFront(parent_transform->GetMatrix().Col3(2));
+	//Up
 	cam_frustum.SetUp(parent_transform->GetMatrix().Col3(1));
-
-
+	// Near and Fear plane distance
+	cam_frustum.SetViewPlaneDistances(0.1f, 1000.0f);
+	// FOV and Aspect Ratio
 	cam_frustum.SetHorizontalFovAndAspectRatio(90 * DEGTORAD, App->window->GetAspectRatio());
 	//cam_frustum.SetVerticalFovAndAspectRatio(2 * math::Atan(math::Tan(cam_frustum.HorizontalFov()/ 2) * (1/App->window->GetAspectRatio())),App->window->GetAspectRatio());
-	
-
 	
 }
 
@@ -30,7 +31,7 @@ ComponentCamera::~ComponentCamera()
 
 void ComponentCamera::UpdateComponent()
 {
-
+	
 	ComponentTransform* parent_transform = GetParent()->GetTransform();
 	cam_frustum.SetPos(parent_transform->translation);
 
@@ -67,6 +68,16 @@ void ComponentCamera::ShowInspectorComponents()
 
 	}
 
+}
+
+void ComponentCamera::Look(const float3 & position)
+{
+	float3 Direction = position - cam_frustum.Pos;
+
+	float3x3 lookAt = float3x3::LookAt(cam_frustum.Front, Direction.Normalized(), cam_frustum.Up, float3::unitY);
+
+	cam_frustum.Front = lookAt.MulDir(cam_frustum.Front).Normalized();
+	cam_frustum.Up = lookAt.MulDir(cam_frustum.Up).Normalized();
 }
 
 

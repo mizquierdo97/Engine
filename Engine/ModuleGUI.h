@@ -58,7 +58,7 @@ public:
 		LCG random_num_i;
 		LCG random_num_f;
 		SDL_version sdl_vers;
-		
+		//ImGuiIO& io = ImGui::GetIO();
 		Texture* png_tex;
 		Texture* fbx_tex;
 
