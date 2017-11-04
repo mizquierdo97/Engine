@@ -1,6 +1,27 @@
 #include "ComponentCamera.h"
 #include "Application.h"
 
+ComponentCamera::ComponentCamera()
+{
+	SetParent(nullptr);
+	comp_type = ComponentType::camera;
+	//Set frustum looking to GameObject Z axis
+	
+
+	//Position
+	cam_frustum.SetPos(float3::zero);
+	//Front
+	cam_frustum.SetFront(float3::unitZ);
+	//Up
+	cam_frustum.SetUp(float3::unitY);
+	// Near and Fear plane distance
+	cam_frustum.SetViewPlaneDistances(0.1f, 1000.0f);
+	// FOV and Aspect Ratio
+	cam_frustum.SetHorizontalFovAndAspectRatio(90 * DEGTORAD, App->window->GetAspectRatio());
+	//cam_frustum.SetVerticalFovAndAspectRatio(2 * math::Atan(math::Tan(cam_frustum.HorizontalFov()/ 2) * (1/App->window->GetAspectRatio())),App->window->GetAspectRatio());
+
+}
+
 
 ComponentCamera::ComponentCamera(GameObject* obj_parent)
 {
@@ -70,14 +91,5 @@ void ComponentCamera::ShowInspectorComponents()
 
 }
 
-void ComponentCamera::Look(const float3 & position)
-{
-	float3 Direction = position - cam_frustum.Pos;
-
-	float3x3 lookAt = float3x3::LookAt(cam_frustum.Front, Direction.Normalized(), cam_frustum.Up, float3::unitY);
-
-	cam_frustum.Front = lookAt.MulDir(cam_frustum.Front).Normalized();
-	cam_frustum.Up = lookAt.MulDir(cam_frustum.Up).Normalized();
-}
 
 

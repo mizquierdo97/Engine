@@ -5,10 +5,11 @@
 #include "Object.h"
 #include "ModuleWindow.h"
 
+
 class Data;
 class ComponentCamera : public Component {
 public:
-	ComponentCamera() {};
+	ComponentCamera();
 	ComponentCamera(GameObject*);
 	~ComponentCamera();
 

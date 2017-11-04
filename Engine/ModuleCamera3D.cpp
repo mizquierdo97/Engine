@@ -4,6 +4,7 @@
 #include "ModuleCamera3D.h"
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 
 ModuleCamera3D::ModuleCamera3D( bool start_enabled) : Module( start_enabled)
 {
@@ -18,11 +19,19 @@ ModuleCamera3D::ModuleCamera3D( bool start_enabled) : Module( start_enabled)
 }
 
 ModuleCamera3D::~ModuleCamera3D()
-{}
+{
+
+	RELEASE(dummyfrustum);
+}
 
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
+	dummyfrustum = new ComponentCamera();
+	picking = LineSegment(float3::zero, float3::unitY);
+	last_hit = float3::zero;
+
+
 	LOG("Setting up the camera");
 	bool ret = true;
 
@@ -43,36 +52,34 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
+
 	static float3 temp_vec = float3(0, 0, 0);
 	static float num = 0;
 	float wheel = 0;
 	float3 newPos(0, 0, 0);
 	float speed = 3.0f * dt;
+
+	//Speed up 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-
-	/*if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
-*/
-	
+	//WASD Movement
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z*speed;
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z*speed;
-
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
-	
-	
+
+	//Wheel mouse
 	wheel = App->input->GetMousepositionZ();
 	if (wheel > 0) newPos -= Z * speed;
 	else if (wheel < 0)newPos += Z * speed;
 
-	
+
 	Reference = temp_vec;
 
 	Position += newPos;
 	Reference += newPos;
-	
+
 	float3 max_dist = float3(0, 0, 0);
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && App->world->IsObjectSelected()) {
 
@@ -83,11 +90,11 @@ update_status ModuleCamera3D::Update(float dt)
 		int i = 0;
 		std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
 		temp_vec = float3(0, 0, 0);
-			
+
 		while (item != App->world->obj_vector.end()) {
 			ComponentMesh* temp_mesh = (*item)->GetMesh();
 
-			
+
 			temp_vec.x += selected_AABB.CenterPoint().x;
 			temp_vec.y += selected_AABB.CenterPoint().y;
 			temp_vec.z += selected_AABB.CenterPoint().z;
@@ -98,34 +105,34 @@ update_status ModuleCamera3D::Update(float dt)
 			temp_vec /= num;
 			num = 0;
 		}
-				
-	 item = App->world->obj_vector.begin();
 
-		 vec3 temp_vec2 = vec3(0, 0, 0);
-		 while (item != App->world->obj_vector.end()) {
-			 ComponentMesh* temp_mesh = (*item)->GetMesh();
+		item = App->world->obj_vector.begin();
 
-			 temp_vec2.x = (selected_AABB.maxPoint.x);
-			 temp_vec2.y = (selected_AABB.maxPoint.y);
-			 temp_vec2.z = (selected_AABB.maxPoint.z);
+		vec3 temp_vec2 = vec3(0, 0, 0);
+		while (item != App->world->obj_vector.end()) {
+			ComponentMesh* temp_mesh = (*item)->GetMesh();
 
-			 if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
-			 if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
-			 if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
-				
-			 item++;
-		 }
-		 Reference = temp_vec;
+			temp_vec2.x = (selected_AABB.maxPoint.x);
+			temp_vec2.y = (selected_AABB.maxPoint.y);
+			temp_vec2.z = (selected_AABB.maxPoint.z);
 
-		
+			if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
+			if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
+			if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
+
+			item++;
+		}
+		Reference = temp_vec;
+
+
 		Position = Reference + Z * (max_dist*1.5f - temp_vec).Length();
-		
+
 
 	}
 
 	// Mouse motion ----------------
-	
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT)== KEY_IDLE && App->world->IsObjectSelected())
+
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_IDLE && App->world->IsObjectSelected())
 	{
 		int dx = -App->input->GetMousepositionXMotion();
 		int dy = -App->input->GetMousepositionYMotion();
@@ -135,7 +142,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		float Sensitivity = 0.25f;
 
-		
+
 		Position -= Reference;
 
 		if (dx != 0)
@@ -143,7 +150,7 @@ update_status ModuleCamera3D::Update(float dt)
 			float DeltaX = (float)dx * Sensitivity;
 			Quat rotation;
 			rotation.SetFromAxisAngle(float3(0.0f, 1.0f, 0.0f), DeltaX*DEGTORAD);
-			
+
 			X = rotation.Transform(X);// rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
 			Y = rotation.Transform(Y);
 			Z = rotation.Transform(Z);
@@ -154,7 +161,7 @@ update_status ModuleCamera3D::Update(float dt)
 			float DeltaY = (float)dy * Sensitivity;
 			Quat rotation;
 			rotation.SetFromAxisAngle(X, DeltaY*DEGTORAD);
-		
+
 
 			Y = rotation.Transform(Y);
 			Z = rotation.Transform(Z);
@@ -185,11 +192,13 @@ update_status ModuleCamera3D::Update(float dt)
 				temp_vec /= num;
 				num = 0;
 			}
-		}	
-		
+		}
+
 	}
 
 	
+	
+
 
 	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT  && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
@@ -234,8 +243,36 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
+	//mouse picking
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	{
+		dummyfrustum->cam_frustum.SetPos(Position);
+		dummyfrustum->cam_frustum.SetFront(-ViewMatrix.Col3(2));
+		dummyfrustum->cam_frustum.SetUp(ViewMatrix.Col3(1));
 
+		float width = (float)App->window->GetWidth();
+		float height = (float)App->window->GetHeight();
+
+		int mouse_x, mouse_y;
+		
+		mouse_x = App->input->GetMousepositionX();
+		mouse_y = App->input->GetMousepositionY();
+
+		float normalized_x = -(1.0f - (float(mouse_x) * 2.0f) / width);
+		float normalized_y = 1.0f - (float(mouse_y) * 2.0f) / height;
+		
+		picking = dummyfrustum->cam_frustum.UnProjectLineSegment(normalized_x, normalized_y);
+
+		float distance; 
+		//GameObject* hit = 
+
+
+	}
 	
+	float color[4] = { 1.0f, 1.0f, 0.7f, 1 };
+	dummyfrustum->cam_frustum.Draw(5.0f, color);
+	
+
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 		
