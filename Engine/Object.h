@@ -81,6 +81,8 @@ public:
 	ComponentTransform* GetTransform();
 	ComponentCamera* GetCamera();
 
+	Component* FindComponentbytype(ComponentType type)const;
+
 	AABB GetLocalBBox() {
 		return local_bbox;
 	};

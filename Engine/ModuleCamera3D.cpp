@@ -264,8 +264,8 @@ update_status ModuleCamera3D::Update(float dt)
 		picking = dummyfrustum->cam_frustum.UnProjectLineSegment(normalized_x, normalized_y);
 
 		float distance; 
-		//GameObject* hit = 
-
+		//GameObject* pick = 
+		
 
 	}
 	

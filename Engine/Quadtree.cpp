@@ -189,3 +189,4 @@ void Quadtree::CollectObjects(std::vector<GameObject*>& objects) const
 		root->CollectObjects(objects);
 }
 
+

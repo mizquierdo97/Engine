@@ -14,7 +14,8 @@ public:
 	void RedistributeChilds();
 	void CollectBoxes(std::vector<const QuadtreeNode*>& nodes) const;
 	void CollectObjects(std::vector<GameObject*>& objects) const;
-
+	template<typename TYPE>
+	void CollectIntersections(std::vector<GameObject*>& objects, const TYPE& primitive) const;
 
 
 public:
@@ -46,3 +47,21 @@ public:
 	QuadtreeNode* root = nullptr;
 	
 };
+	template<typename TYPE>
+	void QuadtreeNode::CollectIntersections(std::vector<GameObject*>& objects, const TYPE & primitive) const
+	{
+		if (root != nullptr)
+		{
+			if (primitive.Intersects(box))
+			{
+				for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
+				{
+					if (primitive.Intersects((*it)->global_bbox))
+						objects.push_back(*it);
+				}
+
+				for (int i = 0; i < 4; ++i)
+					if (childs[i] != nullptr) childs[i]->CollectIntersections(objects, primitive);
+			}
+	}
+}

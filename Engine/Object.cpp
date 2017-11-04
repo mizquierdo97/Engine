@@ -74,6 +74,18 @@ void GameObject::Update() {
 
 }
 
+Component * GameObject::FindComponentbytype(ComponentType type) const
+{
+	for(int i = 0; i < obj_components.size();i++)
+	{
+		if (obj_components[i]->comp_type == type)
+		{
+			return obj_components[i];
+	
+		}
+	}
+	return nullptr;
+}
 ComponentMesh * GameObject::GetMesh()
 {
 	std::vector<Component*>::iterator item = obj_components.begin();
@@ -130,3 +142,5 @@ ComponentCamera * GameObject::GetCamera()
 	}
 	return nullptr;
 }
+
+

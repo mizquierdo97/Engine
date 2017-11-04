@@ -427,3 +427,64 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 	}
 
 }
+
+GameObject * ModuleWorld::raycast(const LineSegment & segment, float  dist) 
+{
+	dist = inf; 
+	GameObject* Closest_object;
+	Recursivetest(segment, &dist, Closest_object);
+	return Closest_object;
+}
+
+void ModuleWorld::Recursivetest(const LineSegment& segment, float* dist, GameObject* &closest_object) 
+{
+	std::vector<GameObject*> obj;
+	quadtree.root->CollectIntersections(obj, segment);
+
+	for (std::vector<GameObject*>::const_iterator iterator = obj.begin(); iterator != obj.end; iterator++)
+	{
+		std::vector<ComponentMesh*> meshes; 
+		meshes.push_back((ComponentMesh*)(*iterator)->FindComponentbytype(ComponentType::mesh));
+
+
+		if (meshes.size > 0)
+		{
+			const ComponentMesh* Mesh = (const ComponentMesh*)meshes[0];
+			ComponentTransform* transform = (ComponentTransform*)(*iterator)->FindComponentbytype(ComponentType::transform);
+
+
+			LineSegment local(segment);
+			local.Transform(transform->GetMatrix().Inverted());
+
+			Triangle triangle;
+			for (int i = 0; i < Mesh->obj_mesh.num_indices;)
+			{
+				//triangle.a.Set(Mesh->obj_mesh.vertexs[Mesh->obj_mesh.indices[i++] * 3]);
+				//triangle.b.Set(Mesh->obj_mesh.vertexs[Mesh->obj_mesh.indices[i++] * 3]);
+				//triangle.b.Set(Mesh->obj_mesh.vertexs[Mesh->obj_mesh.indices[i++] * 3]);
+
+				float* localdistance = 0;
+				float3 localhitpoint;
+
+				if (local.Intersects(triangle, localdistance, &localhitpoint))
+				{
+					if (localdistance < dist) {
+
+						dist = localdistance;
+						closest_object = (*iterator);
+				
+					}
+				}
+			
+			}
+
+
+		}
+
+
+
+	}
+	
+
+
+}
