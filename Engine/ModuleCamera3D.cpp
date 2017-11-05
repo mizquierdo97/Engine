@@ -123,16 +123,13 @@ update_status ModuleCamera3D::Update(float dt)
 			item++;
 		}
 		Reference = temp_vec;
-
-
 		Position = Reference + Z * (max_dist*1.5f - temp_vec).Length();
-
-
+		
 	}
 
 	// Mouse motion ----------------
 
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_IDLE && App->world->IsObjectSelected())
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->world->IsObjectSelected())
 	{
 		int dx = -App->input->GetMousepositionXMotion();
 		int dy = -App->input->GetMousepositionYMotion();
@@ -174,41 +171,26 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 		Position = Reference + Z * (Position).Length();
 
-		if (App->world->obj_vector.size() > 0) {
-
-			std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
-			temp_vec = float3(0, 0, 0);
-			num = 0;
-			int i = 0;
-			while (item != App->world->obj_vector.end()) {
-				ComponentMesh* temp_mesh = (*item)->GetMesh();
-				temp_vec.x += selected_AABB.CenterPoint().x;
-				temp_vec.y += selected_AABB.CenterPoint().y;
-				temp_vec.z += selected_AABB.CenterPoint().z;
-				num++;
-				item++;
-			}
-			if (num > 0) {
-				temp_vec /= num;
-				num = 0;
-			}
-		}
+		GameObject* obj = App->world->GetSelectedObject();
+		temp_vec = float3(0, 0, 0);
+		
+		
+		temp_vec.x += obj->GetTransform()->translation.x;
+		temp_vec.y += obj->GetTransform()->translation.y;
+		temp_vec.z += obj->GetTransform()->translation.z;
+			
+		
 
 	}
 
-	
-	
-
-
-	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT  && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && !App->world->IsObjectSelected())
 	{
 		int dx = -App->input->GetMousepositionXMotion();
 		int dy = -App->input->GetMousepositionYMotion();
 
 		
 		float Sensitivity = 0.25f;
-
-		
+				
 
 		if (dx != 0)
 		{
@@ -239,33 +221,34 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 
 		}
-	
 
 	}
-
+	
 	//mouse picking
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_DOWN)
+
+	
+	dummyfrustum->cam_frustum.SetPos(Position);
+	dummyfrustum->cam_frustum.SetFront(-ViewMatrix.Col3(2));
+	dummyfrustum->cam_frustum.SetUp(ViewMatrix.Col3(1));
+
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		dummyfrustum->cam_frustum.SetPos(Position);
-		dummyfrustum->cam_frustum.SetFront(-ViewMatrix.Col3(2));
-		dummyfrustum->cam_frustum.SetUp(ViewMatrix.Col3(1));
 
 		float width = (float)App->window->GetWidth();
 		float height = (float)App->window->GetHeight();
 
 		int mouse_x, mouse_y;
-		
+
 		mouse_x = App->input->GetMousepositionX();
 		mouse_y = App->input->GetMousepositionY();
 
 		float normalized_x = -(1.0f - (float(mouse_x) * 2.0f) / width);
 		float normalized_y = 1.0f - (float(mouse_y) * 2.0f) / height;
-		
+
 		picking = dummyfrustum->cam_frustum.UnProjectLineSegment(normalized_x, normalized_y);
 
-		float distance; 
+		float distance;
 		//GameObject* pick = 
-		
 
 	}
 	
