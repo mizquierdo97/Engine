@@ -325,6 +325,17 @@ void ModuleGUI::Assets()
 		GameObject* object = App->world->GetSelectedObject();
 
 		if (object != nullptr) {
+			static char name[64] = "";
+			strcpy(name, object->GetName().c_str());
+			ImGui::Text("Name"); ImGui::SameLine();
+			if (ImGui::InputText("", name, IM_ARRAYSIZE(name))) {
+				object->SetName(name);
+			}
+			bool object_static = object->IsStatic();
+			if(ImGui::Checkbox("Static", &object_static)) {
+				object->SetStatic(!object->IsStatic());
+			};
+
 			std::vector<Component*>::iterator item = object->obj_components.begin();
 			for (; item != object->obj_components.end(); item++)
 			{

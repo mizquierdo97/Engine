@@ -558,15 +558,14 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			
 			memcpy(&material_index, cursor_mesh, bytes);
 			cursor_mesh += bytes;
-			temp_name = name;
-
-		
-
-			m.mesh_path = (char*)temp_name.c_str();
+				
 			GenGLBuffers(&m);
-			RELEASE_ARRAY(buffer);			
-
+			RELEASE_ARRAY(buffer);
 		}
+	
+		temp_name = name;
+		m.mesh_path = (char*)temp_name.c_str();
+	
 	
 
 		AABB* temp = new AABB();
@@ -593,7 +592,6 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 				temp_obj->AddComponentMaterial(temp_text);
 			}
 			
-
 		}
 
 		//FINALLY CREATE OBJECT
