@@ -37,6 +37,8 @@ public:
 	void LoadSceneMesh(Data,GameObject*);
 	void LoadSceneMaterial(Data, GameObject*);
 	
+	GameObject * Raycast(const LineSegment & segment, float  dist);	
+	void Recursivetest(const LineSegment& segment, float* dist, GameObject* &closest_object);
 
 	bool Options();//World Options
 

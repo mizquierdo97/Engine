@@ -428,7 +428,7 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 
 }
 
-GameObject * ModuleWorld::raycast(const LineSegment & segment, float  dist) 
+GameObject * ModuleWorld::Raycast(const LineSegment & segment, float  dist) 
 {
 	dist = inf; 
 	GameObject* Closest_object;
@@ -440,14 +440,14 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float* dist, GameObj
 {
 	std::vector<GameObject*> obj;
 	quadtree.root->CollectIntersections(obj, segment);
-
-	for (std::vector<GameObject*>::const_iterator iterator = obj.begin(); iterator != obj.end; iterator++)
+	
+	for (std::vector<GameObject*>::iterator iterator = obj.begin(); iterator != obj.end(); iterator++)
 	{
 		std::vector<ComponentMesh*> meshes; 
 		meshes.push_back((ComponentMesh*)(*iterator)->FindComponentbytype(ComponentType::mesh));
 
 
-		if (meshes.size > 0)
+		if (meshes.size() > 0)
 		{
 			const ComponentMesh* oMesh = (const ComponentMesh*)meshes[0];
 			ComponentTransform* transform = (ComponentTransform*)(*iterator)->FindComponentbytype(ComponentType::transform);

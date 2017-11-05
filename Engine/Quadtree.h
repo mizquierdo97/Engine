@@ -47,21 +47,22 @@ public:
 	QuadtreeNode* root = nullptr;
 	
 };
+
 	template<typename TYPE>
 	void QuadtreeNode::CollectIntersections(std::vector<GameObject*>& objects, const TYPE & primitive) const
 	{
-		if (root != nullptr)
-		{
-			if (primitive.Intersects(box))
+		//if (root != nullptr)
+		//{
+			if (primitive.Intersects(bounds))
 			{
 				for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
 				{
-					if (primitive.Intersects((*it)->global_bbox))
+					if (primitive.Intersects((*it)->GetGlobalBBox()))
 						objects.push_back(*it);
 				}
 
 				for (int i = 0; i < 4; ++i)
-					if (childs[i] != nullptr) childs[i]->CollectIntersections(objects, primitive);
+					if (nodes[i] != nullptr) nodes[i]->CollectIntersections(objects, primitive);
 			}
-	}
+	//}
 }
