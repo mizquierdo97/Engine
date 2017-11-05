@@ -449,20 +449,20 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float* dist, GameObj
 
 		if (meshes.size > 0)
 		{
-			const ComponentMesh* Mesh = (const ComponentMesh*)meshes[0];
+			const ComponentMesh* oMesh = (const ComponentMesh*)meshes[0];
 			ComponentTransform* transform = (ComponentTransform*)(*iterator)->FindComponentbytype(ComponentType::transform);
-
+			Mesh objmesh = oMesh->obj_mesh;
 
 			LineSegment local(segment);
 			local.Transform(transform->GetMatrix().Inverted());
 
 			Triangle triangle;
-			for (int i = 0; i < Mesh->obj_mesh.num_indices;)
+			for (int i = 0; i < objmesh.num_indices;)
 			{
-				//triangle.a.Set(Mesh->obj_mesh.vertexs[Mesh->obj_mesh.indices[i++] * 3]);
-				//triangle.b.Set(Mesh->obj_mesh.vertexs[Mesh->obj_mesh.indices[i++] * 3]);
-				//triangle.b.Set(Mesh->obj_mesh.vertexs[Mesh->obj_mesh.indices[i++] * 3]);
-
+				triangle.a.Set(objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]],objmesh.vertexs[objmesh.indices[i++]]);
+				triangle.b.Set(objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]]);
+				triangle.c.Set(objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]]);
+				
 				float* localdistance = 0;
 				float3 localhitpoint;
 
