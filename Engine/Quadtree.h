@@ -75,8 +75,7 @@ public:
 }
 	inline void QuadtreeNode::CollectIntersectionsFrus(std::vector<GameObject*>& objects, const math::Frustum & primitive) const
 	{
-		//if (root != nullptr)
-		//{
+		
 		int temp = primitive.ContainsAaBox(bounds);
 		if (temp != -1)
 		{
@@ -94,7 +93,6 @@ public:
 					if (nodes[i] != nullptr) nodes[i]->CollectObjects(objects);
 			}
 		}
-		//}
 	}
 
 

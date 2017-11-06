@@ -7,8 +7,10 @@
 
 void ComponentMesh::UpdateComponent()
 {
-	/*
 	AABB transformed_bounding_box = UpdateAABB(GetParent());
+
+	/*
+	
 	
 	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
 	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) || !active_camera->frustum_culling) {
