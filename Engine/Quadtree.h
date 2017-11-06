@@ -20,6 +20,7 @@ public:
 	template<typename TYPE>
 	void CollectIntersections(std::map<float, GameObject*>& objects, const TYPE & primitive) const;
 	void CollectObjects(std::map<float, GameObject*>& objects, const float3& origin) const;
+	void CollectIntersectionsFrus(std::vector<GameObject*>& objects, const math::Frustum & primitive) const;
 
 public:
 	
@@ -67,11 +68,34 @@ public:
 						objects.push_back(*it);
 				}
 
-				for (int i = 0; i < 4; ++i)
+				for (int i = 0; i < 8; ++i)
 					if (nodes[i] != nullptr) nodes[i]->CollectIntersections(objects, primitive);
 			}
 	//}
 }
+	inline void QuadtreeNode::CollectIntersectionsFrus(std::vector<GameObject*>& objects, const math::Frustum & primitive) const
+	{
+		//if (root != nullptr)
+		//{
+		int temp = primitive.ContainsAaBox(bounds);
+		if (temp != -1)
+		{
+			for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
+			{
+				if (primitive.Intersects((*it)->GetGlobalBBox()))
+					objects.push_back(*it);
+			}
+			if (temp == 0) {
+				for (int i = 0; i < 8; ++i)
+					if (nodes[i] != nullptr) nodes[i]->CollectIntersectionsFrus(objects, primitive);
+			}
+			if (temp == 1) {
+				for (int i = 0; i < 8; ++i)
+					if (nodes[i] != nullptr) nodes[i]->CollectObjects(objects);
+			}
+		}
+		//}
+	}
 
 
 	template<typename TYPE>

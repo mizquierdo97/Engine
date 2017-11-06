@@ -1059,15 +1059,15 @@ int Frustum::ContainsAaBox(const AABB& refBox) const
 		}
 		// were all the points outside of plane p?
 		if(iInCount == 0)
-			return false;
+			return -1;
 		// check if they were all on the right side of the plane
 		iTotalIn += iPtIn;
 	}
 	// so if iTotalIn is 6, then all are inside the view
 	if (iTotalIn == 6)
-		return true;
+		return 1;
 	// we must be partly in then otherwise
-	return true;
+	return 0;
 }
 
 

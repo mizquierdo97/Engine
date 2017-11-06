@@ -59,6 +59,7 @@ update_status ModuleWorld::PostUpdate(float dt)
 {
 	
 	//Iterate Object List and Render
+	It_Update();
 	It_Render();
 
 	DebugDraw();
@@ -112,20 +113,20 @@ void ModuleWorld::It_Render()
 
 
 	//RENDER MESHES
-	std::map<float, GameObject*> objects;
+	std::vector< GameObject*> objects;
 
 	// we do frustum culling or not ?
 	ComponentCamera* cam = App->renderer3D->GetActiveCamera();
 
 	// TODO first draw all opaque geom then translucent from far to near
 	if (cam->frustum_culling == true)
-		quadtree.CollectIntersections(objects, cam->cam_frustum);
+		quadtree.root->CollectIntersectionsFrus(objects, cam->cam_frustum);
 	else
-		quadtree.CollectObjects(objects, (cam->GetParent()) ? cam->GetParent()->GetTransform()->translation : cam->cam_frustum.Pos());
+		quadtree.CollectObjects(objects);
 
-	for (std::map<float, GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it)
-		if (it->second->IsEnabled())
-			it->second->Draw();
+	for (std::vector< GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it)
+		if ((*it)->IsEnabled())
+			(*it)->Draw();
 	glColor3f(1.0f, 1.0f, 1.0f);
 
 }

@@ -1,6 +1,6 @@
 #include "Quadtree.h"
 #define QUADTREE_MAX_ITEMS 4
-#define QUADTREE_MIN_SIZE 1.0f 
+#define QUADTREE_MIN_SIZE 5.0f 
 
 #define  U_NE 0
 #define  U_SE 1
