@@ -7,7 +7,7 @@
 
 void ComponentMesh::UpdateComponent()
 {
-	
+	/*
 	AABB transformed_bounding_box = UpdateAABB(GetParent());
 	
 	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
@@ -25,7 +25,7 @@ void ComponentMesh::UpdateComponent()
 		if (obj_mesh.norms != nullptr && App->gui->show_normals)
 			App->physics->DrawNormals(this);
 
-	}
+	}*/
 }
 
 void ComponentMesh::SaveComponentScene(Data* data)

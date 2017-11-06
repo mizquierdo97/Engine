@@ -74,7 +74,7 @@ public:
 	void AddComponentMaterial(Texture* );
 	void AddComponentCamera();
 	void Update();
-
+	void Draw();
 
 	ComponentMesh* GetMesh();
 	ComponentMaterial* GetMaterial();

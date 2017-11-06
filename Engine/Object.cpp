@@ -74,6 +74,27 @@ void GameObject::Update() {
 
 }
 
+void GameObject::Draw()
+{
+	if (GetMesh() != nullptr) {
+		ComponentMesh* m = GetMesh();
+		if (App->renderer3D->render_fill) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			App->renderer3D->Render(m);
+		}
+		if (App->renderer3D->render_wireframe) {
+			glColor3f(0.0f, 0.0f, 1.0f);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			App->renderer3D->Render(m);
+			glColor3f(1.0f, 1.0f, 1.0f);
+		}
+		if (m->obj_mesh.norms != nullptr && App->gui->show_normals)
+			App->physics->DrawNormals(m);
+		
+	}
+
+}
+
 Component * GameObject::FindComponentbytype(ComponentType type) const
 {
 	for(int i = 0; i < obj_components.size();i++)

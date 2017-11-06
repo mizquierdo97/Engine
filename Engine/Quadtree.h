@@ -2,6 +2,7 @@
 #include "MathGeoLib.h"
 #include "Object.h"
 #include <list>
+#include <map>
 class QuadtreeNode {
 public:
 	QuadtreeNode(const AABB& box);
@@ -16,7 +17,9 @@ public:
 	void CollectObjects(std::vector<GameObject*>& objects) const;
 	template<typename TYPE>
 	void CollectIntersections(std::vector<GameObject*>& objects, const TYPE& primitive) const;
-
+	template<typename TYPE>
+	void CollectIntersections(std::map<float, GameObject*>& objects, const TYPE & primitive) const;
+	void CollectObjects(std::map<float, GameObject*>& objects, const float3& origin) const;
 
 public:
 	
@@ -41,6 +44,9 @@ public:
 	void Clear();
 	void CollectBoxes(std::vector<const QuadtreeNode*>& nodes) const;
 	void CollectObjects(std::vector<GameObject*>& objects) const;
+	void CollectObjects(std::map<float, GameObject*>& objects, const float3& origin) const;
+	template<typename TYPE>
+	void CollectIntersections(std::map<float, GameObject*>& objects, const TYPE& primitive) const;
 	
 
 public:
@@ -66,3 +72,30 @@ public:
 			}
 	//}
 }
+
+
+	template<typename TYPE>
+	inline void Quadtree::CollectIntersections(std::map<float, GameObject*>& objects, const TYPE & primitive) const
+	{
+		if (root != nullptr)
+			root->CollectIntersections(objects, primitive);
+	};
+
+
+	template<typename TYPE>
+	inline void QuadtreeNode::CollectIntersections(std::map<float, GameObject*>& objects, const TYPE & primitive) const
+	{
+		
+		if (primitive.Intersects(bounds))
+		{
+			float hit_near, hit_far;
+			for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
+			{
+				if (primitive.Intersects((*it)->GetGlobalBBox(), hit_near, hit_far))
+					objects[hit_near] = *it;
+			}
+
+			for (int i = 0; i < 8; ++i)
+				if (nodes[i] != nullptr) nodes[i]->CollectIntersections(objects, primitive);
+		}
+	};

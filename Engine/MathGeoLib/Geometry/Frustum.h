@@ -610,6 +610,7 @@ public:
 		The first parameter of this function specifies the other object to test against.
 		@see Contains(), Distance(), ClosestPoint().
 		@todo Add Intersects(Circle/Disc). */
+	bool Intersects(const AABB & obb, float & in, float & out) const;
 	bool Intersects(const Ray &ray) const;
 	bool Intersects(const Line &line) const;
 	bool Intersects(const LineSegment &lineSegment) const;

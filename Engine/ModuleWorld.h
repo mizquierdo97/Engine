@@ -26,6 +26,7 @@ public:
 	int HierarchyRecurs(std::vector<GameObject*> item,int*, int,int);
 	void FileDropped();
 	void It_Render(); //Iterate Render
+	void It_Update();
 	void DebugDraw();
 
 	void SaveScene()const;
