@@ -46,6 +46,9 @@
     <Filter Include="Sources\Helpers\mmgr">
       <UniqueIdentifier>{852852e1-d436-40f2-94af-7bb54e3e26cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\FileSystem\Resources">
+      <UniqueIdentifier>{23bfed6d-7098-4e8c-ab11-153b9ae78f44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -504,6 +507,12 @@
     <ClInclude Include="ModuleResourceManager.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Sources\FileSystem\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceTexture.h">
+      <Filter>Sources\FileSystem\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -728,6 +737,7 @@
     <ClCompile Include="ModuleResourceManager.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Resource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Math\float2.inl">

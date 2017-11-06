@@ -54,8 +54,10 @@ void FileSystem::InitFileSystem()
 			App->assimp->ImportMesh(str.c_str());
 		}
 		if (!strcmp(file_extension.c_str(), "png") || !strcmp(file_extension.c_str(), "jpg") || !strcmp(file_extension.c_str(), "tga")) {
-			App->filesystem->ImportImage(str.c_str());
+			App->resources->ImportFile(str.c_str());
+			//App->filesystem->ImportImage(str.c_str());
 		}
+
 	}
 }
 
