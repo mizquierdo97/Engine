@@ -13,7 +13,7 @@ Application::Application()
 	physics = new ModulePhysics3D();
 	world = new ModuleWorld();
 	assimp = new ModuleAssimp();
-
+	resources = new ModuleResourceManager();
 	filesystem = new FileSystem();
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -21,12 +21,13 @@ Application::Application()
 
 	// Main Modules
 	AddModule(window);
+	
 	AddModule(camera);
 	AddModule(input);
 	AddModule(physics);
 	AddModule(assimp);
 	AddModule(world);
-	
+	AddModule(resources);
 	
 	
 	// Renderer last!
@@ -43,6 +44,7 @@ Application::Application()
 	gui->name = "Gui";
 	world->name = "World";
 	assimp->name = "Assimp";
+	resources->name = "Resource Manager";
 
 }
 
@@ -71,8 +73,7 @@ bool Application::Init()
 	std::list<Module*>::iterator item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
-	{
-		
+	{		
 		ret = (*item)->Init();
 		(*item)->module_timer = new Timer();
 		item++;

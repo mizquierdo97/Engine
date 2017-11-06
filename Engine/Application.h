@@ -14,6 +14,7 @@
 #include "ModuleWorld.h"
 #include "Config.h"
 #include "ModuleAssimp.h"
+#include "ModuleResourceManager.h"
 #include "FileSystem.h"
 #include <list>
 
@@ -30,6 +31,7 @@ public:
 	ModuleGUI* gui;
 	ModuleWorld* world;
 	ModuleAssimp* assimp;
+	ModuleResourceManager* resources;
 
 	Config* config;
 	FileSystem* filesystem;
