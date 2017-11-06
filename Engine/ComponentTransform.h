@@ -14,6 +14,7 @@ public:
 
 	void UpdateComponent();
 	void ShowInspectorComponents();
+	void LockProprtionScale(float3 before_scale);
 
 	const float4x4 GetMatrix();
 	const float4x4 GetMyMatrix();
@@ -23,4 +24,5 @@ public:
 	Quat rotation;
 	float4x4 matrix = float4x4::identity;
 	
+	bool lock_scale_prop;
 };
