@@ -54,6 +54,10 @@ public:
 	};
 
 public:
+	Texture* play_tex;
+	Texture* pause_tex;
+	Texture* nframe_tex;
+	Texture* stop_tex;
 
 	Texture* world_texture;
 	float4 world_tex_vec;

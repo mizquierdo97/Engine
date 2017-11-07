@@ -18,7 +18,14 @@
 #include "FileSystem.h"
 #include <list>
 
+enum Gamestatus {
 
+	PLAY,
+	STOP,
+	PAUSE,
+	NEXT_FRAME,
+
+};
 class FileSystem;
 class Application
 {
@@ -32,6 +39,7 @@ public:
 	ModuleWorld* world;
 	ModuleAssimp* assimp;
 	ModuleResourceManager* resources;
+	Gamestatus gameStatus;
 
 	Config* config;
 	FileSystem* filesystem;
@@ -61,3 +69,20 @@ private:
 	void FinishUpdate();
 };
 extern Application* App;
+
+struct Rtime 
+{
+	Timer startTime;
+	float frame_time;
+	Timer timeSinceGameStart;
+	float dt;
+};
+
+struct Gtime
+{
+	Timer gtime;
+	float timeScale;
+	float Gamedt;
+
+
+};
