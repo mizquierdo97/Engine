@@ -34,10 +34,10 @@ public:
 
 
 	float3 X, Y, Z, Position, Reference;
-
+	LineSegment picking;
 private:
 	ComponentCamera* dummyfrustum;
-	LineSegment picking; 
+	
 	float3* last_hit;
 	PhysBody3D* following = NULL;
 	float min_following_dist;

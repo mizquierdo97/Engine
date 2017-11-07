@@ -21,4 +21,5 @@ public:
 	Frustum cam_frustum;
 	bool frustum_culling = true;
 
+
 };

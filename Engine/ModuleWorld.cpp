@@ -477,7 +477,7 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 	{
 		GameObject* goTemp = iterator->second;
 		std::vector<ComponentMesh*> meshes; 
-		meshes.push_back((ComponentMesh*)(goTemp)->FindComponentbytype(ComponentType::mesh));
+		meshes.push_back((goTemp)->GetMesh());
 
 
 		if (meshes.size() > 0)
@@ -493,12 +493,30 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 			for (int i = 0; i < objmesh.num_indices - 9;)
 			{
 				
+				float point1[] = {
+					objmesh.vertexs[objmesh.indices[i++]],
+					objmesh.vertexs[objmesh.indices[i++]],
+					objmesh.vertexs[objmesh.indices[i++]]
+				};
+
+				float point2[] = {
+					objmesh.vertexs[objmesh.indices[i++]],
+					objmesh.vertexs[objmesh.indices[i++]],
+					objmesh.vertexs[objmesh.indices[i++]]
+				};
+
+				float point3[] = {
+					objmesh.vertexs[objmesh.indices[i++]],
+					objmesh.vertexs[objmesh.indices[i++]],
+					objmesh.vertexs[objmesh.indices[i++]]
+				};
+
+			
+				triangle.a.Set(point1);
+				triangle.b.Set(point2);
+				triangle.c.Set(point3);
 				
-				triangle.a.Set(&objmesh.vertexs[i * 3 ]);
-				triangle.b.Set(&objmesh.vertexs[i * 3 +1]);
-				triangle.c.Set(&objmesh.vertexs[i * 3 +2]);
 				
-				i++;
 				float localdistance = 0;
 				float3 localhitpoint;
 

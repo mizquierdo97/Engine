@@ -183,7 +183,11 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 		//GET SIZE AND ALLOVATE MEMORY
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 
-		size += sizeof(float)* m->mNumVertices * 3 + sizeof(uint)* m->mNumFaces * 3 + sizeof(uint);
+		size += sizeof(float)* m->mNumVertices * 3  + sizeof(uint);
+
+		if (m->HasFaces()) {
+			size += sizeof(uint)* m->mNumFaces * 3;
+		}
 		if (m->HasTextureCoords(0)) {
 			size += sizeof(float)*m->mNumVertices * 2;
 		}
@@ -202,22 +206,23 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 			strcat(mesh_name, "_");
 			strcat(mesh_name, num);
 			RELEASE_ARRAY(num);
-		
-
-
-		bytes = sizeof(uint) *  m->mNumFaces * 3;
-
+			
+			bool continue_for= false;
 		uint * indices = new uint[m->mNumFaces * 3]; // assume each face is a triangle
 		for (uint i = 0; i < m->mNumFaces; ++i)
 		{
 			if (m->mFaces[i].mNumIndices != 3) {
-				LOG("WARNING, geometry face with != 3 indices!");
+				LOG("WARNING, geometry face with != 3 indices!"); 
+				continue_for = true;
+				break;
 			}
 			else
 				memcpy(&indices[i * 3], m->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
+		if (continue_for)
+			continue;
 
-
+		bytes = sizeof(uint) *  m->mNumFaces * 3;
 		memcpy(cursor, indices, bytes);
 		cursor += bytes;
 
@@ -339,6 +344,17 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 			uint temp[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 			memcpy(ranges, temp, sizeof(ranges));
 			
+			for (uint i = 0; i < m->mNumFaces; ++i)
+			{
+				if (m->mFaces[i].mNumIndices != 3) {
+					LOG("WARNING, geometry face with != 3 indices!");
+					ranges[1] = 0;
+				}
+				
+			}
+
+
+
 				strcpy(mesh_name,path_name);
 				char* num = new char[4];
 				itoa(root->mMeshes[num_mesh], num, 10);
@@ -470,7 +486,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		memcpy(num_childs, cursor[0], bytes);
 		cursor[0] += bytes;
 		
-		if (ranges[0] != 0) {
+		if (ranges[0] != 0 && ranges[1] != 0) {
 
 			char path[80] = "Library/Meshes/";
 			strcat(path, name);
@@ -550,11 +566,11 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		CreateObject(temp_obj);
 
 		//FREE MEMORY
-		RELEASE_ARRAY( name);
-		RELEASE_ARRAY( m.indices);
-		RELEASE_ARRAY( m.vertexs);
-		RELEASE_ARRAY( m.norms);
-		RELEASE_ARRAY( m.texture_coords);
+		//RELEASE_ARRAY( name);
+		//RELEASE_ARRAY( m.indices);
+		//RELEASE_ARRAY( m.vertexs);
+		//RELEASE_ARRAY( m.norms);
+		//RELEASE_ARRAY( m.texture_coords);
 	
 		RELEASE(temp);
 		

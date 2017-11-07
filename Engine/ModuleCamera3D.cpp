@@ -253,6 +253,18 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 	}
+
+
+	glLineWidth(5.0f);
+	glBegin(GL_LINES);
+	glColor3f(1, 0, 0);
+	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
+	glVertex3f(picking.b.x, picking.b.y, picking.b.z);
+
+	
+
+	glEnd();
+	glColor3f(1, 1, 1);
 	
 	float color[4] = { 1.0f, 1.0f, 0.7f, 1 };
 	dummyfrustum->cam_frustum.Draw(5.0f, color);
