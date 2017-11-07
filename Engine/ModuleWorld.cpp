@@ -117,23 +117,28 @@ void ModuleWorld::FileDropped()
 void ModuleWorld::It_Render()
 {
 	//Render polygons
-
-
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+		using_octree = !using_octree;
+	}
+	
 	//RENDER MESHES
-	std::vector< GameObject*> objects;
+	if (using_octree) {
+		std::vector< GameObject*> objects;
 
-	// we do frustum culling or not ?
-	ComponentCamera* cam = App->renderer3D->GetActiveCamera();
+		// we do frustum culling or not ?
+		ComponentCamera* cam = App->renderer3D->GetActiveCamera();
 
-	// TODO first draw all opaque geom then translucent from far to near
-	if (cam->frustum_culling == true)
-		quadtree.root->CollectIntersectionsFrus(objects, cam->cam_frustum);
-	else
-		quadtree.CollectObjects(objects);
+		// TODO first draw all opaque geom then translucent from far to near
+		if (cam->frustum_culling == true)
+			quadtree.root->CollectIntersectionsFrus(objects, cam->cam_frustum);
+		else
+			quadtree.CollectObjects(objects);
 
-	for (std::vector< GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it)
-		if ((*it)->IsEnabled())
-			(*it)->Draw();
+		for (std::vector< GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it)
+			if ((*it)->IsEnabled())
+				(*it)->Draw();
+
+	}
 	glColor3f(1.0f, 1.0f, 1.0f);
 
 }
@@ -154,9 +159,14 @@ void ModuleWorld::DebugDraw()
 	std::vector<const QuadtreeNode*> boxes;
 	quadtree.CollectBoxes(boxes);
 
-	for (std::vector<const QuadtreeNode*>::const_iterator it = boxes.begin(); it != boxes.end(); ++it)
-		App->renderer3D->DebugDraw((*it)->bounds, Yellow);
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+		see_octree = !see_octree;
+	}
 
+	if (see_octree) {
+		for (std::vector<const QuadtreeNode*>::const_iterator it = boxes.begin(); it != boxes.end(); ++it)
+			App->renderer3D->DebugDraw((*it)->bounds, Yellow);
+	}
 }
 void ModuleWorld::LoadScene() {
 	Data scene_data;

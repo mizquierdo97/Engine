@@ -64,7 +64,11 @@ public:
 	std::vector<GameObject*> obj_vector;	
 	Quadtree quadtree;
 	std::vector<std::pair<GameObject*, UUID>> uuid_vect;
+	bool using_octree = true;
+	bool see_octree = true;
 private:
 	GameObject* selected_object = nullptr;
+
+	
 	
 };
