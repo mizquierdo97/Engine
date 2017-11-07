@@ -60,6 +60,30 @@ Application::~Application()
 	}
 }
 
+void Application::Play()
+{
+	gameStatus = PLAY;
+
+}
+
+void Application::Stop()
+{
+	gameStatus = STOP;
+
+}
+
+void Application::Pause()
+{
+	gameStatus = PAUSE;
+
+}
+
+void Application::NextFrame()
+{
+	gameStatus = NEXT_FRAME;
+
+}
+
 bool Application::Init()
 {
 	bool ret = true;
@@ -93,6 +117,7 @@ bool Application::Init()
 	
 	filesystem->InitFileSystem();
 	ms_timer.Start();
+	rtime.startTime.Start();
 	return ret;
 }
 
@@ -214,3 +239,4 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+

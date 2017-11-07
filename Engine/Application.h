@@ -26,6 +26,24 @@ enum Gamestatus {
 	NEXT_FRAME,
 
 };
+
+struct Rtime
+{
+	Timer startTime;
+	//float frame_time;
+	//Timer timeSinceGameStart;
+	//float dt;
+};
+
+struct Gtime
+{
+	Timer gtime;
+	float timeScale;
+	float Gamedt;
+
+
+};
+
 class FileSystem;
 class Application
 {
@@ -39,8 +57,9 @@ public:
 	ModuleWorld* world;
 	ModuleAssimp* assimp;
 	ModuleResourceManager* resources;
-	Gamestatus gameStatus;
-
+	Gamestatus gameStatus = STOP;
+	Rtime rtime;
+	//Gtime gtime; 
 	Config* config;
 	FileSystem* filesystem;
 private:
@@ -55,6 +74,10 @@ public:
 
 	Application();
 	~Application();
+	void Play();
+	void Stop();
+	void Pause();
+	void NextFrame();
 
 	bool Init();
 	update_status Update();
@@ -70,19 +93,4 @@ private:
 };
 extern Application* App;
 
-struct Rtime 
-{
-	Timer startTime;
-	float frame_time;
-	Timer timeSinceGameStart;
-	float dt;
-};
 
-struct Gtime
-{
-	Timer gtime;
-	float timeScale;
-	float Gamedt;
-
-
-};
