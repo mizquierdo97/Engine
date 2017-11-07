@@ -1,5 +1,8 @@
 #include "ComponentTransform.h"
 #include "ImGui\imgui.h"
+#include "ImGui\ImGuizmo.h"
+#include "ComponentCamera.h"
+#include "Application.h"
 #include "Object.h"
 
 ComponentTransform::ComponentTransform(aiVector3D pos, aiQuaternion rot, aiVector3D sc, GameObject* obj_parent){
@@ -23,6 +26,19 @@ ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameOb
 
 void ComponentTransform::UpdateComponent()
 {
+	
+
+
+	if ( App->world->GetSelectedObject() != nullptr) {
+		if (App->world->GetSelectedObject()->GetTransform() == this) {
+			float4x4 mat = App->camera->dummyfrustum->cam_frustum.ViewMatrix();
+			float4x4 proj = App->camera->dummyfrustum->cam_frustum.ProjectionMatrix();
+			float4x4 obj_mat =GetMatrix();
+			ImGuiIO& io = ImGui::GetIO();
+			ImGuizmo::SetRect(App->world->world_tex_vec.x, App->world->world_tex_vec.y, App->world->world_tex_vec.z, App->world->world_tex_vec.w);
+			ImGuizmo::Manipulate(mat.Transposed().ptr(), proj.Transposed().ptr(), ImGuizmo::ROTATE, ImGuizmo::WORLD, obj_mat.Transposed().ptr());
+		}
+	}
 	matrix.Decompose(translation, rotation, scale);
 }
 

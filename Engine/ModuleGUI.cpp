@@ -12,6 +12,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "ImGui\ImGuizmo.h"
 
 struct ExampleAppConsole;
 
@@ -105,6 +106,7 @@ bool ModuleGUI::Start()
 update_status ModuleGUI::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL3_NewFrame(App->window->window);
+	ImGuizmo::BeginFrame();
 	
 	return UPDATE_CONTINUE;
 }
