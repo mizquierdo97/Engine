@@ -472,64 +472,65 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 {
 	std::map<float,GameObject*> obj;
 	quadtree.root->CollectIntersections(obj, segment);
-	
+	std::vector<ComponentMesh*> meshes;
+	GameObject* goTemp;
 	for (std::map<float,GameObject*>::const_iterator iterator = obj.begin(); iterator != obj.end(); iterator++)
 	{
-		GameObject* goTemp = iterator->second;
-		std::vector<ComponentMesh*> meshes; 
-		meshes.push_back((goTemp)->GetMesh());
+		goTemp = iterator->second;
+		
+		meshes.push_back((goTemp)->GetMesh());		
+		}
 
 
-		if (meshes.size() > 0)
+	for(int n =0;n<meshes.size();n++){
+		ComponentMesh* oMesh = meshes[n];
+		GameObject* go = oMesh->GetParent();
+		ComponentTransform* transform = (ComponentTransform*)(goTemp)->GetTransform();
+		Mesh objmesh = oMesh->obj_mesh;
+
+		LineSegment local(segment);
+		local.Transform(transform->GetMatrix().Inverted());
+
+		Triangle triangle;
+		for (int i = 0; i < objmesh.num_indices - 9;)
 		{
-			const ComponentMesh* oMesh = (const ComponentMesh*)meshes[0];
-			ComponentTransform* transform = (ComponentTransform*)(goTemp)->GetTransform();
-			Mesh objmesh = oMesh->obj_mesh;
 
-			LineSegment local(segment);
-			local.Transform(transform->GetMatrix().Inverted());
+			float point1[] = {
+				objmesh.vertexs[objmesh.indices[i++]],
+				objmesh.vertexs[objmesh.indices[i++]],
+				objmesh.vertexs[objmesh.indices[i++]]
+			};
 
-			Triangle triangle;
-			for (int i = 0; i < objmesh.num_indices - 9;)
-			{
-				
-				float point1[] = {
-					objmesh.vertexs[objmesh.indices[i++]],
-					objmesh.vertexs[objmesh.indices[i++]],
-					objmesh.vertexs[objmesh.indices[i++]]
-				};
+			float point2[] = {
+				objmesh.vertexs[objmesh.indices[i++]],
+				objmesh.vertexs[objmesh.indices[i++]],
+				objmesh.vertexs[objmesh.indices[i++]]
+			};
 
-				float point2[] = {
-					objmesh.vertexs[objmesh.indices[i++]],
-					objmesh.vertexs[objmesh.indices[i++]],
-					objmesh.vertexs[objmesh.indices[i++]]
-				};
+			float point3[] = {
+				objmesh.vertexs[objmesh.indices[i++]],
+				objmesh.vertexs[objmesh.indices[i++]],
+				objmesh.vertexs[objmesh.indices[i++]]
+			};
 
-				float point3[] = {
-					objmesh.vertexs[objmesh.indices[i++]],
-					objmesh.vertexs[objmesh.indices[i++]],
-					objmesh.vertexs[objmesh.indices[i++]]
-				};
 
+			triangle.a.Set(point1);
+			triangle.b.Set(point2);
+			triangle.c.Set(point3);
 			
-				triangle.a.Set(point1);
-				triangle.b.Set(point2);
-				triangle.c.Set(point3);
-				
-				
-				float localdistance = 0;
-				float3 localhitpoint;
+			float localdistance = 0;
+			float3 localhitpoint;
 
-				if (local.Intersects(triangle, &localdistance, &localhitpoint))
-				{
-					if (localdistance < dist) {
+			if (local.Intersects(triangle, &localdistance, &localhitpoint))
+			{
+				if (localdistance < dist) {
 
-						dist = localdistance;
-						closest_object[0] = goTemp;
-						return;
-					}
+					dist = localdistance;
+					closest_object[0] = go;
+					
 				}
+			}
 			}
 		}
 	}
-}
+
