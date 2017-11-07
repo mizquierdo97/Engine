@@ -326,12 +326,18 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	
 		}
 
-	App->renderer3D->DebugDraw(comp->GetParent()->GetGlobalBBox(), Color (0,0,1));
+	glDisable(GL_TEXTURE_2D);
+	Color color = Color(0, 0, 1);
+
+	if (comp->GetParent() == App->world->GetSelectedObject())
+		color = Color(1, 0, 0);
+
+	App->renderer3D->DebugDraw(comp->GetParent()->GetGlobalBBox(), color);
 /*	Mesh bb_mesh = comp->bb_mesh;	
 	App->renderer3D->RenderMesh(&bb_mesh);*/
 
 	
-	glDisable(GL_TEXTURE_2D);
+	
 }
 
 void ModuleRenderer3D::RenderMesh(Mesh * m)

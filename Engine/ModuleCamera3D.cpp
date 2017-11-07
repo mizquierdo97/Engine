@@ -234,29 +234,23 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-
+		float mx = (float)App->input->GetMousepositionX();
+		float my = (float)App->input->GetMousepositionY();
 		float width = (float)App->window->GetWidth();
 		float height = (float)App->window->GetHeight();
 
-		int mouse_x, mouse_y;
+		if (mx > App->world->world_tex_vec.x && mx < (App->world->world_tex_vec.x + App->world->world_tex_vec.z)) {
+			if (my > App->world->world_tex_vec.y && my < (App->world->world_tex_vec.y + App->world->world_tex_vec.w)) {
+				mouse_pos.x = (1.0f - ((mx - App->world->world_tex_vec.x) / (App->world->world_tex_vec.z / 2.0f)));
+				mouse_pos.y = (1.0f - ((my - App->world->world_tex_vec.y) / (App->world->world_tex_vec.w / 2.0f)));
+				
+				picking = dummyfrustum->cam_frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
 
-		mouse_x = App->input->GetMousepositionX();
-		mouse_y = App->input->GetMousepositionY();
+				float distance;
+				App->world->SetSelectedObject(App->world->Raycast(picking, distance));
+			}
 
-		float normalized_x = -(1.0f - (float(mouse_x) * 2.0f) / width);
-		float normalized_y = 1.0f - (float(mouse_y) * 2.0f) / height;
-
-		picking = dummyfrustum->cam_frustum.UnProjectLineSegment(normalized_x, normalized_y);
-
-		float distance;
-		GameObject* pick = App->world->Raycast(picking, distance);
-		
-		if(last_hit != nullptr && pick != nullptr)
-		{
-
-			last_hit = &picking.GetPoint(distance);
 		}
-
 
 	}
 	

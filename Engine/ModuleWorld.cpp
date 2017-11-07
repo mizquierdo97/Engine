@@ -10,6 +10,9 @@
 #include "ComponentCamera.h"
 #include <map>
 
+#define CHECKERS_HEIGHT 128
+#define CHECKERS_WIDTH 128
+
 ModuleWorld::ModuleWorld(bool start_enabled) : Module(start_enabled)
 {
 	
@@ -25,8 +28,7 @@ bool ModuleWorld::Init()
 	return true;
 }
 
-#define CHECKERS_HEIGHT 128
-#define CHECKERS_WIDTH 128
+
 bool ModuleWorld::Start() {
 	world_texture = new Texture();
 	world_texture->Create(nullptr, App->window->width, App->window->height);
@@ -252,6 +254,13 @@ bool ModuleWorld::Options()
 {
 	if (ImGui::BeginDock("Scene", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
 		ImVec2 size = ImGui::GetContentRegionAvail();
+		ImVec4 temp = ImGui::GetSizeDock(2);
+		world_tex_vec.x = temp.x;
+		world_tex_vec.y = temp.y;
+		world_tex_vec.z = temp.z;
+		world_tex_vec.w = temp.w;
+
+
 			ImGui::Image((void*)world_texture->GetTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
 	}
 	
@@ -474,7 +483,7 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 		if (meshes.size() > 0)
 		{
 			const ComponentMesh* oMesh = (const ComponentMesh*)meshes[0];
-			ComponentTransform* transform = (ComponentTransform*)(goTemp)->FindComponentbytype(ComponentType::transform);
+			ComponentTransform* transform = (ComponentTransform*)(goTemp)->GetTransform();
 			Mesh objmesh = oMesh->obj_mesh;
 
 			LineSegment local(segment);
@@ -484,11 +493,11 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 			for (int i = 0; i < objmesh.num_indices - 9;)
 			{
 				
-				/*
-				triangle.a.Set(&objmesh.vertexs[objmesh.indices[i++]*3]);
-				triangle.b.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
-				triangle.c.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
-				*/
+				
+				triangle.a.Set(&objmesh.vertexs[i * 3 ]);
+				triangle.b.Set(&objmesh.vertexs[i * 3 +1]);
+				triangle.c.Set(&objmesh.vertexs[i * 3 +2]);
+				
 				i++;
 				float localdistance = 0;
 				float3 localhitpoint;
@@ -498,8 +507,8 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 					if (localdistance < dist) {
 
 						dist = localdistance;
-						*closest_object = (GameObject*)goTemp;
-				
+						closest_object[0] = goTemp;
+						return;
 					}
 				}
 			}

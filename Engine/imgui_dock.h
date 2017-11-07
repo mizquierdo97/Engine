@@ -26,7 +26,7 @@ namespace ImGui {
 	IMGUI_API void DockDebugWindow();
 	IMGUI_API void SaveDocks();
 	IMGUI_API void LoadDocks();
-
+	ImVec4 GetSizeDock(int index);
 	
 
 } // namespace ImGui

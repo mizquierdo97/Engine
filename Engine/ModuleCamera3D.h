@@ -44,4 +44,5 @@ private:
 	float max_following_dist;
 	float following_height;
 	float4x4 ViewMatrix, ViewMatrixInverse;
+	float2 mouse_pos = float2(0, 0);
 };

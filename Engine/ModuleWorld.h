@@ -56,6 +56,7 @@ public:
 public:
 
 	Texture* world_texture;
+	float4 world_tex_vec;
 	std::vector<GameObject*> obj_vector;	
 	Quadtree quadtree;
 	std::vector<std::pair<GameObject*, UUID>> uuid_vect;

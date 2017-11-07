@@ -806,7 +806,7 @@ void float3::Set(float x_, float y_, float z_)
 	z = z_;
 #endif
 }
-void float3::Set(float * v)
+void float3::Set(float* v)
 {
 	x = *(v + 0);
 	y = *(v + 1);

@@ -1128,6 +1128,8 @@ namespace ImGui {
 			End();
 		}
 
+
+
 		int getDockIndex(Dock* dock)
 		{
 			if (!dock) return -1;
@@ -1175,6 +1177,15 @@ namespace ImGui {
 
 
 		Dock* getDockByIndex(int idx) { return idx < 0 ? nullptr : m_docks[(int)idx]; }
+
+		ImVec4 SizeVec_Dock(int index)
+		{
+
+			Dock *new_dock = getDockByIndex(index);
+
+
+			return ImVec4(new_dock->pos.x, new_dock->pos.y, new_dock->size.x, new_dock->size.y);
+		}
 		
 		void load()
 		{	
@@ -1302,5 +1313,10 @@ namespace ImGui {
 	void LoadDocks()
 	{
 		g_dock.load();
+	}
+
+	ImVec4 GetSizeDock(int index)
+	{
+		return g_dock.SizeVec_Dock(index);
 	}
 } // namespace ImGui

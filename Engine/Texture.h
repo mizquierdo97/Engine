@@ -30,12 +30,13 @@ private:
 
 public:
 	std::string texture_path;
+	int width;
+	int height;
 private:
 	GLuint texture_id;
 	GLuint color_texture;
 	GLuint depth_texture;
-	int width;
-	int height;
+
 	
 };
 
