@@ -487,43 +487,23 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 	for(int n =0;n<meshes.size();n++){
 		ComponentMesh* oMesh = meshes[n];
 		GameObject* go = oMesh->GetParent();
-		ComponentTransform* transform = (ComponentTransform*)(goTemp)->GetTransform();
+		ComponentTransform* transform = (ComponentTransform*)go->GetTransform();
 		Mesh objmesh = oMesh->obj_mesh;
 
 		LineSegment local(segment);
 		local.Transform(transform->GetMatrix().Inverted());
 
-		Triangle triangle;
+		
 		for (int i = 0; i < objmesh.num_indices - 9;)
 		{
-
-			float point1[] = {
-				objmesh.vertexs[objmesh.indices[i++]],
-				objmesh.vertexs[objmesh.indices[i++]],
-				objmesh.vertexs[objmesh.indices[i++]]
-			};
-
-			float point2[] = {
-				objmesh.vertexs[objmesh.indices[i++]],
-				objmesh.vertexs[objmesh.indices[i++]],
-				objmesh.vertexs[objmesh.indices[i++]]
-			};
-
-			float point3[] = {
-				objmesh.vertexs[objmesh.indices[i++]],
-				objmesh.vertexs[objmesh.indices[i++]],
-				objmesh.vertexs[objmesh.indices[i++]]
-			};
-
-
-			triangle.a.Set(point1);
-			triangle.b.Set(point2);
-			triangle.c.Set(point3);
-			
+			Triangle tri;
+			tri.a.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
+			tri.b.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
+			tri.c.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
 			float localdistance = 0;
 			float3 localhitpoint;
 
-			if (local.Intersects(triangle, &localdistance, &localhitpoint))
+			if (local.Intersects(tri, &localdistance, &localhitpoint))
 			{
 				if (localdistance < dist) {
 

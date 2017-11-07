@@ -8,7 +8,7 @@
 
 ModuleCamera3D::ModuleCamera3D( bool start_enabled) : Module( start_enabled)
 {
-	CalculateViewMatrix();
+	
 
 	X = float3(1.0f, 0.0f, 0.0f);
 	Y = float3(0.0f, 1.0f, 0.0f);
@@ -24,10 +24,18 @@ ModuleCamera3D::~ModuleCamera3D()
 	RELEASE(dummyfrustum);
 }
 
+bool ModuleCamera3D::Init() {
+
+	dummyfrustum = new ComponentCamera();
+	CalculateViewMatrix();
+	return true;
+}
+
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
-	dummyfrustum = new ComponentCamera();
+	
+	
 	picking = LineSegment(float3::zero, float3::unitY);
 	
 
@@ -226,11 +234,11 @@ update_status ModuleCamera3D::Update(float dt)
 	
 	//mouse picking
 
-	
+/*	
 	dummyfrustum->cam_frustum.pos = Position;
 	dummyfrustum->cam_frustum.front = -ViewMatrix.Col3(2);
 	dummyfrustum->cam_frustum.up = ViewMatrix.Col3(1);
-	dummyfrustum->cam_frustum.horizontalFov = 90 * DEGTORAD;
+	dummyfrustum->cam_frustum.horizontalFov = 90 * DEGTORAD;*/
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -241,7 +249,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		if (mx > App->world->world_tex_vec.x && mx < (App->world->world_tex_vec.x + App->world->world_tex_vec.z)) {
 			if (my > App->world->world_tex_vec.y && my < (App->world->world_tex_vec.y + App->world->world_tex_vec.w)) {
-				mouse_pos.x = (1.0f - ((mx - App->world->world_tex_vec.x) / (App->world->world_tex_vec.z / 2.0f)));
+				mouse_pos.x = -(1.0f - ((mx - App->world->world_tex_vec.x) / (App->world->world_tex_vec.z / 2.0f)));
 				mouse_pos.y = (1.0f - ((my - App->world->world_tex_vec.y) / (App->world->world_tex_vec.w / 2.0f)));
 				
 				picking = dummyfrustum->cam_frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
@@ -324,12 +332,17 @@ void ModuleCamera3D::Move(const float3 &Movement)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return (float*)ViewMatrix.v;
+	return dummyfrustum->cam_frustum.ViewProjMatrix().Transposed().ptr();
+	//return (float*)ViewMatrix.v;
 }
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {
-	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
-	ViewMatrixInverse = ViewMatrix.Inverted();
+	dummyfrustum->cam_frustum.pos = Position;
+	dummyfrustum->cam_frustum.front = -Z;
+	dummyfrustum->cam_frustum.up = Y;
+
+//	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
+	//ViewMatrixInverse = ViewMatrix.Inverted();
 }

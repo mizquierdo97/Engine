@@ -149,12 +149,23 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glLoadMatrixf(App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().Transposed().ptr());
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+/*
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
-
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().Transposed().ptr());
+	*/
 	//lights[0].SetPos(0, 0, 0);
 	float x = lights[0].position.x;
 	float z = lights[0].position.z;
@@ -206,8 +217,9 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
+	
+	ProjectionMatrix = App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().Transposed();//perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+	glLoadMatrixf(ProjectionMatrix.ptr());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

@@ -12,6 +12,7 @@ public:
 
 	update_status Update(float dt);
 	
+	bool Init();
 	bool Start();
 	bool CleanUp();
 	void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
@@ -35,8 +36,9 @@ public:
 
 	float3 X, Y, Z, Position, Reference;
 	LineSegment picking;
-private:
 	ComponentCamera* dummyfrustum;
+private:
+	
 	
 	float3* last_hit;
 	PhysBody3D* following = NULL;
