@@ -12,7 +12,7 @@ public:
 		comp_type = ComponentType::mesh;
 
 		AABB temp;
-		temp.SetFrom((vec*)m.vertexs, m.num_vertexs);
+		temp.SetFrom((float3*)m.vertexs, m.num_vertexs);
 		GetParent()->SetLocalBox(temp);
 		bb_mesh = CreateAABB(temp);
 		

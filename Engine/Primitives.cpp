@@ -242,7 +242,7 @@ void CreateObject(GameObject* obj)
 
 
  Mesh CreateAABB(AABB b_box) {
-	vec vertexs[36];
+	float3 vertexs[36];
 
 	b_box.Triangulate(1, 1, 1, &vertexs[0], nullptr, nullptr, false);
 	Mesh m;
@@ -266,7 +266,7 @@ void CreateObject(GameObject* obj)
 };
 
  Mesh UpdateAABB(Mesh m, AABB b_box) {
-	 vec vertexs[36];
+	 float3 vertexs[36];
 
 	 b_box.Triangulate(1, 1, 1, &vertexs[0], nullptr, nullptr, false);
 

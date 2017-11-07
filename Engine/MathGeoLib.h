@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MathGeoLib\MathGeoLib.h"
-#include "MathGeoLib\MathBuildConfig.h"
+#include "MathGeo\MathGeoLib.h"
+#include "MathGeo\MathBuildConfig.h"
 //#include "MathGeoLib\MathGeoLibFwd.h"
 

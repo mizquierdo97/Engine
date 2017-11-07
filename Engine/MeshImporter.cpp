@@ -537,7 +537,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 	
 
 		AABB* temp = new AABB();
-		temp->SetFrom((vec*)m.vertexs, m.num_vertexs);
+		temp->SetFrom((float3*)m.vertexs, m.num_vertexs);
 		
 
 		temp_obj = new GameObject();

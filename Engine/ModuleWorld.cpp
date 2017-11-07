@@ -232,7 +232,9 @@ void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data, i
 
 		data->AddString("Name",(*item)->GetName());		
 		data->AddVector3("Translation", temp_trans->translation);
-		data->AddVector4("Rotation", temp_trans->rotation.CastToFloat4());
+
+		float4 rotation = float4(temp_trans->rotation.x, temp_trans->rotation.y, temp_trans->rotation.z, temp_trans->rotation.w);
+		data->AddVector4("Rotation", rotation);
 		data->AddVector3("Scale", temp_trans->scale);
 		
 		data->CreateSection("Components");

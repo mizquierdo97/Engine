@@ -227,10 +227,10 @@ update_status ModuleCamera3D::Update(float dt)
 	//mouse picking
 
 	
-	dummyfrustum->cam_frustum.SetPos(Position);
-	dummyfrustum->cam_frustum.SetFront(-ViewMatrix.Col3(2));
-	dummyfrustum->cam_frustum.SetUp(ViewMatrix.Col3(1));
-	dummyfrustum->cam_frustum.SetHorizontalFovAndAspectRatio(90 * DEGTORAD, App->window->GetAspectRatio());
+	dummyfrustum->cam_frustum.pos = Position;
+	dummyfrustum->cam_frustum.front = -ViewMatrix.Col3(2);
+	dummyfrustum->cam_frustum.up = ViewMatrix.Col3(1);
+	dummyfrustum->cam_frustum.horizontalFov = 90 * DEGTORAD;
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
