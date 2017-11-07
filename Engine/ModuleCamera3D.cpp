@@ -336,7 +336,7 @@ void ModuleCamera3D::Move(const float3 &Movement)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return dummyfrustum->cam_frustum.ViewProjMatrix().Transposed().ptr();
+	return dummyfrustum->cam_frustum.ViewProjMatrix().ptr();
 	//return (float*)ViewMatrix.v;
 }
 

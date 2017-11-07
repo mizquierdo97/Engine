@@ -421,7 +421,7 @@ public:
 	
 
 	//Our own function to detect aabb in frustrum view: http://www.flipcode.com/archives/Frustum_Culling.shtml
-	bool ContainsAaBox(const AABB& refBox) const;
+	int ContainsAaBox(const AABB& refBox) const;
 
 #if defined(MATH_TINYXML_INTEROP) && defined(MATH_CONTAINERLIB_SUPPORT)
 	void DeserializeFromXml(TiXmlElement *e);

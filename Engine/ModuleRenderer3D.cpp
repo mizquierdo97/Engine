@@ -279,18 +279,6 @@ bool ModuleRenderer3D::Options()
 void ModuleRenderer3D::Render(ComponentMesh* comp)
 {
 	
-	float4x4 mat_float = float4x4::identity;
-	if (comp->GetParent() != nullptr) {
-		mat_float = comp->GetParent()->GetTransform()->GetMatrix();
-	}
-
-	GLfloat mat[16] =
-	{ 1,0,0,0,
-		0,1,0,0,
-		0,0,1,0,
-		0,0,0,1
-
-	};
 	
 	
 	float4x4 matrixfloat = comp->GetParent()->GetTransform()->GetMatrix();

@@ -759,7 +759,7 @@ bool Frustum::Intersects(const AABB &aabb) const
 	{
 		out = 0;
 		for (int k = 0; k < 8; ++k)
-			out += planes[i].IsOnPositiveSide(points[k]);
+			out += GetPlane(i).IsOnPositiveSide(points[k]);
 
 		if (out == 8)
 			return false;
@@ -847,39 +847,40 @@ bool Frustum::Intersects(const Polyhedron &polyhedron) const
 	return this->ToPolyhedron().Intersects(polyhedron);
 }
 
-bool Frustum::ContainsAaBox(const AABB& refBox) const
+int Frustum::ContainsAaBox(const AABB& refBox) const
 {
 	float3 vCorner[8];
 	int iTotalIn = 0;
 	refBox.GetCornerPoints(vCorner); // get the corners of the box into the vCorner array
-
-	// test all 8 corners against the 6 sides
-	// if all points are behind 1 specific plane, we are out
-	// if we are in with all points, then we are fully in
-	Plane m_plane[6];
-	GetPlanes(m_plane);
+									 // test all 8 corners against the 6 sides
+									 // if all points are behind 1 specific plane, we are out
+									 // if we are in with all points, then we are fully in
+	Plane planes[6];
+	GetPlanes(planes);
+	//Plane plane_arr[6] = planes;
+	
+	
 	for (int p = 0; p < 6; ++p) {
 		int iInCount = 8;
 		int iPtIn = 1;
 		for (int i = 0; i < 8; ++i) {
 			// test this point against the planes
-			if(m_plane[p].IsOnPositiveSide(vCorner[i])) //When testing, this may change if(outArray[p].IsOnPositiveSide(vCorner[i]))
-			{
+			if (GetPlane(p).IsOnPositiveSide(vCorner[i]) == true) {
 				iPtIn = 0;
 				--iInCount;
 			}
 		}
 		// were all the points outside of plane p?
-		if(iInCount == 0)
-			return false;
+		if (iInCount == 0)
+			return -1;
 		// check if they were all on the right side of the plane
 		iTotalIn += iPtIn;
 	}
 	// so if iTotalIn is 6, then all are inside the view
 	if (iTotalIn == 6)
-		return true;
+		return 1;
 	// we must be partly in then otherwise
-	return true;
+	return 0;
 }
 
 #if defined(MATH_TINYXML_INTEROP) && defined(MATH_CONTAINERLIB_SUPPORT)

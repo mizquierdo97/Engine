@@ -21,7 +21,7 @@ ComponentCamera::ComponentCamera()
 
 	// FOV and Aspect Ratio
 	cam_frustum.verticalFov = 60* DEGTORAD;
-	cam_frustum.horizontalFov = Atan(App->window->GetAspectRatio()* Tan(cam_frustum.verticalFov * 0.5f)) * 2.0f;
+	cam_frustum.horizontalFov = math::Atan(App->window->GetAspectRatio()*math::Tan(cam_frustum.verticalFov / 2)) * 2;
 	float4x4 p = cam_frustum.ViewProjMatrix();
 	
 
@@ -31,27 +31,26 @@ ComponentCamera::ComponentCamera()
 ComponentCamera::ComponentCamera(GameObject* obj_parent)
 {
 	SetParent(obj_parent);
+	
 	comp_type = ComponentType::camera;
 	//Set frustum looking to GameObject Z axis
-	ComponentTransform* parent_transform = GetParent()->GetTransform();
 
-	cam_frustum.type = FrustumType::PerspectiveFrustum;
+
 	//Position
-	cam_frustum.pos = parent_transform->translation;
+	cam_frustum.type = FrustumType::PerspectiveFrustum;
+	cam_frustum.pos = float3::zero;
 	//Front
-	cam_frustum.front = parent_transform->GetMatrix().Col3(2);
+	cam_frustum.front = float3(0.0f, 0.0f, 1.0f);
 	//Up
-	cam_frustum.up = parent_transform->GetMatrix().Col3(1);
+	cam_frustum.up = float3(0.0f, 1.0f, 0.0f);
 	// Near and Fear plane distance
 	cam_frustum.nearPlaneDistance = 0.1;
 	cam_frustum.farPlaneDistance = 1000.0f;
 
 	// FOV and Aspect Ratio
 	cam_frustum.verticalFov = 60 * DEGTORAD;
-	cam_frustum.horizontalFov = Atan(App->window->GetAspectRatio()* Tan(cam_frustum.verticalFov * 0.5f)) * 2.0f;
+	cam_frustum.horizontalFov = math::Atan(App->window->GetAspectRatio()*math::Tan(cam_frustum.verticalFov / 2)) * 2;
 	float4x4 p = cam_frustum.ViewProjMatrix();
-	//cam_frustum.SetVerticalFovAndAspectRatio(2 * math::Atan(math::Tan(cam_frustum.HorizontalFov()/ 2) * (1/App->window->GetAspectRatio())),App->window->GetAspectRatio());
-	
 }
 
 
