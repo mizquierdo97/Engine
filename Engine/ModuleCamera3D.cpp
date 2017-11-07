@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "ImGui\ImGuizmo.h"
 
 ModuleCamera3D::ModuleCamera3D( bool start_enabled) : Module( start_enabled)
 {
@@ -132,7 +133,7 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 		Reference = temp_vec;
 		Position = Reference + Z * (max_dist*1.5f - temp_vec).Length();
-		
+
 	}
 
 	// Mouse motion ----------------
@@ -181,13 +182,13 @@ update_status ModuleCamera3D::Update(float dt)
 
 		GameObject* obj = App->world->GetSelectedObject();
 		temp_vec = float3(0, 0, 0);
-		
-		
+
+
 		temp_vec.x += obj->GetTransform()->translation.x;
 		temp_vec.y += obj->GetTransform()->translation.y;
 		temp_vec.z += obj->GetTransform()->translation.z;
-			
-		
+
+
 
 	}
 
@@ -196,9 +197,9 @@ update_status ModuleCamera3D::Update(float dt)
 		int dx = -App->input->GetMousepositionXMotion();
 		int dy = -App->input->GetMousepositionYMotion();
 
-		
+
 		float Sensitivity = 0.25f;
-				
+
 
 		if (dx != 0)
 		{
@@ -231,36 +232,39 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 	}
-	
+
 	//mouse picking
 
-/*	
+/*
 	dummyfrustum->cam_frustum.pos = Position;
 	dummyfrustum->cam_frustum.front = -ViewMatrix.Col3(2);
 	dummyfrustum->cam_frustum.up = ViewMatrix.Col3(1);
 	dummyfrustum->cam_frustum.horizontalFov = 90 * DEGTORAD;*/
+	bool test = ImGuizmo::IsOver();
+	if (!test) {
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		float mx = (float)App->input->GetMousepositionX();
-		float my = (float)App->input->GetMousepositionY();
-		float width = (float)App->window->GetWidth();
-		float height = (float)App->window->GetHeight();
+			float mx = (float)App->input->GetMousepositionX();
+			float my = (float)App->input->GetMousepositionY();
+			float width = (float)App->window->GetWidth();
+			float height = (float)App->window->GetHeight();
 
-		if (mx > App->world->world_tex_vec.x && mx < (App->world->world_tex_vec.x + App->world->world_tex_vec.z)) {
-			if (my > App->world->world_tex_vec.y && my < (App->world->world_tex_vec.y + App->world->world_tex_vec.w)) {
-				mouse_pos.x = -(1.0f - ((mx - App->world->world_tex_vec.x) / (App->world->world_tex_vec.z / 2.0f)));
-				mouse_pos.y = (1.0f - ((my - App->world->world_tex_vec.y) / (App->world->world_tex_vec.w / 2.0f)));
-				
-				picking = dummyfrustum->cam_frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
+			if (mx > App->world->world_tex_vec.x && mx < (App->world->world_tex_vec.x + App->world->world_tex_vec.z)) {
+				if (my > App->world->world_tex_vec.y && my < (App->world->world_tex_vec.y + App->world->world_tex_vec.w)) {
+					mouse_pos.x = -(1.0f - ((mx - App->world->world_tex_vec.x) / (App->world->world_tex_vec.z / 2.0f)));
+					mouse_pos.y = (1.0f - ((my - App->world->world_tex_vec.y) / (App->world->world_tex_vec.w / 2.0f)));
 
-				float distance;
-				App->world->SetSelectedObject(App->world->Raycast(picking, distance));
+					picking = dummyfrustum->cam_frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
+
+					float distance;
+					App->world->SetSelectedObject(App->world->Raycast(picking, distance));
+				}
+
 			}
-
 		}
-
 	}
+
 
 
 	glLineWidth(5.0f);

@@ -26,20 +26,35 @@ ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameOb
 
 void ComponentTransform::UpdateComponent()
 {
-	
-
-
+	matrix.Decompose(translation, rotation, scale);
 	if ( App->world->GetSelectedObject() != nullptr) {
 		if (App->world->GetSelectedObject()->GetTransform() == this) {
 			float4x4 mat = App->camera->dummyfrustum->cam_frustum.ViewMatrix();
 			float4x4 proj = App->camera->dummyfrustum->cam_frustum.ProjectionMatrix();
-			float4x4 obj_mat =GetMatrix();
+			float4x4 obj_mat =GetMatrix().Transposed();
 			ImGuiIO& io = ImGui::GetIO();
+			
+			float4x4 temp_mat;
 			ImGuizmo::SetRect(App->world->world_tex_vec.x, App->world->world_tex_vec.y, App->world->world_tex_vec.z, App->world->world_tex_vec.w);
-			ImGuizmo::Manipulate(mat.Transposed().ptr(), proj.Transposed().ptr(), ImGuizmo::ROTATE, ImGuizmo::WORLD, obj_mat.Transposed().ptr());
+			ImGuizmo::Manipulate(mat.Transposed().ptr(), proj.Transposed().ptr(), ImGuizmo::TRANSLATE, ImGuizmo::WORLD, obj_mat.ptr());
+			
+			if (ImGuizmo::IsUsing())
+			{
+				obj_mat.Transpose();
+				float3 trans, sca;
+				Quat rot;
+				obj_mat.Decompose(trans, rot, sca);
+
+				translation.x = trans.x;
+				translation.y = -trans.z;
+				translation.z = trans.y;
+				//matrix = float4x4::FromTRS(translation, rotation, scale);
+			}
+			
+		
 		}
 	}
-	matrix.Decompose(translation, rotation, scale);
+	
 }
 
 void ComponentTransform::ShowInspectorComponents()
@@ -59,7 +74,7 @@ void ComponentTransform::ShowInspectorComponents()
 		rotation = rotation.FromEulerXYZ(euler.x,euler.y,euler.z);
 
 		if (lock_scale_prop)
-			LockProprtionScale(before_scale);
+			LockProportionScale(before_scale);
 	}
 
 	if (scale.x <= 0) scale.x = 0.001; if (scale.y <= 0) scale.y = 0.001; if (scale.z <= 0) scale.z = 0.001;
@@ -67,7 +82,7 @@ void ComponentTransform::ShowInspectorComponents()
 		matrix = float4x4::FromTRS(translation, rotation, scale);
 }
 
-void ComponentTransform::LockProprtionScale(float3 before_scale)
+void ComponentTransform::LockProportionScale(float3 before_scale)
 {
 	float prop = 1.0f;
 	if (before_scale.x != scale.x) {

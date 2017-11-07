@@ -14,7 +14,7 @@ public:
 
 	void UpdateComponent();
 	void ShowInspectorComponents();
-	void LockProprtionScale(float3 before_scale);
+	void LockProportionScale(float3 before_scale);
 
 	const float4x4 GetMatrix();
 	const float4x4 GetMyMatrix();
