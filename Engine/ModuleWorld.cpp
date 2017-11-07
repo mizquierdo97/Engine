@@ -449,50 +449,56 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 
 }
 
-GameObject * ModuleWorld::Raycast(const LineSegment & segment, float  dist) 
+GameObject * ModuleWorld::Raycast(const LineSegment & segment, float  &dist)const  
 {
 	dist = inf; 
-	GameObject* Closest_object;
-	Recursivetest(segment, &dist, Closest_object);
+	GameObject* Closest_object = nullptr;
+	Recursivetest(segment, dist, &Closest_object);
 	return Closest_object;
 }
 
-void ModuleWorld::Recursivetest(const LineSegment& segment, float* dist, GameObject* &closest_object) 
+
+
+void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObject** closest_object)const 
 {
-	std::vector<GameObject*> obj;
+	std::map<float,GameObject*> obj;
 	quadtree.root->CollectIntersections(obj, segment);
 	
-	for (std::vector<GameObject*>::iterator iterator = obj.begin(); iterator != obj.end(); iterator++)
+	for (std::map<float,GameObject*>::const_iterator iterator = obj.begin(); iterator != obj.end(); iterator++)
 	{
+		GameObject* goTemp = iterator->second;
 		std::vector<ComponentMesh*> meshes; 
-		meshes.push_back((ComponentMesh*)(*iterator)->FindComponentbytype(ComponentType::mesh));
+		meshes.push_back((ComponentMesh*)(goTemp)->FindComponentbytype(ComponentType::mesh));
 
 
 		if (meshes.size() > 0)
 		{
 			const ComponentMesh* oMesh = (const ComponentMesh*)meshes[0];
-			ComponentTransform* transform = (ComponentTransform*)(*iterator)->FindComponentbytype(ComponentType::transform);
+			ComponentTransform* transform = (ComponentTransform*)(goTemp)->FindComponentbytype(ComponentType::transform);
 			Mesh objmesh = oMesh->obj_mesh;
 
 			LineSegment local(segment);
 			local.Transform(transform->GetMatrix().Inverted());
 
 			Triangle triangle;
-			for (int i = 0; i < objmesh.num_indices;)
+			for (int i = 0; i < objmesh.num_indices - 9;)
 			{
-				triangle.a.Set(objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]],objmesh.vertexs[objmesh.indices[i++]]);
-				triangle.b.Set(objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]]);
-				triangle.c.Set(objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]], objmesh.vertexs[objmesh.indices[i++]]);
 				
-				float* localdistance = 0;
+				/*
+				triangle.a.Set(&objmesh.vertexs[objmesh.indices[i++]*3]);
+				triangle.b.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
+				triangle.c.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
+				*/
+				i++;
+				float localdistance = 0;
 				float3 localhitpoint;
 
-				if (local.Intersects(triangle, localdistance, &localhitpoint))
+				if (local.Intersects(triangle, &localdistance, &localhitpoint))
 				{
 					if (localdistance < dist) {
 
 						dist = localdistance;
-						closest_object = (*iterator);
+						*closest_object = (GameObject*)goTemp;
 				
 					}
 				}

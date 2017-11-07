@@ -38,8 +38,8 @@ public:
 	void LoadSceneMesh(Data,GameObject*);
 	void LoadSceneMaterial(Data, GameObject*);
 	
-	GameObject * Raycast(const LineSegment & segment, float  dist);	
-	void Recursivetest(const LineSegment& segment, float* dist, GameObject* &closest_object);
+	GameObject * Raycast(const LineSegment & segment, float  &dist)const;	
+	void Recursivetest(const LineSegment& segment, float& dist, GameObject** closest_object)const ;
 
 	bool Options();//World Options
 

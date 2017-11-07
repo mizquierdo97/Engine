@@ -38,7 +38,7 @@ public:
 private:
 	ComponentCamera* dummyfrustum;
 	LineSegment picking; 
-	float3 last_hit;
+	float3* last_hit;
 	PhysBody3D* following = NULL;
 	float min_following_dist;
 	float max_following_dist;

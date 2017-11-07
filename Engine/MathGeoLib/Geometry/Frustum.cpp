@@ -468,8 +468,8 @@ Ray Frustum::UnProject(float x, float y) const
 
 LineSegment Frustum::UnProjectLineSegment(float x, float y) const
 {
-	vec nearPlanePos = NearPlanePos(x, y);
-	vec farPlanePos = FarPlanePos(x, y);
+	float3 nearPlanePos = NearPlanePos(x, y);
+	float3 farPlanePos = FarPlanePos(x, y);
 	return LineSegment(nearPlanePos, farPlanePos);
 }
 

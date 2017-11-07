@@ -29,7 +29,7 @@ bool ModuleCamera3D::Start()
 {
 	dummyfrustum = new ComponentCamera();
 	picking = LineSegment(float3::zero, float3::unitY);
-	last_hit = float3::zero;
+	
 
 
 	LOG("Setting up the camera");
@@ -230,6 +230,7 @@ update_status ModuleCamera3D::Update(float dt)
 	dummyfrustum->cam_frustum.SetPos(Position);
 	dummyfrustum->cam_frustum.SetFront(-ViewMatrix.Col3(2));
 	dummyfrustum->cam_frustum.SetUp(ViewMatrix.Col3(1));
+	dummyfrustum->cam_frustum.SetHorizontalFovAndAspectRatio(90 * DEGTORAD, App->window->GetAspectRatio());
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
@@ -248,7 +249,14 @@ update_status ModuleCamera3D::Update(float dt)
 		picking = dummyfrustum->cam_frustum.UnProjectLineSegment(normalized_x, normalized_y);
 
 		float distance;
-		//GameObject* pick = 
+		GameObject* pick = App->world->Raycast(picking, distance);
+		
+		if(last_hit != nullptr && pick != nullptr)
+		{
+
+			last_hit = &picking.GetPoint(distance);
+		}
+
 
 	}
 	

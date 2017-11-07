@@ -30,4 +30,5 @@ public:
 	Mesh obj_mesh;
 	ComponentMaterial* mesh_material;
 	Mesh bb_mesh;
+	math::AABB box;
 };
