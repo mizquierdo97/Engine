@@ -513,6 +513,9 @@
     <ClInclude Include="ResourceTexture.h">
       <Filter>Sources\FileSystem\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="ImGui\ImGuizmo.h">
+      <Filter>Sources\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -738,6 +741,9 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ImGui\ImGuizmo.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\Math\float2.inl">
