@@ -36,7 +36,7 @@ void ComponentTransform::UpdateComponent()
 			
 			float4x4 temp_mat;
 			ImGuizmo::SetRect(App->world->world_tex_vec.x, App->world->world_tex_vec.y, App->world->world_tex_vec.z, App->world->world_tex_vec.w);
-			ImGuizmo::Manipulate(mat.ptr(), proj.ptr(), ImGuizmo::TRANSLATE, ImGuizmo::LOCAL, obj_mat.ptr());
+			ImGuizmo::Manipulate(mat.ptr(), proj.ptr(), ImGuizmo::ROTATE, ImGuizmo::LOCAL, obj_mat.ptr());
 			
 			if (ImGuizmo::IsUsing())
 			{
@@ -45,10 +45,15 @@ void ComponentTransform::UpdateComponent()
 				Quat rot;
 				obj_mat.Decompose(trans, rot, sca);
 
-				translation = trans;		
 
+				//float4x4 new_mat = float4x4::FromTRS(trans, rot, sca);
+				if (GetParent()->obj_parent != nullptr) {
+					obj_mat = GetParent()->obj_parent->GetTransform()->GetMatrix().Inverted() * obj_mat;
+				}
+				
+				obj_mat.Decompose(translation, rotation, scale);
 				//rotation = rot;
-				//matrix = float4x4::FromTRS(translation, rotation, scale);
+				
 			}
 			
 		
