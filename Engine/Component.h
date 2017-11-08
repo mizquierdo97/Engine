@@ -2,6 +2,9 @@
 #include "Globals.h"
 #include "Module.h"
 #include "Data.h"
+
+
+
 enum ComponentType {
 	
 	transform,
@@ -12,6 +15,7 @@ enum ComponentType {
 };
 
 class GameObject;
+class Resource;
 class Data;
 class Component {
 
@@ -42,7 +46,7 @@ public:
 	void SetParent(GameObject* val) {
 		parent = val;
 	}
-
+	Resource* GetResource()const;
 
 public:
 

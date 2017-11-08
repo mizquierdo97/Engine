@@ -1,9 +1,12 @@
 #pragma once
-#include "Component.h"
+
 #include "Module.h"
 #include "Globals.h"
 #include "MathGeoLib.h"
 #include "ModuleAssimp.h"
+#include "Component.h"
+
+class Component;
 
 class ComponentTransform : public Component{
 public:

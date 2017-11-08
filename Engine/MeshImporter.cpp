@@ -285,7 +285,7 @@ int MeshImporter::LoadGLTextures(const aiScene* scene)
 	ILboolean success;
 
 	/* initialization of DevIL */
-	ilInit();
+	//ilInit();
 
 	/* scan scene's materials for textures */
 	for (unsigned int m = 0; m<scene->mNumMaterials; ++m)
@@ -294,14 +294,11 @@ int MeshImporter::LoadGLTextures(const aiScene* scene)
 		aiString path;  // filename
 
 		if (scene->mMaterials[m]->GetTexture(aiTextureType_DIFFUSE, 0, &path) == AI_SUCCESS) {
-			//while (texFound == AI_SUCCESS) {
-				//fill map with textures, OpenGL image ids set to 0
+			
 			std::string file_name = ASSETS_PATH;
 			file_name += GetFileNameExtension(path.data);
 			textureIdMap[m] = file_name;
-			// more textures?
-			//texIndex++;
-			//texFound = scene->mMaterials[m]->GetTexture(aiTextureType_DIFFUSE, texIndex, &path);
+			
 		}
 	}
 
@@ -549,7 +546,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 		Texture* temp_text = new Texture();
 		if (material_index != -1) {
-			/*std::map<GLuint, std::string>::iterator pos */ auto temp = App->filesystem->mesh_importer->textureIdMap.find(material_index);
+			auto temp = App->filesystem->mesh_importer->textureIdMap.find(material_index);
 			std::string texture_path = MESHES_PATH + GetFileName(temp->second) + ".dds";
 
 			UUID obj_uuid = App->resources->FindImported(texture_path.c_str());
@@ -557,7 +554,6 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			if(!App->resources->Get(obj_uuid)->LoadToMemory())
 			if (App->filesystem->image_importer->loadTextureFromFile((char*)texture_path.c_str(), &temp_text)) {
 				LOG("TEXTURE_LOADED");
-				
 			}
 			
 			temp_obj->AddComponentMaterial(obj_uuid);
