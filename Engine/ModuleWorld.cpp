@@ -476,7 +476,9 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 
 		Texture* temp_tex = new Texture();
 		if (ExistsFile(library_path)) {
-			App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
+			//UUID obj_uuid = App->resources->FindImported(library_path.c_str());
+			
+			//App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
 			//go->AddComponentMaterial(temp_tex);
 		}/*
 		 else if (ExistsFile(mesh_path)) {

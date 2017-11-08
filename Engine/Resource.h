@@ -29,10 +29,11 @@ public:
 	const char* GetFile() const;
 	const char* GetExportedFile() const;
 	bool IsLoadedToMemory() const;
-	bool LoadToMemory();
+	
 	uint CountReferences() const;
 	virtual void Save(Config& config) const;
 	virtual void Load(const Config& config);*/
+	bool LoadToMemory();
 	virtual bool LoadInMemory() = 0;
 
 public :

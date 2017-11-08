@@ -41,6 +41,18 @@ UUID ModuleResourceManager::Find(const char * file_in_assets) const
 		return IID_NULL;
 }
 
+UUID ModuleResourceManager::FindImported(const char * file_in_library) const
+{
+	std::string file(file_in_library);
+
+	for (std::map<UUID, Resource*>::const_iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		if (it->second->exported_file.compare(file) == 0)
+			return it->first;
+	}
+	return IID_NULL;
+}
+
 UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 {
 	UUID null_uuid; UuidCreateNil(&null_uuid);

@@ -10,9 +10,7 @@ public :
 		uuid = uid;
 	};
 	~ResourceTexture() {};
-	bool LoadInMemory() {
-		return true;
-	};
+	bool LoadInMemory();
 
 public:
 	Texture* res_tex;

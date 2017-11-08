@@ -552,11 +552,15 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			/*std::map<GLuint, std::string>::iterator pos */ auto temp = App->filesystem->mesh_importer->textureIdMap.find(material_index);
 			std::string texture_path = MESHES_PATH + GetFileName(temp->second) + ".dds";
 
+			UUID obj_uuid = App->resources->FindImported(texture_path.c_str());
+
+			if(!App->resources->Get(obj_uuid)->LoadToMemory())
 			if (App->renderer3D->loadTextureFromFile((char*)texture_path.c_str(), &temp_text)) {
 				LOG("TEXTURE_LOADED");
-				//temp_obj->AddComponentMaterial(temp_text);
+				
 			}
 			
+			temp_obj->AddComponentMaterial(obj_uuid);
 		}
 
 		//FINALLY CREATE OBJECT
