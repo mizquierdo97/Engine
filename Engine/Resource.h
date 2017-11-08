@@ -19,7 +19,9 @@ public:
 	};
 
 public:
-	
+	Resource() {
+
+	};
 	Resource(UUID uid, Resource::Type type);
 	/*virtual ~Resource();
 	Resource::Type GetType() const;
@@ -33,7 +35,7 @@ public:
 	virtual void Load(const Config& config);*/
 	virtual bool LoadInMemory() = 0;
 
-protected:
+public :
 	UUID uuid = IID_NULL;
 	std::string file;
 	std::string exported_file;

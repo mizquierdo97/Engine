@@ -620,7 +620,6 @@
     <ClCompile Include="ModuleResourceManager.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ImGui\ImGuizmo.cpp">
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
@@ -719,6 +718,9 @@
     </ClCompile>
     <ClCompile Include="MathGeo\Time\Clock.cpp">
       <Filter>Sources\MathGeo</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Sources\FileSystem\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

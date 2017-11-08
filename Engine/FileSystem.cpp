@@ -62,7 +62,7 @@ void FileSystem::InitFileSystem()
 }
 
 
-const char* FileSystem::ImportImage(const char* path)
+bool FileSystem::ImportImage(const char* path, std::string* file_path)
 {
 	//Texture loading success
 	bool textureLoaded = false;
@@ -96,13 +96,13 @@ const char* FileSystem::ImportImage(const char* path)
 
 				final_name = MESHES_PATH;
 				final_name += file_name.c_str(); final_name += ".dds";
-				if (!ExistsFile(final_name.c_str())) {
+				file_path[0] = final_name;
+				if (!ExistsFile(final_name.c_str())) {					
 					pFile = fopen(final_name.c_str(), "wb");
 					fwrite(data, sizeof(char), size, pFile);
 					fclose(pFile);
 				}
-
-				
+								
 				if (std::find(App->gui->path_list.begin(), App->gui->path_list.end(), final_name) == App->gui->path_list.end())
 					App->gui->path_list.push_back(final_name);
 			}
@@ -111,9 +111,9 @@ const char* FileSystem::ImportImage(const char* path)
 			RELEASE_ARRAY(data);
 		}
 
-
+		return true;
 	}
-	return final_name.c_str();
+	return false;
 }
 
 //OK

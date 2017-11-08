@@ -26,7 +26,7 @@ ComponentTransform::ComponentTransform(float3 pos, float4 rot, float3 sc, GameOb
 
 void ComponentTransform::UpdateComponent()
 {
-	matrix.Decompose(translation, rotation, scale);
+	//matrix.Decompose(translation, rotation, scale);
 	if ( App->world->GetSelectedObject() != nullptr) {
 		if (App->world->GetSelectedObject()->GetTransform() == this) {
 			float4x4 mat = App->camera->dummyfrustum->cam_frustum.ViewMatrix(); mat.Transpose();
@@ -36,7 +36,7 @@ void ComponentTransform::UpdateComponent()
 			
 			float4x4 temp_mat;
 			ImGuizmo::SetRect(App->world->world_tex_vec.x, App->world->world_tex_vec.y, App->world->world_tex_vec.z, App->world->world_tex_vec.w);
-			ImGuizmo::Manipulate(mat.ptr(), proj.ptr(), ImGuizmo::ROTATE, ImGuizmo::LOCAL, obj_mat.ptr());
+			ImGuizmo::Manipulate(mat.ptr(), proj.ptr(), ImGuizmo::TRANSLATE, ImGuizmo::LOCAL, obj_mat.ptr());
 			
 			if (ImGuizmo::IsUsing())
 			{

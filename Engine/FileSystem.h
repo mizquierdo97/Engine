@@ -14,7 +14,7 @@ public:
 	}
 
 	void InitFileSystem();	
-	const char* ImportImage(const char* name);
+	bool ImportImage(const char* name, std::string*);
 
 public:
 	MeshImporter* mesh_importer; public:

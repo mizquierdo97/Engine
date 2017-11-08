@@ -352,9 +352,6 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 				}
 				
 			}
-
-
-
 				strcpy(mesh_name,path_name);
 				char* num = new char[4];
 				itoa(root->mMeshes[num_mesh], num, 10);
