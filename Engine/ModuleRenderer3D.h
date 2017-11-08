@@ -44,8 +44,7 @@ public:
 	void Render(ComponentMesh* );
 	void RenderMesh(Mesh*);
 	void RenderNormals(GameObject*);
-	bool loadTextureFromFile(const char* path, Texture**, bool is_texture = true);
-	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height, Texture**);
+	
 	void DebugDrawBox(const float3*,Color);
 	void DebugDraw(const AABB& aabb, Color color = White, const float4x4& transform = float4x4::identity);
 
@@ -62,7 +61,7 @@ public:
 	
 	uint mTextureID = 0;
 
-	Texture* tex = nullptr;
+	
 
 
 	//OPTIONS

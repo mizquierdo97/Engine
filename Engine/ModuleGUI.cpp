@@ -98,8 +98,8 @@ bool ModuleGUI::Init()
 bool ModuleGUI::Start()
 {
 	//App->filesystem->ImportImage("png_icon.png");
-	App->renderer3D->loadTextureFromFile("png_icon.png", &png_tex,false);
-	App->renderer3D->loadTextureFromFile("fbx_icon.png", &fbx_tex,false);
+	App->filesystem->image_importer->loadTextureFromFile("png_icon.png", &png_tex,false);
+	App->filesystem->image_importer->loadTextureFromFile("fbx_icon.png", &fbx_tex,false);
 	
 	ImGui::LoadDocks();
 	return true;
@@ -288,7 +288,7 @@ void ModuleGUI::Assets()
 {
 	
 	if (ImGui::BeginDock("Assets", false, false)) {
-		ImTextureID tex_id = App->renderer3D->tex;
+	
 		std::list<std::string>::iterator item = path_list.begin();
 		int i = 0;
 		while (item != path_list.end())
@@ -311,7 +311,7 @@ void ModuleGUI::Assets()
 				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
 					if (App->world->GetSelectedObject() != nullptr) {
 						if(App->world->GetSelectedObject()->GetMaterial()!= nullptr)
-						App->renderer3D->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(App->world->GetSelectedObject()->GetMaterial()->res_uuid))->res_tex);
+						App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(App->world->GetSelectedObject()->GetMaterial()->res_uuid))->res_tex);
 
 					}
 				}
@@ -431,7 +431,7 @@ void ModuleGUI::Assets()
 		 {
 			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
 				 std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
-				 App->renderer3D->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(comp->res_uuid))->res_tex);
+				 App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(comp->res_uuid))->res_tex);
 
 			 }
 		 }

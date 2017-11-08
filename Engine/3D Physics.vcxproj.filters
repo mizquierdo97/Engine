@@ -504,6 +504,9 @@
     <ClInclude Include="MathGeo\Time\Clock.h">
       <Filter>Sources\MathGeo</Filter>
     </ClInclude>
+    <ClInclude Include="ImageImporter.h">
+      <Filter>Sources\FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -724,6 +727,9 @@
     </ClCompile>
     <ClCompile Include="ResourceTexture.cpp">
       <Filter>Sources\FileSystem\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageImporter.cpp">
+      <Filter>Sources\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

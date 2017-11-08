@@ -555,7 +555,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			UUID obj_uuid = App->resources->FindImported(texture_path.c_str());
 
 			if(!App->resources->Get(obj_uuid)->LoadToMemory())
-			if (App->renderer3D->loadTextureFromFile((char*)texture_path.c_str(), &temp_text)) {
+			if (App->filesystem->image_importer->loadTextureFromFile((char*)texture_path.c_str(), &temp_text)) {
 				LOG("TEXTURE_LOADED");
 				
 			}

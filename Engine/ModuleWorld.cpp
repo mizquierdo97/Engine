@@ -30,10 +30,10 @@ bool ModuleWorld::Init()
 
 
 bool ModuleWorld::Start() {
-	App->renderer3D->loadTextureFromFile("play.png", &play_tex, false);
-	App->renderer3D->loadTextureFromFile("stop.png", &stop_tex, false);
-	App->renderer3D->loadTextureFromFile("pause.png", &pause_tex, false);
-	App->renderer3D->loadTextureFromFile("frame.png", &nframe_tex, false);
+	App->filesystem->image_importer->loadTextureFromFile("play.png", &play_tex, false);
+	App->filesystem->image_importer->loadTextureFromFile("stop.png", &stop_tex, false);
+	App->filesystem->image_importer->loadTextureFromFile("pause.png", &pause_tex, false);
+	App->filesystem->image_importer->loadTextureFromFile("frame.png", &nframe_tex, false);
 
 	world_texture = new Texture();
 	world_texture->Create(nullptr, App->window->width, App->window->height);

@@ -2,5 +2,5 @@
 #include "Application.h"
 bool ResourceTexture::LoadInMemory()
 {
-	return App->renderer3D->loadTextureFromFile(exported_file.c_str(),&res_tex);
+	return App->filesystem->image_importer->loadTextureFromFile(exported_file.c_str(),&res_tex);
 }
