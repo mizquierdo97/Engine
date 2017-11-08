@@ -272,14 +272,22 @@ bool ModuleWorld::Options()
 	if (ImGui::BeginDock("Scene", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
 	
 		ImGui::SameLine(App->world->world_tex_vec.z / 2.5);
-		ImGui::ImageButton((void*)play_tex->GetTexture(), ImVec2(35, 26));
+		if (ImGui::ImageButton((void*)play_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(PLAY);
+
 		ImGui::SameLine();
-		ImGui::ImageButton((void*)pause_tex->GetTexture(), ImVec2(35, 26));
+		if (ImGui::ImageButton((void*)pause_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(PAUSE);
+
 		ImGui::SameLine();
-		ImGui::ImageButton((void*)stop_tex->GetTexture(), ImVec2(35, 26));
+		if (ImGui::ImageButton((void*)stop_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(STOP);
+
 		ImGui::SameLine();
-		ImGui::ImageButton((void*)nframe_tex->GetTexture(), ImVec2(35, 26));
-		
+
+		if (ImGui::ImageButton((void*)nframe_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(NEXT_FRAME);
+
 		ImVec2 size = ImGui::GetContentRegionAvail();
 		ImVec4 temp = ImGui::GetSizeDock(2);
 		world_tex_vec.x = temp.x;

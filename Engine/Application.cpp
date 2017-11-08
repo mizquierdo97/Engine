@@ -60,28 +60,31 @@ Application::~Application()
 	}
 }
 
-void Application::Play()
+
+
+void Application::SetGameMode( Gamestatus st)
 {
-	gameStatus = PLAY;
+	gameStatus = st;
 
-}
+	switch(gameStatus)
+	{
+	case PLAY:
 
-void Application::Stop()
-{
-	gameStatus = STOP;
+		rtime.frame_time = 1.0f;
+		break;
 
-}
+	case PAUSE:
+		rtime.frame_time = 0.0f;
+		break;
 
-void Application::Pause()
-{
-	gameStatus = PAUSE;
+	case STOP:
+		rtime.frame_time = 0.0f;
+		break;
 
-}
-
-void Application::NextFrame()
-{
-	gameStatus = NEXT_FRAME;
-
+	case NEXT_FRAME:
+		rtime.frame_time = 0.0f;
+		break;
+	}
 }
 
 bool Application::Init()
@@ -124,7 +127,7 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	dt = (float)ms_timer.Read() / 1000.0f;
+	dt = ((float)ms_timer.Read() / 1000.0f);
 	ms_timer.Start();
 }
 
@@ -146,7 +149,7 @@ update_status Application::Update()
 		//PreUpdate ms
 		(*item)->StartTimer();
 		
-		ret = (*item)->PreUpdate(dt);
+		ret = (*item)->PreUpdate(dt* rtime.frame_time);
 	
 		//Pause timer
 		(*item)->PauseTimer();
@@ -161,7 +164,7 @@ update_status Application::Update()
 		//Update ms
 		(*item)->ResumeTimer();
 
-		ret = (*item)->Update(dt);
+		ret = (*item)->Update(dt* rtime.frame_time);
 		
 		//Pause timer
 		(*item)->PauseTimer();
@@ -177,7 +180,7 @@ update_status Application::Update()
 		//PostUpdate ms
 		(*item)->ResumeTimer();
 		
-		ret = (*item)->PostUpdate(dt);
+		ret = (*item)->PostUpdate(dt* rtime.frame_time);
 		
 		//Pause timer
 		(*item)->StopTimer();

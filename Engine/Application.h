@@ -30,7 +30,7 @@ enum Gamestatus {
 struct Rtime
 {
 	Timer startTime;
-	//float frame_time;
+	float frame_time = 1.0f;
 	//Timer timeSinceGameStart;
 	//float dt;
 };
@@ -74,11 +74,8 @@ public:
 
 	Application();
 	~Application();
-	void Play();
-	void Stop();
-	void Pause();
-	void NextFrame();
 
+	void SetGameMode(Gamestatus st);
 	bool Init();
 	update_status Update();
 	bool CleanUp();
