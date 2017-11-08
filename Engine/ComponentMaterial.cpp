@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ComponentMaterial.h"
-
+#include "ModuleResourceManager.h"
+#include "ResourceTexture.h"
 void ComponentMaterial::UpdateComponent()
 {
 
@@ -10,7 +11,7 @@ void ComponentMaterial::UpdateComponent()
 void ComponentMaterial::SaveComponentScene(Data * data)
 {
 	data->CreateSection("Material");
-	data->AddString("Mesh Path", obj_tex->texture_path);
+	data->AddString("Mesh Path", ((ResourceTexture*)App->resources->Get(res_uuid))->file);
 	data->CloseSection();
 }
 

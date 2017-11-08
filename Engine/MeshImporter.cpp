@@ -554,7 +554,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 			if (App->renderer3D->loadTextureFromFile((char*)texture_path.c_str(), &temp_text)) {
 				LOG("TEXTURE_LOADED");
-				temp_obj->AddComponentMaterial(temp_text);
+				//temp_obj->AddComponentMaterial(temp_text);
 			}
 			
 		}

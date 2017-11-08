@@ -109,7 +109,7 @@ void ModuleWorld::FileDropped()
 		App->assimp->ImportMesh(path.c_str());
 
 	else if (!strcmp((char*)temp.c_str(), "png") || !strcmp((char*)temp.c_str(), "jpg"))
-		App->gui->path_list.push_back(path);
+		App->resources->ImportFile(path.c_str());
 
 	App->input->file_dropped = false;
 }
@@ -477,7 +477,7 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 		Texture* temp_tex = new Texture();
 		if (ExistsFile(library_path)) {
 			App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
-			go->AddComponentMaterial(temp_tex);
+			//go->AddComponentMaterial(temp_tex);
 		}/*
 		 else if (ExistsFile(mesh_path)) {
 		 App->filesystem->ImportImage(mesh_path.c_str());

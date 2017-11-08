@@ -13,6 +13,8 @@
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
 #include "ImGui\ImGuizmo.h"
+#include "Resource.h"
+#include "ResourceTexture.h"
 
 struct ExampleAppConsole;
 
@@ -309,7 +311,7 @@ void ModuleGUI::Assets()
 				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
 					if (App->world->GetSelectedObject() != nullptr) {
 						if(App->world->GetSelectedObject()->GetMaterial()!= nullptr)
-						App->renderer3D->loadTextureFromFile((char*)path.c_str(), &App->world->GetSelectedObject()->GetMaterial()->obj_tex);
+						App->renderer3D->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(App->world->GetSelectedObject()->GetMaterial()->res_uuid))->res_tex);
 
 					}
 				}
@@ -402,7 +404,7 @@ void ModuleGUI::Assets()
 	}
 	if (ImGui::MenuItem("Material")) 
 	{
-		App->world->GetSelectedObject()->AddComponentMaterial(nullptr);
+		App->world->GetSelectedObject()->AddComponentMaterial(IID_NULL);
 	}
 	if (ImGui::MenuItem("Camera"))
 	{
@@ -429,7 +431,7 @@ void ModuleGUI::Assets()
 		 {
 			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
 				 std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
-				 App->renderer3D->loadTextureFromFile((char*)path.c_str(), &comp->obj_tex);
+				 App->renderer3D->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(comp->res_uuid))->res_tex);
 
 			 }
 		 }

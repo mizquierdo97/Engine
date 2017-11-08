@@ -40,9 +40,9 @@ void GameObject::AddComponentTransform(float3 pos, float4 rot, float3 scale)
 	}
 
 }
-void GameObject::AddComponentMaterial(Texture * tex)
+void GameObject::AddComponentMaterial(UUID  uuid)
 {
-	ComponentMaterial* mat = new ComponentMaterial(tex, this);
+	ComponentMaterial* mat = new ComponentMaterial(uuid, this);
 	obj_components.push_back(mat);
 
 

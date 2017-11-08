@@ -8,6 +8,8 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "Resource.h"
+#include "ResourceTexture.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -308,7 +310,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		if (m.id_textures != NULL) {
 		
 			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
-				Texture* temp_tex = comp->GetParent()->GetMaterial()->obj_tex;
+				Texture* temp_tex = ((ResourceTexture*)App->resources->Get(comp->GetParent()->GetMaterial()->res_uuid))->res_tex;
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, 0);
 				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());

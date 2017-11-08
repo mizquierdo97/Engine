@@ -4,15 +4,15 @@
 class ComponentMaterial :public Component {
 	public:
 		ComponentMaterial() {
-			obj_tex = new Texture();
+		
 		};
-		ComponentMaterial(Texture* tex, GameObject* obj) {
-			obj_tex = tex;			
+		ComponentMaterial(UUID uid, GameObject* obj) {
+			res_uuid = uid;			
 			SetParent(obj);
 			comp_type = ComponentType::material;
 		};
 		~ComponentMaterial() {
-			RELEASE(obj_tex);
+			
 		};
 
 		void UpdateComponent();
@@ -20,6 +20,5 @@ class ComponentMaterial :public Component {
 		void ShowInspectorComponents();
 
 public:
-	Texture* obj_tex;
 	std::string path_texture;
 };

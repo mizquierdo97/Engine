@@ -47,11 +47,12 @@ public:
 public:
 
 	ComponentType comp_type;
-
+	UUID res_uuid;
 private:
 	bool enabled;
 	GameObject* parent;
 
 protected:
 	bool header_open;
+	
 };

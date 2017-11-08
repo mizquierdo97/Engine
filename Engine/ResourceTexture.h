@@ -14,5 +14,9 @@ public :
 		return true;
 	};
 
+public:
+	Texture* res_tex;
+
+
 
 };

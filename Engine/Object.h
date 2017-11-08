@@ -71,7 +71,7 @@ public:
 	void AddComponentTransform(aiVector3D, aiQuaternion, aiVector3D);
 	void AddComponentTransform(float3, float4, float3);
 	void AddComponentTransform();
-	void AddComponentMaterial(Texture* );
+	void AddComponentMaterial(UUID );
 	void AddComponentCamera();
 	void Update();
 	void Draw();
