@@ -14,7 +14,5 @@ public :
 
 public:
 	Texture* res_tex;
-
-
-
+	
 };

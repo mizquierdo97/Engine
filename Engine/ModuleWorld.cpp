@@ -30,6 +30,7 @@ bool ModuleWorld::Init()
 
 
 bool ModuleWorld::Start() {
+
 	App->filesystem->image_importer->loadTextureFromFile("play.png", &play_tex, false);
 	App->filesystem->image_importer->loadTextureFromFile("stop.png", &stop_tex, false);
 	App->filesystem->image_importer->loadTextureFromFile("pause.png", &pause_tex, false);
@@ -98,18 +99,11 @@ bool ModuleWorld::CleanUp()
 
 void ModuleWorld::FileDropped()
 {
-	std::string path = App->input->dropped_filedir;
-	std::string temp;
+	std::string path = App->input->dropped_filedir;	
 
-	std::transform(path.begin(), path.end(), path.begin(), ::tolower);
-	temp = path.substr(path.length() - 3, 3);
+	std::transform(path.begin(), path.end(), path.begin(), ::tolower);	
 
-
-	if (!strcmp((char*)temp.c_str(), "fbx"))
-		App->assimp->ImportMesh(path.c_str());
-
-	else if (!strcmp((char*)temp.c_str(), "png") || !strcmp((char*)temp.c_str(), "jpg"))
-		App->resources->ImportFile(path.c_str());
+	App->resources->ImportFile(path.c_str());
 
 	App->input->file_dropped = false;
 }

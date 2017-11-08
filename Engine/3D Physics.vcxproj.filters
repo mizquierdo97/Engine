@@ -507,6 +507,9 @@
     <ClInclude Include="ImageImporter.h">
       <Filter>Sources\FileSystem</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceMesh.h">
+      <Filter>Sources\FileSystem\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -730,6 +733,9 @@
     </ClCompile>
     <ClCompile Include="ImageImporter.cpp">
       <Filter>Sources\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMesh.cpp">
+      <Filter>Sources\FileSystem\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

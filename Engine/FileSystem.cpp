@@ -47,7 +47,7 @@ void FileSystem::InitFileSystem()
 
 		//SWITCH
 		if (!strcmp(file_extension.c_str(), "fbx")) {
-			App->assimp->ImportMesh(str.c_str());
+			App->resources->ImportFile(str.c_str());
 		}
 		if (!strcmp(file_extension.c_str(), "png") || !strcmp(file_extension.c_str(), "jpg") || !strcmp(file_extension.c_str(), "tga")) {
 			App->resources->ImportFile(str.c_str());

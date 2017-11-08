@@ -55,7 +55,7 @@ public:
 	
 	bool CleanUp();
 
-	void ImportMesh(const char* path);
+	bool ImportMesh(const char* path, std::string*);
 
 public:
 

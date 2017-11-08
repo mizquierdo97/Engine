@@ -2,6 +2,7 @@
 #include "ModuleResourceManager.h"
 #include "Resource.h"
 #include "ResourceTexture.h"
+#include "ResourceMesh.h"
 #include "Globals.h"
 
 ModuleResourceManager::ModuleResourceManager(bool start_enabled) : Module(start_enabled)
@@ -67,7 +68,11 @@ UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 		case Resource::texture:
 			import_ok = App->filesystem->image_importer->ImportImage(path, &file_path);
 			break;
-		}
+		
+		case Resource::mesh:
+			import_ok = App->assimp->ImportMesh(path, &file_path);
+			break;
+	}
 
 		if (import_ok && strcmp(file_path.c_str(), "")) {
 
@@ -117,6 +122,9 @@ Resource * ModuleResourceManager::CreateNewResource(Resource::Type type, UUID fo
 	case Resource::texture:
 		ret = (Resource*) new ResourceTexture(uuid);
 		break;
+	case Resource::mesh:
+		ret = (Resource*) new ResourceMesh(uuid);
+		break;
 
 	}
 	
@@ -127,14 +135,16 @@ Resource * ModuleResourceManager::CreateNewResource(Resource::Type type, UUID fo
 
 Resource::Type ModuleResourceManager::TypeFromExtension(const char * path)
 {
-	const char* extension = GetExtension(path).c_str();
+	std::string extension = GetExtension(path).c_str();
 
-	if (!strcmp(extension, "png"))
+	if (!strcmp(extension.c_str(), "png"))
 		return Resource::texture;
-	if (!strcmp(extension, "tga"))
+	if (!strcmp(extension.c_str(), "tga"))
 		return Resource::texture;
-	if (!strcmp(extension, "jpg"))
+	if (!strcmp(extension.c_str(), "jpg"))
 		return Resource::texture;
+	if (!strcmp(extension.c_str(), "fbx"))
+		return Resource::mesh;
 
 	return Resource::Type();
 }

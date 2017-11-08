@@ -8,6 +8,8 @@
 #include "MeshImporter.h"
 #include "Object.h"
 #include <map>
+#include "Resource.h"
+#include "ResourceMesh.h"
 
 void CreateBinary(aiScene*, const char*, const char*);
 char* LoadBuffer(const char*);
@@ -20,16 +22,16 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i,co
 uint GetRecursiveSize(aiNode* root, aiScene* scene);
 
 
-void MeshImporter::ImportMesh(aiScene* scene, const char * directory, const char* name)
+void MeshImporter::ImportFBX(aiScene* scene, const char * path, const char* name)
 {
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		CreateBinary(scene, directory, name);
+		CreateBinary(scene, path, name);
 
 		LoadGLTextures(scene);
 	}
 	else {
-		LOG("Can't open the file: %s", directory);
+		LOG("Can't open the file: %s", path);
 	}
 }
 
@@ -140,7 +142,7 @@ uint GetRecursiveSize(aiNode* root, aiScene* scene) {
 //OK
 
 
-void CreateBinary(aiScene* scene, const char * directory, const char* name) {
+void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 
 	std::string final_name;
 	uint num_meshes[1] = { scene->mNumMeshes };
@@ -173,6 +175,8 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 
 	for (int i = 0; i < scene->mNumMeshes; i++) {
 
+		//ImportFile(path);
+		//ImportMesh()
 		uint bytes = 0;
 		size = 0;
 		char* data_mesh = nullptr;
@@ -264,13 +268,30 @@ void CreateBinary(aiScene* scene, const char * directory, const char* name) {
 		FILE * mesh_pFile;
 		std::string final_mesh_name = MESHES_PATH;
 
-		final_mesh_name += mesh_name; final_mesh_name += ".mesh";
-		if (!ExistsFile(final_mesh_name.c_str())) {
-			pFile = fopen(final_mesh_name.c_str(), "wb");
-			fwrite(data_mesh, sizeof(char), size, pFile);
-			fclose(pFile);
-		}
 
+		//HERE
+
+		final_mesh_name += mesh_name; final_mesh_name += ".mesh";
+		//App->resources->ImportFile(dir_path);
+
+		UUID obj_uuid = App->resources->FindImported(dir_path);
+		RPC_STATUS stat;
+
+		UUID null_uuid; UuidCreateNil(&null_uuid);
+		if (UuidCompare(&obj_uuid, &null_uuid, &stat) == 0) {
+			Resource* res = App->resources->CreateNewResource(Resource::mesh);
+			res->file = dir_path;
+			res->exported_file = final_mesh_name;
+			res->type = Resource::mesh;
+
+
+			if (!ExistsFile(final_mesh_name.c_str())) {
+				pFile = fopen(final_mesh_name.c_str(), "wb");
+				fwrite(data_mesh, sizeof(char), size, pFile);
+				fclose(pFile);
+			}
+
+		}
 		RELEASE_ARRAY(indices);
 		if (data_mesh != nullptr)
 			RELEASE_ARRAY(data_mesh);
@@ -303,6 +324,57 @@ int MeshImporter::LoadGLTextures(const aiScene* scene)
 	}
 
 	return true;
+}
+
+bool MeshImporter::CreateMesh(const char * path,ResourceMesh* res)
+{
+	char * buffer = LoadBuffer(path);
+	char* cursor_mesh = buffer;
+
+	uint bytes;
+	Mesh m;
+	uint* ranges = App->filesystem->mesh_importer->actual_ranges;
+	m.num_vertexs = ranges[0];
+	m.num_indices = ranges[1];
+
+	bytes = sizeof(uint) * m.num_indices;
+	m.indices = new uint[m.num_indices];
+	memcpy(m.indices, cursor_mesh, bytes);
+	cursor_mesh += bytes;
+
+	bytes = sizeof(float) * m.num_vertexs * 3;
+	m.vertexs = new float[m.num_vertexs * 3];
+	memcpy(m.vertexs, cursor_mesh, bytes);
+	cursor_mesh += bytes;
+
+	if (ranges[2]) {
+		bytes = sizeof(float) * m.num_vertexs * 2;
+		m.texture_coords = new float[m.num_vertexs * 2];
+		memcpy(m.texture_coords, cursor_mesh, bytes);
+		cursor_mesh += bytes;
+	}
+
+	if (ranges[3]) {
+		bytes = sizeof(float) * m.num_vertexs * 3;
+		m.norms = new float[m.num_vertexs * 3];
+		memcpy(m.norms, cursor_mesh, bytes);
+		cursor_mesh += bytes;
+	}
+
+	bytes = sizeof(int);
+
+	memcpy(&res->material_index, cursor_mesh, bytes);
+	cursor_mesh += bytes;
+
+	GenGLBuffers(&m);
+	RELEASE_ARRAY(buffer);
+	return true;
+}
+
+void MeshImporter::ImportMesh()
+{
+
+
 }
 
 //OK
@@ -480,49 +552,56 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		memcpy(num_childs, cursor[0], bytes);
 		cursor[0] += bytes;
 		
+		App->filesystem->mesh_importer->actual_ranges[0] = ranges[0];
 		if (ranges[0] != 0 && ranges[1] != 0) {
 
 			char path[80] = "Library/Meshes/";
 			strcat(path, name);
 			strcat(path, ".mesh");
 
-			char * buffer = LoadBuffer(path);
-			char* cursor_mesh = buffer;
+			UUID obj_uuid = App->resources->FindImported(path);
+			Resource* res = App->resources->Get(obj_uuid);
+			if (!res->LoadToMemory()) {
 
-			m.num_vertexs = ranges[0];
-			m.num_indices = ranges[1];
+				//m = App->filesystem->mesh_importer->CreateMesh(path, ranges, &material_index);
+				char * buffer = LoadBuffer(path);
+				char* cursor_mesh = buffer;
 
-			bytes = sizeof(uint) * m.num_indices;
-			m.indices = new uint[m.num_indices];
-			memcpy(m.indices, cursor_mesh, bytes);
-			cursor_mesh += bytes;
+				m.num_vertexs = ranges[0];
+				m.num_indices = ranges[1];
 
-			bytes = sizeof(float) * m.num_vertexs * 3;
-			m.vertexs = new float[m.num_vertexs * 3];
-			memcpy(m.vertexs, cursor_mesh, bytes);
-			cursor_mesh += bytes;
-
-			if (ranges[2]) {
-				bytes = sizeof(float) * m.num_vertexs * 2;
-				m.texture_coords = new float[m.num_vertexs * 2];
-				memcpy(m.texture_coords, cursor_mesh, bytes);
+				bytes = sizeof(uint) * m.num_indices;
+				m.indices = new uint[m.num_indices];
+				memcpy(m.indices, cursor_mesh, bytes);
 				cursor_mesh += bytes;
-			}
-			
-			if (ranges[3]) {
+
 				bytes = sizeof(float) * m.num_vertexs * 3;
-				m.norms = new float[m.num_vertexs * 3];
-				memcpy(m.norms, cursor_mesh, bytes);
+				m.vertexs = new float[m.num_vertexs * 3];
+				memcpy(m.vertexs, cursor_mesh, bytes);
 				cursor_mesh += bytes;
-			}
 
-			bytes = sizeof(int);
-			
-			memcpy(&material_index, cursor_mesh, bytes);
-			cursor_mesh += bytes;
-				
-			GenGLBuffers(&m);
-			RELEASE_ARRAY(buffer);
+				if (ranges[2]) {
+					bytes = sizeof(float) * m.num_vertexs * 2;
+					m.texture_coords = new float[m.num_vertexs * 2];
+					memcpy(m.texture_coords, cursor_mesh, bytes);
+					cursor_mesh += bytes;
+				}
+
+				if (ranges[3]) {
+					bytes = sizeof(float) * m.num_vertexs * 3;
+					m.norms = new float[m.num_vertexs * 3];
+					memcpy(m.norms, cursor_mesh, bytes);
+					cursor_mesh += bytes;
+				}
+
+				bytes = sizeof(int);
+
+				memcpy(&material_index, cursor_mesh, bytes);
+				cursor_mesh += bytes;
+
+				GenGLBuffers(&m);
+				RELEASE_ARRAY(buffer);
+			}
 		}
 	
 		temp_name = name;
@@ -551,10 +630,9 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 			UUID obj_uuid = App->resources->FindImported(texture_path.c_str());
 
-			if(!App->resources->Get(obj_uuid)->LoadToMemory())
-			if (App->filesystem->image_importer->loadTextureFromFile((char*)texture_path.c_str(), &temp_text)) {
+			if(!App->resources->Get(obj_uuid)->LoadToMemory())		
 				LOG("TEXTURE_LOADED");
-			}
+		
 			
 			temp_obj->AddComponentMaterial(obj_uuid);
 		}
