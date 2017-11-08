@@ -66,11 +66,11 @@ update_status ModuleCamera3D::Update(float dt)
 	static float num = 0;
 	float wheel = 0;
 	float3 newPos(0, 0, 0);
-	float speed = 3.0f * dt;
+	float speed = 10.0f * dt;
 
 	//Speed up 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		speed = 20.0f * dt;
 
 	//WASD Movement
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z*speed;
@@ -144,11 +144,14 @@ update_status ModuleCamera3D::Update(float dt)
 		int dy = -App->input->GetMousepositionYMotion();
 
 		GameObject* selected = App->world->GetSelectedObject();
-		AABB selected_AABB = selected->GetGlobalBBox();
+		float4x4 mat = selected->GetTransform()->GetMatrix();
+		float3 pos, sca;
+		Quat rot;
+		mat.Decompose(pos, rot, sca);
 
 		float Sensitivity = 0.25f;
-
-
+		
+		Reference = pos;
 		Position -= Reference;
 
 		if (dx != 0)

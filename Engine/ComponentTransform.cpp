@@ -41,25 +41,15 @@ void ComponentTransform::UpdateComponent()
 			if (ImGuizmo::IsUsing())
 			{
 				obj_mat.Transpose();
-				float3 trans, sca;
-				Quat rot;
-				obj_mat.Decompose(trans, rot, sca);
-
-
-				//float4x4 new_mat = float4x4::FromTRS(trans, rot, sca);
+				
 				if (GetParent()->obj_parent != nullptr) {
 					obj_mat = GetParent()->obj_parent->GetTransform()->GetMatrix().Inverted() * obj_mat;
-				}
-				
+				}				
 				obj_mat.Decompose(translation, rotation, scale);
-				//rotation = rot;
-				
-			}
-			
-		
+								
+			}		
 		}
-	}
-	
+	}	
 }
 
 void ComponentTransform::ShowInspectorComponents()
