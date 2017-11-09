@@ -30,7 +30,15 @@ enum Gamestatus {
 struct Rtime
 {
 	Timer startTime;
-	float frame_time = 0.0f;
+	Timer ms_timer;
+	Timer last_sec_frame_timer;
+	float prev_last_sec_frame_count=0;
+	float last_sec_frame_count = 0;
+	uint frame_rate = 0.0f;
+	float frame_count = 0;
+	float frame_last_second = 0;
+	float ms_frames = 0;
+	float	dt;
 
 	//float dt;
 };
@@ -38,8 +46,8 @@ struct Rtime
 struct Gtime
 {
 	Timer gtimer;
-	//float timeScale;
-	//float Gamedt;
+	float timeScale = 1.0f;
+	bool nextF;
 
 
 };
@@ -65,8 +73,8 @@ public:
 	FileSystem* filesystem;
 private:
 
-	Timer	ms_timer;
-	float	dt;
+	
+	
 
 public:
 	std::list<Module*> list_modules;

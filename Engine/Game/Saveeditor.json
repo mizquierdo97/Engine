@@ -1,0 +1,136 @@
+{
+    "GameObjects": {
+        "Object_0": {
+            "UUID": "08037bfb-df55-4041-9323-c5b4fc2defcc",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_1": {
+            "UUID": "08037bfb-df55-4041-9323-c5b4fc2defcc",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_2": {
+            "UUID": "08037bfb-df55-4041-9323-c5b4fc2defcc",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_3": {
+            "UUID": "08037bfb-df55-4041-9323-c5b4fc2defcc",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_4": {
+            "UUID": "08037bfb-df55-4041-9323-c5b4fc2defcc",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_5": {
+            "UUID": "08037bfb-df55-4041-9323-c5b4fc2defcc",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        }
+    }
+}

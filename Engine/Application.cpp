@@ -71,7 +71,7 @@ void Application::SetGameMode( Gamestatus st)
 	{
 	case PLAY:
 
-		rtime.frame_time = 1.0f;
+		gtime.timeScale = 1.0f;
 		if (previousGameStatus == STOP) {
 			world->SaveScene("Saveeditor");
 			gtime.gtimer.Start();
@@ -90,7 +90,7 @@ void Application::SetGameMode( Gamestatus st)
 
 		if (previousGameStatus == PLAY)
 		{
-			rtime.frame_time = 0.0f;
+			gtime.timeScale= 0.0f;
 			
 		}
 		else 
@@ -100,7 +100,7 @@ void Application::SetGameMode( Gamestatus st)
 		break;
 
 	case STOP:
-		rtime.frame_time = 1.0f;
+		gtime.timeScale = 1.0f;
 		gtime.gtimer.Stop();
 		
 		if (previousGameStatus == PLAY)
@@ -111,7 +111,7 @@ void Application::SetGameMode( Gamestatus st)
 		break;
 
 	case NEXT_FRAME:
-		rtime.frame_time = 0.0f;
+		gtime.timeScale = 0.0f;
 		break;
 	}
 }
@@ -146,24 +146,41 @@ bool Application::Init()
 		ret = (*item)->Start();
 		item++;
 	}
+
+filesystem->InitFileSystem();
+	
+
+
 	gtime.gtimer.Stop();
 	gtime.gtimer.actual_ms = 0;
-	filesystem->InitFileSystem();
-	ms_timer.Start();
+
 	rtime.startTime.Start();
+	rtime.ms_timer.Start();
+	rtime.last_sec_frame_timer.Start();
 	return ret;
 }
 
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	dt = ((float)ms_timer.Read() / 1000.0f)* rtime.frame_time;
-	ms_timer.Start();
+	rtime.frame_count++;
+	rtime.last_sec_frame_count++;
+	rtime.dt = ((float)rtime.ms_timer.Read() / 1000.0f) * gtime.timeScale;
+	rtime.ms_timer.Start();
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	if (rtime.last_sec_frame_timer.Read() > 1000)
+	{
+		rtime.last_sec_frame_timer.Start();
+		rtime.prev_last_sec_frame_count = rtime.last_sec_frame_count;
+		rtime.last_sec_frame_count = 0;
+	}
+	rtime.frame_last_second = rtime.prev_last_sec_frame_count;
+	rtime.frame_rate = (float)rtime.frame_count / ((float)rtime.startTime.Read() / 1000.0f);
+	rtime.ms_frames = rtime.ms_timer.Read();
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -179,7 +196,7 @@ update_status Application::Update()
 		//PreUpdate ms
 		(*item)->StartTimer();
 		
-		ret = (*item)->PreUpdate(dt);
+		ret = (*item)->PreUpdate(rtime.dt);
 	
 		//Pause timer
 		(*item)->PauseTimer();
@@ -194,7 +211,7 @@ update_status Application::Update()
 		//Update ms
 		(*item)->ResumeTimer();
 
-		ret = (*item)->Update(dt);
+		ret = (*item)->Update(rtime.dt);
 		
 		//Pause timer
 		(*item)->PauseTimer();
@@ -210,7 +227,7 @@ update_status Application::Update()
 		//PostUpdate ms
 		(*item)->ResumeTimer();
 		
-		ret = (*item)->PostUpdate(dt);
+		ret = (*item)->PostUpdate(rtime.dt);
 		
 		//Pause timer
 		(*item)->StopTimer();
@@ -265,9 +282,12 @@ bool Application::Options()
 		}
 		ImGui::Separator();
 		ImGui::Text(" Real time: %i", rtime.startTime.Read() / 1000);
+		ImGui::Text(" Frame Rate: %i", rtime.frame_rate);
+		
+		ImGui::TextWrapped(" DT: %.3f", rtime.dt);
+		ImGui::Separator();
 		ImGui::Text(" Game time: %i", gtime.gtimer.Read() / 1000);
-		ImGui::Text(" mstimer: %i", ms_timer.Read());
-
+		ImGui::Text(" Time Scale : %.2f", gtime.timeScale );
 		ImGui::End();
 	}
 	return true;
