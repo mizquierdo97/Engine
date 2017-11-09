@@ -136,11 +136,11 @@ update_status ModuleGUI::Update(float dt)
 			if (ImGui::BeginMenu("Edit"))
 			{
 				if (ImGui::MenuItem("SaveScene")) {
-					App->world->SaveScene();
+					App->world->SaveScene("Scene");
 
 				}
 				if (ImGui::MenuItem("LoadScene")) {
-					App->world->LoadScene();
+					App->world->LoadScene("Scene");
 
 				}
 				ImGui::EndMenu();

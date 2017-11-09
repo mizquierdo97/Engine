@@ -29,9 +29,9 @@ public:
 	void It_Update();
 	void DebugDraw();
 
-	void SaveScene()const;
+	void SaveScene(const char* )const;
 	void RecursiveSaveScene(std::vector<GameObject*>,Data*,int* i);
-	void LoadScene();
+	void LoadScene(const char* );
 	void RedistributeGameObjects();
 
 	void LoadSceneGoData(Data, GameObject*);

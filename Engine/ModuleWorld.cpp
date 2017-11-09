@@ -162,10 +162,12 @@ void ModuleWorld::DebugDraw()
 			App->renderer3D->DebugDraw((*it)->bounds, Yellow);
 	}
 }
-void ModuleWorld::LoadScene() {
+void ModuleWorld::LoadScene(const char* name) {
+
+	std::string scene_name = name;
 	Data scene_data;
 	int i = 0;
-	if (scene_data.LoadJSON("Scene.json")) {
+	if (scene_data.LoadJSON(scene_name + ".json")) {
 		scene_data.EnterSection("GameObjects");
 		while (scene_data.EnterSection("Object_"+ std::to_string(i++))) {
 
@@ -180,7 +182,7 @@ void ModuleWorld::LoadScene() {
 					exists = true;
 				item++;
 			}
-
+			
 			if (!exists) {
 				GameObject* go = new GameObject();
 
@@ -206,14 +208,15 @@ void ModuleWorld::LoadScene() {
 	RedistributeGameObjects();
 }
 
-void ModuleWorld::SaveScene() const
+void ModuleWorld::SaveScene(const char* name) const
 {
+	std::string scene_name = name;
 	Data scene_data;
 	int i = 0;
 	scene_data.CreateSection("GameObjects");
 	App->world->RecursiveSaveScene(obj_vector, &scene_data,&i);
 	scene_data.CloseSection();
-	scene_data.SaveAsJSON("Scene.json");
+	scene_data.SaveAsJSON(scene_name + ".json");
 }
 
 

@@ -30,16 +30,16 @@ enum Gamestatus {
 struct Rtime
 {
 	Timer startTime;
-	float frame_time = 1.0f;
-	//Timer timeSinceGameStart;
+	float frame_time = 0.0f;
+
 	//float dt;
 };
 
 struct Gtime
 {
-	Timer gtime;
-	float timeScale;
-	float Gamedt;
+	Timer gtimer;
+	//float timeScale;
+	//float Gamedt;
 
 
 };
@@ -58,8 +58,9 @@ public:
 	ModuleAssimp* assimp;
 	ModuleResourceManager* resources;
 	Gamestatus gameStatus = STOP;
+	Gamestatus previousGameStatus = STOP;
 	Rtime rtime;
-	//Gtime gtime; 
+	Gtime gtime; 
 	Config* config;
 	FileSystem* filesystem;
 private:
@@ -75,7 +76,7 @@ public:
 	Application();
 	~Application();
 
-	void SetGameMode(Gamestatus st);
+	void SetGameMode(Gamestatus st = STOP);
 	bool Init();
 	update_status Update();
 	bool CleanUp();

@@ -64,6 +64,7 @@ Application::~Application()
 
 void Application::SetGameMode( Gamestatus st)
 {
+	previousGameStatus = gameStatus;
 	gameStatus = st;
 
 	switch(gameStatus)
@@ -71,14 +72,42 @@ void Application::SetGameMode( Gamestatus st)
 	case PLAY:
 
 		rtime.frame_time = 1.0f;
+		if (previousGameStatus == STOP) {
+			world->SaveScene("Saveeditor");
+			gtime.gtimer.Start();
+		}
+	
+		else if(previousGameStatus == PAUSE)
+		{
+			gtime.gtimer.Resume();
+		}
+
 		break;
 
 	case PAUSE:
-		rtime.frame_time = 0.0f;
+
+		gtime.gtimer.Pause();
+
+		if (previousGameStatus == PLAY)
+		{
+			rtime.frame_time = 0.0f;
+			
+		}
+		else 
+		{
+			gameStatus = STOP;
+		}
 		break;
 
 	case STOP:
-		rtime.frame_time = 0.0f;
+		rtime.frame_time = 1.0f;
+		gtime.gtimer.Stop();
+		
+		if (previousGameStatus == PLAY)
+		{
+			world->LoadScene("Saveeditor");
+			
+		}
 		break;
 
 	case NEXT_FRAME:
@@ -117,7 +146,8 @@ bool Application::Init()
 		ret = (*item)->Start();
 		item++;
 	}
-	
+	gtime.gtimer.Stop();
+	gtime.gtimer.actual_ms = 0;
 	filesystem->InitFileSystem();
 	ms_timer.Start();
 	rtime.startTime.Start();
@@ -127,7 +157,7 @@ bool Application::Init()
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	dt = ((float)ms_timer.Read() / 1000.0f);
+	dt = ((float)ms_timer.Read() / 1000.0f)* rtime.frame_time;
 	ms_timer.Start();
 }
 
@@ -149,7 +179,7 @@ update_status Application::Update()
 		//PreUpdate ms
 		(*item)->StartTimer();
 		
-		ret = (*item)->PreUpdate(dt* rtime.frame_time);
+		ret = (*item)->PreUpdate(dt);
 	
 		//Pause timer
 		(*item)->PauseTimer();
@@ -164,7 +194,7 @@ update_status Application::Update()
 		//Update ms
 		(*item)->ResumeTimer();
 
-		ret = (*item)->Update(dt* rtime.frame_time);
+		ret = (*item)->Update(dt);
 		
 		//Pause timer
 		(*item)->PauseTimer();
@@ -180,7 +210,7 @@ update_status Application::Update()
 		//PostUpdate ms
 		(*item)->ResumeTimer();
 		
-		ret = (*item)->PostUpdate(dt* rtime.frame_time);
+		ret = (*item)->PostUpdate(dt);
 		
 		//Pause timer
 		(*item)->StopTimer();
@@ -216,7 +246,7 @@ bool Application::CleanUp()
 bool Application::Options()
 {
 	if (win_active) {
-		ImGui::SetNextWindowSize(ImVec2(350, 400), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowSize(ImVec2(350,600), ImGuiCond_FirstUseEver);
 		if (ImGui::Begin("Application", &win_active)) {
 
 			std::list<Module*>::iterator item = App->list_modules.begin();
@@ -233,6 +263,11 @@ bool Application::Options()
 				item++;
 			}
 		}
+		ImGui::Separator();
+		ImGui::Text(" Real time: %i", rtime.startTime.Read() / 1000);
+		ImGui::Text(" Game time: %i", gtime.gtimer.Read() / 1000);
+		ImGui::Text(" mstimer: %i", ms_timer.Read());
+
 		ImGui::End();
 	}
 	return true;
