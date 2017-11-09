@@ -11,7 +11,7 @@ void ComponentMesh::UpdateComponent()
 	
 	if (!App->world->using_octree) {
 		ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
-	//	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) != -1 || !active_camera->frustum_culling) {
+	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) != -1 || !active_camera->frustum_culling) {
 			if (App->renderer3D->render_fill) {
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 				App->renderer3D->Render(this);
@@ -25,7 +25,7 @@ void ComponentMesh::UpdateComponent()
 			if (((ResourceMesh*)GetResource())->obj_mesh.norms != nullptr && App->gui->show_normals)
 				App->physics->DrawNormals(this);
 
-	//	}
+	}
 	}
 }
 

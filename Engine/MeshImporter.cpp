@@ -605,36 +605,37 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		}
 	
 		temp_name = name;
-		m.mesh_path = (char*)temp_name.c_str();
-	
-	
-
-		AABB* temp = new AABB();
-		temp->SetFrom((float3*)m.vertexs, m.num_vertexs);
 		
 
 		temp_obj = new GameObject();
 		temp_obj->obj_parent = parent;
-		if(res != nullptr)
-			if(res->obj_mesh.id_vertexs!=0)
-				temp_obj->AddComponentMesh(obj_uuid);
-		temp_obj->AddComponentTransform(translation, rotation, scaling);
-		temp_obj->SetGlobalBox(*temp);
-		UpdateAABB(temp_obj);
-		temp_obj->SetName((char*)m.mesh_path.c_str());	
-
-		Texture* temp_text = new Texture();
-		if (material_index != -1) {
-			auto temp = App->filesystem->mesh_importer->textureIdMap.find(material_index);
-			std::string texture_path = MESHES_PATH + GetFileName(temp->second) + ".dds";
-
-			UUID obj_uuid = App->resources->FindImported(texture_path.c_str());
-
-			if(!App->resources->Get(obj_uuid)->LoadToMemory())		
-				LOG("TEXTURE_LOADED");
+		temp_obj->AddComponentTransform(translation, rotation, scaling);		
 		
-			
-			temp_obj->AddComponentMaterial(obj_uuid);
+		temp_obj->SetName((char*)m.mesh_path.c_str());
+		
+		if (res != nullptr) {
+			if (res->obj_mesh.id_vertexs != 0)
+				temp_obj->AddComponentMesh(obj_uuid);
+
+			AABB* temp = new AABB();
+			temp->SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
+			temp_obj->SetGlobalBox(*temp);
+			UpdateAABB(temp_obj);
+
+			Texture* temp_text = new Texture();
+			if (res->material_index != -1) {
+				auto temp = App->filesystem->mesh_importer->textureIdMap.find(res->material_index);
+				std::string texture_path = MESHES_PATH + GetFileName(temp->second) + ".dds";
+
+				UUID obj_uuid = App->resources->FindImported(texture_path.c_str());
+
+				if (!App->resources->Get(obj_uuid)->LoadToMemory())
+					LOG("TEXTURE_LOADED");
+
+
+				temp_obj->AddComponentMaterial(obj_uuid);
+			}
+			RELEASE(temp);
 		}
 
 		//FINALLY CREATE OBJECT
@@ -647,7 +648,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		//RELEASE_ARRAY( m.norms);
 		//RELEASE_ARRAY( m.texture_coords);
 	
-		RELEASE(temp);
+		
 		
 		
 		num++;
