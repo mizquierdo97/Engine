@@ -150,7 +150,7 @@ bool Application::Init()
 filesystem->InitFileSystem();
 	
 
-
+	gtime.gtimer.Start();
 	gtime.gtimer.Stop();
 	gtime.gtimer.actual_ms = 0;
 
@@ -284,7 +284,7 @@ bool Application::Options()
 		ImGui::Text(" Real time: %i", rtime.startTime.Read() / 1000);
 		ImGui::Text(" Frame Rate: %i", rtime.frame_rate);
 		
-		ImGui::TextWrapped(" DT: %.3f", rtime.dt);
+		ImGui::Text(" DT: %.3f", rtime.dt);
 		ImGui::Separator();
 		ImGui::Text(" Game time: %i", gtime.gtimer.Read() / 1000);
 		ImGui::Text(" Time Scale : %.2f", gtime.timeScale );
