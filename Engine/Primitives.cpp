@@ -219,10 +219,16 @@ int CreateObject()
 	
 	return 0;
 }
-void CreateObject(GameObject* obj)
+void CreateObject(GameObject* obj, UUID force)
 {
-	
-	UuidCreate(&obj->obj_uuid);
+	UUID null_uuid = IID_NULL;
+	RPC_STATUS state;
+	if (UuidCompare(&force, &null_uuid, &state) == 0) {
+		UuidCreate(&obj->obj_uuid);
+	}
+	else {
+		obj->obj_uuid = force;
+	}
 
 	std::pair<GameObject*, UUID> temp_pair;
 	temp_pair.first = obj;

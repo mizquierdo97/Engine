@@ -21,7 +21,7 @@ Mesh CreateAABB(AABB);
 Mesh UpdateAABB(Mesh, AABB);
 AABB UpdateAABB(GameObject*);
 int CreateObject();
-void CreateObject(GameObject*);
+void CreateObject(GameObject*, UUID force = IID_NULL);
 
 class Component;
 class ComponentMesh;

@@ -20,15 +20,14 @@ void GenGLBuffers(Mesh*);
 void Recursive(aiNode* root, char** cursor, aiScene* scene, int i,const char* name);
 void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i,const char* path_name);
 uint GetRecursiveSize(aiNode* root, aiScene* scene);
+uint GetSize(aiScene* scene);
 
 
 void MeshImporter::ImportFBX(aiScene* scene, const char * path, const char* name)
 {
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		CreateBinary(scene, path, name);
-
-		LoadGLTextures(scene);
+		CreateBinary(scene, path, name);		
 	}
 	else {
 		LOG("Can't open the file: %s", path);
@@ -80,6 +79,8 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 		//GET SIZE AND ALLOVATE MEMORY
 		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
 
+		size += sizeof(uint) * 4;
+
 		size += sizeof(float)* m->mNumVertices * 3 + sizeof(uint);
 
 		if (m->HasFaces()) {
@@ -118,6 +119,10 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 		}
 		if (continue_for)
 			continue;
+
+		bytes = sizeof(uint) * 4;
+		memcpy(cursor, ranges, bytes);
+		cursor += bytes;
 
 		bytes = sizeof(uint) *  m->mNumFaces * 3;
 		memcpy(cursor, indices, bytes);
@@ -208,6 +213,7 @@ void MeshImporter::LoadMesh(const char * path)
 
 }
 
+/*
 Mesh MeshImporter::LoadComponentMesh(char* name, uint* ranges)
 {
 	Mesh m;
@@ -254,7 +260,7 @@ Mesh MeshImporter::LoadComponentMesh(char* name, uint* ranges)
 	return m;
 
 }
-
+*/
 //OK
 
 
@@ -304,29 +310,6 @@ uint GetRecursiveSize(aiNode* root, aiScene* scene) {
 
 
 
-
-int MeshImporter::LoadGLTextures(const aiScene* scene)
-{
-	ILboolean success;
-
-	
-	for (unsigned int m = 0; m<scene->mNumMaterials; ++m)
-	{
-		int texIndex = 0;
-		aiString path;  // filename
-
-		if (scene->mMaterials[m]->GetTexture(aiTextureType_DIFFUSE, 0, &path) == AI_SUCCESS) {
-			
-			std::string file_name = ASSETS_PATH;
-			file_name += GetFileNameExtension(path.data);
-			textureIdMap[m] = file_name;
-			
-		}
-	}
-
-	return true;
-}
-
 bool MeshImporter::CreateMesh(const char * path,ResourceMesh* res)
 {
 	char * buffer = LoadBuffer(path);
@@ -334,7 +317,13 @@ bool MeshImporter::CreateMesh(const char * path,ResourceMesh* res)
 
 	uint bytes;
 	Mesh m;
-	uint* ranges = App->filesystem->mesh_importer->actual_ranges;
+	uint ranges[4];
+	
+
+	bytes = sizeof(uint) * 4;
+	memcpy(ranges, cursor_mesh, bytes);
+	cursor_mesh += bytes;
+
 	m.num_vertexs = ranges[0];
 	m.num_indices = ranges[1];
 

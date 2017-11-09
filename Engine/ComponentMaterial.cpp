@@ -11,7 +11,7 @@ void ComponentMaterial::UpdateComponent()
 void ComponentMaterial::SaveComponentScene(Data * data)
 {
 	data->CreateSection("Material");
-	data->AddString("Mesh Path", ((ResourceTexture*)App->resources->Get(res_uuid))->file);
+	data->AddString("Texture Path", ((ResourceTexture*)App->resources->Get(res_uuid))->file);
 	data->CloseSection();
 }
 

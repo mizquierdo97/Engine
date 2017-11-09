@@ -1,7 +1,7 @@
 {
     "GameObjects": {
         "Object_0": {
-            "UUID": "795480e0-fdd6-4958-ab70-41a974f2f356",
+            "UUID": "1e0d5696-6adf-4b16-9c54-7e9ca18af4f6",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "",
             "Translation": {
@@ -23,9 +23,9 @@
             "Components": {}
         },
         "Object_1": {
-            "UUID": "3ebd5035-cc31-46c5-be3c-17299da1bccf",
+            "UUID": "66da8893-66a8-4ffe-9ffd-5f96ead7e5f9",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
-            "Name": "",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -45,9 +45,9 @@
             "Components": {}
         },
         "Object_2": {
-            "UUID": "5b3980f7-42eb-43d1-a826-f8a80b62b745",
-            "Parent_UUID": "3ebd5035-cc31-46c5-be3c-17299da1bccf",
-            "Name": "",
+            "UUID": "f0167d89-bc29-4506-a7b9-73b1f425fad9",
+            "Parent_UUID": "66da8893-66a8-4ffe-9ffd-5f96ead7e5f9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "18.150000",
                 "value_Y": "0.000000",
@@ -67,9 +67,9 @@
             "Components": {}
         },
         "Object_3": {
-            "UUID": "da7fd1b5-da88-49db-a320-dfcb02e8a5db",
-            "Parent_UUID": "5b3980f7-42eb-43d1-a826-f8a80b62b745",
-            "Name": "",
+            "UUID": "277c0e41-2612-4396-9785-81e107c5023d",
+            "Parent_UUID": "f0167d89-bc29-4506-a7b9-73b1f425fad9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -89,9 +89,9 @@
             "Components": {}
         },
         "Object_4": {
-            "UUID": "07b249f1-63b1-49fb-bd91-3e4072cc0656",
-            "Parent_UUID": "da7fd1b5-da88-49db-a320-dfcb02e8a5db",
-            "Name": "",
+            "UUID": "758540c1-f45a-46b6-9da7-b35f3035f891",
+            "Parent_UUID": "277c0e41-2612-4396-9785-81e107c5023d",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -111,9 +111,9 @@
             "Components": {}
         },
         "Object_5": {
-            "UUID": "275650a3-e103-44b5-9c79-9d00b5f8c18f",
-            "Parent_UUID": "07b249f1-63b1-49fb-bd91-3e4072cc0656",
-            "Name": "",
+            "UUID": "d938d995-53e3-46da-8195-acef1d5b275b",
+            "Parent_UUID": "758540c1-f45a-46b6-9da7-b35f3035f891",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -133,9 +133,9 @@
             "Components": {}
         },
         "Object_6": {
-            "UUID": "e2a794df-7dd5-403a-a95a-3ed090c13909",
-            "Parent_UUID": "3ebd5035-cc31-46c5-be3c-17299da1bccf",
-            "Name": "",
+            "UUID": "8fe20912-0fd6-4eaf-a50c-bdb2893576d7",
+            "Parent_UUID": "66da8893-66a8-4ffe-9ffd-5f96ead7e5f9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -155,9 +155,9 @@
             "Components": {}
         },
         "Object_7": {
-            "UUID": "808b1855-4d5b-49dc-9a77-484e826afcb9",
-            "Parent_UUID": "e2a794df-7dd5-403a-a95a-3ed090c13909",
-            "Name": "",
+            "UUID": "15331cd6-1162-4f22-bb25-5078be6b1e9c",
+            "Parent_UUID": "8fe20912-0fd6-4eaf-a50c-bdb2893576d7",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -177,9 +177,9 @@
             "Components": {}
         },
         "Object_8": {
-            "UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
-            "Parent_UUID": "808b1855-4d5b-49dc-9a77-484e826afcb9",
-            "Name": "",
+            "UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
+            "Parent_UUID": "15331cd6-1162-4f22-bb25-5078be6b1e9c",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -199,8 +199,8 @@
             "Components": {}
         },
         "Object_9": {
-            "UUID": "f7782a62-99cb-40ed-801f-1c02efe8ef32",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "757f59ca-dd9e-4c5b-823e-67c872703b1c",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_0",
             "Translation": {
                 "value_X": "-41.480000",
@@ -224,16 +224,16 @@
                     "Num_Indices": "5988",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_0"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_0.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building03_c.dds"
+                    "Texture_Path": "assets/building03_c.tga"
                 }
             }
         },
         "Object_10": {
-            "UUID": "8b1927a8-cd30-4662-b6dd-dfb2c3aef723",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "28391fcf-ea66-4343-908b-a55c82594dc9",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_1",
             "Translation": {
                 "value_X": "17.710000",
@@ -257,16 +257,16 @@
                     "Num_Indices": "4176",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_1"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_1.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v02_c.dds"
+                    "Texture_Path": "assets/building_v02_c.png"
                 }
             }
         },
         "Object_11": {
-            "UUID": "0e66f665-f525-45e5-9fb6-33ab2c41fc5b",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "3519e7cd-4966-4799-8590-7bf7aa8a6a93",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "16.010000",
@@ -290,16 +290,16 @@
                     "Num_Indices": "684",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_2"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_2.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_016_c.dds"
+                    "Texture_Path": "assets/building_016_c.tga"
                 }
             }
         },
         "Object_12": {
-            "UUID": "ee5b5fcc-889f-4e72-9c11-094ddf248aff",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "15029283-c77c-4d15-b03a-aae89f59f012",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_3",
             "Translation": {
                 "value_X": "40.980000",
@@ -323,16 +323,16 @@
                     "Num_Indices": "864",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_3"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_3.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_025_c.dds"
+                    "Texture_Path": "assets/building_025_c.tga"
                 }
             }
         },
         "Object_13": {
-            "UUID": "11314a3b-bbbd-45db-97c4-3a6ecad7976a",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "bbcbc037-9d9d-4b5b-8c41-4fb5f3f62cdc",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_8",
             "Translation": {
                 "value_X": "-2.160000",
@@ -356,13 +356,13 @@
                     "Num_Indices": "72",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_8"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_8.mesh"
                 }
             }
         },
         "Object_14": {
-            "UUID": "ee170b4f-dff9-4f67-b6ce-13c96bf40e48",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "08acf787-b35b-4c8d-b33f-6a55020fcb43",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_9",
             "Translation": {
                 "value_X": "-0.030000",
@@ -386,13 +386,13 @@
                     "Num_Indices": "96",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_9"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_9.mesh"
                 }
             }
         },
         "Object_15": {
-            "UUID": "2c060ac8-17ab-481d-ab2d-f9c58570d7ee",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "ec2c1ae1-4787-4473-b831-d07bf19fbd19",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "25.150000",
@@ -410,22 +410,11 @@
                 "value_Y": "1.000000",
                 "value_Z": "1.000000"
             },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "4",
-                    "Num_Indices": "6",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "street environment_v01_4"
-                },
-                "Material": {
-                    "Mesh_Path": "Library/Meshes/building 01_c.dds"
-                }
-            }
+            "Components": {}
         },
         "Object_16": {
-            "UUID": "ff397a2e-9005-4e5d-9c1f-5d61edbae0ea",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "a32294bb-49b5-4b31-92cf-e1faa371e33a",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "25.150000",
@@ -449,16 +438,16 @@
                     "Num_Indices": "4998",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_5"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_5.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building 01_c.dds"
+                    "Texture_Path": "assets/building 01_c.tga"
                 }
             }
         },
         "Object_17": {
-            "UUID": "aaf626b0-a42c-4110-9a67-7d8e46da51db",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "5eebd4e2-2625-49cb-b37c-656854bdee3c",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "30.130000",
@@ -482,16 +471,16 @@
                     "Num_Indices": "684",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_2"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_2.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_016_c.dds"
+                    "Texture_Path": "assets/building_016_c.tga"
                 }
             }
         },
         "Object_18": {
-            "UUID": "ffa44581-c6b0-4c15-9c56-f414fb377bdf",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "444d8052-66b5-46ec-b8a5-ba2a5d537f76",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_6",
             "Translation": {
                 "value_X": "-42.290000",
@@ -515,16 +504,16 @@
                     "Num_Indices": "4197",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_6"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_6.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building 06_ c.dds"
+                    "Texture_Path": "assets/building 06_ c.tga"
                 }
             }
         },
         "Object_19": {
-            "UUID": "f05912a3-9e54-4bbf-9c75-dcee4a01c3ee",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "a162711f-e449-4e32-a209-b2025dbb5b11",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_10",
             "Translation": {
                 "value_X": "-19.440000",
@@ -548,16 +537,16 @@
                     "Num_Indices": "6636",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_10"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_10.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building03_c.dds"
+                    "Texture_Path": "assets/building03_c.tga"
                 }
             }
         },
         "Object_20": {
-            "UUID": "52c3b975-d7f1-4b98-adc3-0440e31c1691",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "266b4d03-5277-4019-9cb4-1d21483d15ed",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "34.270000",
@@ -575,22 +564,11 @@
                 "value_Y": "1.000000",
                 "value_Z": "1.000000"
             },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "4",
-                    "Num_Indices": "6",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "street environment_v01_4"
-                },
-                "Material": {
-                    "Mesh_Path": "Library/Meshes/building 01_c.dds"
-                }
-            }
+            "Components": {}
         },
         "Object_21": {
-            "UUID": "c2c6863b-be95-4bc8-aef0-8d6c68fafdf2",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "f0bec8e8-bc04-46bb-a608-356e99770bff",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "34.270000",
@@ -614,16 +592,16 @@
                     "Num_Indices": "4998",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_5"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_5.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building 01_c.dds"
+                    "Texture_Path": "assets/building 01_c.tga"
                 }
             }
         },
         "Object_22": {
-            "UUID": "5bf5c348-a170-4f67-920a-17192f77cd0e",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "6cd86ba3-c044-459c-806b-3f25f80e1966",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_4",
             "Translation": {
                 "value_X": "44.260000",
@@ -641,22 +619,11 @@
                 "value_Y": "1.000000",
                 "value_Z": "1.000000"
             },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "4",
-                    "Num_Indices": "6",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "street environment_v01_4"
-                },
-                "Material": {
-                    "Mesh_Path": "Library/Meshes/building 01_c.dds"
-                }
-            }
+            "Components": {}
         },
         "Object_23": {
-            "UUID": "8db18040-a047-46ac-96a7-72fa420976c2",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "bf1ef1e4-e1c0-4da2-acf6-6202c2c44d62",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_5",
             "Translation": {
                 "value_X": "44.260000",
@@ -680,16 +647,16 @@
                     "Num_Indices": "4998",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_5"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_5.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building 01_c.dds"
+                    "Texture_Path": "assets/building 01_c.tga"
                 }
             }
         },
         "Object_24": {
-            "UUID": "27b6f548-8ce7-4d27-b1d8-6a8e8c66c99c",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "7ae18082-9071-41eb-97e3-93b35f4f419f",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_11",
             "Translation": {
                 "value_X": "-20.830000",
@@ -713,16 +680,16 @@
                     "Num_Indices": "8496",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_11"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_11.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building05 _c.dds"
+                    "Texture_Path": "assets/building05 _c.tga"
                 }
             }
         },
         "Object_25": {
-            "UUID": "e6e177b2-e58d-42c1-8d55-74a6d7984c06",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "9d9539f7-8138-402a-9bb0-2e9227dbb2fe",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_2",
             "Translation": {
                 "value_X": "42.130000",
@@ -746,16 +713,16 @@
                     "Num_Indices": "684",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_2"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_2.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_016_c.dds"
+                    "Texture_Path": "assets/building_016_c.tga"
                 }
             }
         },
         "Object_26": {
-            "UUID": "49fd815c-41b9-4bee-ae55-ffeb9921032b",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "537fd9b8-a987-48f3-8074-410aeaa5eedb",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_3",
             "Translation": {
                 "value_X": "-20.570000",
@@ -779,16 +746,16 @@
                     "Num_Indices": "864",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_3"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_3.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_025_c.dds"
+                    "Texture_Path": "assets/building_025_c.tga"
                 }
             }
         },
         "Object_27": {
-            "UUID": "a652d905-4ccb-496e-aacc-d5873859b27f",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "1f443bed-1c30-4706-97d4-d15c9151093e",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_12",
             "Translation": {
                 "value_X": "31.510000",
@@ -812,16 +779,16 @@
                     "Num_Indices": "8232",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_12"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_12.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building05 _c.dds"
+                    "Texture_Path": "assets/building05 _c.tga"
                 }
             }
         },
         "Object_28": {
-            "UUID": "b93a9830-9bcf-487a-a8c1-8bbc1fc2be20",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "e2ceb977-16c1-4cef-908c-aa363270306c",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "13.390000",
@@ -845,16 +812,16 @@
                     "Num_Indices": "8292",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_7"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v01_c.dds"
+                    "Texture_Path": "assets/building_v01_c.png"
                 }
             }
         },
         "Object_29": {
-            "UUID": "203965ff-5501-43ad-9007-e08c80beeb7f",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "d1b1c095-2e5d-4e49-bc7a-90d12f2c4d6a",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_13",
             "Translation": {
                 "value_X": "-2.500000",
@@ -878,13 +845,13 @@
                     "Num_Indices": "2160",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_13"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_13.mesh"
                 }
             }
         },
         "Object_30": {
-            "UUID": "a136be68-5102-4908-bfa6-9fb4f90e35a9",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "996b00a0-4f68-4d7a-a3fa-e2bc393cea9b",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-42.810000",
@@ -908,16 +875,16 @@
                     "Num_Indices": "8292",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_7"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v01_c.dds"
+                    "Texture_Path": "assets/building_v01_c.png"
                 }
             }
         },
         "Object_31": {
-            "UUID": "bc8994c1-8806-43d3-bcba-38d3fe8a2fec",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "9f834cda-b53c-45ea-a199-8f112f914cef",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-34.680000",
@@ -941,16 +908,16 @@
                     "Num_Indices": "8292",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_7"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v01_c.dds"
+                    "Texture_Path": "assets/building_v01_c.png"
                 }
             }
         },
         "Object_32": {
-            "UUID": "3eb4107c-e460-4835-bf41-406b95221f8b",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "fd788b91-0df4-45e1-bf8a-a88988a64a72",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_0",
             "Translation": {
                 "value_X": "-29.480000",
@@ -974,16 +941,16 @@
                     "Num_Indices": "5988",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_0"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_0.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building03_c.dds"
+                    "Texture_Path": "assets/building03_c.tga"
                 }
             }
         },
         "Object_33": {
-            "UUID": "28db7057-7479-4b21-8360-952642b2c0f7",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "90ecf1e2-511c-4bd0-a56e-853ea2d1e4e8",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_14",
             "Translation": {
                 "value_X": "-32.360000",
@@ -1007,16 +974,16 @@
                     "Num_Indices": "7986",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_14"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_14.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building 06_ c.dds"
+                    "Texture_Path": "assets/building 06_ c.tga"
                 }
             }
         },
         "Object_34": {
-            "UUID": "6db10624-8ba7-4a5a-858f-ed8b12ef0f88",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "3d342da5-7f5a-4cca-8795-0f451132482d",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_15",
             "Translation": {
                 "value_X": "16.050000",
@@ -1040,16 +1007,16 @@
                     "Num_Indices": "6378",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_15"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_15.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building05 _c.dds"
+                    "Texture_Path": "assets/building05 _c.tga"
                 }
             }
         },
         "Object_35": {
-            "UUID": "a669e9e5-d5b7-47a8-9a10-3b33151c21ed",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "997050dd-bdd4-4c5a-8932-c7375e8c7cb4",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "13.390000",
@@ -1073,16 +1040,16 @@
                     "Num_Indices": "8292",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_7"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v01_c.dds"
+                    "Texture_Path": "assets/building_v01_c.png"
                 }
             }
         },
         "Object_36": {
-            "UUID": "8c136f14-16e3-42e1-a45b-bdc3dac3e04f",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "a2f61ed8-c034-49bc-bb44-b29bd19619f0",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_6",
             "Translation": {
                 "value_X": "-31.220000",
@@ -1106,16 +1073,16 @@
                     "Num_Indices": "4197",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_6"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_6.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building 06_ c.dds"
+                    "Texture_Path": "assets/building 06_ c.tga"
                 }
             }
         },
         "Object_37": {
-            "UUID": "358a3990-d8e1-4b9c-9b69-85caa599989b",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "15fd721b-cbd9-4116-b664-9186264e2b53",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_16",
             "Translation": {
                 "value_X": "-20.320000",
@@ -1139,16 +1106,16 @@
                     "Num_Indices": "4530",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_16"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_16.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building05 _c.dds"
+                    "Texture_Path": "assets/building05 _c.tga"
                 }
             }
         },
         "Object_38": {
-            "UUID": "a2f5268a-3963-4c7b-af4a-cba9b0b9bebe",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "5bb6c328-b420-4742-9fb5-ff40cb7b3c8d",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_17",
             "Translation": {
                 "value_X": "-41.650000",
@@ -1172,16 +1139,16 @@
                     "Num_Indices": "7392",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_17"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_17.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building05 _c.dds"
+                    "Texture_Path": "assets/building05 _c.tga"
                 }
             }
         },
         "Object_39": {
-            "UUID": "1afe8491-f83e-4d04-8f58-cd3fb5455ee9",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "3c0cde53-47f7-4a44-8a6e-f63c2d5444d0",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-42.810000",
@@ -1205,16 +1172,16 @@
                     "Num_Indices": "8292",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_7"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v01_c.dds"
+                    "Texture_Path": "assets/building_v01_c.png"
                 }
             }
         },
         "Object_40": {
-            "UUID": "44e956b2-d1e6-4b34-8989-537f34454114",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "20e63576-bf6f-4d56-b73b-81e7a3b8cc7e",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_7",
             "Translation": {
                 "value_X": "-34.680000",
@@ -1238,16 +1205,16 @@
                     "Num_Indices": "8292",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_7"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v01_c.dds"
+                    "Texture_Path": "assets/building_v01_c.png"
                 }
             }
         },
         "Object_41": {
-            "UUID": "af095e6e-c42f-4196-a302-0d66553efb1b",
-            "Parent_UUID": "02ccf9da-54d1-4169-be63-06b23994893b",
+            "UUID": "8da93ae9-b841-4112-8a27-1a9282f81acd",
+            "Parent_UUID": "4de08dcb-00b4-49d4-892d-736b955804d4",
             "Name": "street environment_v01_1",
             "Translation": {
                 "value_X": "30.700000",
@@ -1271,17 +1238,17 @@
                     "Num_Indices": "4176",
                     "Norms": "1",
                     "Texture": "1",
-                    "Mesh_Path": "street environment_v01_1"
+                    "Mesh_Path": "Library/Meshes/street environment_v01_1.mesh"
                 },
                 "Material": {
-                    "Mesh_Path": "Library/Meshes/building_v02_c.dds"
+                    "Texture_Path": "assets/building_v02_c.png"
                 }
             }
         },
         "Object_42": {
-            "UUID": "35d05284-71a9-49f8-af6d-f403ecce6631",
-            "Parent_UUID": "3ebd5035-cc31-46c5-be3c-17299da1bccf",
-            "Name": "",
+            "UUID": "dfd11e1c-fb88-4385-a070-7a7839c44da7",
+            "Parent_UUID": "66da8893-66a8-4ffe-9ffd-5f96ead7e5f9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "-78.310000",
                 "value_Y": "45.250000",
@@ -1301,9 +1268,9 @@
             "Components": {}
         },
         "Object_43": {
-            "UUID": "6b5b1dc7-066a-47f8-a175-07a7673444a9",
-            "Parent_UUID": "35d05284-71a9-49f8-af6d-f403ecce6631",
-            "Name": "",
+            "UUID": "8d3af9d5-639d-4dba-9178-df7d0408e588",
+            "Parent_UUID": "dfd11e1c-fb88-4385-a070-7a7839c44da7",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1323,9 +1290,9 @@
             "Components": {}
         },
         "Object_44": {
-            "UUID": "1b52c2f8-f3d2-4a42-a8d9-4c7297b9806a",
-            "Parent_UUID": "6b5b1dc7-066a-47f8-a175-07a7673444a9",
-            "Name": "",
+            "UUID": "d4622405-993e-4f57-b4fe-036ecb167fb9",
+            "Parent_UUID": "8d3af9d5-639d-4dba-9178-df7d0408e588",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1345,9 +1312,9 @@
             "Components": {}
         },
         "Object_45": {
-            "UUID": "1a71c5eb-1cd4-48f1-8d67-0c6daac36c53",
-            "Parent_UUID": "1b52c2f8-f3d2-4a42-a8d9-4c7297b9806a",
-            "Name": "",
+            "UUID": "5a7845b3-2cb3-4692-bd7b-50c6777a94f8",
+            "Parent_UUID": "d4622405-993e-4f57-b4fe-036ecb167fb9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1367,9 +1334,9 @@
             "Components": {}
         },
         "Object_46": {
-            "UUID": "95a1161e-ccf6-4912-ac1f-f879014322ca",
-            "Parent_UUID": "3ebd5035-cc31-46c5-be3c-17299da1bccf",
-            "Name": "",
+            "UUID": "eadcf206-8226-4a9c-a40d-1b0b0308e8c8",
+            "Parent_UUID": "66da8893-66a8-4ffe-9ffd-5f96ead7e5f9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "-28.130000",
                 "value_Y": "20.870000",
@@ -1389,9 +1356,9 @@
             "Components": {}
         },
         "Object_47": {
-            "UUID": "ab7b71f2-df19-44d6-9b53-00bf29947fe9",
-            "Parent_UUID": "95a1161e-ccf6-4912-ac1f-f879014322ca",
-            "Name": "",
+            "UUID": "586406dc-06f2-4942-b612-baba789fce91",
+            "Parent_UUID": "eadcf206-8226-4a9c-a40d-1b0b0308e8c8",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1411,9 +1378,9 @@
             "Components": {}
         },
         "Object_48": {
-            "UUID": "717a9f9e-8b75-4eaf-a31a-8e9d08f19789",
-            "Parent_UUID": "ab7b71f2-df19-44d6-9b53-00bf29947fe9",
-            "Name": "",
+            "UUID": "12238e9e-4c69-45ec-b260-63100a265448",
+            "Parent_UUID": "586406dc-06f2-4942-b612-baba789fce91",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1433,9 +1400,9 @@
             "Components": {}
         },
         "Object_49": {
-            "UUID": "bcb9443e-26e0-4b8b-b701-1bb31223ff7b",
-            "Parent_UUID": "717a9f9e-8b75-4eaf-a31a-8e9d08f19789",
-            "Name": "",
+            "UUID": "b7ddcf24-b6d5-40c6-9b23-27abfe0835cc",
+            "Parent_UUID": "12238e9e-4c69-45ec-b260-63100a265448",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1455,9 +1422,9 @@
             "Components": {}
         },
         "Object_50": {
-            "UUID": "12471906-5c6c-47dd-ad07-ed3a28bfc36f",
-            "Parent_UUID": "3ebd5035-cc31-46c5-be3c-17299da1bccf",
-            "Name": "",
+            "UUID": "bdfe22a3-7783-4adf-a064-b6f4378f1dfa",
+            "Parent_UUID": "66da8893-66a8-4ffe-9ffd-5f96ead7e5f9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "-66.720000",
                 "value_Y": "141.930000",
@@ -1477,9 +1444,9 @@
             "Components": {}
         },
         "Object_51": {
-            "UUID": "9d23db78-2594-4bcb-a73d-3b13b216aeb2",
-            "Parent_UUID": "12471906-5c6c-47dd-ad07-ed3a28bfc36f",
-            "Name": "",
+            "UUID": "660acc84-4f95-4d15-b85f-5482b746ff1c",
+            "Parent_UUID": "bdfe22a3-7783-4adf-a064-b6f4378f1dfa",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1499,9 +1466,9 @@
             "Components": {}
         },
         "Object_52": {
-            "UUID": "c6b80a25-d399-48dc-8504-babb1356c489",
-            "Parent_UUID": "9d23db78-2594-4bcb-a73d-3b13b216aeb2",
-            "Name": "",
+            "UUID": "bdc84cba-a9d3-4038-8318-09f1e2206c21",
+            "Parent_UUID": "660acc84-4f95-4d15-b85f-5482b746ff1c",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1521,9 +1488,9 @@
             "Components": {}
         },
         "Object_53": {
-            "UUID": "db746684-d423-4347-84d0-1f3070228402",
-            "Parent_UUID": "c6b80a25-d399-48dc-8504-babb1356c489",
-            "Name": "",
+            "UUID": "314faaab-ae66-4cab-8969-f2dce944c506",
+            "Parent_UUID": "bdc84cba-a9d3-4038-8318-09f1e2206c21",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1543,9 +1510,9 @@
             "Components": {}
         },
         "Object_54": {
-            "UUID": "0e90d125-3f33-4f99-b7c4-03e82fd664bf",
-            "Parent_UUID": "db746684-d423-4347-84d0-1f3070228402",
-            "Name": "",
+            "UUID": "8e752e5c-94ed-4697-8361-126c33b53ba4",
+            "Parent_UUID": "314faaab-ae66-4cab-8969-f2dce944c506",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1565,9 +1532,9 @@
             "Components": {}
         },
         "Object_55": {
-            "UUID": "1285783a-6aa3-45f8-99ab-e5532f0c2657",
-            "Parent_UUID": "3ebd5035-cc31-46c5-be3c-17299da1bccf",
-            "Name": "",
+            "UUID": "f67ab115-4b8b-4b91-be8d-7b4bddaa2707",
+            "Parent_UUID": "66da8893-66a8-4ffe-9ffd-5f96ead7e5f9",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "28.890000",
                 "value_Y": "-60.960000",
@@ -1587,9 +1554,9 @@
             "Components": {}
         },
         "Object_56": {
-            "UUID": "7ed62cc4-d523-4995-bc16-b19e182aa482",
-            "Parent_UUID": "1285783a-6aa3-45f8-99ab-e5532f0c2657",
-            "Name": "",
+            "UUID": "ac5392bd-1b08-4f17-aa19-61ad3b4a2d5b",
+            "Parent_UUID": "f67ab115-4b8b-4b91-be8d-7b4bddaa2707",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1609,9 +1576,9 @@
             "Components": {}
         },
         "Object_57": {
-            "UUID": "ae591bd9-223e-4c3c-997f-923351c22134",
-            "Parent_UUID": "7ed62cc4-d523-4995-bc16-b19e182aa482",
-            "Name": "",
+            "UUID": "fd38e019-f2bf-4df1-b50d-8213c882877d",
+            "Parent_UUID": "ac5392bd-1b08-4f17-aa19-61ad3b4a2d5b",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1631,9 +1598,9 @@
             "Components": {}
         },
         "Object_58": {
-            "UUID": "bc8652e1-2821-41e7-81e0-0d60f78b327b",
-            "Parent_UUID": "ae591bd9-223e-4c3c-997f-923351c22134",
-            "Name": "",
+            "UUID": "c84e4d00-d832-4a2c-808c-0ffd73eba3ec",
+            "Parent_UUID": "fd38e019-f2bf-4df1-b50d-8213c882877d",
+            "Name": "root_street environment_v01",
             "Translation": {
                 "value_X": "0.000000",
                 "value_Y": "0.000000",
@@ -1651,230 +1618,6 @@
                 "value_Z": "1.000000"
             },
             "Components": {}
-        },
-        "Object_59": {
-            "UUID": "d8e75f61-350a-400b-b664-6229fd7856ce",
-            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
-            "Name": "",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
-            },
-            "Scale": {
-                "value_X": "1.000000",
-                "value_Y": "1.000000",
-                "value_Z": "1.000000"
-            },
-            "Components": {}
-        },
-        "Object_60": {
-            "UUID": "d5ed011d-4dba-463a-a422-337ff6273f94",
-            "Parent_UUID": "d8e75f61-350a-400b-b664-6229fd7856ce",
-            "Name": "bakerhouse_0",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "-0.707107",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "0.707107"
-            },
-            "Scale": {
-                "value_X": "100.000000",
-                "value_Y": "100.000000",
-                "value_Z": "100.000000"
-            },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "160",
-                    "Num_Indices": "324",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "bakerhouse_0"
-                }
-            }
-        },
-        "Object_61": {
-            "UUID": "8e72dc0f-852e-4abe-bdea-d55926f042f5",
-            "Parent_UUID": "d8e75f61-350a-400b-b664-6229fd7856ce",
-            "Name": "bakerhouse_1",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "-0.707107",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "0.707107"
-            },
-            "Scale": {
-                "value_X": "100.000000",
-                "value_Y": "100.000000",
-                "value_Z": "100.000000"
-            },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "1641",
-                    "Num_Indices": "2751",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "bakerhouse_1"
-                }
-            }
-        },
-        "Object_62": {
-            "UUID": "eda94188-e398-4455-8a0a-947d31fbabce",
-            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
-            "Name": "",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
-            },
-            "Scale": {
-                "value_X": "1.000000",
-                "value_Y": "1.000000",
-                "value_Z": "1.000000"
-            },
-            "Components": {}
-        },
-        "Object_63": {
-            "UUID": "b52756b4-185b-4a7a-8638-3267f4f9a5dd",
-            "Parent_UUID": "eda94188-e398-4455-8a0a-947d31fbabce",
-            "Name": "batman70_0",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
-            },
-            "Scale": {
-                "value_X": "1.000000",
-                "value_Y": "1.000000",
-                "value_Z": "1.000000"
-            },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "1151",
-                    "Num_Indices": "6174",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "batman70_0"
-                }
-            }
-        },
-        "Object_64": {
-            "UUID": "587e081d-1b9a-4984-8cbd-84066ecae6d6",
-            "Parent_UUID": "eda94188-e398-4455-8a0a-947d31fbabce",
-            "Name": "batman70_1",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
-            },
-            "Scale": {
-                "value_X": "1.000000",
-                "value_Y": "1.000000",
-                "value_Z": "1.000000"
-            },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "3793",
-                    "Num_Indices": "16425",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "batman70_1"
-                }
-            }
-        },
-        "Object_65": {
-            "UUID": "10e210dd-f47e-4037-a9ff-80396583f243",
-            "Parent_UUID": "eda94188-e398-4455-8a0a-947d31fbabce",
-            "Name": "batman70_2",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
-            },
-            "Scale": {
-                "value_X": "1.000000",
-                "value_Y": "1.000000",
-                "value_Z": "1.000000"
-            },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "1378",
-                    "Num_Indices": "6744",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "batman70_2"
-                }
-            }
-        },
-        "Object_66": {
-            "UUID": "4b6a26fd-ca61-40d1-aba3-12f38b94ab0a",
-            "Parent_UUID": "eda94188-e398-4455-8a0a-947d31fbabce",
-            "Name": "batman70_3",
-            "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
-            },
-            "Rotation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000",
-                "value_W": "1.000000"
-            },
-            "Scale": {
-                "value_X": "1.000000",
-                "value_Y": "1.000000",
-                "value_Z": "1.000000"
-            },
-            "Components": {
-                "Mesh": {
-                    "Num_Vertexs": "3756",
-                    "Num_Indices": "17067",
-                    "Norms": "1",
-                    "Texture": "1",
-                    "Mesh_Path": "batman70_3"
-                }
-            }
         }
     }
 }

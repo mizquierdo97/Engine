@@ -9,6 +9,7 @@
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
 #include "ResourceMesh.h"
+#include "ResourceTexture.h"
 #include <map>
 
 #define CHECKERS_HEIGHT 128
@@ -199,7 +200,12 @@ void ModuleWorld::LoadScene(const char* name) {
 					LoadSceneMaterial(scene_data, go);
 					
 					scene_data.LeaveSection();
-				}				
+				}	
+				std::pair<GameObject*, UUID> temp_pair;
+				temp_pair.first = go;
+				temp_pair.second = go->obj_uuid;
+				App->world->uuid_vect.push_back(temp_pair);
+				App->world->quadtree.Insert(go);
 			}
 			scene_data.LeaveSection();
 		}
@@ -442,40 +448,50 @@ void ModuleWorld::LoadSceneGoData(Data scene_data, GameObject * go)
 
 	go->AddComponentTransform(trans, rot, scale);
 
-	std::pair<GameObject*, UUID> temp_pair;
+	/*std::pair<GameObject*, UUID> temp_pair;
 	temp_pair.first = go;
 	temp_pair.second = go->obj_uuid;
-	App->world->uuid_vect.push_back(temp_pair);
+	App->world->uuid_vect.push_back(temp_pair);*/
 
 }
 
 void ModuleWorld::LoadSceneMesh(Data scene_data, GameObject* go)
 {
-/*	if (scene_data.EnterSection("Mesh")) {
+	if (scene_data.EnterSection("Mesh")) {
 		scene_data.GetUInt("Num Vertexs");
 		uint ranges[4] = { scene_data.GetUInt("Num Vertexs"),scene_data.GetUInt("Num Indices"),  scene_data.GetBool("Texture"), scene_data.GetBool("Norms") };
-		Mesh m = App->filesystem->mesh_importer->LoadComponentMesh((char*)scene_data.GetString("Mesh_Path").c_str(), &ranges[0]);
-		go->AddComponentMesh(m);
-		RELEASE_ARRAY(m.indices);
-		RELEASE_ARRAY(m.vertexs);
-		RELEASE_ARRAY(m.norms);
-		RELEASE_ARRAY(m.texture_coords);
-
+		std::string mesh_path = scene_data.GetString("Mesh_Path").c_str();
+		std::string library_path = MESHES_PATH + GetFileName(mesh_path) + ".mesh";
+		UUID obj_uuid = App->resources->FindImported(library_path.c_str());
+		ResourceMesh* res = (ResourceMesh*)App->resources->Get(obj_uuid);
+		if (res != nullptr) {
+			res->LoadToMemory();
+			go->AddComponentMesh(obj_uuid);
+		}
+		AABB* temp = new AABB();
+		temp->SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
+		go->SetGlobalBox(*temp);
+		UpdateAABB(go);
+	
 		scene_data.LeaveSection();
-	}*/
+	}
 
 }
 
 void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 {
 	if (scene_data.EnterSection("Material")) {
-		std::string mesh_path = scene_data.GetString("Mesh_Path");
-		std::string library_path = MESHES_PATH + GetFileName(mesh_path) + ".dds";
+		std::string texture_path = scene_data.GetString("Texture Path");
+		std::string library_path = MESHES_PATH + GetFileName(texture_path) + ".dds";
 
 		Texture* temp_tex = new Texture();
 		if (ExistsFile(library_path)) {
-			//UUID obj_uuid = App->resources->FindImported(library_path.c_str());
-			
+			UUID obj_uuid = App->resources->FindImported(library_path.c_str());
+			ResourceTexture* res = (ResourceTexture*)App->resources->Get(obj_uuid);
+			if (res != nullptr) {
+				res->LoadToMemory();
+				go->AddComponentMaterial(obj_uuid);
+			}
 			//App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
 			//go->AddComponentMaterial(temp_tex);
 		}/*
@@ -485,7 +501,7 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 		 go->AddComponentMaterial(temp_tex);
 		 }*/
 		else {
-			LOG("CANT FIND %s TEXTURE", mesh_path.c_str());
+			LOG("CANT FIND %s TEXTURE", texture_path.c_str());
 		}
 		scene_data.LeaveSection();
 

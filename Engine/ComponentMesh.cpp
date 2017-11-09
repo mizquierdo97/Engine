@@ -25,19 +25,20 @@ void ComponentMesh::UpdateComponent()
 			if (((ResourceMesh*)GetResource())->obj_mesh.norms != nullptr && App->gui->show_normals)
 				App->physics->DrawNormals(this);
 
-	}
+		}
 	}
 }
 
 void ComponentMesh::SaveComponentScene(Data* data)
 {
-	Mesh m = ((ResourceMesh*)GetResource())->obj_mesh;
+	ResourceMesh* res = ((ResourceMesh*)GetResource());
+	Mesh m = res->obj_mesh;
 	data->CreateSection("Mesh");
 	data->AddInt("Num Vertexs", m.num_vertexs);
 	data->AddInt("Num Indices", m.num_indices);
 	data->AddBool("Norms", m.id_norms);
 	data->AddBool("Texture", m.id_textures);
-	data->AddString("Mesh Path", path_name);
+	data->AddString("Mesh Path", res->exported_file);
 
 	data->CloseSection();
 }
