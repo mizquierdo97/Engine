@@ -5,9 +5,9 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
-void GameObject::AddComponentMesh(Mesh mesh)
+void GameObject::AddComponentMesh(UUID uuid)
 {
-	ComponentMesh* m = new ComponentMesh(mesh, this);
+	ComponentMesh* m = new ComponentMesh(uuid, this);
 	//m->path_name = mesh.mesh_path;
 	obj_components.push_back(m);
 	
@@ -88,8 +88,8 @@ void GameObject::Draw()
 			App->renderer3D->Render(m);
 			glColor3f(1.0f, 1.0f, 1.0f);
 		}
-		if (m->obj_mesh.norms != nullptr && App->gui->show_normals)
-			App->physics->DrawNormals(m);
+	/*	if (m->obj_mesh.norms != nullptr && App->gui->show_normals)
+			App->physics->DrawNormals(m);*/
 		
 	}
 

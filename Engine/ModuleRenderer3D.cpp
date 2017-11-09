@@ -10,7 +10,7 @@
 #include "ComponentCamera.h"
 #include "Resource.h"
 #include "ResourceTexture.h"
-
+#include "ResourceMesh.h"
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -293,7 +293,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	};
 	
 
-	Mesh m = comp->obj_mesh;
+	Mesh m = ((ResourceMesh*)comp->GetResource())->obj_mesh;
 	if (m.id_indices != NULL) {
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);

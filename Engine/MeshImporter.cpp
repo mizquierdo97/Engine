@@ -366,16 +366,12 @@ bool MeshImporter::CreateMesh(const char * path,ResourceMesh* res)
 	memcpy(&res->material_index, cursor_mesh, bytes);
 	cursor_mesh += bytes;
 
-	GenGLBuffers(&m);
+	res->obj_mesh = m;
+	GenGLBuffers(&res->obj_mesh);
 	RELEASE_ARRAY(buffer);
 	return true;
 }
 
-void MeshImporter::ImportMesh()
-{
-
-
-}
 
 //OK
 void Recursive(aiNode* root, char** cursor, aiScene* scene, int i,const char* name) {
@@ -551,20 +547,24 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		bytes = sizeof(uint);
 		memcpy(num_childs, cursor[0], bytes);
 		cursor[0] += bytes;
-		
-		App->filesystem->mesh_importer->actual_ranges[0] = ranges[0];
+
+		UUID obj_uuid = IID_NULL;
+		ResourceMesh* res = nullptr;
+
+		memcpy(&App->filesystem->mesh_importer->actual_ranges, &ranges, 4 * sizeof(uint));
+		//App->filesystem->mesh_importer->actual_ranges = ranges;
 		if (ranges[0] != 0 && ranges[1] != 0) {
 
 			char path[80] = "Library/Meshes/";
 			strcat(path, name);
 			strcat(path, ".mesh");
 
-			UUID obj_uuid = App->resources->FindImported(path);
-			Resource* res = App->resources->Get(obj_uuid);
+			obj_uuid = App->resources->FindImported(path);
+			res = (ResourceMesh*)App->resources->Get(obj_uuid);
 			if (!res->LoadToMemory()) {
 
 				//m = App->filesystem->mesh_importer->CreateMesh(path, ranges, &material_index);
-				char * buffer = LoadBuffer(path);
+			/*	char * buffer = LoadBuffer(path);
 				char* cursor_mesh = buffer;
 
 				m.num_vertexs = ranges[0];
@@ -600,7 +600,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 				cursor_mesh += bytes;
 
 				GenGLBuffers(&m);
-				RELEASE_ARRAY(buffer);
+				RELEASE_ARRAY(buffer);*/
 			}
 		}
 	
@@ -615,9 +615,9 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 		temp_obj = new GameObject();
 		temp_obj->obj_parent = parent;
-		
-		if(m.id_vertexs!=0)
-		temp_obj->AddComponentMesh(m);
+		if(res != nullptr)
+			if(res->obj_mesh.id_vertexs!=0)
+				temp_obj->AddComponentMesh(obj_uuid);
 		temp_obj->AddComponentTransform(translation, rotation, scaling);
 		temp_obj->SetGlobalBox(*temp);
 		UpdateAABB(temp_obj);

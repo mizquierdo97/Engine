@@ -215,14 +215,14 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 
 void ModulePhysics3D::DrawNormals(ComponentMesh * obj)
 {
-	btVector3 color = { 1, 1 ,1 };
+	/*btVector3 color = { 1, 1 ,1 };
 	for (int i = 0; i < obj->obj_mesh.num_vertexs; i++) {
 		btVector3 from = { obj->obj_mesh.vertexs[3 * i],  obj->obj_mesh.vertexs[3 * i + 1], obj->obj_mesh.vertexs[3 * i + 2] };
 		
 		btVector3 to = {from.x() + obj->obj_mesh.norms[3 * i],from.y() + obj->obj_mesh.norms[3 * i + 1], from.z() + obj->obj_mesh.norms[3 * i + 2] };
 		
 		debug_draw->drawLine(from, to,color);
-	}
+	}*/
 }
 
 void DebugDrawer::drawGrid(int grid_size)

@@ -67,7 +67,7 @@ public:
 
 	}
 
-	void AddComponentMesh(Mesh);
+	void AddComponentMesh(UUID);
 	void AddComponentTransform(aiVector3D, aiQuaternion, aiVector3D);
 	void AddComponentTransform(float3, float4, float3);
 	void AddComponentTransform();

@@ -8,6 +8,7 @@
 #include "Data.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+#include "ResourceMesh.h"
 #include <map>
 
 #define CHECKERS_HEIGHT 128
@@ -304,7 +305,7 @@ bool ModuleWorld::Options()
 		int num = 0;
 		while(item != obj_vector.end())		
 		{
-			
+			/*
 				ImGui::Separator();
 				Mesh m = (*item)->GetMesh()->obj_mesh;
 				ImGui::Text("Mesh %i", num + 1);
@@ -336,7 +337,7 @@ bool ModuleWorld::Options()
 				ImGui::SameLine();
 				ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs);
 
-				num++;
+				num++;*/
 			
 			item++;
 		}
@@ -450,7 +451,7 @@ void ModuleWorld::LoadSceneGoData(Data scene_data, GameObject * go)
 
 void ModuleWorld::LoadSceneMesh(Data scene_data, GameObject* go)
 {
-	if (scene_data.EnterSection("Mesh")) {
+/*	if (scene_data.EnterSection("Mesh")) {
 		scene_data.GetUInt("Num Vertexs");
 		uint ranges[4] = { scene_data.GetUInt("Num Vertexs"),scene_data.GetUInt("Num Indices"),  scene_data.GetBool("Texture"), scene_data.GetBool("Norms") };
 		Mesh m = App->filesystem->mesh_importer->LoadComponentMesh((char*)scene_data.GetString("Mesh_Path").c_str(), &ranges[0]);
@@ -461,7 +462,7 @@ void ModuleWorld::LoadSceneMesh(Data scene_data, GameObject* go)
 		RELEASE_ARRAY(m.texture_coords);
 
 		scene_data.LeaveSection();
-	}
+	}*/
 
 }
 
@@ -520,7 +521,7 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 		ComponentMesh* oMesh = meshes[n];
 		GameObject* go = oMesh->GetParent();
 		ComponentTransform* transform = (ComponentTransform*)go->GetTransform();
-		Mesh objmesh = oMesh->obj_mesh;
+		Mesh objmesh = ((ResourceMesh*)oMesh->GetResource())->obj_mesh;
 
 		LineSegment local(segment);
 		local.Transform(transform->GetMatrix().Inverted());

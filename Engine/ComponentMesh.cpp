@@ -11,7 +11,7 @@ void ComponentMesh::UpdateComponent()
 	
 	if (!App->world->using_octree) {
 		ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
-		if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) != -1 || !active_camera->frustum_culling) {
+	//	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) != -1 || !active_camera->frustum_culling) {
 			if (App->renderer3D->render_fill) {
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 				App->renderer3D->Render(this);
@@ -22,20 +22,21 @@ void ComponentMesh::UpdateComponent()
 				App->renderer3D->Render(this);
 				glColor3f(1.0f, 1.0f, 1.0f);
 			}
-			if (obj_mesh.norms != nullptr && App->gui->show_normals)
+			if (((ResourceMesh*)GetResource())->obj_mesh.norms != nullptr && App->gui->show_normals)
 				App->physics->DrawNormals(this);
 
-		}
+	//	}
 	}
 }
 
 void ComponentMesh::SaveComponentScene(Data* data)
 {
+	Mesh m = ((ResourceMesh*)GetResource())->obj_mesh;
 	data->CreateSection("Mesh");
-	data->AddInt("Num Vertexs", obj_mesh.num_vertexs);
-	data->AddInt("Num Indices", obj_mesh.num_indices);
-	data->AddBool("Norms", obj_mesh.id_norms);
-	data->AddBool("Texture", obj_mesh.id_textures);
+	data->AddInt("Num Vertexs", m.num_vertexs);
+	data->AddInt("Num Indices", m.num_indices);
+	data->AddBool("Norms", m.id_norms);
+	data->AddBool("Texture", m.id_textures);
 	data->AddString("Mesh Path", path_name);
 
 	data->CloseSection();
