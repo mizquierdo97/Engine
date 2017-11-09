@@ -55,7 +55,7 @@ bool ModuleAssimp::ImportMesh(const char * path,std::string* file_path)
 		std::string str_path = path;
 		std::string str_temp;
 		int length = 0;
-		while (str_path.back() != '\\')
+		while (str_path.back() != '/')
 		{
 			str_path.pop_back();
 			length++;

@@ -57,6 +57,7 @@ UUID ModuleResourceManager::FindImported(const char * file_in_library) const
 UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 {
 	UUID null_uuid; UuidCreateNil(&null_uuid);
+	NormalizePath((char*)path);
 	UUID obj_uuid = Find(path);	
 	RPC_STATUS stat;
 

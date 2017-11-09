@@ -15,6 +15,7 @@ std::string GetExtension(std::string path);
 double FloatPrecision(double value, double precision);
 std::string GetFileName(std::string path);
 std::string GetFileNameExtension(std::string path);
+void NormalizePath(char * full_path);
 bool ExistsFile(const std::string& name);
 
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)
@@ -65,7 +66,7 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "Engine"
-#define ASSETS_PATH "Assets/"
+#define ASSETS_PATH "assets/"
 #define LIBRARY_PATH "Library/"
 #define MESHES_PATH "Library/Meshes/"
 #define MATERIALS_PATH "Library/Materials/"
