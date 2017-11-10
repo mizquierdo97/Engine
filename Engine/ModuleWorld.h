@@ -38,6 +38,9 @@ public:
 	void LoadSceneGoData(Data, GameObject*);
 	void LoadSceneMesh(Data,GameObject*);
 	void LoadSceneMaterial(Data, GameObject*);
+	void LoadSceneCamera(Data, GameObject*);
+
+	void ClearScene();
 	
 	GameObject * Raycast(const LineSegment & segment, float  &dist)const;	
 	void Recursivetest(const LineSegment& segment, float& dist, GameObject** closest_object)const ;

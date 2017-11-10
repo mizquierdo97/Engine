@@ -53,6 +53,11 @@ void GameObject::AddComponentCamera()
 	obj_components.push_back(mat);
 
 }
+void GameObject::AddComponentCamera(Frustum frus)
+{
+	ComponentCamera* mat = new ComponentCamera(this,frus);
+	obj_components.push_back(mat);
+}
 void GameObject::Update() {
 
 	std::vector<Component*>::iterator item = obj_components.begin();

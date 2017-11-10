@@ -1,6 +1,8 @@
 #include "ComponentCamera.h"
 #include "Application.h"
 #include "MathGeoLib.h"
+
+
 ComponentCamera::ComponentCamera()
 {
 	SetParent(nullptr);
@@ -53,6 +55,12 @@ ComponentCamera::ComponentCamera(GameObject* obj_parent)
 	float4x4 p = cam_frustum.ViewProjMatrix();
 }
 
+ComponentCamera::ComponentCamera(GameObject * obj_parent, Frustum frus)
+{
+
+
+}
+
 
 ComponentCamera::~ComponentCamera()
 {
@@ -73,6 +81,22 @@ void ComponentCamera::UpdateComponent()
 
 	float color[4] = { 0.7f, 0.7f, 0.7f, 1 };
 	cam_frustum.Draw(3.0f,color );
+
+}
+
+void ComponentCamera::SaveComponentScene(Data * data)
+{
+	data->CreateSection("Camera");
+
+	data->AddVector3("Position",cam_frustum.pos);	
+	data->AddVector3("Front", cam_frustum.front);
+	data->AddVector3("Up", cam_frustum.up);
+	data->AddFloat("Near", cam_frustum.nearPlaneDistance);
+	data->AddFloat("Far", cam_frustum.farPlaneDistance);
+	data->AddFloat("Vertical FOV", cam_frustum.verticalFov);
+	data->AddFloat("Horizontal FOV", cam_frustum.horizontalFov);
+	
+	data->CloseSection();
 
 }
 

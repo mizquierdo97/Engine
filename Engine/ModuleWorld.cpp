@@ -193,6 +193,7 @@ void ModuleWorld::LoadScene(const char* name) {
 
 				if (scene_data.EnterSection("Components")) {
 
+					LoadSceneCamera(scene_data, go);
 					//LOAD SCENE MESH
 					LoadSceneMesh(scene_data, go);
 					
@@ -217,6 +218,7 @@ void ModuleWorld::LoadScene(const char* name) {
 	std::vector<GameObject*>::iterator item = obj_vector.begin();
 
 	while (item != obj_vector.end()) {
+		if(*item != nullptr)
 		RecursiveCreateAABB(*item);
 		item++;
 	}
@@ -526,6 +528,34 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 		}
 		scene_data.LeaveSection();
 
+	}
+
+}
+
+void ModuleWorld::LoadSceneCamera(Data scene_data, GameObject * go )
+{
+	if (scene_data.EnterSection("Camera")) {
+		Frustum new_frust;
+		new_frust.pos = scene_data.GetVector3f("Position");
+		new_frust.front = scene_data.GetVector3f("Front");
+		new_frust.up = scene_data.GetVector3f("Up");
+		new_frust.nearPlaneDistance = scene_data.GetFloat("Near");
+		new_frust.farPlaneDistance = scene_data.GetFloat("Far");
+		new_frust.verticalFov = scene_data.GetFloat("Vertical FOV");
+		new_frust.horizontalFov = scene_data.GetFloat("Horizontal FOV");
+
+		go->AddComponentCamera(new_frust);
+		scene_data.LeaveSection();
+	}
+
+}
+
+void ModuleWorld::ClearScene()
+{
+	std::vector<GameObject*>::iterator item = obj_vector.begin();
+	while (item != obj_vector.end()) {
+		RELEASE(*item);
+		item++;
 	}
 
 }

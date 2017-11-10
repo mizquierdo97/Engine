@@ -73,6 +73,7 @@ public:
 	void AddComponentTransform();
 	void AddComponentMaterial(UUID );
 	void AddComponentCamera();
+	void AddComponentCamera(Frustum);
 	void Update();
 	void Draw();
 
