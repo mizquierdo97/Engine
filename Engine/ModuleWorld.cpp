@@ -130,12 +130,14 @@ void ModuleWorld::It_Render()
 		else
 			quadtree.CollectObjects(objects);
 
-		for (std::vector< GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it)
+		for (std::vector< GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it) {
 			if ((*it)->IsEnabled())
 				(*it)->Draw();
-
+		}
+		
 	}
 	glColor3f(1.0f, 1.0f, 1.0f);
+	
 
 }
 
@@ -166,6 +168,10 @@ void ModuleWorld::DebugDraw()
 }
 void ModuleWorld::LoadScene(const char* name) {
 
+
+	ClearScene();
+	quadtree.Clear();
+	quadtree.SetBoundaries(AABB(float3(-50, -50, -50), float3(50, 50, 50)));
 	std::string scene_name = name;
 	Data scene_data;
 	int i = 0;
@@ -557,6 +563,8 @@ void ModuleWorld::ClearScene()
 		RELEASE(*item);
 		item++;
 	}
+	obj_vector.clear();
+	uuid_vect.clear();
 
 }
 

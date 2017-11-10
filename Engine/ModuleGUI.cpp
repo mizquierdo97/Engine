@@ -140,9 +140,7 @@ update_status ModuleGUI::Update(float dt)
 
 				}
 				if (ImGui::MenuItem("LoadScene")) {
-					//CLEAR SCENE
-					App->world->ClearScene();
-
+					
 					App->world->LoadScene("Scene");
 
 				}

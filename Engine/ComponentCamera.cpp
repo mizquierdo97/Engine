@@ -57,8 +57,21 @@ ComponentCamera::ComponentCamera(GameObject* obj_parent)
 
 ComponentCamera::ComponentCamera(GameObject * obj_parent, Frustum frus)
 {
+	SetParent(obj_parent);
+	comp_type = ComponentType::camera;
+	cam_frustum.type = FrustumType::PerspectiveFrustum;
+	cam_frustum.pos = frus.pos;
+	//Front
+	cam_frustum.front = frus.front;
+	//Up
+	cam_frustum.up = frus.up;
+	// Near and Fear plane distance
+	cam_frustum.nearPlaneDistance = frus.nearPlaneDistance;
+	cam_frustum.farPlaneDistance = frus.farPlaneDistance;
 
-
+	// FOV and Aspect Ratio
+	cam_frustum.verticalFov = frus.verticalFov;
+	cam_frustum.horizontalFov = frus.horizontalFov;
 }
 
 
