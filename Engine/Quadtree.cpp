@@ -1,6 +1,10 @@
 #include "Quadtree.h"
+#include "ModuleRenderer3D.h"
+#include "ComponentCamera.h"
+#include "Application.h"
+
 #define QUADTREE_MAX_ITEMS 4
-#define QUADTREE_MIN_SIZE 5.0f 
+#define QUADTREE_MIN_SIZE 20.0f 
 
 #define  U_NE 0
 #define  U_SE 1
@@ -116,7 +120,11 @@ void QuadtreeNode::RedistributeChilds()
 		{
 			it = objects.erase(it);
 			for (int i = 0; i < 8; ++i)
-				if (intersects[i]) nodes[i]->Insert(go);
+				if (intersects[i]) {
+					nodes[i]->Insert(go);
+					break;
+				}
+				
 		}
 	}
 }
@@ -137,11 +145,41 @@ void QuadtreeNode::CollectObjects(std::map<float, GameObject*>& objects, const f
 		float dist = origin.DistanceSq((*it)->GetTransform()->translation);
 		objects[dist] = *it;
 	}
-
-	for (int i = 0; i < 8; ++i)
-		if (nodes[i] != nullptr) nodes[i]->CollectObjects(objects, origin);
+	if (nodes[0] != nullptr) {
+		for (int i = 0; i < 8; ++i)
+			nodes[i]->CollectObjects(objects, origin);
+	}
 
 }
+
+void QuadtreeNode::CollectIntersectionsFrus(std::map<float, GameObject*>& objects, const math::Frustum & primitive) const
+{
+
+	int temp = primitive.ContainsAaBox(bounds);
+	if (temp != -1)
+	{
+		float hit_near, hit_far;
+		if (temp == 1) {
+			CollectObjects(objects,App->renderer3D->GetActiveCamera()->cam_frustum.pos);
+		}
+		if (temp == 0) {
+			for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
+			{
+				if (primitive.Intersects((*it)->GetGlobalBBox(), hit_near, hit_far))
+					objects[hit_near] = (*it);
+			}
+			if (nodes[0] != nullptr) {
+				if (temp == 0) {
+					for (int i = 0; i < 8; ++i) {
+						if (nodes[i]->nodes[0] != nullptr || nodes[i]->objects.size() > 0)
+							nodes[i]->CollectIntersectionsFrus(objects, primitive);
+					}
+				}
+			}
+		}
+	}
+}
+
 
 
 void QuadtreeNode::CollectBoxes(std::vector<const QuadtreeNode*>& vec_nodes) const
