@@ -205,7 +205,7 @@ void ModuleWorld::LoadScene(const char* name) {
 				temp_pair.first = go;
 				temp_pair.second = go->obj_uuid;
 				App->world->uuid_vect.push_back(temp_pair);
-				App->world->quadtree.Insert(go);
+				
 			}
 			scene_data.LeaveSection();
 		}
@@ -213,6 +213,31 @@ void ModuleWorld::LoadScene(const char* name) {
 	}
 	//Set parents and childs correctly
 	RedistributeGameObjects();
+
+	std::vector<GameObject*>::iterator item = obj_vector.begin();
+
+	while (item != obj_vector.end()) {
+		RecursiveCreateAABB(*item);
+		item++;
+	}
+
+
+}
+void ModuleWorld::RecursiveCreateAABB(GameObject* obj) {
+	AABB* temp = new AABB();
+	if (obj->GetMesh() != nullptr) {
+		ResourceMesh* res = (ResourceMesh*)obj->GetMesh()->GetResource();
+		temp->SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
+		obj->SetGlobalBox(*temp);
+		UpdateAABB(obj);
+		App->world->quadtree.Insert(obj);
+
+	}
+	std::vector<GameObject*>::iterator item = obj->obj_childs.begin();
+	while (item != obj->obj_childs.end()) {
+		RecursiveCreateAABB(*item);
+		item++;
+	}
 }
 
 void ModuleWorld::SaveScene(const char* name) const
@@ -468,10 +493,6 @@ void ModuleWorld::LoadSceneMesh(Data scene_data, GameObject* go)
 			res->LoadToMemory();
 			go->AddComponentMesh(obj_uuid);
 		}
-		AABB* temp = new AABB();
-		temp->SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
-		go->SetGlobalBox(*temp);
-		UpdateAABB(go);
 	
 		scene_data.LeaveSection();
 	}
@@ -527,11 +548,10 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 	GameObject* goTemp;
 	for (std::map<float,GameObject*>::const_iterator iterator = obj.begin(); iterator != obj.end(); iterator++)
 	{
-		goTemp = iterator->second;
-		
-		meshes.push_back((goTemp)->GetMesh());		
-		}
+		goTemp = iterator->second;			
+		meshes.push_back((goTemp)->GetMesh());	
 
+	}
 
 	for(int n =0;n<meshes.size();n++){
 		ComponentMesh* oMesh = meshes[n];

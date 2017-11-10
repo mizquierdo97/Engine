@@ -33,6 +33,7 @@ public:
 	void RecursiveSaveScene(std::vector<GameObject*>,Data*,int* i);
 	void LoadScene(const char* );
 	void RedistributeGameObjects();
+	void RecursiveCreateAABB(GameObject*);
 
 	void LoadSceneGoData(Data, GameObject*);
 	void LoadSceneMesh(Data,GameObject*);

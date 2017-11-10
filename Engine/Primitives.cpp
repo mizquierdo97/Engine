@@ -301,11 +301,14 @@ AABB UpdateAABB(GameObject* obj) {
 
 	obj->SetGlobalBox(transformed_bounding_box);
 
-	if (obj->GetMesh() == nullptr) return transformed_bounding_box;
+	if (obj->GetMesh() == nullptr)
+		return transformed_bounding_box;
 
+
+	ResourceMesh* res = (ResourceMesh*)obj->GetMesh()->GetResource();
 	 glPushMatrix();
 	 glMultMatrixf(obj->GetTransform()->GetMatrix().Transposed().ptr());
-	 glBindBuffer(GL_ARRAY_BUFFER,obj->GetMesh()->bb_mesh.id_vertexs);
+	 glBindBuffer(GL_ARRAY_BUFFER,res->bb_mesh.id_vertexs);
 	 glPopMatrix();
 	// glBufferData(GL_ARRAY_BUFFER, sizeof(float) *m.num_vertexs * 3, m.vertexs, GL_STATIC_DRAW);
 
