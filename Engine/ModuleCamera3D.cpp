@@ -178,7 +178,7 @@ update_status ModuleCamera3D::Update(float dt)
 			if (Y.y < 0.0f)
 			{
 				Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = X.Cross(Z);
+				Y = Z.Cross(X);
 			}
 		}
 		Position = Reference + Z * (Position).Length();
@@ -229,7 +229,7 @@ update_status ModuleCamera3D::Update(float dt)
 			if (Y.y < 0.0f)
 			{
 				Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = X.Cross(Z);
+				Y = Z.Cross(X);
 			}
 
 		}
