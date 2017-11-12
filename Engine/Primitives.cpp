@@ -241,7 +241,8 @@ void CreateObject(GameObject* obj, UUID force)
 	else {
 		App->world->obj_vector.push_back(obj);
 	}
-	App->world->quadtree.Insert(obj);
+	App->world->non_static_list.push_back(obj);
+	//App->world->quadtree.Insert(obj);
 
 	
 }

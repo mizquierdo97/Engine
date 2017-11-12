@@ -340,6 +340,7 @@ void ModuleGUI::Assets()
 			bool object_static = object->IsStatic();
 			if(ImGui::Checkbox("Static", &object_static)) {
 				object->SetStatic(!object->IsStatic());
+				
 			};
 
 			std::vector<Component*>::iterator item = object->obj_components.begin();

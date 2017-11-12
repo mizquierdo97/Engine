@@ -10,6 +10,8 @@ void ComponentMesh::UpdateComponent()
 	//IMPROVE THIS, dont need to update every frame
 	AABB transformed_bounding_box = UpdateAABB(GetParent());
 	
+
+	// DELETE THIS
 	if (!App->world->using_octree) {
 		ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
 	if (active_camera->cam_frustum.ContainsAaBox(transformed_bounding_box) != -1 || !active_camera->frustum_culling) {

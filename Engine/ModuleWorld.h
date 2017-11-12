@@ -70,9 +70,11 @@ public:
 	std::vector<std::pair<GameObject*, UUID>> uuid_vect;
 	bool using_octree = true;
 	bool see_octree = true;
+	std::list<GameObject*> static_list;
+	std::list<GameObject*>non_static_list;
 private:
 	GameObject* selected_object = nullptr;
-
+	
 	
 	
 };

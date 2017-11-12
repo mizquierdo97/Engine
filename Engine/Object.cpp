@@ -74,10 +74,8 @@ void GameObject::Update() {
 			obj_item++;
 		}
 	}
-
-	
-
 }
+
 
 void GameObject::Draw()
 {
@@ -111,6 +109,27 @@ Component * GameObject::FindComponentbytype(ComponentType type) const
 		}
 	}
 	return nullptr;
+}
+void GameObject::SetStatic(bool val)
+{
+
+	is_static = val;
+
+	if (is_static) {
+		App->world->quadtree.Insert(this);
+		App->world->static_list.push_back(this);
+		App->world->non_static_list.remove(this);
+	}
+	else {
+		App->world->quadtree.Erase(this);
+		App->world->static_list.remove(this);
+		App->world->non_static_list.push_back(this);
+	}
+
+	for (int i = 0; i < obj_childs.size(); ++i) {
+		obj_childs[i]->SetStatic(is_static);
+	}
+	
 }
 ComponentMesh * GameObject::GetMesh()
 {

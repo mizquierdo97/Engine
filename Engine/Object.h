@@ -102,10 +102,8 @@ public:
 	bool IsStatic() {
 		return is_static;
 	};
-	void SetStatic(bool val) {
-		is_static = val;
-	};
 
+	void SetStatic(bool val);
 
 	bool IsEnabled() {
 		return enabled;

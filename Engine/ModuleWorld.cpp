@@ -26,7 +26,7 @@ ModuleWorld::~ModuleWorld()
 
 bool ModuleWorld::Init()
 {
-	quadtree.SetBoundaries(AABB(float3(-50, -50, -50), float3(50, 50, 50)));
+	quadtree.SetBoundaries(AABB(float3(-50, -50, -50), float3(50, 40, 50)));
 	return true;
 }
 
@@ -118,7 +118,7 @@ void ModuleWorld::It_Render()
 	}
 	
 
-	//RENDER MESHES
+	//RENDER STATIC OBJECTS
 	if (using_octree) {
 		std::vector<GameObject*> objects;
 
@@ -136,6 +136,16 @@ void ModuleWorld::It_Render()
 				(*it)->Draw();
 		}
 		
+	}
+
+	//RENDER NON STATIC OBJECTS
+	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
+	for (std::list<GameObject*>::reverse_iterator it = non_static_list.rbegin(); it != non_static_list.rend(); ++it) {
+		AABB bbox = (*it)->GetGlobalBBox();
+		if (active_camera->cam_frustum.ContainsAaBox(bbox) != -1 || !active_camera->frustum_culling) {
+			if ((*it)->IsEnabled())
+				(*it)->Draw();
+		}
 	}
 	glColor3f(1.0f, 1.0f, 1.0f);
 	
@@ -213,6 +223,7 @@ void ModuleWorld::LoadScene(const char* name) {
 				temp_pair.first = go;
 				temp_pair.second = go->obj_uuid;
 				App->world->uuid_vect.push_back(temp_pair);
+				App->world->non_static_list.push_back(go);
 				
 			}
 			scene_data.LeaveSection();
@@ -239,7 +250,7 @@ void ModuleWorld::RecursiveCreateAABB(GameObject* obj) {
 		temp->SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
 		obj->SetGlobalBox(*temp);
 		UpdateAABB(obj);
-		App->world->quadtree.Insert(obj);
+		//App->world->quadtree.Insert(obj);
 
 	}
 	std::vector<GameObject*>::iterator item = obj->obj_childs.begin();
@@ -566,6 +577,8 @@ void ModuleWorld::ClearScene()
 	}
 	obj_vector.clear();
 	uuid_vect.clear();
+	non_static_list.clear();
+	static_list.clear();
 
 }
 
