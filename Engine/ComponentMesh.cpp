@@ -7,6 +7,7 @@
 
 void ComponentMesh::UpdateComponent()
 {
+	//IMPROVE THIS, dont need to update every frame
 	AABB transformed_bounding_box = UpdateAABB(GetParent());
 	
 	if (!App->world->using_octree) {

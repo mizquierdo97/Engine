@@ -117,9 +117,10 @@ void ModuleWorld::It_Render()
 		using_octree = !using_octree;
 	}
 	
+
 	//RENDER MESHES
 	if (using_octree) {
-		std::map<float, GameObject*> objects;
+		std::vector<GameObject*> objects;
 
 		// we do frustum culling or not ?
 		ComponentCamera* cam = App->renderer3D->GetActiveCamera();
@@ -128,11 +129,11 @@ void ModuleWorld::It_Render()
 		if (cam->frustum_culling == true)
 			quadtree.root->CollectIntersectionsFrus(objects, cam->cam_frustum);
 		else
-			quadtree.CollectObjects(objects, App->renderer3D->GetActiveCamera()->cam_frustum.pos);
+			quadtree.CollectObjects(objects);
 
-		for (std::map<float, GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it) {
-			if ((*it).second->IsEnabled())
-				(*it).second->Draw();
+		for (std::vector<GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it) {
+			if ((*it)->IsEnabled())
+				(*it)->Draw();
 		}
 		
 	}

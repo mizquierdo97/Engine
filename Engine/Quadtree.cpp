@@ -108,26 +108,29 @@ void QuadtreeNode::RedistributeChilds()
 		GameObject* go = *it;
 
 		AABB new_box(go->GetGlobalBBox());
-
+		uint count = 0;
 		// Now distribute this new gameobject onto the childs
-		bool intersects[8];
-		for (int i = 0; i < 8; ++i)
-			intersects[i] = nodes[i]->bounds.Intersects(new_box);
+		bool intersects[8] = {false};
+		for (int i = 0; i < 8; ++i) {
+			if (nodes[i]->bounds.Intersects(new_box)) {
+				intersects[i] = true;
+				count++;
+			}
+			
+		}
 
-		if (intersects[0] && intersects[1] && intersects[2] && intersects[3]&& intersects[4] && intersects[5] && intersects[6] && intersects[7])
-			++it; // if it hits all childs, better to just keep it here
-		else
-		{
-			it = objects.erase(it);
-			for (int i = 0; i < 8; ++i)
-				if (intersects[i]) {
-					nodes[i]->Insert(go);
-					break;
-				}
+		if (count <= 1) {
+				it = objects.erase(it);
+				for (int i = 0; i < 8; ++i)
+					if (intersects[i]) {
+						nodes[i]->Insert(go);
+					}
+			}
+			else ++it;
 				
 		}
 	}
-}
+
 
 void QuadtreeNode::CollectObjects(std::vector<GameObject*>& objects) const
 {
@@ -152,7 +155,7 @@ void QuadtreeNode::CollectObjects(std::map<float, GameObject*>& objects, const f
 
 }
 
-void QuadtreeNode::CollectIntersectionsFrus(std::map<float, GameObject*>& objects, const math::Frustum & primitive) const
+void QuadtreeNode::CollectIntersectionsFrus(std::vector<GameObject*>& objects, const math::Frustum & primitive) const
 {
 
 	int temp = primitive.ContainsAaBox(bounds);
@@ -160,13 +163,13 @@ void QuadtreeNode::CollectIntersectionsFrus(std::map<float, GameObject*>& object
 	{
 		float hit_near, hit_far;
 		if (temp == 1) {
-			CollectObjects(objects,App->renderer3D->GetActiveCamera()->cam_frustum.pos);
+			CollectObjects(objects);
 		}
 		if (temp == 0) {
 			for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
 			{
 				if (primitive.Intersects((*it)->GetGlobalBBox(), hit_near, hit_far))
-					objects[hit_near] = (*it);
+					objects.push_back(*it);
 			}
 			if (nodes[0] != nullptr) {
 				if (temp == 0) {
