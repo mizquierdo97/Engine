@@ -331,6 +331,8 @@ void ModuleGUI::Assets()
 		GameObject* object = App->world->GetSelectedObject();
 
 		if (object != nullptr) {
+
+			bool object_deleted = false;
 			static char name[64] = "";
 			strcpy(name, object->GetName().c_str());
 			ImGui::Text("Name"); ImGui::SameLine();
@@ -338,10 +340,14 @@ void ModuleGUI::Assets()
 				object->SetName(name);
 			}
 			bool object_static = object->IsStatic();
-			if(ImGui::Checkbox("Static", &object_static)) {
+			if (ImGui::Checkbox("Static", &object_static)) {
 				object->SetStatic(!object->IsStatic());
-				
-			};
+
+			}
+			if (ImGui::Button("Delete Object")) {
+				object->ToDelete();
+				object_deleted = true;
+			}
 
 			std::vector<Component*>::iterator item = object->obj_components.begin();
 			for (; item != object->obj_components.end(); item++)
@@ -368,10 +374,11 @@ void ModuleGUI::Assets()
 					ComponentCamera* temp_cam = (ComponentCamera*)(*item);
 					temp_cam->ShowInspectorComponents();
 					break;
+					}
 				}
-				}
-
 			}
+			if(object_deleted)
+				App->world->SetSelectedObject(nullptr);
 		}
 
 
@@ -388,7 +395,7 @@ void ModuleGUI::Assets()
 		ImGui::EndDock();
 	}
 
-
+	
 
 }
 

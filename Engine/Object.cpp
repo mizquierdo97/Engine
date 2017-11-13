@@ -5,6 +5,37 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
+GameObject::~GameObject()
+{
+
+	auto it_non_static = std::find(App->world->non_static_list.begin(), App->world->non_static_list.end(), this);
+	if (it_non_static != App->world->non_static_list.end())
+		App->world->non_static_list.erase(it_non_static);
+	auto it_static = std::find(App->world->static_list.begin(), App->world->static_list.end(), this);
+	if (it_static != App->world->static_list.end())
+		App->world->static_list.erase(it_static);
+
+
+	if (obj_childs.size()) {
+		std::vector<GameObject*>::iterator item = obj_childs.begin();
+		while (item != obj_childs.end()) {
+			RELEASE((*item));
+			item++;
+		}
+		obj_childs.clear();
+	}
+
+
+	if (obj_components.size()) {
+		std::vector<Component*>::iterator item_comp = obj_components.begin();
+		while (item_comp != obj_components.end()) {
+			RELEASE((*item_comp));
+			item_comp++;
+		}
+		obj_components.clear();
+	}	
+
+}
 void GameObject::AddComponentMesh(UUID uuid)
 {
 	ComponentMesh* m = new ComponentMesh(uuid, this);
@@ -98,6 +129,8 @@ void GameObject::Draw()
 
 }
 
+
+
 Component * GameObject::FindComponentbytype(ComponentType type) const
 {
 	for(int i = 0; i < obj_components.size();i++)
@@ -109,6 +142,16 @@ Component * GameObject::FindComponentbytype(ComponentType type) const
 		}
 	}
 	return nullptr;
+}
+void GameObject::ToDelete()
+{
+	to_delete = true;
+
+	std::vector<GameObject*>::iterator item = obj_childs.begin();
+	/*while (item != obj_childs.end()) {
+		(*item)->ToDelete();
+		item++;
+	}*/
 }
 void GameObject::SetStatic(bool val)
 {

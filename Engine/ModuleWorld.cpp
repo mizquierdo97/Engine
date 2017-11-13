@@ -78,6 +78,8 @@ update_status ModuleWorld::PostUpdate(float dt)
 	//Render Imgui
 	ImGui::Render();	
 
+	DeleteObject(obj_vector);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -258,6 +260,58 @@ void ModuleWorld::RecursiveCreateAABB(GameObject* obj) {
 		RecursiveCreateAABB(*item);
 		item++;
 	}
+}
+
+void ModuleWorld::DeleteObject(std::vector<GameObject*> vect)
+{
+	std::vector<GameObject*>::iterator item = vect.begin();
+	GameObject* obj;
+	while (item != vect.end()) {
+		DeleteObject((*item)->obj_childs);
+		if ((*item)->to_delete) {
+			if ((*item)->obj_parent == nullptr) {
+				auto it = std::find(App->world->obj_vector.begin(), App->world->obj_vector.end(), (*item));
+				if (it != App->world->obj_vector.end())
+					App->world->obj_vector.erase(it);
+			}
+			
+			else {
+
+				auto it = std::find((*item)->obj_parent->obj_childs.begin(), (*item)->obj_parent->obj_childs.end(), (*item));
+				if (it != (*item)->obj_parent->obj_childs.end())
+					(*item)->obj_parent->obj_childs.erase(it);
+			}
+			RELEASE(*item);
+			break;
+		}		
+		item++;
+	}
+
+
+	
+	/*
+		if (obj->obj_parent == nullptr) {
+			auto it = std::find(obj_vector.begin(), obj_vector.end(), obj);
+			if (it != obj_vector.end())
+				obj_vector.erase(it);
+		}
+		else {
+			
+			auto it = std::find(obj->obj_parent->obj_childs.begin(), obj->obj_parent->obj_childs.end(), obj);
+			if (it != obj->obj_parent->obj_childs.end())
+				obj->obj_parent->obj_childs.erase(it);
+		}
+
+		auto it_non_static = std::find(non_static_list.begin(), non_static_list.end(), obj);
+		if (it_non_static != non_static_list.end())
+			non_static_list.erase(it_non_static);
+		auto it_static = std::find(static_list.begin(), static_list.end(), obj);
+		if (it_static != static_list.end())
+			static_list.erase(it_static);
+*/
+		
+			
+	
 }
 
 void ModuleWorld::SaveScene(const char* name) const

@@ -43,29 +43,7 @@ public:
 		
 
 	}
-	~GameObject() {
-
-		if (obj_childs.size()) {
-			std::vector<GameObject*>::iterator item = obj_childs.begin();
-			while (item != obj_childs.end()) {
-				RELEASE((*item));
-				item++;
-			}
-			obj_childs.clear();
-		}
-		
-
-		if (obj_components.size()) {
-			std::vector<Component*>::iterator item_comp = obj_components.begin();
-			while (item_comp != obj_components.end()) {
-				RELEASE((*item_comp));
-				item_comp++;
-			}
-			obj_components.clear();
-		}
-
-
-	}
+	~GameObject();
 
 	void AddComponentMesh(UUID);
 	void AddComponentTransform(aiVector3D, aiQuaternion, aiVector3D);
@@ -77,12 +55,16 @@ public:
 	void Update();
 	void Draw();
 
+
+
 	ComponentMesh* GetMesh();
 	ComponentMaterial* GetMaterial();
 	ComponentTransform* GetTransform();
 	ComponentCamera* GetCamera();
 
 	Component* FindComponentbytype(ComponentType type)const;
+
+	void ToDelete();
 
 	AABB GetLocalBBox() {
 		return local_bbox;
@@ -132,7 +114,7 @@ private:
 
 	AABB local_bbox;
 	AABB global_bbox;
-
+	
 public:
 	//HIERARCHY
 	UUID obj_uuid;
@@ -140,4 +122,5 @@ public:
 	GameObject* obj_parent = nullptr;
 	std::vector<Component*> obj_components;
 	std::vector<GameObject*> obj_childs;
+	bool to_delete = false;
 };

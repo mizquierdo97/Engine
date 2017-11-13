@@ -34,6 +34,7 @@ public:
 	void LoadScene(const char* );
 	void RedistributeGameObjects();
 	void RecursiveCreateAABB(GameObject*);
+	void DeleteObject(std::vector<GameObject*>);
 
 	void LoadSceneGoData(Data, GameObject*);
 	void LoadSceneMesh(Data,GameObject*);
