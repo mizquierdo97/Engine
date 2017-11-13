@@ -285,32 +285,7 @@ void ModuleWorld::DeleteObject(std::vector<GameObject*> vect)
 			break;
 		}		
 		item++;
-	}
-
-
-	
-	/*
-		if (obj->obj_parent == nullptr) {
-			auto it = std::find(obj_vector.begin(), obj_vector.end(), obj);
-			if (it != obj_vector.end())
-				obj_vector.erase(it);
-		}
-		else {
-			
-			auto it = std::find(obj->obj_parent->obj_childs.begin(), obj->obj_parent->obj_childs.end(), obj);
-			if (it != obj->obj_parent->obj_childs.end())
-				obj->obj_parent->obj_childs.erase(it);
-		}
-
-		auto it_non_static = std::find(non_static_list.begin(), non_static_list.end(), obj);
-		if (it_non_static != non_static_list.end())
-			non_static_list.erase(it_non_static);
-		auto it_static = std::find(static_list.begin(), static_list.end(), obj);
-		if (it_static != static_list.end())
-			static_list.erase(it_static);
-*/
-		
-			
+	}	
 	
 }
 
@@ -657,6 +632,11 @@ void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObj
 		goTemp = iterator->second;			
 		meshes.push_back((goTemp)->GetMesh());	
 
+	}
+
+	for (std::list<GameObject*>::const_iterator item = non_static_list.begin(); item != non_static_list.end(); item++) {
+		if ((*item)->GetGlobalBBox().Intersects(segment))
+			meshes.push_back((*item)->GetMesh());
 	}
 
 	for(int n =0;n<meshes.size();n++){
