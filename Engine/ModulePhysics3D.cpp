@@ -215,14 +215,19 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 
 void ModulePhysics3D::DrawNormals(ComponentMesh * obj)
 {
-	/*btVector3 color = { 1, 1 ,1 };
-	for (int i = 0; i < obj->obj_mesh.num_vertexs; i++) {
-		btVector3 from = { obj->obj_mesh.vertexs[3 * i],  obj->obj_mesh.vertexs[3 * i + 1], obj->obj_mesh.vertexs[3 * i + 2] };
+	float3 color = { 1, 1 ,1 };
+	Mesh mesh = ((ResourceMesh*)obj->GetResource())->obj_mesh;
+
+	for (int i = 0; i < mesh.num_vertexs; i++) {
+		float3 from = { mesh.vertexs[3 * i],  mesh.vertexs[3 * i + 1], mesh.vertexs[3 * i + 2] };
 		
-		btVector3 to = {from.x() + obj->obj_mesh.norms[3 * i],from.y() + obj->obj_mesh.norms[3 * i + 1], from.z() + obj->obj_mesh.norms[3 * i + 2] };
-		
+		float3 to = {from.x + mesh.norms[3 * i],from.y + mesh.norms[3 * i + 1], from.z + mesh.norms[3 * i + 2] };
+		glPushMatrix();
+	
+		glMultMatrixf(obj->GetParent()->GetTransform()->GetMatrix().Transposed().ptr());
 		debug_draw->drawLine(from, to,color);
-	}*/
+		glPopMatrix();
+	}
 }
 
 void DebugDrawer::drawGrid(int grid_size)
@@ -242,18 +247,20 @@ void DebugDrawer::drawGrid(int grid_size)
 	}
 }
 
+
 // =============================================
 void DebugDrawer::drawLine(float3 from, float3 to, float3 color)
 {
 	float3 start = float3(from.x, from.y, from.z);
 	float3 end = float3(to.x, to.y, to.z);
 
-	glBegin(GL_LINE);
+	glBegin(GL_LINES);
+
 	glColor4f(color.x, color.y, color.z,1.0f);
 	glVertex3fv(&start[0]);
 	glVertex3fv(&end[0]);
 	glEnd();
-
+	glColor4f(1, 1,1, 1.0f);
 	
 }
 
