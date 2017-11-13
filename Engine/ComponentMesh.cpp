@@ -45,3 +45,15 @@ void ComponentMesh::SaveComponentScene(Data* data)
 
 	data->CloseSection();
 }
+
+void ComponentMesh::ShowInspectorComponents()
+{
+	ResourceMesh* res = ((ResourceMesh*)GetResource());
+	if (ImGui::CollapsingHeader("Mesh", &header_open)) {
+		ImGui::Text("Original File: "); ImGui::SameLine();
+		ImGui::Text(res->file.c_str());
+
+		ImGui::Text("Imported File: "); ImGui::SameLine();
+		ImGui::Text(res->exported_file.c_str());
+	}
+}

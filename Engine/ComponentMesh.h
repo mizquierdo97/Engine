@@ -32,6 +32,7 @@ public:
 
 	void UpdateComponent();
 	void SaveComponentScene(Data* data);
+	void ShowInspectorComponents();
 public:
 	std::string path_name;
 	//Mesh obj_mesh;
