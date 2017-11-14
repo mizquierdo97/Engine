@@ -7,9 +7,9 @@
 #include "ComponentCamera.h"
 #include "ImGui\ImGuizmo.h"
 
-ModuleCamera3D::ModuleCamera3D( bool start_enabled) : Module( start_enabled)
+ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
-	
+
 
 	X = float3(1.0f, 0.0f, 0.0f);
 	Y = float3(0.0f, 1.0f, 0.0f);
@@ -35,10 +35,10 @@ bool ModuleCamera3D::Init() {
 // -----------------------------------------------------------------
 bool ModuleCamera3D::Start()
 {
-	
-	
+
+
 	picking = LineSegment(float3::zero, float3::unitY);
-	
+
 
 
 	LOG("Setting up the camera");
@@ -150,7 +150,7 @@ update_status ModuleCamera3D::Update(float dt)
 		mat.Decompose(pos, rot, sca);
 
 		float Sensitivity = 0.25f;
-		
+
 		Reference = pos;
 		Position -= Reference;
 
@@ -238,7 +238,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	//mouse picking
 
-/*
+	/*
 	dummyfrustum->cam_frustum.pos = Position;
 	dummyfrustum->cam_frustum.front = -ViewMatrix.Col3(2);
 	dummyfrustum->cam_frustum.up = ViewMatrix.Col3(1);
@@ -261,7 +261,7 @@ update_status ModuleCamera3D::Update(float dt)
 					picking = dummyfrustum->cam_frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
 
 					float distance;
-					App->world->SetSelectedObject(App->world->Raycast(picking, distance));
+					App->world->SetSelectedObject(Raycast(picking, distance));
 				}
 
 			}
@@ -276,21 +276,21 @@ update_status ModuleCamera3D::Update(float dt)
 	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
 	glVertex3f(picking.b.x, picking.b.y, picking.b.z);
 
-	
+
 
 	glEnd();
 	glColor3f(1, 1, 1);
-	
+
 	float color[4] = { 1.0f, 1.0f, 0.7f, 1 };
 	dummyfrustum->cam_frustum.Draw(5.0f, color);
-	
+
 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
-		
+
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
-	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -309,7 +309,7 @@ void ModuleCamera3D::Look(const float3 &Position, const float3 &Reference, bool 
 		this->Reference = this->Position;
 		this->Position += Z * 0.05f;
 	}
-	
+
 	CalculateViewMatrix();
 }
 
@@ -322,7 +322,7 @@ void ModuleCamera3D::LookAt(const float3 &Spot)
 	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
 	Y = Z.Cross(X);
 
-	
+
 	CalculateViewMatrix();
 }
 
@@ -350,6 +350,66 @@ void ModuleCamera3D::CalculateViewMatrix()
 	dummyfrustum->cam_frustum.front = -Z;
 	dummyfrustum->cam_frustum.up = Y;
 
-//	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
+	//	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
 	//ViewMatrixInverse = ViewMatrix.Inverted();
+}
+
+GameObject * ModuleCamera3D::Raycast(const LineSegment & segment, float  &dist)const
+{
+	dist = inf;
+	GameObject* Closest_object = nullptr;
+	Recursivetest(segment, dist, &Closest_object);
+	return Closest_object;
+}
+
+
+
+void ModuleCamera3D::Recursivetest(const LineSegment& segment, float& dist, GameObject** closest_object)const
+{
+	std::map<float, GameObject*> obj;
+	App->world->quadtree.root->CollectIntersections(obj, segment);
+	std::vector<ComponentMesh*> meshes;
+	GameObject* goTemp;
+	for (std::map<float, GameObject*>::const_iterator iterator = obj.begin(); iterator != obj.end(); iterator++)
+	{
+		goTemp = iterator->second;
+		meshes.push_back((goTemp)->GetMesh());
+
+	}
+
+	for (std::list<GameObject*>::const_iterator item = App->world->non_static_list.begin(); item != App->world->non_static_list.end(); item++) {
+		if ((*item)->GetGlobalBBox().Intersects(segment))
+			meshes.push_back((*item)->GetMesh());
+	}
+
+	for (int n = 0; n<meshes.size(); n++) {
+		ComponentMesh* oMesh = meshes[n];
+		GameObject* go = oMesh->GetParent();
+		ComponentTransform* transform = (ComponentTransform*)go->GetTransform();
+		Mesh objmesh = ((ResourceMesh*)oMesh->GetResource())->obj_mesh;
+
+		LineSegment local(segment);
+		local.Transform(transform->GetMatrix().Inverted());
+
+
+		for (int i = 0; i < objmesh.num_indices - 9;)
+		{
+			Triangle tri;
+			tri.a.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
+			tri.b.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
+			tri.c.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
+			float localdistance = 0;
+			float3 localhitpoint;
+
+			if (local.Intersects(tri, &localdistance, &localhitpoint))
+			{
+				if (localdistance < dist) {
+
+					dist = localdistance;
+					closest_object[0] = go;
+
+				}
+			}
+		}
+	}
 }

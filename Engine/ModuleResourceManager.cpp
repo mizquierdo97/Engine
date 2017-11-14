@@ -81,14 +81,13 @@ UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 			res->file = path;
 			res->exported_file = file_path;
 			res->type = type;
+			obj_uuid = res->uuid;
 		}
 	}
-	else {
-		Resource* res = Get(obj_uuid);
-		int x = 0;
-	}
-	return UUID();
+	
+	return obj_uuid;
 }
+
 bool operator>(UUID l,  UUID r) {
 	RPC_STATUS stat;
 	int i = UuidCompare(&l, &r,&stat);

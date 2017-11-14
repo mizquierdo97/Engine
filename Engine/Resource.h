@@ -42,4 +42,5 @@ public :
 	std::string exported_file;
 	Type type = unknown;
 	uint loaded = 0;
+	Data meta_data;
 };

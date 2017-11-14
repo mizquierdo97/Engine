@@ -27,6 +27,9 @@ public:
 		following = body;
 	}
 
+	GameObject * Raycast(const LineSegment & segment, float  &dist)const;
+	void Recursivetest(const LineSegment& segment, float& dist, GameObject** closest_object)const;
+
 private:
 
 	void CalculateViewMatrix();

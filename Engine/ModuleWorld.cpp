@@ -33,14 +33,17 @@ bool ModuleWorld::Init()
 
 bool ModuleWorld::Start() {
 
+	//Load GUI Textures
 	App->filesystem->image_importer->loadTextureFromFile("play.png", &play_tex, false);
 	App->filesystem->image_importer->loadTextureFromFile("stop.png", &stop_tex, false);
 	App->filesystem->image_importer->loadTextureFromFile("pause.png", &pause_tex, false);
 	App->filesystem->image_importer->loadTextureFromFile("frame.png", &nframe_tex, false);
 
+	//Create world Texture
 	world_texture = new Texture();
 	world_texture->Create(nullptr, App->window->width, App->window->height);
 		
+	//Create Camera
 	CreateObject();
 	obj_vector[0]->AddComponentTransform();
 	obj_vector[0]->AddComponentCamera();
@@ -52,7 +55,6 @@ update_status ModuleWorld::PreUpdate(float dt)
 {
 	//IF a files is dropped on the screen
 	if (App->input->file_dropped) {
-
 		FileDropped();
 	}
 	
@@ -62,6 +64,11 @@ update_status ModuleWorld::PreUpdate(float dt)
 
 update_status ModuleWorld::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN){
+		for (int i = 0; i < obj_vector.size(); i++) {
+			obj_vector[i]->SetStatic(!obj_vector[i]->IsStatic());
+		}
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -87,6 +94,7 @@ bool ModuleWorld::CleanUp()
 {
 
 	std::vector<GameObject*>::iterator item = obj_vector.begin();	
+
 	while (item != obj_vector.end()) {
 		RELEASE((*item));
 		item++;
@@ -119,44 +127,45 @@ void ModuleWorld::It_Render()
 		using_octree = !using_octree;
 	}
 	
-
-	//RENDER STATIC OBJECTS
 	if (using_octree) {
 		std::vector<GameObject*> objects;
 
-		// we do frustum culling or not ?
+		//GetThe camera Camera
 		ComponentCamera* cam = App->renderer3D->GetActiveCamera();
-
-		// TODO first draw all opaque geom then translucent from far to near
+		
+		//COLLECT OBJECTS
 		if (cam->frustum_culling == true)
 			quadtree.root->CollectIntersectionsFrus(objects, cam->cam_frustum);
 		else
 			quadtree.CollectObjects(objects);
 
+		//RENDER STATIC OBJECTS
 		for (std::vector<GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it) {
 			if ((*it)->IsEnabled())
 				(*it)->Draw();
 		}
+
+		//RENDER NON-STATIC OBJECTS
+		ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
+
+		for (std::list<GameObject*>::reverse_iterator it = non_static_list.rbegin(); it != non_static_list.rend(); ++it) {
+			AABB bbox = (*it)->GetGlobalBBox();
+			if (active_camera->cam_frustum.ContainsAaBox(bbox) != -1 || !active_camera->frustum_culling) {
+				if ((*it)->IsEnabled())
+					(*it)->Draw();
+			}
+		}
 		
 	}
-
-	//RENDER NON STATIC OBJECTS
-	ComponentCamera* active_camera = App->renderer3D->GetActiveCamera();
-	for (std::list<GameObject*>::reverse_iterator it = non_static_list.rbegin(); it != non_static_list.rend(); ++it) {
-		AABB bbox = (*it)->GetGlobalBBox();
-		if (active_camera->cam_frustum.ContainsAaBox(bbox) != -1 || !active_camera->frustum_culling) {
-			if ((*it)->IsEnabled())
-				(*it)->Draw();
-		}
-	}
-	glColor3f(1.0f, 1.0f, 1.0f);
 	
+	glColor3f(1.0f, 1.0f, 1.0f);
 
 }
 
 void ModuleWorld::It_Update()
 {
 	std::vector<GameObject*>::iterator temp = obj_vector.begin();
+
 	while (temp != obj_vector.end()) {
 		(*temp)->Update();
 		temp++;
@@ -164,8 +173,7 @@ void ModuleWorld::It_Update()
 
 }
 
-void ModuleWorld::DebugDraw()
-{
+void ModuleWorld::DebugDraw(){
 
 	std::vector<const QuadtreeNode*> boxes;
 	quadtree.CollectBoxes(boxes);
@@ -179,53 +187,77 @@ void ModuleWorld::DebugDraw()
 			App->renderer3D->DebugDraw((*it)->bounds, Yellow);
 	}
 }
+
+
+void ModuleWorld::ClearScene()
+{
+	std::vector<GameObject*>::iterator item = obj_vector.begin();
+	while (item != obj_vector.end()) {
+		RELEASE(*item);
+		item++;
+	}
+	obj_vector.clear();
+	uuid_vect.clear();
+	non_static_list.clear();
+	static_list.clear();
+
+}
+
+//LOAD SCENE
 void ModuleWorld::LoadScene(const char* name) {
 
-
+	//FIRST CLEAR THE LAST SCENE and QUADTREE
 	ClearScene();
 	quadtree.Clear();
 	quadtree.SetBoundaries(AABB(float3(-50, -50, -50), float3(50, 50, 50)));
+
+
 	std::string scene_name = name;
 	Data scene_data;
 	int i = 0;
+	//LOAD JSON FILE
 	if (scene_data.LoadJSON(scene_name + ".json")) {
 		scene_data.EnterSection("GameObjects");
+
+		//FOR EVERY GAME_OBJECT...
 		while (scene_data.EnterSection("Object_"+ std::to_string(i++))) {
 
-			UUID test_id;
+			UUID test_id; //UUID of the object
 			UuidFromStringA((RPC_CSTR)scene_data.GetString("UUID").c_str(), &test_id);
-
-			//Look if exists
+			
 			bool exists = false;
 			std::vector<std::pair<GameObject*, UUID>>::iterator item = uuid_vect.begin();
+
 			while (item != uuid_vect.end()) {
-				if ((*item).second == test_id)
+				if ((*item).second == test_id) //Check if there's an object with the same UUID
 					exists = true;
 				item++;
 			}
 			
+			//IF DONT EXISTS... CREATE IT!!
 			if (!exists) {
 				GameObject* go = new GameObject();
 
 				//Load Object Data
-				LoadSceneGoData(scene_data, go);				
+				LoadSceneGoData(scene_data, go);	//Name, Transform, UUID, parent UUID...			
 
 				if (scene_data.EnterSection("Components")) {
 
+					//LOAD CAMERA OPTIONS
 					LoadSceneCamera(scene_data, go);
 					//LOAD SCENE MESH
-					LoadSceneMesh(scene_data, go);
-					
+					LoadSceneMesh(scene_data, go);					
 					//LOAD SCENE MATERIAL
 					LoadSceneMaterial(scene_data, go);
 					
 					scene_data.LeaveSection();
 				}	
+				
 				std::pair<GameObject*, UUID> temp_pair;
 				temp_pair.first = go;
 				temp_pair.second = go->obj_uuid;
-				App->world->uuid_vect.push_back(temp_pair);
-				App->world->non_static_list.push_back(go);
+				App->world->uuid_vect.push_back(temp_pair); //PUSH OBJ IN THE UUID VECT
+				App->world->non_static_list.push_back(go); //PUSH IT IN THE NON_STATIC LIST TOO
 				
 			}
 			scene_data.LeaveSection();
@@ -235,6 +267,7 @@ void ModuleWorld::LoadScene(const char* name) {
 	//Set parents and childs correctly
 	RedistributeGameObjects();
 
+	//CREATE AABB
 	std::vector<GameObject*>::iterator item = obj_vector.begin();
 
 	while (item != obj_vector.end()) {
@@ -242,26 +275,70 @@ void ModuleWorld::LoadScene(const char* name) {
 		RecursiveCreateAABB(*item);
 		item++;
 	}
-
-
 }
-void ModuleWorld::RecursiveCreateAABB(GameObject* obj) {
-	AABB* temp = new AABB();
-	if (obj->GetMesh() != nullptr) {
-		ResourceMesh* res = (ResourceMesh*)obj->GetMesh()->GetResource();
-		temp->SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
-		obj->SetGlobalBox(*temp);
-		UpdateAABB(obj);
-		//App->world->quadtree.Insert(obj);
 
-	}
-	std::vector<GameObject*>::iterator item = obj->obj_childs.begin();
-	while (item != obj->obj_childs.end()) {
-		RecursiveCreateAABB(*item);
+
+//SAVE SCENE
+void ModuleWorld::SaveScene(const char* name) const
+{
+	std::string scene_name = name;
+	Data scene_data;
+	int i = 0;
+	scene_data.CreateSection("GameObjects");
+	App->world->RecursiveSaveScene(obj_vector, &scene_data, &i);
+	scene_data.CloseSection();
+	scene_data.SaveAsJSON(scene_name + ".json");
+}
+
+
+void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect, Data* data, int* i) {
+
+	std::vector<GameObject*>::iterator item = vect.begin();
+
+	while (item != vect.end()) {
+
+		char *str;
+		data->CreateSection("Object_" + std::to_string(*i));
+		(*i) += 1;
+
+		UuidToStringA(&(*item)->obj_uuid, (RPC_CSTR*)&str);
+		data->AddString("UUID", str);
+
+		if ((*item)->obj_parent != nullptr) {
+			UuidToStringA(&(*item)->obj_parent->obj_uuid, (RPC_CSTR*)&str);
+		}
+		else {
+			//PROBABLY WOULD CHANGE THIS
+			UuidCreateNil(&(*item)->parent_uuid);////
+			UuidToStringA(&(*item)->parent_uuid, (RPC_CSTR*)&str);
+		}
+		data->AddString("Parent UUID", str);
+		ComponentTransform* temp_trans = (*item)->GetTransform();
+
+		data->AddString("Name", (*item)->GetName());
+		data->AddVector3("Translation", temp_trans->translation);
+
+		float4 rotation = float4(temp_trans->rotation.x, temp_trans->rotation.y, temp_trans->rotation.z, temp_trans->rotation.w);
+		data->AddVector4("Rotation", rotation);
+		data->AddVector3("Scale", temp_trans->scale);
+
+		data->CreateSection("Components");
+
+
+		for (int n = 0; n < (*item)->obj_components.size(); n++) {
+
+			(*item)->obj_components[n]->SaveComponentScene(data);
+
+		}
+		data->CloseSection();
+		data->CloseSection();
+		RecursiveSaveScene((*item)->obj_childs, data, i);
+
 		item++;
 	}
 }
 
+//DELETE OBJECT
 void ModuleWorld::DeleteObject(std::vector<GameObject*> vect)
 {
 	std::vector<GameObject*>::iterator item = vect.begin();
@@ -274,7 +351,7 @@ void ModuleWorld::DeleteObject(std::vector<GameObject*> vect)
 				if (it != App->world->obj_vector.end())
 					App->world->obj_vector.erase(it);
 			}
-			
+
 			else {
 
 				auto it = std::find((*item)->obj_parent->obj_childs.begin(), (*item)->obj_parent->obj_childs.end(), (*item));
@@ -283,205 +360,30 @@ void ModuleWorld::DeleteObject(std::vector<GameObject*> vect)
 			}
 			RELEASE(*item);
 			break;
-		}		
-		item++;
-	}	
-	
-}
-
-void ModuleWorld::SaveScene(const char* name) const
-{
-	std::string scene_name = name;
-	Data scene_data;
-	int i = 0;
-	scene_data.CreateSection("GameObjects");
-	App->world->RecursiveSaveScene(obj_vector, &scene_data,&i);
-	scene_data.CloseSection();
-	scene_data.SaveAsJSON(scene_name + ".json");
-}
-
-
-void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect,Data* data, int* i) {
-	std::vector<GameObject*>::iterator item = vect.begin();
-	while (item != vect.end()) {
-
-		char *str;
-		data->CreateSection("Object_"+ std::to_string(*i));
-		(*i) += 1;
-
-		UuidToStringA(&(*item)->obj_uuid, (RPC_CSTR*)&str);		
-		data->AddString("UUID", str);	
-
-		if ((*item)->obj_parent != nullptr) {
-			UuidToStringA(&(*item)->obj_parent->obj_uuid, (RPC_CSTR*)&str);			
 		}
-		else {
-			//PROBABLY WOULD CHANGE THIS
-			UuidCreateNil(&(*item)->parent_uuid);////
-			UuidToStringA(&(*item)->parent_uuid, (RPC_CSTR*)&str);			
-		}
-		data->AddString("Parent UUID", str);
-		ComponentTransform* temp_trans = (*item)->GetTransform();
-
-		data->AddString("Name",(*item)->GetName());		
-		data->AddVector3("Translation", temp_trans->translation);
-
-		float4 rotation = float4(temp_trans->rotation.x, temp_trans->rotation.y, temp_trans->rotation.z, temp_trans->rotation.w);
-		data->AddVector4("Rotation", rotation);
-		data->AddVector3("Scale", temp_trans->scale);
-		
-		data->CreateSection("Components");
-		for (int n = 0; n < (*item)->obj_components.size(); n++) {
-			
-			(*item)->obj_components[n]->SaveComponentScene(data);
-
-		}
-		data->CloseSection();
-		data->CloseSection();
-		RecursiveSaveScene((*item)->obj_childs, data,i);
-
 		item++;
 	}
 }
 
 
-bool ModuleWorld::Options()
-{
-	if (ImGui::BeginDock("Scene", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
-	
-		ImGui::SameLine(App->world->world_tex_vec.z / 2.5);
-		if (ImGui::ImageButton((void*)play_tex->GetTexture(), ImVec2(35, 26)))
-			App->SetGameMode(PLAY);
+void ModuleWorld::RecursiveCreateAABB(GameObject* obj) {
+	AABB* temp = new AABB();
 
-		ImGui::SameLine();
-		if (ImGui::ImageButton((void*)pause_tex->GetTexture(), ImVec2(35, 26)))
-			App->SetGameMode(PAUSE);
-
-		ImGui::SameLine();
-		if (ImGui::ImageButton((void*)stop_tex->GetTexture(), ImVec2(35, 26)))
-			App->SetGameMode(STOP);
-
-		ImGui::SameLine();
-
-		if (ImGui::ImageButton((void*)nframe_tex->GetTexture(), ImVec2(35, 26)))
-			App->SetGameMode(NEXT_FRAME);
-
-		ImVec2 size = ImGui::GetContentRegionAvail();
-		ImVec4 temp = ImGui::GetSizeDock(2);
-		world_tex_vec.x = temp.x;
-		world_tex_vec.y = temp.y;
-		world_tex_vec.z = temp.z;
-		world_tex_vec.w = temp.w;
-
-
-			ImGui::Image((void*)world_texture->GetTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
+	if (obj->GetMesh() != nullptr) {
+		ResourceMesh* res = (ResourceMesh*)obj->GetMesh()->GetResource();
+		temp->SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
+		obj->SetGlobalBox(*temp);
+		UpdateAABB(obj);		
 	}
-	
-	ImGui::EndDock();
 
-	if (ImGui::BeginDock("Configuration", false, false, false)) {
+	std::vector<GameObject*>::iterator item = obj->obj_childs.begin();
 
-		std::vector<GameObject*>::iterator item = obj_vector.begin();
-		int num = 0;
-		while(item != obj_vector.end())		
-		{
-			/*
-				ImGui::Separator();
-				Mesh m = (*item)->GetMesh()->obj_mesh;
-				ImGui::Text("Mesh %i", num + 1);
-				float3 t_temp = m.translation;
-
-				ImGui::Text("Translation");
-				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.x); ImGui::SameLine();
-				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.y); ImGui::SameLine();
-				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.z); 
-
-				math::Quat q_temp = m.rotation;
-				float3 eul_ang = q_temp.ToEulerXYZ();
-
-				ImGui::Text("Rotation");
-
-				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.x); ImGui::SameLine();
-				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.y); ImGui::SameLine();
-				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.z); 
-
-				float3 s_temp = m.scale;
-
-				ImGui::Text("Scale");
-				ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.x); ImGui::SameLine();
-				ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.y); ImGui::SameLine();
-				ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.z); 
-				
-
-				ImGui::Text("Tris:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs/3);
-				ImGui::SameLine();
-				ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs);
-
-				num++;*/
-			
-			item++;
-		}
-	}
-	
-	ImGui::EndDock();
-
-	if (ImGui::BeginDock("Hierarchy", false, false, false)) {
-
-		static int selection_mask = 0; // Dumb representation of what may be user-side selection state. You may carry selection state inside or outside your objects in whatever format you see fit.
-		int node_clicked = -1;                // Temporary storage of what node we have clicked to process selection at the end of the loop. May be a pointer to your own node type, etc.
-		
-		int i = -1;
-		int node_selected = -1;
-		//std::vector<Object*> item = obj_vector.begin();
-		HierarchyRecurs(obj_vector,&node_selected,i,selection_mask);
-
-		if (node_selected != -1)
-		{
-			// Update selection state. Process outside of tree loop to avoid visual inconsistencies during the clicking-frame.
-			if (ImGui::GetIO().KeyCtrl)
-				selection_mask ^= (1 << node_selected);          // CTRL+click to toggle
-			else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
-				selection_mask = (1 << node_selected);           // Click to single-select
-		}
-		
-		ImGui::EndDock();
-	}
-	return true;
-}
-
-int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector,int* node_selected, int i,int selection_mask)
-{	
-	int node_clicked = -1;
-	
-	int temp_i = 0;
-	std::vector<GameObject*>::iterator item = vector.begin();
-	while (item != vector.end())
-	{
-		i++;
-		ImGui::PushID(i);
-		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
-
-		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->GetName().c_str());
-
-		if (ImGui::IsItemClicked()) {
-			//node_clicked = *i;
-			node_selected[0] = i;
-			selected_object = (*item);
-			//return i;
-		}
-
-		if (node_open)
-		{
-			i = HierarchyRecurs((*item)->obj_childs,node_selected, i,selection_mask);
-
-			ImGui::TreePop();
-		}	
-		ImGui::PopID();
+	while (item != obj->obj_childs.end()) {
+		RecursiveCreateAABB(*item);
 		item++;
 	}
-	
-	return i;
 }
+
 
 void ModuleWorld::RedistributeGameObjects()
 {
@@ -522,11 +424,6 @@ void ModuleWorld::LoadSceneGoData(Data scene_data, GameObject * go)
 
 	go->AddComponentTransform(trans, rot, scale);
 
-	/*std::pair<GameObject*, UUID> temp_pair;
-	temp_pair.first = go;
-	temp_pair.second = go->obj_uuid;
-	App->world->uuid_vect.push_back(temp_pair);*/
-
 }
 
 void ModuleWorld::LoadSceneMesh(Data scene_data, GameObject* go)
@@ -561,15 +458,8 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 			if (res != nullptr) {
 				res->LoadToMemory();
 				go->AddComponentMaterial(obj_uuid);
-			}
-			//App->renderer3D->loadTextureFromFile((char*)library_path.c_str(), &temp_tex);
-			//go->AddComponentMaterial(temp_tex);
-		}/*
-		 else if (ExistsFile(mesh_path)) {
-		 App->filesystem->ImportImage(mesh_path.c_str());
-		 App->renderer3D->loadTextureFromFile(library_path.c_str(), &temp_tex);
-		 go->AddComponentMaterial(temp_tex);
-		 }*/
+			}		
+		}
 		else {
 			LOG("CANT FIND %s TEXTURE", texture_path.c_str());
 		}
@@ -597,77 +487,140 @@ void ModuleWorld::LoadSceneCamera(Data scene_data, GameObject * go )
 
 }
 
-void ModuleWorld::ClearScene()
+
+bool ModuleWorld::Options()
 {
-	std::vector<GameObject*>::iterator item = obj_vector.begin();
-	while (item != obj_vector.end()) {
-		RELEASE(*item);
-		item++;
-	}
-	obj_vector.clear();
-	uuid_vect.clear();
-	non_static_list.clear();
-	static_list.clear();
+	if (ImGui::BeginDock("Scene", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
 
-}
+		ImGui::SameLine(App->world->world_tex_vec.z / 2.5);
+		if (ImGui::ImageButton((void*)play_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(PLAY);
 
-GameObject * ModuleWorld::Raycast(const LineSegment & segment, float  &dist)const  
-{
-	dist = inf; 
-	GameObject* Closest_object = nullptr;
-	Recursivetest(segment, dist, &Closest_object);
-	return Closest_object;
-}
+		ImGui::SameLine();
+		if (ImGui::ImageButton((void*)pause_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(PAUSE);
+
+		ImGui::SameLine();
+		if (ImGui::ImageButton((void*)stop_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(STOP);
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton((void*)nframe_tex->GetTexture(), ImVec2(35, 26)))
+			App->SetGameMode(NEXT_FRAME);
+
+		ImVec2 size = ImGui::GetContentRegionAvail();
+		ImVec4 temp = ImGui::GetSizeDock(2);
+		world_tex_vec.x = temp.x;
+		world_tex_vec.y = temp.y;
+		world_tex_vec.z = temp.z;
+		world_tex_vec.w = temp.w;
 
 
-
-void ModuleWorld::Recursivetest(const LineSegment& segment, float& dist, GameObject** closest_object)const 
-{
-	std::map<float,GameObject*> obj;
-	quadtree.root->CollectIntersections(obj, segment);
-	std::vector<ComponentMesh*> meshes;
-	GameObject* goTemp;
-	for (std::map<float,GameObject*>::const_iterator iterator = obj.begin(); iterator != obj.end(); iterator++)
-	{
-		goTemp = iterator->second;			
-		meshes.push_back((goTemp)->GetMesh());	
-
+		ImGui::Image((void*)world_texture->GetTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
 	}
 
-	for (std::list<GameObject*>::const_iterator item = non_static_list.begin(); item != non_static_list.end(); item++) {
-		if ((*item)->GetGlobalBBox().Intersects(segment))
-			meshes.push_back((*item)->GetMesh());
-	}
+	ImGui::EndDock();
 
-	for(int n =0;n<meshes.size();n++){
-		ComponentMesh* oMesh = meshes[n];
-		GameObject* go = oMesh->GetParent();
-		ComponentTransform* transform = (ComponentTransform*)go->GetTransform();
-		Mesh objmesh = ((ResourceMesh*)oMesh->GetResource())->obj_mesh;
+	if (ImGui::BeginDock("Configuration", false, false, false)) {
 
-		LineSegment local(segment);
-		local.Transform(transform->GetMatrix().Inverted());
-
-		
-		for (int i = 0; i < objmesh.num_indices - 9;)
+		std::vector<GameObject*>::iterator item = obj_vector.begin();
+		int num = 0;
+		while (item != obj_vector.end())
 		{
-			Triangle tri;
-			tri.a.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
-			tri.b.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
-			tri.c.Set(&objmesh.vertexs[objmesh.indices[i++] * 3]);
-			float localdistance = 0;
-			float3 localhitpoint;
 
-			if (local.Intersects(tri, &localdistance, &localhitpoint))
-			{
-				if (localdistance < dist) {
+			ImGui::Separator();
+			Mesh m = ((ResourceMesh*)(*item)->GetMesh()->GetResource())->obj_mesh;
+			ImGui::Text("Mesh %i", num + 1);
+			float3 t_temp = m.translation;
 
-					dist = localdistance;
-					closest_object[0] = go;
-					
-				}
-			}
-			}
+			ImGui::Text("Translation");
+			ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.x); ImGui::SameLine();
+			ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.y); ImGui::SameLine();
+			ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.z);
+
+			math::Quat q_temp = m.rotation;
+			float3 eul_ang = q_temp.ToEulerXYZ();
+
+			ImGui::Text("Rotation");
+
+			ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.x); ImGui::SameLine();
+			ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.y); ImGui::SameLine();
+			ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.z);
+
+			float3 s_temp = m.scale;
+
+			ImGui::Text("Scale");
+			ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.x); ImGui::SameLine();
+			ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.y); ImGui::SameLine();
+			ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.z);
+
+
+			ImGui::Text("Tris:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs / 3);
+			ImGui::SameLine();
+			ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs);
+
+			num++;
+
+			item++;
 		}
 	}
 
+	ImGui::EndDock();
+
+	if (ImGui::BeginDock("Hierarchy", false, false, false)) {
+
+		static int selection_mask = 0; // Dumb representation of what may be user-side selection state. You may carry selection state inside or outside your objects in whatever format you see fit.
+		int node_clicked = -1;                // Temporary storage of what node we have clicked to process selection at the end of the loop. May be a pointer to your own node type, etc.
+
+		int i = -1;
+		int node_selected = -1;
+		//std::vector<Object*> item = obj_vector.begin();
+		HierarchyRecurs(obj_vector, &node_selected, i, selection_mask);
+
+		if (node_selected != -1)
+		{
+			// Update selection state. Process outside of tree loop to avoid visual inconsistencies during the clicking-frame.
+			if (ImGui::GetIO().KeyCtrl)
+				selection_mask ^= (1 << node_selected);          // CTRL+click to toggle
+			else //if (!(selection_mask & (1 << node_clicked))) // Depending on selection behavior you want, this commented bit preserve selection when clicking on item that is part of the selection
+				selection_mask = (1 << node_selected);           // Click to single-select
+		}
+
+		ImGui::EndDock();
+	}
+	return true;
+}
+
+int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector, int* node_selected, int i, int selection_mask)
+{
+	int node_clicked = -1;
+
+	int temp_i = 0;
+	std::vector<GameObject*>::iterator item = vector.begin();
+	while (item != vector.end())
+	{
+		i++;
+		ImGui::PushID(i);
+		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ((selection_mask & (1 << i)) ? ImGuiTreeNodeFlags_Selected : 0);
+
+		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->GetName().c_str());
+
+		if (ImGui::IsItemClicked()) {
+			node_selected[0] = i;
+			selected_object = (*item);
+
+		}
+
+		if (node_open)
+		{
+			i = HierarchyRecurs((*item)->obj_childs, node_selected, i, selection_mask);
+
+			ImGui::TreePop();
+		}
+		ImGui::PopID();
+		item++;
+	}
+
+	return i;
+}
