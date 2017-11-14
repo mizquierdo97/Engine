@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "Object.h"
 #include "Quadtree.h"
+#include "ImGui\ImGuizmo.h"
 
 class Data;
 class ModuleWorld : public Module
@@ -73,6 +74,7 @@ public:
 	bool see_octree = true;
 	std::list<GameObject*> static_list;
 	std::list<GameObject*>non_static_list;
+	ImGuizmo::OPERATION Operation = ImGuizmo::TRANSLATE;
 private:
 	GameObject* selected_object = nullptr;
 	

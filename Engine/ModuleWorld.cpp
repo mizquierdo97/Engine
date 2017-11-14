@@ -62,6 +62,15 @@ update_status ModuleWorld::PreUpdate(float dt)
 
 update_status ModuleWorld::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+		Operation = ImGuizmo::TRANSLATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		Operation = ImGuizmo::ROTATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+		Operation = ImGuizmo::SCALE;
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -115,7 +124,7 @@ void ModuleWorld::FileDropped()
 void ModuleWorld::It_Render()
 {
 	//Render polygons
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
 		using_octree = !using_octree;
 	}
 	
