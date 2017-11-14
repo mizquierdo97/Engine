@@ -90,7 +90,7 @@ bool Data::LoadXML(std::string path)
 void Data::SaveAsJSON(std::string path)
 {
 	if (path.find(".json") == std::string::npos) { //json extension is not especified
-		path += ".json";
+		//path += ".json";
 	}
 	std::ofstream file(path);
 	cereal::JSONOutputArchive archive(file);
@@ -684,6 +684,54 @@ float4 Data::GetVector4f(std::string valueName)
 	}
 
 	return ret;
+}
+
+void Data::ChangeString(std::string valueName, std::string value)
+{
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+	std::vector<std::string> vec_names;
+	std::vector<std::string> vec_values;
+
+	if (getting_from_section) {
+		vec_names = in_section_names;
+		vec_values = in_section_values;
+	}
+	else {
+		vec_names = out_section_names;
+		vec_values = out_section_values;
+	}
+
+	std::vector<std::string>::iterator it = find(vec_names.begin(), vec_names.end(), valueName);
+	if (it != vec_names.end()) {
+		int index = it - vec_names.begin();
+		vec_values[index] = value;
+	}
+
+	
+}
+
+void Data::ChangeDouble(std::string valueName, double value)
+{
+	std::replace(valueName.begin(), valueName.end(), ' ', '_');
+	std::vector<std::string> vec_names;
+	std::vector<std::string> vec_values;
+
+	if (getting_from_section) {
+		vec_names = in_section_names;
+		vec_values = in_section_values;
+	}
+	else {
+		vec_names = out_section_names;
+		vec_values = out_section_values;
+	}
+
+	std::vector<std::string>::iterator it = find(vec_names.begin(), vec_names.end(), valueName);
+	if (it != vec_names.end()) {
+		int index = it - vec_names.begin();
+		vec_values[index] = std::to_string(value);
+		
+	}
+	
 }
 
 

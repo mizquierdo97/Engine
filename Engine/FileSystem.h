@@ -15,8 +15,9 @@ public:
 	}
 
 	void InitFileSystem();	
-	void CreateMeta(std::string);
-	void ImportFile(std::string);
+	std::string CreateMeta(std::string);
+	void ImportFile(std::string, bool force = false);
+	void CheckFilesUpdates();
 
 public:
 	MeshImporter* mesh_importer;

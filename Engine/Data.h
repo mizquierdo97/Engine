@@ -46,6 +46,10 @@ public:
 	float3 GetVector3f(std::string valueName);
 	float4 GetVector4f(std::string valueName);
 
+	void ChangeString(std::string valueName, std::string value);
+
+	void ChangeDouble(std::string valueName, double value);
+
 	void AddBool(std::string valueName, bool value);
 	void AddInt(std::string valueName, int value);
 	void AddUInt(std::string valueName, uint value);

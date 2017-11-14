@@ -53,6 +53,12 @@ bool ModuleWorld::Start() {
 
 update_status ModuleWorld::PreUpdate(float dt)
 {
+	static float time = 0;
+	time += dt;
+	if (time >= 5) {
+		App->filesystem->CheckFilesUpdates();
+		time = 0;
+	}
 	//IF a files is dropped on the screen
 	if (App->input->file_dropped) {
 		FileDropped();
@@ -124,8 +130,14 @@ void ModuleWorld::FileDropped()
 	std::string path = App->input->dropped_filedir;	
 
 	std::transform(path.begin(), path.end(), path.begin(), ::tolower);	
+	std::string file_name = ASSETS_PATH + GetFileNameExtension(path);
+	bool file_exists = ExistsFile(file_name);
+	CopyFile(path.c_str(), file_name.c_str(),false);	
+	if (!file_exists) {
+		App->filesystem->ImportFile(App->filesystem->CreateMeta(file_name.c_str()));
+		//App->filesystem->ImportFile(path.c_str());
+	}
 
-	App->resources->ImportFile(path.c_str());
 
 	App->input->file_dropped = false;
 }

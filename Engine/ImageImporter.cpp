@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "Application.h"
 
-bool ImageImporter::ImportImage(const char* path, std::string* file_path)
+bool ImageImporter::ImportImage(const char* path, std::string* file_path, bool force)
 {
 	//Texture loading success
 	bool textureLoaded = false;
@@ -39,7 +39,7 @@ bool ImageImporter::ImportImage(const char* path, std::string* file_path)
 				final_name = MESHES_PATH;
 				final_name += file_name.c_str(); final_name += ".dds";
 				file_path[0] = final_name;
-				if (!ExistsFile(final_name.c_str())) {
+				if (!ExistsFile(final_name.c_str()) || force) {
 					pFile = fopen(final_name.c_str(), "wb");
 					fwrite(data, sizeof(char), size, pFile);
 					fclose(pFile);

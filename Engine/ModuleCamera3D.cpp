@@ -319,7 +319,7 @@ void ModuleCamera3D::LookAt(const float3 &Spot)
 	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
 	Y = Z.Cross(X);
 
-
+	
 	CalculateViewMatrix();
 }
 

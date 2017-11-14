@@ -61,13 +61,13 @@ UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 	UUID obj_uuid = Find(path);	
 	RPC_STATUS stat;
 
-	if (UuidCompare(&obj_uuid, &null_uuid,&stat)==0) {
+	if (UuidCompare(&obj_uuid, &null_uuid,&stat)==0 || force) {
 		Resource::Type type = TypeFromExtension(path);
 		std::string file_path;
 		bool import_ok = false;
 		switch (type) {
 		case Resource::texture:
-			import_ok = App->filesystem->image_importer->ImportImage(path, &file_path);
+			import_ok = App->filesystem->image_importer->ImportImage(path, &file_path,force);
 			break;
 		
 		case Resource::mesh:

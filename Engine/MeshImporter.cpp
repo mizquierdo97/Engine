@@ -541,12 +541,14 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 			Texture* temp_text = new Texture();
 			if (strcmp(texture_name,"")!=0) {
-				std::string texture_path = ASSETS_PATH + std::string(texture_name);				
-				UUID obj_uuid = App->resources->Find(texture_path.c_str());
-				if (!App->resources->Get(obj_uuid)->LoadToMemory())
-					LOG("TEXTURE_LOADED");
-				temp_obj->AddComponentMaterial(obj_uuid);
-				
+				std::string texture_path = ASSETS_PATH + std::string(texture_name);		
+				if (ExistsFile(texture_path)) {
+					UUID obj_uuid = App->resources->Find(texture_path.c_str());
+					if (!App->resources->Get(obj_uuid)->LoadToMemory())
+						LOG("TEXTURE_LOADED");
+					temp_obj->AddComponentMaterial(obj_uuid);
+
+				}
 			}
 			RELEASE(temp);
 
