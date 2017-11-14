@@ -118,9 +118,10 @@ void ComponentCamera::ShowInspectorComponents()
 	if (ImGui::CollapsingHeader("Camera", &header_open)) {
 
 		//FOV
-		float height = cam_frustum.verticalFov*RADTODEG;
-		ImGui::DragFloat("Field of View", &height, 0.2f);
+		float height = cam_frustum.verticalFov*RADTODEG;		
+		ImGui::DragFloat("Field of View", &height, 0.2f, 0.1f, 179.0f);
 		cam_frustum.verticalFov = height*DEGTORAD;
+		cam_frustum.horizontalFov = math::Atan(App->window->GetAspectRatio()*math::Tan(cam_frustum.verticalFov / 2)) * 2;
 
 		//ENABLE CULLING
 		ImGui::Checkbox("Camera Culling", &frustum_culling);
