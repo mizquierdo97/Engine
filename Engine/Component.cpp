@@ -22,3 +22,9 @@ Resource * Component::GetResource() const
 {
 	return App->resources->Get(res_uuid);
 }
+
+void Component::SetResource(Resource * res)
+{
+	res_uuid = res->uuid;
+
+}

@@ -23,8 +23,6 @@ bool Texture::Create(GLuint* pixels, uint width, uint height)
 	glGenFramebuffers(1, &texture_id);
 	glBindFramebuffer(GL_FRAMEBUFFER, texture_id);
 
-
-
 	//Creates Color texture
 	glGenTextures(1, &color_texture);
 	glBindTexture(GL_TEXTURE_2D, color_texture);
@@ -108,6 +106,51 @@ void Texture::Draw()
 uint Texture::GetFBO() const
 {
  	return texture_id;
+}
+
+bool Texture::UpdateTexture(GLuint * pixels, uint width, uint height)
+{
+
+
+	//Creates Framebuffer Object
+	if (texture_id == 0 ||color_texture == 0 || depth_texture ==0)
+		return false;
+
+	glBindFramebuffer(GL_FRAMEBUFFER, texture_id);
+
+	//Creates Color texture	
+	glBindTexture(GL_TEXTURE_2D, color_texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+	//Creates Depth Texture	
+	glBindTexture(GL_TEXTURE_2D, depth_texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+
+	//Attach both textures to fbo
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_texture, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_texture, 0); //This is optional
+
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	this->width = width;
+	this->height = height;
+
+	//If the fbo is not created returns false
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+		return false;
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	return true;
 }
 
 uint Texture::GetTexture() const

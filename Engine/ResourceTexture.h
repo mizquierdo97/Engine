@@ -11,6 +11,8 @@ public :
 	};
 	~ResourceTexture() {};
 	bool LoadInMemory();
+	bool EraseInMemory();
+	bool UpdateRes();
 
 public:
 	Texture* res_tex;

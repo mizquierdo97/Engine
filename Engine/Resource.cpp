@@ -14,4 +14,16 @@ bool Resource::LoadToMemory()
 
 	return loaded > 0;
 }
-;
+
+bool Resource::EraseFromMemory()
+{
+	if (loaded > 1) {
+		loaded--;
+	}
+	else {
+		loaded = EraseInMemory() ? 1 : 0;
+	}
+
+	return loaded > 0;
+}
+

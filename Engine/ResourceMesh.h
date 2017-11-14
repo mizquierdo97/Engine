@@ -12,7 +12,12 @@ public :
 	};
 	~ResourceMesh() {};
 	bool LoadInMemory();
-
+	bool EraseInMemory() {
+		return false;
+	};
+	bool UpdateRes() {
+		return false;
+	}
 
 public:
 	std::string path_name;

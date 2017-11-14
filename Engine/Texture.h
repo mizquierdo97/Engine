@@ -24,6 +24,7 @@ public:
 	void Draw();
 	GLuint GetTexture() const;
 	GLuint GetFBO() const;
+	bool UpdateTexture(GLuint* pixels, uint width, uint height);
 private:
 
 	void Destroy();

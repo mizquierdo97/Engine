@@ -34,7 +34,10 @@ public:
 	virtual void Save(Config& config) const;
 	virtual void Load(const Config& config);*/
 	bool LoadToMemory();
+	bool EraseFromMemory();
 	virtual bool LoadInMemory() = 0;
+	virtual bool EraseInMemory() = 0;
+	virtual bool UpdateRes() = 0;
 
 public :
 	UUID uuid = IID_NULL;

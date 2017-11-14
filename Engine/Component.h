@@ -47,6 +47,7 @@ public:
 		parent = val;
 	}
 	Resource* GetResource()const;
+	void SetResource(Resource*);
 
 public:
 

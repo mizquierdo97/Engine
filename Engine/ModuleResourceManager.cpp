@@ -67,7 +67,7 @@ UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 		bool import_ok = false;
 		switch (type) {
 		case Resource::texture:
-			import_ok = App->filesystem->image_importer->ImportImage(path, &file_path,force);
+			import_ok = App->filesystem->image_importer->ImportImage(path, &file_path,force);			
 			break;
 		
 		case Resource::mesh:

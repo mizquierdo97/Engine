@@ -190,6 +190,12 @@ void FileSystem::CheckFilesUpdates()
 					new_meta_data.AddDouble("Time", date_time);
 					new_meta_data.SaveAsJSON(str);
 					ImportFile(str,true);
+					Resource* res = App->resources->Get(App->resources->Find(original_file.c_str()));
+					
+						
+					if (res->loaded != 0) {
+						res->UpdateRes();
+					}
 
 				}
 

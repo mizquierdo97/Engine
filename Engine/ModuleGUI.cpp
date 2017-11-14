@@ -439,11 +439,14 @@ void ModuleGUI::Assets()
 
 		 if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
 		 {
-			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
-				 std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
-				 App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(comp->res_uuid))->res_tex);
-
-			 }
+			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {				
+				 comp->GetResource()->EraseFromMemory();
+				 
+				 
+				 UUID obj_uuid = App->resources->FindImported(path.c_str());
+				 Resource* res = App->resources->Get(obj_uuid); res->LoadToMemory();
+				 comp->SetResource(res);
+				 }
 		 }
 			 ImGui::PopID();
 			 ImGui::SameLine();

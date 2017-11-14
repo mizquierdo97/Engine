@@ -310,7 +310,8 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		if (m.id_textures != NULL) {
 		
 			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
-				Texture* temp_tex = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource())->res_tex;
+				ResourceTexture* temp_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());				
+				Texture* temp_tex = temp_res->res_tex;
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, 0);
 				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
