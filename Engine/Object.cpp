@@ -7,7 +7,7 @@
 #include "ComponentCamera.h"
 GameObject::~GameObject()
 {
-
+	App->world->quadtree.Erase(this);
 	auto it_non_static = std::find(App->world->non_static_list.begin(), App->world->non_static_list.end(), this);
 	if (it_non_static != App->world->non_static_list.end())
 		App->world->non_static_list.erase(it_non_static);
@@ -147,12 +147,7 @@ Component * GameObject::FindComponentbytype(ComponentType type) const
 void GameObject::ToDelete()
 {
 	to_delete = true;
-
-	std::vector<GameObject*>::iterator item = obj_childs.begin();
-	/*while (item != obj_childs.end()) {
-		(*item)->ToDelete();
-		item++;
-	}*/
+	
 }
 void GameObject::SetStatic(bool val)
 {

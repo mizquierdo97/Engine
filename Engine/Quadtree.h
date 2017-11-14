@@ -12,6 +12,7 @@ public:
 	bool IsLeaf() const;
 	void Insert(GameObject* go);
 	void Erase(GameObject* go);
+	void EraseChilds(GameObject* go);
 	void CreateChilds();
 	void RedistributeChilds();
 	void CollectBoxes(std::vector<const QuadtreeNode*>& nodes) const;
@@ -43,6 +44,7 @@ public:
 	void SetBoundaries(const AABB& box);
 	void Insert(GameObject* go);
 	void Erase(GameObject* go);
+	void EraseChilds(GameObject* go);
 	void Clear();
 	void CollectBoxes(std::vector<const QuadtreeNode*>& nodes) const;
 	void CollectObjects(std::vector<GameObject*>& objects) const;

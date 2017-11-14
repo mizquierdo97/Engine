@@ -269,6 +269,7 @@ void ModuleWorld::DeleteObject(std::vector<GameObject*> vect)
 	while (item != vect.end()) {
 		DeleteObject((*item)->obj_childs);
 		if ((*item)->to_delete) {
+			
 			if ((*item)->obj_parent == nullptr) {
 				auto it = std::find(App->world->obj_vector.begin(), App->world->obj_vector.end(), (*item));
 				if (it != App->world->obj_vector.end())
@@ -280,7 +281,9 @@ void ModuleWorld::DeleteObject(std::vector<GameObject*> vect)
 				auto it = std::find((*item)->obj_parent->obj_childs.begin(), (*item)->obj_parent->obj_childs.end(), (*item));
 				if (it != (*item)->obj_parent->obj_childs.end())
 					(*item)->obj_parent->obj_childs.erase(it);
-			}
+			}	
+			
+
 			RELEASE(*item);
 			break;
 		}		

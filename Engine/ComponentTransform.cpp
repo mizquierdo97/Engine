@@ -45,7 +45,8 @@ void ComponentTransform::UpdateComponent()
 				if (GetParent()->obj_parent != nullptr) {
 					obj_mat = GetParent()->obj_parent->GetTransform()->GetMatrix().Inverted() * obj_mat;
 				}				
-				obj_mat.Decompose(translation, rotation, scale);
+				obj_mat.Decompose(translation, rotation, scale);				
+				GetParent()->SetStatic(false);
 								
 			}		
 		}
@@ -57,8 +58,10 @@ void ComponentTransform::ShowInspectorComponents()
 	
 	if (ImGui::CollapsingHeader("Transform", &header_open)) {
 		ImGui::DragFloat3("Position", &translation[0],0.2f);
-
+		float3 before_pos = translation;
+		Quat before_rot = rotation;
 		float3 before_scale = scale;
+
 		float3 euler = rotation.ToEulerXYZ();
 		euler *= RADTODEG;
 		ImGui::DragFloat3("Rotation", &euler[0], 0.2f);
@@ -70,6 +73,9 @@ void ComponentTransform::ShowInspectorComponents()
 
 		if (lock_scale_prop)
 			LockProportionScale(before_scale);
+
+		if (!rotation.Equals(before_rot) || !translation.Equals(before_pos) || !scale.Equals(before_scale))
+			GetParent()->SetStatic(false);
 	}
 
 	if (scale.x <= 0) scale.x = 0.001; if (scale.y <= 0) scale.y = 0.001; if (scale.z <= 0) scale.z = 0.001;
