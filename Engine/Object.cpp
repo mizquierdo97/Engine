@@ -7,7 +7,7 @@
 #include "ComponentCamera.h"
 GameObject::~GameObject()
 {
-
+	App->world->quadtree.Erase(this);
 	auto it_non_static = std::find(App->world->non_static_list.begin(), App->world->non_static_list.end(), this);
 	if (it_non_static != App->world->non_static_list.end())
 		App->world->non_static_list.erase(it_non_static);
@@ -147,29 +147,25 @@ Component * GameObject::FindComponentbytype(ComponentType type) const
 void GameObject::ToDelete()
 {
 	to_delete = true;
-
-	std::vector<GameObject*>::iterator item = obj_childs.begin();
-	/*while (item != obj_childs.end()) {
-		(*item)->ToDelete();
-		item++;
-	}*/
+	
 }
 void GameObject::SetStatic(bool val)
 {
+	if (is_static != val) {
+		is_static = val;
 
-	is_static = val;
+		if (is_static) {
+			App->world->quadtree.Insert(this);
+			App->world->static_list.push_back(this);
+			App->world->non_static_list.remove(this);
+		}
+		else {
+			App->world->quadtree.Erase(this);
+			App->world->static_list.remove(this);
+			App->world->non_static_list.push_back(this);
+		}
 
-	if (is_static) {
-		App->world->quadtree.Insert(this);
-		App->world->static_list.push_back(this);
-		App->world->non_static_list.remove(this);
 	}
-	else {
-		App->world->quadtree.Erase(this);
-		App->world->static_list.remove(this);
-		App->world->non_static_list.push_back(this);
-	}
-
 	for (int i = 0; i < obj_childs.size(); ++i) {
 		obj_childs[i]->SetStatic(is_static);
 	}

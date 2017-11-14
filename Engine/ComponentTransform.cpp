@@ -32,11 +32,11 @@ void ComponentTransform::UpdateComponent()
 			float4x4 mat = App->camera->dummyfrustum->cam_frustum.ViewMatrix(); mat.Transpose();
 			float4x4 proj = App->camera->dummyfrustum->cam_frustum.ProjectionMatrix(); proj.Transpose();
 			float4x4 obj_mat =GetMatrix().Transposed();
-			ImGuiIO& io = ImGui::GetIO();
-			
+			ImGuiIO& io = ImGui::GetIO();			
+
 			float4x4 temp_mat;
 			ImGuizmo::SetRect(App->world->world_tex_vec.x, App->world->world_tex_vec.y, App->world->world_tex_vec.z, App->world->world_tex_vec.w);
-			ImGuizmo::Manipulate(mat.ptr(), proj.ptr(), ImGuizmo::TRANSLATE, ImGuizmo::LOCAL, obj_mat.ptr());
+			ImGuizmo::Manipulate(mat.ptr(), proj.ptr(), App->world->Operation, ImGuizmo::LOCAL, obj_mat.ptr());
 			
 			if (ImGuizmo::IsUsing())
 			{
@@ -45,7 +45,8 @@ void ComponentTransform::UpdateComponent()
 				if (GetParent()->obj_parent != nullptr) {
 					obj_mat = GetParent()->obj_parent->GetTransform()->GetMatrix().Inverted() * obj_mat;
 				}				
-				obj_mat.Decompose(translation, rotation, scale);
+				obj_mat.Decompose(translation, rotation, scale);				
+				GetParent()->SetStatic(false);
 								
 			}		
 		}
@@ -57,8 +58,10 @@ void ComponentTransform::ShowInspectorComponents()
 	
 	if (ImGui::CollapsingHeader("Transform", &header_open)) {
 		ImGui::DragFloat3("Position", &translation[0],0.2f);
-
+		float3 before_pos = translation;
+		Quat before_rot = rotation;
 		float3 before_scale = scale;
+
 		float3 euler = rotation.ToEulerXYZ();
 		euler *= RADTODEG;
 		ImGui::DragFloat3("Rotation", &euler[0], 0.2f);
@@ -70,6 +73,9 @@ void ComponentTransform::ShowInspectorComponents()
 
 		if (lock_scale_prop)
 			LockProportionScale(before_scale);
+
+		if (!rotation.Equals(before_rot) || !translation.Equals(before_pos) || !scale.Equals(before_scale))
+			GetParent()->SetStatic(false);
 	}
 
 	if (scale.x <= 0) scale.x = 0.001; if (scale.y <= 0) scale.y = 0.001; if (scale.z <= 0) scale.z = 0.001;

@@ -254,9 +254,9 @@ update_status ModuleCamera3D::Update(float dt)
 			float height = (float)App->window->GetHeight();
 
 			if (mx > App->world->world_tex_vec.x && mx < (App->world->world_tex_vec.x + App->world->world_tex_vec.z)) {
-				if (my > App->world->world_tex_vec.y && my < (App->world->world_tex_vec.y + App->world->world_tex_vec.w)) {
+				if (my > App->world->world_tex_vec.y+40 && my < (App->world->world_tex_vec.y + App->world->world_tex_vec.w)) {
 					mouse_pos.x = -(1.0f - ((mx - App->world->world_tex_vec.x) / (App->world->world_tex_vec.z / 2.0f)));
-					mouse_pos.y = (1.0f - ((my - App->world->world_tex_vec.y) / (App->world->world_tex_vec.w / 2.0f)));
+					mouse_pos.y = (1.0f - ((my - App->world->world_tex_vec.y-40) / (App->world->world_tex_vec.w / 2.0f)));
 
 					picking = dummyfrustum->cam_frustum.UnProjectLineSegment(mouse_pos.x, mouse_pos.y);
 
@@ -269,7 +269,7 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 
-
+/* DRAW RAYCAST
 	glLineWidth(5.0f);
 	glBegin(GL_LINES);
 	glColor3f(1, 0, 0);
@@ -279,14 +279,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	glEnd();
-	glColor3f(1, 1, 1);
-
+*/
+	
 	float color[4] = { 1.0f, 1.0f, 0.7f, 1 };
 	dummyfrustum->cam_frustum.Draw(5.0f, color);
-
-
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();

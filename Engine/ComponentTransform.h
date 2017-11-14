@@ -27,5 +27,7 @@ public:
 	Quat rotation;
 	float4x4 matrix = float4x4::identity;
 	
+	
+
 	bool lock_scale_prop;
 };

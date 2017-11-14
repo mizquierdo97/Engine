@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "ModuleWorld.h"
-
+#include "ImGui\ImGuizmo.h"
 #include "imgui_dock.h"
 #include "Object.h"
 #include "ComponentMesh.h"
@@ -68,6 +68,16 @@ update_status ModuleWorld::Update(float dt)
 		for (int i = 0; i < obj_vector.size(); i++) {
 			obj_vector[i]->SetStatic(!obj_vector[i]->IsStatic());
 		}
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+		Operation = ImGuizmo::TRANSLATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+		Operation = ImGuizmo::ROTATE;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+		Operation = ImGuizmo::SCALE;
 	}
 	return UPDATE_CONTINUE;
 }

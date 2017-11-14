@@ -50,12 +50,57 @@ void QuadtreeNode::Erase(GameObject * go)
 	if (it != objects.end())
 		objects.erase(it);
 
+
 	if (IsLeaf() == false)
 	{
 		for (int i = 0; i < 8; ++i)
 			nodes[i]->Erase(go);
 	}
+	if (objects.size() == 0) {
+		for (int i = 0; i < 8; i++) {
+			RELEASE(nodes[i]);
+			nodes[i] = nullptr;
+		}
+		objects.clear();
+	}
 }
+
+void QuadtreeNode::EraseChilds(GameObject * go)
+{
+
+	std::list<GameObject*>::iterator it = std::find(objects.begin(), objects.end(), go);
+	bool found = false;
+	if (it != objects.end()) {
+		objects.erase(it);
+		found = true;
+	}
+
+
+	if (IsLeaf() == false)
+	{
+		if (found) {
+			for (std::list<GameObject*>::iterator item = objects.begin(); item != objects.end(); item++) {
+				for (int i = 0; i < 8; ++i)
+					nodes[i]->EraseChilds(*item);
+
+			}
+		}
+		else {
+			for (int i = 0; i < 8; ++i)
+				nodes[i]->EraseChilds(go);
+		}
+	}
+	if (objects.size() == 0) {
+		for (int i = 0; i < 8; i++) {
+			RELEASE(nodes[i]);
+			nodes[i] = nullptr;
+		}
+		objects.clear();
+	}
+
+}
+
+
 
 void QuadtreeNode::CreateChilds()
 {
@@ -224,6 +269,13 @@ void Quadtree::Erase(GameObject * go)
 {
 	if (root != nullptr)
 		root->Erase(go);
+}
+
+void Quadtree::EraseChilds(GameObject * go)
+{
+
+	if (root != nullptr)
+		root->EraseChilds(go);
 }
 
 void Quadtree::Clear()
