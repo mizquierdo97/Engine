@@ -151,20 +151,21 @@ void GameObject::ToDelete()
 }
 void GameObject::SetStatic(bool val)
 {
+	if (is_static != val) {
+		is_static = val;
 
-	is_static = val;
+		if (is_static) {
+			App->world->quadtree.Insert(this);
+			App->world->static_list.push_back(this);
+			App->world->non_static_list.remove(this);
+		}
+		else {
+			App->world->quadtree.Erase(this);
+			App->world->static_list.remove(this);
+			App->world->non_static_list.push_back(this);
+		}
 
-	if (is_static) {
-		App->world->quadtree.Insert(this);
-		App->world->static_list.push_back(this);
-		App->world->non_static_list.remove(this);
 	}
-	else {
-		App->world->quadtree.Erase(this);
-		App->world->static_list.remove(this);
-		App->world->non_static_list.push_back(this);
-	}
-
 	for (int i = 0; i < obj_childs.size(); ++i) {
 		obj_childs[i]->SetStatic(is_static);
 	}
