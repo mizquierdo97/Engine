@@ -87,8 +87,11 @@ void Texture::Unbind()
 
 void Texture::Destroy()
 {
+	if(texture_id)
 	glDeleteFramebuffers(1, &texture_id);
+	if (color_texture)
 	glDeleteTextures(1, &color_texture);
+	if (depth_texture)
 	glDeleteTextures(1, &depth_texture);
 }
 

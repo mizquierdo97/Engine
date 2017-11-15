@@ -12,6 +12,7 @@
 
 struct Mesh {
 
+	
 	uint id_vertexs = 0;
 	uint num_vertexs = 0;
 	float* vertexs = nullptr;

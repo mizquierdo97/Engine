@@ -27,6 +27,7 @@ public:
 
 	}
 	~ComponentMesh() {
+
 		RELEASE_ARRAY(bb_mesh.vertexs);
 	};
 

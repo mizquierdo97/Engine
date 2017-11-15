@@ -11,7 +11,20 @@ public :
 		uuid = uid;
 	};
 	~ResourceMesh() {
+		if (obj_mesh.id_vertexs)
+			RELEASE_ARRAY(obj_mesh.vertexs);
+		if (obj_mesh.id_indices)
+			RELEASE_ARRAY(obj_mesh.indices);
+		if (obj_mesh.id_norms)
+			RELEASE_ARRAY(obj_mesh.norms);
+		if (obj_mesh.id_colors)
+			RELEASE_ARRAY(obj_mesh.colors);
+		if (obj_mesh.id_textures)
+			RELEASE_ARRAY(obj_mesh.texture_coords);
 
+		if (bb_mesh.id_vertexs)
+			RELEASE_ARRAY(bb_mesh.vertexs);
+		
 	};
 	bool LoadInMemory();
 	bool EraseInMemory() {

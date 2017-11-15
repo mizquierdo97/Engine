@@ -9,12 +9,15 @@ public :
 	ResourceTexture(UUID uid) {
 		uuid = uid;
 	};
-	~ResourceTexture() {};
+	~ResourceTexture() {
+		if(res_tex != nullptr)
+		RELEASE(res_tex);
+	};
 	bool LoadInMemory();
 	bool EraseInMemory();
 	bool UpdateRes();
 
 public:
-	Texture* res_tex;
+	Texture* res_tex = nullptr;
 	
 };
