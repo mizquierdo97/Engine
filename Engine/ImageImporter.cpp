@@ -15,17 +15,16 @@ bool ImageImporter::ImportImage(const char* path, std::string* file_path, bool f
 	ilBindImage(imgID);
 	//Load image
 	ILboolean success = ilLoadImage(path);
-	ILinfo ImageInfo;
-	iluGetImageInfo(&ImageInfo);
+	
 	std::string final_name;
 	std::string file_name = GetFileName(path);
-	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
-	{
-		iluFlipImage();
-	}
+	
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
+		ILinfo ImageInfo;
+		iluGetImageInfo(&ImageInfo);
+		
 		ILuint size;
 		ILubyte *data;
 		ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
@@ -77,14 +76,14 @@ bool ImageImporter::loadTextureFromFile(const char* path, Texture** texture, boo
 	ILinfo ImageInfo;
 	iluGetImageInfo(&ImageInfo);
 
-	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT && is_texture)
-	{
-		iluFlipImage();
-	}
-
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
+		if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+		{
+			iluFlipImage();
+		}
+
 		LOG("Image loaded succesfully");
 		//Convert image to RGBA
 		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
@@ -129,14 +128,16 @@ bool ImageImporter::UpdateTextureFromFile(const char* path, Texture** texture, b
 	ILinfo ImageInfo;
 	iluGetImageInfo(&ImageInfo);
 
-	if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT && is_texture)
-	{
-		iluFlipImage();
-	}
-
+	
 	//Image loaded successfully
 	if (success == IL_TRUE)
 	{
+
+		if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+		{
+			iluFlipImage();
+		}
+		
 		LOG("Image loaded succesfully");
 		//Convert image to RGBA
 		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);

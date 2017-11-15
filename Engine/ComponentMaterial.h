@@ -10,6 +10,7 @@ class ComponentMaterial :public Component {
 			res_uuid = uid;			
 			SetParent(obj);
 			comp_type = ComponentType::material;
+			alpha_test = 0.5f;
 		};
 		~ComponentMaterial() {
 			
@@ -21,4 +22,5 @@ class ComponentMaterial :public Component {
 
 public:
 	std::string path_texture;
+	float alpha_test = 0.5f;
 };
