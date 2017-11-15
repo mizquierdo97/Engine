@@ -302,7 +302,7 @@ void ModuleGUI::Assets()
 			
 
 			if (!strcmp((char*)file_extension.c_str(), "bin")) {
-				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
+				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
 					App->filesystem->mesh_importer->LoadMesh(path.c_str());					
 				}
 			}
@@ -310,7 +310,7 @@ void ModuleGUI::Assets()
 
 		else if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
 			{
-				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {
+				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
 					if (App->world->GetSelectedObject() != nullptr) {
 						if(App->world->GetSelectedObject()->GetMaterial()!= nullptr)
 						App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->world->GetSelectedObject()->GetMaterial()->GetResource())->res_tex);
