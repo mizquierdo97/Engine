@@ -59,7 +59,7 @@ namespace ImGui {
 
 
 			~Dock() { 
-				MemFree(label);
+				//MemFree(label);
 			}
 
 

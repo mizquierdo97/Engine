@@ -2685,7 +2685,7 @@ void ImGui::EndFrame()
     ImGui::End();
 
     // Click to focus window and start moving (after we're done with all our widgets)
-    if (g.ActiveId == 0 && g.HoveredId == 0 && g.IO.MouseClicked[0])
+    if (g.ActiveId == 0 && g.HoveredId == 0 && (g.IO.MouseClicked[0] || g.IO.MouseClicked[1]))
     {
         if (!(g.NavWindow && !g.NavWindow->WasActive && g.NavWindow->Active)) // Unless we just made a popup appear
         {

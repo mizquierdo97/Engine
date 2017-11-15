@@ -63,6 +63,12 @@ public:
 		return selected_object != nullptr;
 	};
 
+	bool ImFocused()const {
+		return world_focus;
+	}
+	void Focus(bool val) {
+		world_focus = val;
+	}
 
 public:
 
@@ -89,7 +95,8 @@ public:
 	ImGuizmo::OPERATION Operation = ImGuizmo::TRANSLATE;
 
 private:
-	GameObject*	selected_object = nullptr;
+	GameObject*		selected_object = nullptr;
+	bool			world_focus = false;
 
 
 

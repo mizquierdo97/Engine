@@ -11,6 +11,7 @@
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
 #include <map>
+#include "ImGui\imgui_internal.h"
 
 #define CHECKERS_HEIGHT 128
 #define CHECKERS_WIDTH 128
@@ -522,6 +523,7 @@ bool ModuleWorld::Options()
 {
 	if (ImGui::BeginDock("Scene", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
 
+		ImVec2 size2 = ImGui::GetContentRegionAvail();
 		ImGui::SameLine(App->world->world_tex_vec.z / 2.5);
 		if (ImGui::ImageButton((void*)play_tex->GetTexture(), ImVec2(35, 26)))
 			App->SetGameMode(PLAY);
@@ -540,19 +542,26 @@ bool ModuleWorld::Options()
 			App->SetGameMode(NEXT_FRAME);
 
 		ImVec2 size = ImGui::GetContentRegionAvail();
-		ImVec4 temp = ImGui::GetSizeDock(2);
-		world_tex_vec.x = temp.x;
-		world_tex_vec.y = temp.y;
-		world_tex_vec.z = temp.z;
-		world_tex_vec.w = temp.w;
+		ImVec2 pos = ImGui::GetCurrentWindow()->Pos;
+		auto im_context = ImGui::GetCurrentContext();
+		auto focused_window = im_context->NavWindow;
+		auto this_window = ImGui::GetCurrentWindowRead();
+		
+		world_tex_vec.x = pos.x;
+		world_tex_vec.y = pos.y;
+		world_tex_vec.z = size.x;
+		world_tex_vec.w = size.y;
 
+		Focus(false);
+		if (focused_window == this_window)
+			Focus(true);
 
 		ImGui::Image((void*)world_texture->GetTexture(), size, ImVec2(0, 1), ImVec2(1, 0));
 	}
 
 	ImGui::EndDock();
 
-	if (ImGui::BeginDock("Configuration", false, false, false)) {
+/*	if (ImGui::BeginDock("Configuration", false, false, false)) {
 
 		std::vector<GameObject*>::iterator item = obj_vector.begin();
 		int num = 0;
@@ -560,6 +569,12 @@ bool ModuleWorld::Options()
 		{
 
 			ImGui::Separator();
+			if ((*item)->GetMesh() == nullptr) {
+				num++;
+				item++;
+				continue;
+			}
+
 			Mesh m = ((ResourceMesh*)(*item)->GetMesh()->GetResource())->obj_mesh;
 			ImGui::Text("Mesh %i", num + 1);
 			float3 t_temp = m.translation;
@@ -596,7 +611,7 @@ bool ModuleWorld::Options()
 		}
 	}
 
-	ImGui::EndDock();
+	ImGui::EndDock();*/
 
 	if (ImGui::BeginDock("Hierarchy", false, false, false)) {
 

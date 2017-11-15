@@ -63,6 +63,8 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
+	if (!App->world->ImFocused())
+		return UPDATE_CONTINUE;
 
 	static float3 temp_vec = float3(0, 0, 0);
 	static float num = 0;
@@ -241,7 +243,7 @@ update_status ModuleCamera3D::Update(float dt)
 	
 	bool test = ImGuizmo::IsOver();
 	if (!test) {
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && App->world->ImFocused())
 		{
 
 			float mx = (float)App->input->GetMousepositionX();
