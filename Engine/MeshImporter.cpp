@@ -117,8 +117,12 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 			else
 				memcpy(&indices[i * 3], m->mFaces[i].mIndices, 3 * sizeof(uint));
 		}
-		if (continue_for)
-			continue;
+		if (continue_for) {
+			RELEASE_ARRAY(indices);
+			if (data_mesh != nullptr)
+				RELEASE_ARRAY(data_mesh);
+			continue;			
+		}
 
 		bytes = sizeof(uint) * 4;
 		memcpy(cursor, ranges, bytes);
@@ -540,7 +544,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			temp_obj->SetGlobalBox(*temp);
 			UpdateAABB(temp_obj);
 
-			Texture* temp_text = new Texture();
+			
 			if (strcmp(texture_name,"")!=0) {
 				std::string texture_path = ASSETS_PATH + std::string(texture_name);		
 				if (ExistsFile(texture_path)) {
@@ -554,7 +558,9 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 			RELEASE(temp);
 
 		}		
-		temp_obj->SetName(name);
+		temp_obj->SetName(name); 
+		RELEASE_ARRAY(name);
+		RELEASE_ARRAY(texture_name);
 	
 		//FINALLY CREATE OBJECT
 		CreateObject(temp_obj);
