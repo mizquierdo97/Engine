@@ -12,7 +12,7 @@ public:
 	ComponentMesh(UUID uuid,GameObject* obj)  {
 		res_uuid = uuid;
 		SetParent(obj);
-		mesh_material = nullptr;
+		
 		comp_type = ComponentType::mesh;
 
 		ResourceMesh* res = (ResourceMesh*)GetResource();
@@ -36,7 +36,7 @@ public:
 public:
 	std::string path_name;
 	//Mesh obj_mesh;
-	ComponentMaterial* mesh_material;
+	
 	Mesh bb_mesh;
 	math::AABB box;
 };

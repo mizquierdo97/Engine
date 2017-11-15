@@ -10,7 +10,9 @@ public :
 	ResourceMesh(UUID uid) {
 		uuid = uid;
 	};
-	~ResourceMesh() {};
+	~ResourceMesh() {
+
+	};
 	bool LoadInMemory();
 	bool EraseInMemory() {
 		return false;
@@ -22,7 +24,7 @@ public :
 public:
 	std::string path_name;
 	Mesh obj_mesh;
-	ComponentMaterial* mesh_material;
+	
 	Mesh bb_mesh;
 	math::AABB box;
 	int material_index = -1;

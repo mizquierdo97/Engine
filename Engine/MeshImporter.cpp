@@ -190,6 +190,7 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 			}
 
 		}
+		
 		RELEASE_ARRAY(indices);
 		if (data_mesh != nullptr)
 			RELEASE_ARRAY(data_mesh);
@@ -554,6 +555,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 		}		
 		temp_obj->SetName(name);
+	
 		//FINALLY CREATE OBJECT
 		CreateObject(temp_obj);
 		

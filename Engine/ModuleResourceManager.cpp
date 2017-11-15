@@ -17,6 +17,12 @@ bool ModuleResourceManager::Init()
 
 bool ModuleResourceManager::CleanUp()
 {
+
+	for (std::map<UUID, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+		RELEASE((*it).second);
+
+	resources.clear();
+
 	return true;
 }
 

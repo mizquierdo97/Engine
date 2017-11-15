@@ -23,7 +23,9 @@ public:
 
 	};
 	Resource(UUID uid, Resource::Type type);
-	/*virtual ~Resource();
+	virtual ~Resource() {};
+
+	/*
 	Resource::Type GetType() const;
 	UUID GetUID() const;
 	const char* GetFile() const;

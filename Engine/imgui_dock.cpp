@@ -1182,9 +1182,8 @@ namespace ImGui {
 		{
 
 			Dock *new_dock = getDockByIndex(index);
-
-
 			return ImVec4(new_dock->pos.x, new_dock->pos.y, new_dock->size.x, new_dock->size.y);
+
 		}
 		
 		void load()

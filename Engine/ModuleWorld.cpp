@@ -118,8 +118,15 @@ bool ModuleWorld::CleanUp()
 	obj_vector.clear();	
 	
 	uuid_vect.clear();
-	
+	static_list.clear();
+	non_static_list.clear();
+
 	RELEASE(world_texture);
+	RELEASE(play_tex);
+	RELEASE(pause_tex);
+	RELEASE(nframe_tex);
+	RELEASE(stop_tex);
+
 	return true;
 }
 
