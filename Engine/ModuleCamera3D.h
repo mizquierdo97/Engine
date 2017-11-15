@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+
 #include "MathGeoLib.h"
 
 class ModuleCamera3D : public Module
@@ -19,6 +19,8 @@ public:
 	void LookAt(const float3 &Spot);
 	void Move(const float3 &Movement);
 	float* GetViewMatrix();
+	void UpdateCamProp();
+
 	void ModuleCamera3D::Follow(PhysBody3D* body, float min, float max, float height)
 	{
 		min_following_dist = min;

@@ -157,7 +157,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
+	App->camera->UpdateCamProp();
 	glLoadMatrixf(App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().Transposed().ptr());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -223,6 +223,8 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	ProjectionMatrix = App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().Transposed();//perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
 	glLoadMatrixf(ProjectionMatrix.ptr());
 
+	App->camera->UpdateCamProp();
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -420,8 +422,7 @@ void ModuleRenderer3D::DebugDraw(const AABB & aabb, Color color, const float4x4&
 	static float3 corners[8];
 	aabb.GetCornerPoints(corners);
 
-	//glPushMatrix();
-	//glMultMatrixf((GLfloat*)transform.Transposed().ptr());
+	
 	DebugDrawBox(corners, color);
 	//glPopMatrix();
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);

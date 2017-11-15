@@ -199,9 +199,6 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 		if (data_mesh != nullptr)
 			RELEASE_ARRAY(data_mesh);
 	}
-
-
-
 }
 
 
@@ -245,6 +242,7 @@ uint GetRecursiveSize(aiNode* root, aiScene* scene) {
 		
 
 		size += sizeof(aiVector3D) * 2 + sizeof(aiQuaternion);
+		size += sizeof(char) * 50;
 		size += sizeof(char) * 50;
 		size += sizeof(char) * 50;
 		size += sizeof(uint);
@@ -338,6 +336,7 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 	uint bytes = 0;
 	static int n = 0;
 	char mesh_name[50] = { 0 };
+	char mesh_path[50] = { 0 };
 	char texture_name[50] = { 0 };
 	aiVector3D translation = { 0,0,0 };
 	aiVector3D scaling = { 1,1,1 };
@@ -364,13 +363,21 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 				}
 				
 			}
-				strcpy(mesh_name,path_name);
-				char* num = new char[4];
-				itoa(root->mMeshes[num_mesh], num, 10);
-				strcat(mesh_name, "_");
-				strcat(mesh_name, num);
-				NormalizePath(mesh_name);
-				RELEASE_ARRAY(num);
+
+			strcpy(mesh_path, path_name);
+			char* num_path = new char[4];
+			itoa(root->mMeshes[num_mesh], num_path, 10);
+			strcat(mesh_path, "_");
+			strcat(mesh_path, num_path);
+			NormalizePath(mesh_path);
+			RELEASE_ARRAY(num_path);
+
+			if (!strcmp(root->mName.data, "")) {				
+				strcpy(mesh_name, mesh_path);
+			}
+			else {
+				strcpy(mesh_name,root->mName.data);
+			}
 			
 			if (m->mMaterialIndex != -1) {
 				aiString temp_string;
@@ -394,6 +401,11 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 		//MESH NAME
 		bytes = sizeof(char) * 50;
 		memcpy(cursor[0], mesh_name, bytes);
+		cursor[0] += bytes;
+
+		//MESH PATH
+		bytes = sizeof(char) * 50;
+		memcpy(cursor[0], mesh_path, bytes);
 		cursor[0] += bytes;
 
 		//TEXTURE NAME
@@ -493,6 +505,11 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		memcpy(name, cursor[0], bytes);
 		cursor[0] += bytes;
 
+		char* mesh_path = new char[50];
+		bytes = sizeof(char) * 50;
+		memcpy(mesh_path, cursor[0], bytes);
+		cursor[0] += bytes;
+
 		char* texture_name = new char[50];
 		bytes = sizeof(char) * 50;
 		memcpy(texture_name, cursor[0], bytes);
@@ -528,7 +545,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		if (ranges[0] != 0 && ranges[1] != 0) {
 
 			char path[80] = "Library/Meshes/";
-			strcat(path, name);
+			strcat(path, mesh_path);
 			strcat(path, ".mesh");
 
 			obj_uuid = App->resources->FindImported(path);
@@ -559,7 +576,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 		}		
 		temp_obj->SetName(name); 
-		RELEASE_ARRAY(name);
+		RELEASE_ARRAY(name);		
 		RELEASE_ARRAY(texture_name);
 	
 		//FINALLY CREATE OBJECT

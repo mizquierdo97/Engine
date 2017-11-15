@@ -146,9 +146,14 @@ void ModuleWindow::SaveConfig(JSON_Object * root)
 	json_object_set_string(root, "Window Name",title);
 }
 
-float ModuleWindow::GetAspectRatio()
+float ModuleWindow::GetAspectRatio()const 
 {
 	return (float)width / (float)height;
+}
+
+float ModuleWindow::GetTextureAspectRatio()const
+{
+	return (float)App->world->world_tex_vec.z/ (float)App->world->world_tex_vec.w;
 }
 
 bool ModuleWindow::Options()

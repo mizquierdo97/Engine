@@ -27,7 +27,9 @@ public:
 
 	void SaveConfig(JSON_Object*);
 
-	float GetAspectRatio();
+	float GetAspectRatio() const;
+
+	float GetTextureAspectRatio()const ;
 
 	bool Options();
 

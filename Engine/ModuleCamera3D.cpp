@@ -1,11 +1,13 @@
 #include "Globals.h"
 #include "Application.h"
+#include "ModuleWindow.h"
 #include "PhysBody3D.h"
 #include "ModuleCamera3D.h"
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "ImGui\ImGuizmo.h"
+#include "MathGeoLib.h"
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
@@ -117,7 +119,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		item = App->world->obj_vector.begin();
 
-		vec3 temp_vec2 = vec3(0, 0, 0);
+		float3 temp_vec2 = float3(0, 0, 0);
 		while (item != App->world->obj_vector.end()) {
 			ComponentMesh* temp_mesh = (*item)->GetMesh();
 
@@ -236,13 +238,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
-	//mouse picking
-
-	/*
-	dummyfrustum->cam_frustum.pos = Position;
-	dummyfrustum->cam_frustum.front = -ViewMatrix.Col3(2);
-	dummyfrustum->cam_frustum.up = ViewMatrix.Col3(1);
-	dummyfrustum->cam_frustum.horizontalFov = 90 * DEGTORAD;*/
+	
 	bool test = ImGuizmo::IsOver();
 	if (!test) {
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
@@ -269,18 +265,6 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 
-/* DRAW RAYCAST
-	glLineWidth(5.0f);
-	glBegin(GL_LINES);
-	glColor3f(1, 0, 0);
-	glVertex3f(picking.a.x, picking.a.y, picking.a.z);
-	glVertex3f(picking.b.x, picking.b.y, picking.b.z);
-
-
-
-	glEnd();
-*/
-	
 	float color[4] = { 1.0f, 1.0f, 0.7f, 1 };
 	dummyfrustum->cam_frustum.Draw(5.0f, color);
 		
@@ -338,6 +322,12 @@ float* ModuleCamera3D::GetViewMatrix()
 {
 	return dummyfrustum->cam_frustum.ViewProjMatrix().ptr();
 	//return (float*)ViewMatrix.v;
+}
+
+void ModuleCamera3D::UpdateCamProp()
+{
+		dummyfrustum->cam_frustum.horizontalFov = (2*  math::Atan(math::Tan(dummyfrustum->cam_frustum.verticalFov / 2) *App->window->GetTextureAspectRatio()));
+
 }
 
 // -----------------------------------------------------------------
