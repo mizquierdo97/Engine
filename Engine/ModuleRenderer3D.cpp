@@ -315,12 +315,12 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 				Texture* temp_tex = temp_res->res_tex;
 				glEnable(GL_TEXTURE_2D);
 				glBindTexture(GL_TEXTURE_2D, 0);
-				if (mat->alpha_test < 1.0f) {
+				if (mat->GetAlphaTest() < 1.0f) {
 					glEnable(GL_ALPHA_TEST);
-					glAlphaFunc(GL_GREATER, mat->alpha_test);
+					glAlphaFunc(GL_GREATER, mat->GetAlphaTest());
 				}
 				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
-				glDisable(GL_ALPHA_TEST);
+				
 			}
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
@@ -336,6 +336,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		}
 
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_ALPHA_TEST);
 	Color color = Color(0, 0, 1);
 
 	if (comp->GetParent() == App->world->GetSelectedObject())

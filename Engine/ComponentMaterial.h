@@ -20,7 +20,17 @@ class ComponentMaterial :public Component {
 		void SaveComponentScene(Data* data);
 		void ShowInspectorComponents();
 
+		float GetAlphaTest()const {
+			return alpha_test;
+		}
+		void SetAlphaTest(float val) {
+			alpha_test = val;
+		}
+
+
 public:
 	std::string path_texture;
+	
+private:
 	float alpha_test = 0.5f;
 };
