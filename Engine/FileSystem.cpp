@@ -155,7 +155,6 @@ void FileSystem::CheckFilesUpdates()
 		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
 		//
 		double last_time = 0;
-		bool save = false;
 		double date_time = 0;
 		//GET EXTENSION
 		
@@ -175,29 +174,23 @@ void FileSystem::CheckFilesUpdates()
 				GET_FILEEX_INFO_LEVELS FileInfosLevel = GetFileExInfoStandard;
 				GetFileAttributesEx(nom, FileInfosLevel, &fileInfo);
 				date_time = fileInfo.ftLastWriteTime.dwLowDateTime;
-
-				if (date_time != last_time) {						
-					save = true;
-				}
-					
-			}	
-
-		}
-				if (save) {
-					Data new_meta_data;
-					new_meta_data.AddString("Original Path",original_file);
-					new_meta_data.AddString("Imported Path", imported_file);
-					new_meta_data.AddDouble("Time", date_time);
-					new_meta_data.SaveAsJSON(str);
-					ImportFile(str,true);
+				
+				
+				if (date_time != last_time) {	
+					meta_data.Pop_Last();
+					meta_data.SaveAsJSON(str);
+					ImportFile(str, true);
 					Resource* res = App->resources->Get(App->resources->Find(original_file.c_str()));
-					
-						
 					if (res->loaded != 0) {
 						res->UpdateRes();
 					}
 
 				}
+					
+			}	
+
+		}
+				
 
 	}
 }

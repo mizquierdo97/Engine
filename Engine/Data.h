@@ -63,6 +63,11 @@ public:
 	void AddVector3(std::string valueName, float3 value);
 	void AddVector4(std::string valueName, float4 value);
 
+	void Pop_Last() {
+		data_values.pop_back();
+		data_names.pop_back();
+		
+	};
 private:
 
 	friend class cereal::access;
