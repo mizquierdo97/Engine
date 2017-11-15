@@ -18,7 +18,7 @@ void ComponentMaterial::SaveComponentScene(Data * data)
 void ComponentMaterial::ShowInspectorComponents()
 {
 	static bool b_open = false;
-	if (ImGui::CollapsingHeader("Material", &header_open)) {
+	if (ImGui::CollapsingHeader("Material")) {
 		
 		if (ImGui::Button("Texture")) {			
 			b_open = true;

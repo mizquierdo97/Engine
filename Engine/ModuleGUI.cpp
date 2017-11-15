@@ -15,6 +15,11 @@
 #include "ImGui\ImGuizmo.h"
 #include "Resource.h"
 #include "ResourceTexture.h"
+#include "ImGui\imgui_internal.h"
+#define BUTTON_H_SEPARATION 60
+#define BUTTON_V_SEPARATION 72
+#define IMAGE_BUTTON_SIZE 40
+
 
 struct ExampleAppConsole;
 
@@ -287,6 +292,7 @@ bool ModuleGUI::CleanUp()
 
 void ModuleGUI::Assets()
 {
+	int border_separation = 10;
 	
 	if (ImGui::BeginDock("Assets", false, false)) {
 	
@@ -297,12 +303,17 @@ void ModuleGUI::Assets()
 			ImGui::PushID(i);
 			int frame_padding = 1;
 
+			ImGuiContext* context = ImGui::GetCurrentContext();			
+			ImVec2 size = context->CurrentWindow->Size;
 			std::string path = (*item);
 			std::string file_extension = GetExtension(path);
 			
+			int max_number_elements = size.x / BUTTON_H_SEPARATION;
 
+			ImGui::SetCursorPosX(border_separation + BUTTON_H_SEPARATION*(i%max_number_elements));
+			ImGui::SetCursorPosY(border_separation + BUTTON_V_SEPARATION*(i/ max_number_elements));
 			if (!strcmp((char*)file_extension.c_str(), "bin")) {
-				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
+				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
 					App->filesystem->mesh_importer->LoadMesh(path.c_str());					
 				}
 			}
@@ -310,7 +321,7 @@ void ModuleGUI::Assets()
 
 		else if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
 			{
-				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
+				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
 					if (App->world->GetSelectedObject() != nullptr) {
 						if(App->world->GetSelectedObject()->GetMaterial()!= nullptr)
 						App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->world->GetSelectedObject()->GetMaterial()->GetResource())->res_tex);
@@ -318,6 +329,18 @@ void ModuleGUI::Assets()
 					}
 				}
 			}
+			int image_height = 42;
+			ImGui::SetCursorPosX(5+BUTTON_H_SEPARATION*(i%max_number_elements));
+			ImGui::SetCursorPosY(image_height+5 + BUTTON_V_SEPARATION*(i / max_number_elements));
+			std::string asset_name = GetFileName(path);
+
+			if (asset_name.length() > 12) {
+				asset_name = asset_name.substr(0, 12);
+				asset_name += "...";
+			}
+			ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + 52);
+			ImGui::Text(asset_name.c_str());
+			
 
 			ImGui::PopID();
 			ImGui::SameLine();
@@ -327,7 +350,7 @@ void ModuleGUI::Assets()
 	}
 	if (ImGui::BeginDock("Inspector", false, false)) {
 
-
+		
 		GameObject* object = App->world->GetSelectedObject();
 
 		if (object != nullptr) {

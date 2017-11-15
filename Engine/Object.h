@@ -20,7 +20,7 @@ Mesh CreateCylinder();
 Mesh CreateAABB(AABB);
 Mesh UpdateAABB(Mesh, AABB);
 AABB UpdateAABB(GameObject*);
-int CreateObject();
+GameObject* CreateObject();
 void CreateObject(GameObject*, UUID force = IID_NULL);
 
 class Component;

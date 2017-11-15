@@ -204,7 +204,7 @@ Mesh CreateCylinder()
 	return m;
 }
 
-int CreateObject()
+GameObject* CreateObject()
 {
 	GameObject* new_object = new GameObject();
 	UuidCreate(&new_object->obj_uuid);
@@ -213,11 +213,14 @@ int CreateObject()
 	temp_pair.first = new_object;
 	temp_pair.second = new_object->obj_uuid;
 	App->world->uuid_vect.push_back(temp_pair);
-
+	new_object->AddComponentTransform();
 	App->world->obj_vector.push_back(new_object);
 
+	uint num = App->world->obj_vector.size();
+	std::string name = "Object_" + std::to_string(num);
+	new_object->SetName(name.c_str());
 	
-	return 0;
+	return new_object;
 }
 void CreateObject(GameObject* obj, UUID force)
 {

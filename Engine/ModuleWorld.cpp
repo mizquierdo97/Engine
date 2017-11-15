@@ -44,9 +44,10 @@ bool ModuleWorld::Start() {
 	world_texture->Create(nullptr, App->window->width, App->window->height);
 		
 	//Create Camera
-	CreateObject();
-	obj_vector[0]->AddComponentTransform();
-	obj_vector[0]->AddComponentCamera();
+	GameObject* obj = CreateObject();
+	
+	obj->AddComponentCamera();
+	obj->SetName("Camera");
 	
 	return true;
 }

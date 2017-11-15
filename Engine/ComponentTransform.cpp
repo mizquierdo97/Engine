@@ -56,7 +56,7 @@ void ComponentTransform::UpdateComponent()
 void ComponentTransform::ShowInspectorComponents()
 {
 	
-	if (ImGui::CollapsingHeader("Transform", &header_open)) {
+	if (ImGui::CollapsingHeader("Transform")) {
 		ImGui::DragFloat3("Position", &translation[0],0.2f);
 		float3 before_pos = translation;
 		Quat before_rot = rotation;

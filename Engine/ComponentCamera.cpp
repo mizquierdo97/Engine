@@ -115,7 +115,7 @@ void ComponentCamera::SaveComponentScene(Data * data)
 
 void ComponentCamera::ShowInspectorComponents()
 {
-	if (ImGui::CollapsingHeader("Camera", &header_open)) {
+	if (ImGui::CollapsingHeader("Camera")) {
 
 		//FOV
 		float height = cam_frustum.verticalFov*RADTODEG;		
