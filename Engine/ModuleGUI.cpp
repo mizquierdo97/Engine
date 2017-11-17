@@ -517,7 +517,17 @@ void ModuleGUI::Assets()
 		rename(res->file.c_str(), new_name.c_str());
 		res->file = new_name;
 
-	};
+		file_name = GetFolderPath(res->file) + file_name + "." + extension + ".meta";
+		
+		App->filesystem->UpdateMeta(file_name, new_name, "Original Path");
+	
+	}
+
+	if (ImGui::Button("Load")) {
+		
+		App->filesystem->mesh_importer->LoadMesh(str.c_str());
+		ImGui::CloseCurrentPopup();
+	}
 
  }
 

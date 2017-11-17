@@ -18,6 +18,7 @@ public:
 	std::string CreateMeta(std::string);
 	void ImportFile(std::string, bool force = false);
 	void CheckFilesUpdates();
+	void UpdateMeta(std::string, std::string new_file_name, const char* name_data);
 
 public:
 	MeshImporter* mesh_importer;

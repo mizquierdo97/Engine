@@ -26,7 +26,7 @@ public:
 	bool CleanUp();
 
 
-	int HierarchyRecurs(std::vector<GameObject*> item, int*, int, int);
+	int HierarchyRecurs(std::vector<GameObject*> item, int*, int, int, bool*);
 	void FileDropped();
 	void It_Render(); //Iterate Render
 	void It_Update();

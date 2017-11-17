@@ -705,6 +705,7 @@ void Data::ChangeString(std::string valueName, std::string value)
 	if (it != vec_names.end()) {
 		int index = it - vec_names.begin();
 		vec_values[index] = value;
+		data_values[index] = value;
 	}
 
 	
@@ -729,7 +730,7 @@ void Data::ChangeDouble(std::string valueName, double value)
 	if (it != vec_names.end()) {
 		int index = it - vec_names.begin();
 		vec_values[index] = std::to_string(value);
-		
+		data_values[index] = std::to_string(value);
 	}
 	
 }

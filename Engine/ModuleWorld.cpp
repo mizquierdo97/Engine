@@ -57,7 +57,7 @@ update_status ModuleWorld::PreUpdate(float dt)
 {
 	static float time = 0;
 	time += dt;
-	if (time >= 5) {
+	if (time >= 1.0f) {
 		App->filesystem->CheckFilesUpdates();
 		time = 0;
 	}
@@ -620,8 +620,9 @@ bool ModuleWorld::Options()
 
 		int i = -1;
 		int node_selected = -1;
+		bool open_window = false;
 		//std::vector<Object*> item = obj_vector.begin();
-		HierarchyRecurs(obj_vector, &node_selected, i, selection_mask);
+		HierarchyRecurs(obj_vector, &node_selected, i, selection_mask, &open_window);
 
 		if (node_selected != -1)
 		{
@@ -632,12 +633,22 @@ bool ModuleWorld::Options()
 				selection_mask = (1 << node_selected);           // Click to single-select
 		}
 
+		//SHOULD CHANGE THIS
+		static bool b_open = false;
+		if (open_window || b_open) {
+			b_open = true;
+			ImGui::Begin("Options", &b_open);
+
+			ImGui::End();
+
+		}
+
 		ImGui::EndDock();
 	}
 	return true;
 }
 
-int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector, int* node_selected, int i, int selection_mask)
+int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector, int* node_selected, int i, int selection_mask, bool* open_window)
 {
 	int node_clicked = -1;
 
@@ -651,15 +662,19 @@ int ModuleWorld::HierarchyRecurs(std::vector<GameObject*> vector, int* node_sele
 
 		bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, (*item)->GetName().c_str());
 
-		if (ImGui::IsItemClicked()) {
+		if (ImGui::IsItemClicked() || ImGui::IsItemClicked(1)) {
 			node_selected[0] = i;
 			selected_object = (*item);
+
+			if(ImGui::IsItemClicked(1)){
+				open_window[0] = true;
+			}
 
 		}
 
 		if (node_open)
 		{
-			i = HierarchyRecurs((*item)->obj_childs, node_selected, i, selection_mask);
+			i = HierarchyRecurs((*item)->obj_childs, node_selected, i, selection_mask, open_window);
 
 			ImGui::TreePop();
 		}

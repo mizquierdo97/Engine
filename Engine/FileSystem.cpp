@@ -162,7 +162,7 @@ void FileSystem::CheckFilesUpdates()
 		std::string imported_file;
 		std::string file_extension = GetExtension(str);
 		//
-				if (!strcmp(file_extension.c_str(), "meta")) {
+		if (!strcmp(file_extension.c_str(), "meta")) {
 			Data meta_data;
 			if (meta_data.LoadJSON(str)) {
 				last_time = meta_data.GetDouble("Time");
@@ -177,6 +177,7 @@ void FileSystem::CheckFilesUpdates()
 				
 				
 				if (date_time != last_time) {	
+					meta_data.ChangeDouble("Time", date_time);
 					meta_data.Pop_Last();
 					meta_data.SaveAsJSON(str);
 					ImportFile(str, true);
@@ -193,5 +194,23 @@ void FileSystem::CheckFilesUpdates()
 				
 
 	}
+}
+
+void FileSystem::UpdateMeta(std::string meta_path, std::string new_file_name , const char* name_data)
+{
+		Data meta_data;
+	if (meta_data.LoadJSON(meta_path)) {
+
+		meta_data.ChangeString("Original Path",new_file_name);
+
+		std::string new_meta_path = GetFolderPath(meta_path) + GetFileName(new_file_name) + "." + GetExtension(new_file_name) + ".meta";
+		meta_data.Pop_Last();
+		meta_data.SaveAsJSON(meta_path);
+
+		rename(meta_path.c_str(), new_meta_path.c_str());
+
+
+	}
+	
 }
 
