@@ -186,6 +186,8 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 			res->exported_file = final_mesh_name;
 			res->type = Resource::mesh;
 
+			App->filesystem->CreateMetaMesh(final_mesh_name, dir_path);
+
 
 			if (!ExistsFile(final_mesh_name.c_str())) {
 				pFile = fopen(final_mesh_name.c_str(), "wb");

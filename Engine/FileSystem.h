@@ -16,6 +16,7 @@ public:
 
 	void InitFileSystem();	
 	std::string CreateMeta(std::string);
+	std::string CreateMetaMesh(std::string, std::string);
 	void ImportFile(std::string, bool force = false);
 	void CheckFilesUpdates();
 	void UpdateMeta(std::string, std::string new_file_name, const char* name_data);

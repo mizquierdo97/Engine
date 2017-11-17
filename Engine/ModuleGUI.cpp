@@ -335,11 +335,15 @@ void ModuleGUI::Assets()
 
 					if (ImGui::BeginPopup("Load Menu"))
 					{
-						ShowLoadMenu(path);
-						ImGui::EndPopup();
+						if (ShowLoadMenu(path)) {
+							ImGui::EndPopup();
+							ImGui::PopID();
+							break;
+						}
+						else
+							ImGui::EndPopup();
 					}
-					
-				
+									
 					//	App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->world->GetSelectedObject()->GetMaterial()->GetResource())->res_tex);
 			
 
@@ -498,7 +502,7 @@ void ModuleGUI::Assets()
 
  }
 
- void ModuleGUI::ShowLoadMenu(std::string str)
+ bool ModuleGUI::ShowLoadMenu(std::string str)
  {
 
 	 UUID obj_uuid = App->resources->FindImported(str.c_str());
@@ -510,18 +514,34 @@ void ModuleGUI::Assets()
 
 	std::string folder = GetFolderPath(res->file);
 	std::string extension = GetExtension(res->file);
+	file_name = GetFolderPath(res->file) + file_name + "." + extension + ".meta";
+
 
 	if (ImGui::InputText("Name", name, IM_ARRAYSIZE(name), ImGuiInputTextFlags_EnterReturnsTrue)) {
 
 		std::string new_name = folder + name + "." + extension;
 		rename(res->file.c_str(), new_name.c_str());
 		res->file = new_name;
-
-		file_name = GetFolderPath(res->file) + file_name + "." + extension + ".meta";
 		
 		App->filesystem->UpdateMeta(file_name, new_name, "Original Path");
 	
 	}
+	if (ImGui::Button("Delete")) {
+		remove(res->file.c_str());
+		remove(str.c_str());
+		std::list<std::string>::iterator findIter = std::find(App->gui->path_list.begin(), App->gui->path_list.end(), res->exported_file);
+		App->gui->path_list.erase(findIter);
+		ImGui::CloseCurrentPopup();
+		return true;
+	}
+
+	if (ImGui::Button("ReImport")) {
+
+		App->resources->ImportFile(file_name.c_str());
+		ImGui::CloseCurrentPopup();
+
+	}
+
 
 	if (ImGui::Button("Load")) {
 		
@@ -529,6 +549,7 @@ void ModuleGUI::Assets()
 		ImGui::CloseCurrentPopup();
 	}
 
+	return false;
  }
 
 

@@ -47,12 +47,10 @@ void FileSystem::InitFileSystem()
 
 		//SWITCH
 		if (!strcmp(file_extension.c_str(), "fbx")) {
-			CreateMeta(str);
-		//	App->resources->ImportFile(str.c_str());
+			CreateMeta(str);	
 		}
 		if (!strcmp(file_extension.c_str(), "png") || !strcmp(file_extension.c_str(), "jpg") || !strcmp(file_extension.c_str(), "tga")) {
-			CreateMeta(str);
-		//	App->resources->ImportFile(str.c_str());
+			CreateMeta(str);		
 		}
 
 	}
@@ -85,8 +83,7 @@ std::string FileSystem::CreateMeta(std::string path)
 	std::string meta_path = name + ".meta";
 	if (ExistsFile(meta_path))
 		return meta_path;
-
-	
+		
 	
 	LPCTSTR nom = path.c_str();
 	WIN32_FILE_ATTRIBUTE_DATA    fileInfo;
@@ -98,7 +95,31 @@ std::string FileSystem::CreateMeta(std::string path)
 	Data meta_data;
 	meta_data.AddString("Original Path", path);
 	meta_data.AddString("Imported Path", "");
-	meta_data.AddDouble("Time" ,date_time);
+	meta_data.AddDouble("Time" ,date_time);	
+	meta_data.SaveAsJSON(meta_path);
+
+	return meta_path;
+}
+
+std::string FileSystem::CreateMetaMesh(std::string mesh_name, std::string fbx_file)
+{
+	std::string name = ASSETS_PATH + GetFileNameExtension(mesh_name);
+	std::string meta_path = name + ".meta";
+	if (ExistsFile(meta_path))
+		return meta_path;
+
+
+	LPCTSTR nom = mesh_name.c_str();
+	WIN32_FILE_ATTRIBUTE_DATA    fileInfo;
+	GET_FILEEX_INFO_LEVELS FileInfosLevel = GetFileExInfoStandard;
+	GetFileAttributesEx(nom, FileInfosLevel, &fileInfo);
+	double date_time = fileInfo.ftLastWriteTime.dwLowDateTime;
+
+
+	Data meta_data;
+	meta_data.AddString("Original Path", fbx_file);
+	meta_data.AddString("Imported Path", mesh_name);
+	meta_data.AddDouble("Time", date_time);
 	meta_data.SaveAsJSON(meta_path);
 
 	return meta_path;
@@ -133,7 +154,11 @@ void FileSystem::ImportFile(std::string meta_path, bool force )
 
 
 				n_meta_data.AddString("Original Path", res->file);
-				n_meta_data.AddString("Imported Path", res->exported_file);
+				if(strcmp(imported_file.c_str(), "") ==0)
+					n_meta_data.AddString("Imported Path", res->exported_file);
+				else
+					n_meta_data.AddString("Imported Path", imported_file);
+
 				n_meta_data.AddDouble("Time", date_time);
 				
 				n_meta_data.SaveAsJSON(meta_path);
@@ -168,6 +193,14 @@ void FileSystem::CheckFilesUpdates()
 				last_time = meta_data.GetDouble("Time");
 				original_file = meta_data.GetString("Original Path");
 				imported_file = meta_data.GetString("Imported Path");
+				
+				if (!ExistsFile(original_file)) {
+					remove(str.c_str());
+					if (ExistsFile(imported_file)) {
+						remove(imported_file.c_str());						
+						return;
+					}
+				}
 
 				LPCTSTR nom = original_file.c_str();
 				WIN32_FILE_ATTRIBUTE_DATA    fileInfo;
