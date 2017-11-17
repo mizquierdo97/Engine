@@ -293,7 +293,7 @@ bool ModuleGUI::CleanUp()
 void ModuleGUI::Assets()
 {
 	int border_separation = 10;
-	
+	static bool load_menu_open = false;
 	if (ImGui::BeginDock("Assets", false, false)) {
 	
 		std::list<std::string>::iterator item = path_list.begin();
@@ -309,26 +309,41 @@ void ModuleGUI::Assets()
 			std::string file_extension = GetExtension(path);
 			
 			int max_number_elements = size.x / BUTTON_H_SEPARATION;
+			if (max_number_elements < 1) max_number_elements = 1;
 
-			ImGui::SetCursorPosX(border_separation + BUTTON_H_SEPARATION*(i%max_number_elements));
-			ImGui::SetCursorPosY(border_separation + BUTTON_V_SEPARATION*(i/ max_number_elements));
-			if (!strcmp((char*)file_extension.c_str(), "bin")) {
-				if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
-					App->filesystem->mesh_importer->LoadMesh(path.c_str());					
+				ImGui::SetCursorPosX(border_separation + BUTTON_H_SEPARATION*(i%max_number_elements));
+				ImGui::SetCursorPosY(border_separation + BUTTON_V_SEPARATION*(i / max_number_elements));
+
+				Texture* item_tex = nullptr;
+				if (!strcmp((char*)file_extension.c_str(), "bin")) {
+					item_tex = fbx_tex;
 				}
-			}
+				else if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
+				{
+					item_tex = png_tex;
 
+				}
+				if (ImGui::ImageButton((void*)item_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
+					//App->filesystem->mesh_importer->LoadMesh(path.c_str());	
+					ImGui::OpenPopup("Load Menu");
 
-		else if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
-			{
-				if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
-					if (App->world->GetSelectedObject() != nullptr) {
-						if(App->world->GetSelectedObject()->GetMaterial()!= nullptr)
-						App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->world->GetSelectedObject()->GetMaterial()->GetResource())->res_tex);
+				}
 
+				float2 next_win_size = float2(400, 500);
+				ImGui::SetNextWindowPos(ImVec2((App->window->width/2) - next_win_size.x/2,(App->window->height/2) - next_win_size.y / 2));
+				ImGui::SetNextWindowSize(ImVec2(next_win_size.x,next_win_size.y));
+
+					if (ImGui::BeginPopup("Load Menu"))
+					{
+						ShowLoadMenu(path);
+						ImGui::EndPopup();
 					}
-				}
-			}
+					
+				
+					//	App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->world->GetSelectedObject()->GetMaterial()->GetResource())->res_tex);
+			
+
+
 			int image_height = 42;
 			ImGui::SetCursorPosX(5+BUTTON_H_SEPARATION*(i%max_number_elements));
 			ImGui::SetCursorPosY(image_height+5 + BUTTON_V_SEPARATION*(i / max_number_elements));
@@ -348,6 +363,9 @@ void ModuleGUI::Assets()
 		}
 		ImGui::EndDock();
 	}
+
+
+
 	if (ImGui::BeginDock("Inspector", false, false)) {
 
 		
@@ -409,6 +427,7 @@ void ModuleGUI::Assets()
 
 		if (ImGui::Button("Add Component", ImVec2(400, 30))&&App->world->IsObjectSelected())
 			ImGui::OpenPopup("AddComponent");
+		
 		if (ImGui::BeginPopup("AddComponent"))
 		{
 			ShowAddComponent();
@@ -476,6 +495,29 @@ void ModuleGUI::Assets()
 			 i++; item++;
 
 	 }
+
+ }
+
+ void ModuleGUI::ShowLoadMenu(std::string str)
+ {
+
+	 UUID obj_uuid = App->resources->FindImported(str.c_str());
+	 Resource* res = App->resources->Get(obj_uuid);
+
+	std::string file_name = GetFileName(res->file);
+	char name[64] = "";
+	strcpy(name, file_name.c_str());
+
+	std::string folder = GetFolderPath(res->file);
+	std::string extension = GetExtension(res->file);
+
+	if (ImGui::InputText("Name", name, IM_ARRAYSIZE(name), ImGuiInputTextFlags_EnterReturnsTrue)) {
+
+		std::string new_name = folder + name + "." + extension;
+		rename(res->file.c_str(), new_name.c_str());
+		res->file = new_name;
+
+	};
 
  }
 

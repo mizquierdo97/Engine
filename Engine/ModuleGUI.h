@@ -38,10 +38,11 @@ public:
 	void ShowHardware();
     void ShowAddComponent();
 	void ShowTextureMenu(ComponentMaterial*);
+	void ShowLoadMenu(std::string str);
 	//
 
 	//
-	private:
+private:
 		int begin = 0, end = 100;
 		bool show_example_menu = false;
 		bool show_menu = false;
@@ -73,3 +74,5 @@ public:
 	
 	//
 };
+
+

@@ -105,6 +105,24 @@ bool ExistsFile(const std::string & name)
 	}
 }
 
+std::string GetFolderPath(std::string path)
+{
+
+	std::string str_path = path;
+	int length = 0;
+	while (str_path.back() != '\\' && str_path.back() != '/')
+	{
+		str_path.pop_back();
+		length++;
+		if (length >= path.length())
+			return path;
+	}
+
+	return str_path;
+
+
+}
+
 void NormalizePath(char * full_path)
 {
 	int len = strlen(full_path);

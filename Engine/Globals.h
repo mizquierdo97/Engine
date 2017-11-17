@@ -17,7 +17,7 @@ std::string GetFileName(std::string path);
 std::string GetFileNameExtension(std::string path);
 void NormalizePath(char * full_path);
 bool ExistsFile(const std::string& name);
-
+std::string GetFolderPath(std::string path);
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)
 
 

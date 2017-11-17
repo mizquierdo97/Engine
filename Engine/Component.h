@@ -57,7 +57,5 @@ private:
 	bool enabled;
 	GameObject* parent;
 
-protected:
-	
-	
+
 };
