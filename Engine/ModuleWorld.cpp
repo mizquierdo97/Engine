@@ -57,7 +57,7 @@ update_status ModuleWorld::PreUpdate(float dt)
 {
 	static float time = 0;
 	time += dt;
-	if (time >= 1.0f) {
+	if (time >= 5.0f) {
 		App->filesystem->CheckFilesUpdates();
 		time = 0;
 	}
@@ -334,6 +334,7 @@ void ModuleWorld::RecursiveSaveScene(std::vector<GameObject*> vect, Data* data, 
 
 		UuidToStringA(&(*item)->obj_uuid, (RPC_CSTR*)&str);
 		data->AddString("UUID", str);
+		data->AddBool("Static", (*item)->IsStatic());
 
 		if ((*item)->obj_parent != nullptr) {
 			UuidToStringA(&(*item)->obj_parent->obj_uuid, (RPC_CSTR*)&str);
@@ -448,7 +449,7 @@ void ModuleWorld::LoadSceneGoData(Data scene_data, GameObject * go)
 	UuidFromStringA((RPC_CSTR)scene_data.GetString("Parent UUID").c_str(), &go->parent_uuid);
 
 	go->SetName(scene_data.GetString("Name"));
-
+	go->SetStatic(scene_data.GetBool("Static"));
 	float3 trans = scene_data.GetVector3f("Translation");
 	float4 rot = scene_data.GetVector4f("Rotation");
 	float3 scale = scene_data.GetVector3f("Scale");
