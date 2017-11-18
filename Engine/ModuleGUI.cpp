@@ -533,6 +533,12 @@ void ModuleGUI::Assets()
 				 if (res != nullptr) {
 					 res->LoadToMemory();
 					 comp->SetResource(res);
+					 ResourceMesh* res_mesh = (ResourceMesh*)res;
+					 AABB temp = comp->GetParent()->GetGlobalBBox();
+					temp.SetFrom((float3*)res_mesh->obj_mesh.vertexs, res_mesh->obj_mesh.num_vertexs);
+					comp->GetParent()->SetGlobalBox(temp);
+					comp->GetParent()->SetLocalBox(temp);
+					
 				 }
 			 }
 
