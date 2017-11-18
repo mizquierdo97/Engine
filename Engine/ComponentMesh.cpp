@@ -56,5 +56,21 @@ void ComponentMesh::ShowInspectorComponents()
 
 		ImGui::Text("Imported File: "); ImGui::SameLine();
 		ImGui::Text(res->exported_file.c_str());
+
+		static bool b_open = false;
+	
+		if (ImGui::Button("Texture")) {
+				b_open = true;
+		}
+
+
+		if (b_open) {
+			ImGui::SetNextWindowPos(ImVec2(App->input->GetMousepositionX() - 100, App->input->GetMousepositionY()), ImGuiCond_FirstUseEver);
+			ImGui::SetNextWindowSize(ImVec2(300, 440), ImGuiCond_FirstUseEver);
+			ImGui::Begin("Texture", &b_open);
+			App->gui->ShowMeshMenu(this);
+			ImGui::End();
+		}
+	
 	}
 }

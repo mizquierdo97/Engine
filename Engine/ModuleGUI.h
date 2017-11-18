@@ -38,6 +38,7 @@ public:
 	void ShowHardware();
     void ShowAddComponent();
 	void ShowTextureMenu(ComponentMaterial*);
+	void ShowMeshMenu(ComponentMesh*);
 	bool ShowLoadMenu(std::string str);
 	//
 

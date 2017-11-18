@@ -485,7 +485,7 @@ void ModuleGUI::Assets()
 
 		 if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
 		 {
-			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 0), ImVec2(1, 1), frame_padding)) {				
+			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {				
 				 comp->GetResource()->EraseFromMemory();
 				 
 				 
@@ -498,6 +498,33 @@ void ModuleGUI::Assets()
 			 ImGui::SameLine();
 			 i++; item++;
 
+	 }
+
+ }
+
+ void ModuleGUI::ShowMeshMenu(ComponentMesh * comp)
+ {
+	 std::list<std::string>::iterator item = path_list.begin();
+	 int i = 0;
+	 while (item != path_list.end())
+	 {
+		 ImGui::PushID(i);
+		 int frame_padding = 1;
+
+		 std::string path = (*item);
+		 std::string file_extension = GetExtension(path);
+
+		 if (!strcmp((char*)file_extension.c_str(), "mesh"))
+		 {
+			 if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
+				 comp->GetResource()->EraseFromMemory();
+
+			 }
+
+		 }
+		 ImGui::PopID();
+		 ImGui::SameLine();
+		 i++; item++;
 	 }
 
  }
