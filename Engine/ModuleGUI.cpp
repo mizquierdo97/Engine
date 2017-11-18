@@ -16,6 +16,10 @@
 #include "Resource.h"
 #include "ResourceTexture.h"
 #include "ImGui\imgui_internal.h"
+#include <filesystem>
+
+namespace fs = std::experimental::filesystem;
+
 #define BUTTON_H_SEPARATION 60
 #define BUTTON_V_SEPARATION 72
 #define IMAGE_BUTTON_SIZE 40
@@ -504,14 +508,18 @@ void ModuleGUI::Assets()
 
  void ModuleGUI::ShowMeshMenu(ComponentMesh * comp)
  {
-	 std::list<std::string>::iterator item = path_list.begin();
+	 
 	 int i = 0;
-	 while (item != path_list.end())
-	 {
+	 std::string path = MESHES_PATH;
+	 for (auto & p : fs::directory_iterator(path)) {
 		 ImGui::PushID(i);
 		 int frame_padding = 1;
 
-		 std::string path = (*item);
+		 const wchar_t* temp = p.path().c_str();
+		 std::wstring ws(temp);
+		 std::string path(ws.begin(), ws.end());
+		 path = MESHES_PATH + GetFileNameExtension(path);
+		 
 		 std::string file_extension = GetExtension(path);
 
 		 if (!strcmp((char*)file_extension.c_str(), "mesh"))
@@ -519,12 +527,19 @@ void ModuleGUI::Assets()
 			 if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
 				 comp->GetResource()->EraseFromMemory();
 
+
+				 UUID obj_uuid = App->resources->FindImported(path.c_str());
+				 Resource* res = App->resources->Get(obj_uuid);
+				 if (res != nullptr) {
+					 res->LoadToMemory();
+					 comp->SetResource(res);
+				 }
 			 }
 
 		 }
 		 ImGui::PopID();
 		 ImGui::SameLine();
-		 i++; item++;
+		 i++;
 	 }
 
  }

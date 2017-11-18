@@ -134,3 +134,15 @@ void NormalizePath(char * full_path)
 			full_path[i] = tolower(full_path[i]);
 	}
 }
+std::string NormalizePath(std::string full_path)
+{
+	int len = full_path.length();
+	for (int i = 0; i < len; ++i)
+	{
+		if (full_path[i] == '\\')
+			full_path[i] = '/';
+		else
+			full_path[i] = tolower(full_path[i]);
+	}
+	return full_path;
+}

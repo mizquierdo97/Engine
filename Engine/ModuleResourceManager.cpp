@@ -54,6 +54,7 @@ UUID ModuleResourceManager::FindImported(const char * file_in_library) const
 
 	for (std::map<UUID, Resource*>::const_iterator it = resources.begin(); it != resources.end(); ++it)
 	{
+		if (it->first == IID_NULL) continue;
 		if (it->second->exported_file.compare(file) == 0)
 			return it->first;
 	}
