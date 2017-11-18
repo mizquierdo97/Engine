@@ -59,15 +59,14 @@ void ComponentMesh::ShowInspectorComponents()
 
 		static bool b_open = false;
 	
-		if (ImGui::Button("Texture")) {
+		if (ImGui::Button("Change Mesh")) {
 				b_open = true;
 		}
-
-
+		
 		if (b_open) {
 			ImGui::SetNextWindowPos(ImVec2(App->input->GetMousepositionX() - 100, App->input->GetMousepositionY()), ImGuiCond_FirstUseEver);
 			ImGui::SetNextWindowSize(ImVec2(300, 440), ImGuiCond_FirstUseEver);
-			ImGui::Begin("Texture", &b_open);
+			ImGui::Begin("Meshes", &b_open);
 			App->gui->ShowMeshMenu(this);
 			ImGui::End();
 		}

@@ -345,10 +345,6 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		color = Color(1, 0, 0);
 
 	App->renderer3D->DebugDraw(comp->GetParent()->GetGlobalBBox(), color);
-/*	Mesh bb_mesh = comp->bb_mesh;	
-	App->renderer3D->RenderMesh(&bb_mesh);*/
-
-	
 	
 }
 

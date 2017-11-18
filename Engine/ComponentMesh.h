@@ -20,15 +20,14 @@ public:
 		
 		AABB temp;
 		temp.SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
-		GetParent()->SetLocalBox(temp);
-		res->bb_mesh = CreateAABB(temp);
+		GetParent()->SetLocalBox(temp);		
 		
 		path_name = res->obj_mesh.mesh_path;
 
 	}
 	~ComponentMesh() {
 
-		RELEASE_ARRAY(bb_mesh.vertexs);
+		
 	};
 
 	void UpdateComponent();
@@ -37,7 +36,6 @@ public:
 public:
 	std::string path_name;
 	//Mesh obj_mesh;
-	
-	Mesh bb_mesh;
+
 	math::AABB box;
 };

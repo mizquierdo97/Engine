@@ -580,6 +580,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		temp_obj->SetName(name); 
 		RELEASE_ARRAY(name);		
 		RELEASE_ARRAY(texture_name);
+		RELEASE_ARRAY(mesh_path);
 	
 		//FINALLY CREATE OBJECT
 		CreateObject(temp_obj);

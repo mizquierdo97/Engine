@@ -22,9 +22,6 @@ public :
 		if (obj_mesh.id_textures)
 			RELEASE_ARRAY(obj_mesh.texture_coords);
 
-		if (bb_mesh.id_vertexs)
-			RELEASE_ARRAY(bb_mesh.vertexs);
-		
 	};
 	bool LoadInMemory();
 	bool EraseInMemory() {
@@ -37,8 +34,7 @@ public :
 public:
 	std::string path_name;
 	Mesh obj_mesh;
-	
-	Mesh bb_mesh;
+
 	math::AABB box;
 	int material_index = -1;
 

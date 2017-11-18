@@ -239,6 +239,7 @@ void ModuleWorld::LoadScene(const char* name) {
 
 	//FIRST CLEAR THE LAST SCENE and QUADTREE
 	ClearScene();
+	App->world->SetSelectedObject(nullptr);
 	quadtree.Clear();
 	quadtree.SetBoundaries(AABB(float3(-50, -50, -50), float3(50, 50, 50)));
 
@@ -288,7 +289,11 @@ void ModuleWorld::LoadScene(const char* name) {
 				temp_pair.first = go;
 				temp_pair.second = go->obj_uuid;
 				App->world->uuid_vect.push_back(temp_pair); //PUSH OBJ IN THE UUID VECT
-				App->world->non_static_list.push_back(go); //PUSH IT IN THE NON_STATIC LIST TOO
+
+				if(go->IsStatic())
+					App->world->static_list.push_back(go); //PUSH IT IN THE STATIC LIST TOO
+				else
+				App->world->non_static_list.push_back(go); //OR IN THE NON STATIC
 				
 			}
 			scene_data.LeaveSection();
@@ -407,6 +412,7 @@ void ModuleWorld::RecursiveCreateAABB(GameObject* obj) {
 		obj->SetGlobalBox(*temp);
 		UpdateAABB(obj);		
 	}
+	RELEASE(temp);
 
 	std::vector<GameObject*>::iterator item = obj->obj_childs.begin();
 
@@ -483,7 +489,7 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 		std::string texture_path = scene_data.GetString("Texture Path");
 		std::string library_path = MESHES_PATH + GetFileName(texture_path) + ".dds";
 
-		Texture* temp_tex = new Texture();
+
 		if (ExistsFile(library_path)) {
 			UUID obj_uuid = App->resources->FindImported(library_path.c_str());
 			ResourceTexture* res = (ResourceTexture*)App->resources->Get(obj_uuid);
