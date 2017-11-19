@@ -640,15 +640,6 @@ bool ModuleWorld::Options()
 				selection_mask = (1 << node_selected);           // Click to single-select
 		}
 
-		//SHOULD CHANGE THIS
-		static bool b_open = false;
-		if (open_window || b_open) {
-			b_open = true;
-			ImGui::Begin("Options", &b_open);
-
-			ImGui::End();
-
-		}
 
 		ImGui::EndDock();
 	}

@@ -34,6 +34,8 @@ void ComponentTransform::UpdateComponent()
 			float4x4 obj_mat =GetMatrix().Transposed();
 			ImGuiIO& io = ImGui::GetIO();			
 
+			
+
 			float4x4 temp_mat;
 			ImGuizmo::SetRect(App->world->world_tex_vec.x, App->world->world_tex_vec.y, App->world->world_tex_vec.z, App->world->world_tex_vec.w);
 			ImGuizmo::Manipulate(mat.ptr(), proj.ptr(), App->world->Operation, ImGuizmo::LOCAL, obj_mat.ptr());
@@ -57,6 +59,8 @@ void ComponentTransform::ShowInspectorComponents()
 {
 	
 	if (ImGui::CollapsingHeader("Transform")) {
+
+	
 		ImGui::DragFloat3("Position", &translation[0],0.2f);
 		float3 before_pos = translation;
 		Quat before_rot = rotation;
@@ -69,14 +73,20 @@ void ComponentTransform::ShowInspectorComponents()
 		ImGui::SameLine();
 		ImGui::Checkbox("Lock", &lock_scale_prop);		
 		euler *= DEGTORAD;
+
 		rotation = rotation.FromEulerXYZ(euler.x,euler.y,euler.z);
+
 
 		if (lock_scale_prop)
 			LockProportionScale(before_scale);
 
 		if (!rotation.Equals(before_rot) || !translation.Equals(before_pos) || !scale.Equals(before_scale))
 			GetParent()->SetStatic(false);
+
+
+	
 	}
+
 
 	if (scale.x <= 0) scale.x = 0.001; if (scale.y <= 0) scale.y = 0.001; if (scale.z <= 0) scale.z = 0.001;
 

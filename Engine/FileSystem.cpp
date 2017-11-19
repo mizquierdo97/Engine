@@ -3,6 +3,11 @@
 #include "ModuleAssimp.h"
 #include <iostream>
 #include <filesystem>
+#include "Resource.h"
+#include "ResourceTexture.h"
+#include "ModuleWorld.h"
+#include "ComponentMaterial.h"
+#include "Object.h"
 
 namespace fs = std::experimental::filesystem;
 void FileSystem::InitFileSystem()
@@ -245,5 +250,16 @@ void FileSystem::UpdateMeta(std::string meta_path, std::string new_file_name , c
 
 	}
 	
+}
+
+void FileSystem::LoadByExtension(std::string path)
+{
+	std::string extension = GetExtension(path);
+
+	if(!extension.compare("dds"))
+		App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->world->GetSelectedObject()->GetMaterial()->GetResource())->res_tex);
+
+	if (!extension.compare("bin"))
+		App->filesystem->mesh_importer->LoadMesh(path.c_str());
 }
 

@@ -23,7 +23,7 @@ namespace fs = std::experimental::filesystem;
 #define BUTTON_H_SEPARATION 60
 #define BUTTON_V_SEPARATION 72
 #define IMAGE_BUTTON_SIZE 40
-
+#define BORDER_SEPARATION 10
 
 struct ExampleAppConsole;
 
@@ -296,7 +296,7 @@ bool ModuleGUI::CleanUp()
 
 void ModuleGUI::Assets()
 {
-	int border_separation = 10;
+	
 	static bool load_menu_open = false;
 	if (ImGui::BeginDock("Assets", false, false)) {
 	
@@ -307,16 +307,17 @@ void ModuleGUI::Assets()
 			ImGui::PushID(i);
 			int frame_padding = 1;
 
-			ImGuiContext* context = ImGui::GetCurrentContext();			
-			ImVec2 size = context->CurrentWindow->Size;
+			
 			std::string path = (*item);
 			std::string file_extension = GetExtension(path);
 			
+			ImGuiContext* context = ImGui::GetCurrentContext();
+			ImVec2 size = context->CurrentWindow->Size;
 			int max_number_elements = size.x / BUTTON_H_SEPARATION;
 			if (max_number_elements < 1) max_number_elements = 1;
 
-				ImGui::SetCursorPosX(border_separation + BUTTON_H_SEPARATION*(i%max_number_elements));
-				ImGui::SetCursorPosY(border_separation + BUTTON_V_SEPARATION*(i / max_number_elements));
+				ImGui::SetCursorPosX(BORDER_SEPARATION + BUTTON_H_SEPARATION*(i%max_number_elements));
+				ImGui::SetCursorPosY(BORDER_SEPARATION + BUTTON_V_SEPARATION*(i / max_number_elements));
 
 				Texture* item_tex = nullptr;
 				if (!strcmp((char*)file_extension.c_str(), "bin")) {
@@ -327,13 +328,19 @@ void ModuleGUI::Assets()
 					item_tex = png_tex;
 
 				}
-				if (ImGui::ImageButton((void*)item_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
-					//App->filesystem->mesh_importer->LoadMesh(path.c_str());	
+				
+
+
+				ImGui::ImageButton((void*)item_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding);
+					
+				if (ImGui::IsItemClicked(0)) {
+					App->filesystem->LoadByExtension(*item);
+				}
+				else if (ImGui::IsItemClicked(1))
 					ImGui::OpenPopup("Load Menu");
 
-				}
 
-				float2 next_win_size = float2(400, 500);
+				float2 next_win_size = float2(350, 100);
 				ImGui::SetNextWindowPos(ImVec2((App->window->width/2) - next_win_size.x/2,(App->window->height/2) - next_win_size.y / 2));
 				ImGui::SetNextWindowSize(ImVec2(next_win_size.x,next_win_size.y));
 
@@ -348,10 +355,7 @@ void ModuleGUI::Assets()
 							ImGui::EndPopup();
 					}
 									
-					//	App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->world->GetSelectedObject()->GetMaterial()->GetResource())->res_tex);
-			
-
-
+					
 			int image_height = 42;
 			ImGui::SetCursorPosX(5+BUTTON_H_SEPARATION*(i%max_number_elements));
 			ImGui::SetCursorPosY(image_height+5 + BUTTON_V_SEPARATION*(i / max_number_elements));
@@ -481,14 +485,23 @@ void ModuleGUI::Assets()
 	 int i = 0;
 	 while (item != path_list.end())
 	 {
-		 ImGui::PushID(i);
-		 int frame_padding = 1;
-
+		 
 		 std::string path = (*item);
 		 std::string file_extension = GetExtension(path);	
 
 		 if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
 		 {
+			 ImGui::PushID(i);
+			 int frame_padding = 1;
+
+			 ImGuiContext* context = ImGui::GetCurrentContext();
+			 ImVec2 size = context->CurrentWindow->Size;
+			 int max_number_elements = size.x / BUTTON_H_SEPARATION;
+			 if (max_number_elements < 1) max_number_elements = 1;
+
+			 ImGui::SetCursorPosX(BORDER_SEPARATION + BUTTON_H_SEPARATION*(i%max_number_elements));
+			 ImGui::SetCursorPosY(20 + BORDER_SEPARATION + BUTTON_V_SEPARATION*(i / max_number_elements));
+
 			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {				
 				 comp->GetResource()->EraseFromMemory();
 				 
@@ -497,10 +510,23 @@ void ModuleGUI::Assets()
 				 Resource* res = App->resources->Get(obj_uuid); res->LoadToMemory();
 				 comp->SetResource(res);
 				 }
-		 }
+
+			 int image_height = 32;
+			 ImGui::SetCursorPosX(5 + BUTTON_H_SEPARATION*(i%max_number_elements));
+			 ImGui::SetCursorPosY(20 + image_height + 5 + BUTTON_V_SEPARATION*(i / max_number_elements));
+			 std::string asset_name = GetFileName(path);
+
+			 if (asset_name.length() > 12) {
+				 asset_name = asset_name.substr(0, 12);
+				 asset_name += "...";
+			 }
+			 ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + 52);
+			 ImGui::Text(asset_name.c_str());
 			 ImGui::PopID();
-			 ImGui::SameLine();
-			 i++; item++;
+
+			 i++;
+		 }
+		 item++;
 
 	 }
 
@@ -512,9 +538,7 @@ void ModuleGUI::Assets()
 	 int i = 0;
 	 std::string path = MESHES_PATH;
 	 for (auto & p : fs::directory_iterator(path)) {
-		 ImGui::PushID(i);
-		 int frame_padding = 1;
-
+		
 		 const wchar_t* temp = p.path().c_str();
 		 std::wstring ws(temp);
 		 std::string path(ws.begin(), ws.end());
@@ -524,9 +548,20 @@ void ModuleGUI::Assets()
 
 		 if (!strcmp((char*)file_extension.c_str(), "mesh"))
 		 {
+			 ImGui::PushID(i);
+			 int frame_padding = 1;
+
+
+			 ImGuiContext* context = ImGui::GetCurrentContext();
+			 ImVec2 size = context->CurrentWindow->Size;
+			 int max_number_elements = size.x / BUTTON_H_SEPARATION;
+			 if (max_number_elements < 1) max_number_elements = 1;
+
+			 ImGui::SetCursorPosX(BORDER_SEPARATION + BUTTON_H_SEPARATION*(i%max_number_elements));
+			 ImGui::SetCursorPosY(20+BORDER_SEPARATION + BUTTON_V_SEPARATION*(i / max_number_elements));
+
 			 if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
 				 comp->GetResource()->EraseFromMemory();
-
 
 				 UUID obj_uuid = App->resources->FindImported(path.c_str());
 				 Resource* res = App->resources->Get(obj_uuid);
@@ -541,11 +576,21 @@ void ModuleGUI::Assets()
 					
 				 }
 			 }
-
+			 int image_height = 32;
+			 ImGui::SetCursorPosX(5 + BUTTON_H_SEPARATION*(i%max_number_elements));
+			 ImGui::SetCursorPosY(20 + image_height + 5 + BUTTON_V_SEPARATION*(i / max_number_elements));
+			 std::string asset_name = GetFileName(path);
+			
+			 if (asset_name.length() > 12) {
+				 asset_name = asset_name.substr(0, 12);
+				 asset_name += "...";
+			 }
+			 ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + 52);
+			 ImGui::Text(asset_name.c_str());
+			 ImGui::PopID();			
+			 i++;
 		 }
-		 ImGui::PopID();
-		 ImGui::SameLine();
-		 i++;
+		
 	 }
 
  }
@@ -574,27 +619,15 @@ void ModuleGUI::Assets()
 		App->filesystem->UpdateMeta(file_name, new_name, "Original Path");
 	
 	}
-	if (ImGui::Button("Delete")) {
+	ImGui::Separator();
+
+	if (ImGui::Button("Delete Files")) {
 		remove(res->file.c_str());
 		remove(str.c_str());
 		std::list<std::string>::iterator findIter = std::find(App->gui->path_list.begin(), App->gui->path_list.end(), res->exported_file);
 		App->gui->path_list.erase(findIter);
 		ImGui::CloseCurrentPopup();
 		return true;
-	}
-
-	if (ImGui::Button("ReImport")) {
-
-		App->resources->ImportFile(file_name.c_str());
-		ImGui::CloseCurrentPopup();
-
-	}
-
-
-	if (ImGui::Button("Load")) {
-		
-		App->filesystem->mesh_importer->LoadMesh(str.c_str());
-		ImGui::CloseCurrentPopup();
 	}
 
 	return false;

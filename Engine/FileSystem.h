@@ -20,6 +20,7 @@ public:
 	void ImportFile(std::string, bool force = false);
 	void CheckFilesUpdates();
 	void UpdateMeta(std::string, std::string new_file_name, const char* name_data);
+	void LoadByExtension(std::string);
 
 public:
 	MeshImporter* mesh_importer;
