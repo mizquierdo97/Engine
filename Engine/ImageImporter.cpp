@@ -146,9 +146,9 @@ bool ImageImporter::UpdateTextureFromFile(const char* path, Texture** texture, b
 		{
 			LOG("Image converted to RGBA");
 			texture[0]->UpdateTexture((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
-			//textureLoaded = loadTextureFromPixels32((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT), texture);
+			
 			texture[0]->texture_path = path;
-			//Create texture from file pixels
+			
 			textureLoaded = true;
 		}
 

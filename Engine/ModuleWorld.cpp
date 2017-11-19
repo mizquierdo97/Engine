@@ -65,8 +65,7 @@ update_status ModuleWorld::PreUpdate(float dt)
 	if (App->input->file_dropped) {
 		FileDropped();
 	}
-
-	
+		
 	
 	world_texture->Bind();
 	return UPDATE_CONTINUE;
@@ -147,8 +146,7 @@ void ModuleWorld::FileDropped()
 	CopyFile(path.c_str(), file_name.c_str(),false);	
 	if (!file_exists) {
 		App->filesystem->ImportFile(App->filesystem->CreateMeta(file_name.c_str()));
-		//App->filesystem->ImportFile(path.c_str());
-	}
+		}
 
 
 	App->input->file_dropped = false;
@@ -577,58 +575,7 @@ bool ModuleWorld::Options()
 
 	ImGui::EndDock();
 
-/*	if (ImGui::BeginDock("Configuration", false, false, false)) {
-
-		std::vector<GameObject*>::iterator item = obj_vector.begin();
-		int num = 0;
-		while (item != obj_vector.end())
-		{
-
-			ImGui::Separator();
-			if ((*item)->GetMesh() == nullptr) {
-				num++;
-				item++;
-				continue;
-			}
-
-			Mesh m = ((ResourceMesh*)(*item)->GetMesh()->GetResource())->obj_mesh;
-			ImGui::Text("Mesh %i", num + 1);
-			float3 t_temp = m.translation;
-
-			ImGui::Text("Translation");
-			ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.x); ImGui::SameLine();
-			ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.y); ImGui::SameLine();
-			ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", t_temp.z);
-
-			math::Quat q_temp = m.rotation;
-			float3 eul_ang = q_temp.ToEulerXYZ();
-
-			ImGui::Text("Rotation");
-
-			ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.x); ImGui::SameLine();
-			ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.y); ImGui::SameLine();
-			ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", eul_ang.z);
-
-			float3 s_temp = m.scale;
-
-			ImGui::Text("Scale");
-			ImGui::Text("X :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.x); ImGui::SameLine();
-			ImGui::Text("Y :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.y); ImGui::SameLine();
-			ImGui::Text("Z :"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%.2f", s_temp.z);
-
-
-			ImGui::Text("Tris:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs / 3);
-			ImGui::SameLine();
-			ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", m.num_vertexs);
-
-			num++;
-
-			item++;
-		}
-	}
-
-	ImGui::EndDock();*/
-
+	
 	if (ImGui::BeginDock("Hierarchy", false, false, false)) {
 
 		static int selection_mask = 0; // Dumb representation of what may be user-side selection state. You may carry selection state inside or outside your objects in whatever format you see fit.
@@ -637,7 +584,7 @@ bool ModuleWorld::Options()
 		int i = -1;
 		int node_selected = -1;
 		bool open_window = false;
-		//std::vector<Object*> item = obj_vector.begin();
+		
 		HierarchyRecurs(obj_vector, &node_selected, i, selection_mask, &open_window);
 
 		if (node_selected != -1)

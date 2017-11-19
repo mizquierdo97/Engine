@@ -215,6 +215,8 @@ GameObject* CreateObject()
 	App->world->uuid_vect.push_back(temp_pair);
 	new_object->AddComponentTransform();
 	App->world->obj_vector.push_back(new_object);
+	new_object->SetStatic(false);
+	App->world->non_static_list.push_back(new_object);
 
 	uint num = App->world->obj_vector.size();
 	std::string name = "Object_" + std::to_string(num);

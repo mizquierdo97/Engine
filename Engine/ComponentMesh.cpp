@@ -59,6 +59,9 @@ void ComponentMesh::ShowInspectorComponents()
 
 			ImGui::Text("Imported File: "); ImGui::SameLine();
 			ImGui::Text(res->exported_file.c_str());
+
+			ImGui::Text("Tris:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i",res->obj_mesh.num_vertexs / 3);
+			ImGui::Text("Vertexs:"); ImGui::SameLine(); ImGui::TextColored(ImVec4(0, 1, 1, 1), "%i", res->obj_mesh.num_vertexs);
 		}
 		static bool b_open = false;	
 		if (ImGui::Button("Change Mesh")) {

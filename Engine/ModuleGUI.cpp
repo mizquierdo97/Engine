@@ -144,8 +144,7 @@ update_status ModuleGUI::Update(float dt)
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				if (ImGui::MenuItem("Open menu")) { show_menu = !show_menu; }
-
+			
 				if (ImGui::MenuItem("Close App"))
 				{
 					return UPDATE_STOP;
@@ -218,31 +217,8 @@ update_status ModuleGUI::Update(float dt)
 			ShowHardware();
 		}
 
-		if (show_menu)
-		{
-			ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
-			ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
-			ImGui::Begin("Menu", &show_menu, window_flags);
+		
 
-			ImGui::Text("Menu bar for Engines");
-			if (ImGui::CollapsingHeader("Random"))
-			{
-				ImGui::DragIntRange2("Int Range", &begin, &end, 0.25f, 0.0f, 100.0f, "Min: %.1f ", "Max: %.1f ");
-
-				if (ImGui::Button("Int Randomize"))
-				{
-					rand = random_num_i.Int(begin, end);
-				}
-				ImGui::SameLine(150);  ImGui::Text("%.0f", rand);
-
-				if (ImGui::Button("Float Randomize"))
-				{
-					rand_2 = random_num_f.Float();
-				}
-				ImGui::SameLine(150);  ImGui::Text("%.2f", rand_2);
-			}
-				ImGui::End();
-		}
 		if (show_about)
 		{
 			ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize;
@@ -272,6 +248,8 @@ update_status ModuleGUI::Update(float dt)
 			ImGui::Separator();
 			ImGui::BeginDockspace();
 
+
+			//CALL ALL MODULES OPTIONS
 			App->Options();
 			Assets();
 			std::list<Module*>::iterator item = App->list_modules.begin();
@@ -338,10 +316,7 @@ void ModuleGUI::Assets()
 				else if (!strcmp((char*)file_extension.c_str(), "dds") || !strcmp((char*)file_extension.c_str(), "jpg") || !strcmp((char*)file_extension.c_str(), "png"))
 				{
 					item_tex = png_tex;
-
 				}
-				
-
 
 				ImGui::ImageButton((void*)item_tex->GetTexture(), ImVec2(IMAGE_BUTTON_SIZE, IMAGE_BUTTON_SIZE), ImVec2(0, 1), ImVec2(1, 0), frame_padding);
 					
@@ -460,9 +435,6 @@ void ModuleGUI::Assets()
 
 		ImGui::EndDock();
 	}
-
-	
-
 }
 
 
@@ -484,12 +456,10 @@ void ModuleGUI::Assets()
 	if (ImGui::MenuItem("Camera"))
 	{
 		App->world->GetSelectedObject()->AddComponentCamera();
-	}
-	
-
-	
-	
+	}	
 }
+
+
  void ModuleGUI::ShowTextureMenu(ComponentMaterial * comp)
  {
 	 std::list<std::string>::iterator item = path_list.begin();
@@ -539,9 +509,7 @@ void ModuleGUI::Assets()
 			 i++;
 		 }
 		 item++;
-
 	 }
-
  }
 
  void ModuleGUI::ShowMeshMenu(ComponentMesh * comp)

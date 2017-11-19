@@ -42,7 +42,7 @@ UUID ModuleResourceManager::Find(const char * file_in_assets) const
 		
 		for (std::map<UUID, Resource*>::const_iterator it = resources.begin(); it != resources.end(); ++it)
 		{
-			if (it->second->file.compare(file) == 0)
+			if (it->first!=IID_NULL && it->second->file.compare(file) == 0)
 				return it->first;
 		}
 		return IID_NULL;

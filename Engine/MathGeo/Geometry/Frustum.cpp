@@ -464,6 +464,7 @@ void Frustum::Draw(float width, float color[4])const
 		glVertex3f(bb_vertex[k + 3].x, bb_vertex[k + 3].y, bb_vertex[k + 3].z);
 	}
 	glEnd();
+	glColor4f(1.0f,1.0f,1.0f,1.0f);
 }
 
 
