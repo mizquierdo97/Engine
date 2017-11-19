@@ -47,7 +47,7 @@ bool ModuleWorld::Start() {
 	//Create Camera
 	GameObject* obj = CreateObject();
 	
-	//obj->AddComponentCamera();
+	obj->AddComponentCamera();
 	obj->SetName("Camera");
 	
 	return true;
