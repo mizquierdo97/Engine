@@ -97,44 +97,35 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && App->world->IsObjectSelected()) {
 
 		GameObject* selected = App->world->GetSelectedObject();
+
+		float4x4 mat = selected->GetTransform()->GetMatrix();
+		float3 pos, sca;
+		Quat rot;
+		mat.Decompose(pos, rot, sca);
+
 		AABB selected_AABB = selected->GetGlobalBBox();
 		float3 new_position = float3(0, 0, 0);
 		num = 0;
 		int i = 0;
-		std::vector<GameObject*>::iterator item = App->world->obj_vector.begin();
-		temp_vec = float3(0, 0, 0);
-
-		while (item != App->world->obj_vector.end()) {
-			ComponentMesh* temp_mesh = (*item)->GetMesh();
-
-
-			temp_vec.x += selected_AABB.CenterPoint().x;
-			temp_vec.y += selected_AABB.CenterPoint().y;
-			temp_vec.z += selected_AABB.CenterPoint().z;
-			num++;
-			item++;
-		}
-		if (num > 0) {
-			temp_vec /= num;
-			num = 0;
-		}
-
-		item = App->world->obj_vector.begin();
+		
+		temp_vec = pos;
 
 		float3 temp_vec2 = float3(0, 0, 0);
-		while (item != App->world->obj_vector.end()) {
-			ComponentMesh* temp_mesh = (*item)->GetMesh();
+		
+			ComponentMesh* temp_mesh = selected->GetMesh();
+			if (temp_mesh != nullptr) {
+				temp_vec2.x = (selected_AABB.maxPoint.x);
+				temp_vec2.y = (selected_AABB.maxPoint.y);
+				temp_vec2.z = (selected_AABB.maxPoint.z);
 
-			temp_vec2.x = (selected_AABB.maxPoint.x);
-			temp_vec2.y = (selected_AABB.maxPoint.y);
-			temp_vec2.z = (selected_AABB.maxPoint.z);
-
-			if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
-			if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
-			if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
-
-			item++;
-		}
+				if (Abs(max_dist.x) < Abs(temp_vec2.x))max_dist.x = temp_vec2.x;
+				if (Abs(max_dist.y) < Abs(temp_vec2.y))max_dist.y = temp_vec2.y;
+				if (Abs(max_dist.z) < Abs(temp_vec2.z))max_dist.z = temp_vec2.z;
+			}
+			else {
+				max_dist = float3(3, 3, 3);
+			}
+		
 		Reference = temp_vec;
 		Position = Reference + Z * (max_dist*1.5f - temp_vec).Length();
 

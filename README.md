@@ -1,3 +1,7 @@
+
+Github: https://github.com/mizquierdo97/Engine
+Authors: Miquel Izquierdo, Guillermo Pinto
+
 # Engine
 
 Game Engine developed by Miquel Izquierdo & Guillermo Pinto, students from UPC-CITM.
@@ -9,12 +13,18 @@ You can Drag and Drop FBX files to load it. Also you can load a texture which wi
 
 ##Controls: 
 
-- Load FBXs and Textures: Drag and drop the file. Then select on the assets menu
+- Import assets: Copy them in the Asstes folder
+- Load FBXs: Click it in the assets menu
 - Move Camera: W,A,S,D
 - Zoom: Mouse wheel
 - Rotate over a reference point: Right Click
 - Rotate Camera: Right Click + Left Alt
-- Center Geometry
+- Center Geometry: F
+- Change Gizmos: 1,2,3
+- Open File Menu: Right Click on the desired asset in "Assets" menu
+- Save/Load scene in Edit Menu
+
+*All the FBX's textures should be in the same folder of the FBX
 
 Libraries used:
 
@@ -50,3 +60,29 @@ Camera controls improved, you can zoom with mouse wheel.
 -0.1.0
 New camera controls
 Bugs Fixed 
+
+-0.1.1
+Import FBX to our own format.
+Import images to DDS.
+Added camera frustum, and frustum culling.
+Change object transform in real time.
+Change selected object texture.
+
+-0.1.2
+MousePicking added for GameObjects.
+Guizmos for transform objects added.
+Save/Load Scene.
+Resource Manager.
+Reference counting for resources.
+Camera options added.
+List of statics, accelerated with quadtree.
+
+-0.1.3
+META files added
+Runtime Texture Update
+
+-0.2.0
+Change Texture/Mesh of an object
+Octree Improved
+Create Objects and add a component Mesh/Texture
+Rename/Delete options for files (Runtime)
