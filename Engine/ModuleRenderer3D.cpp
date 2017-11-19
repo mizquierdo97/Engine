@@ -309,16 +309,17 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		
 			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
 				ComponentMaterial* mat = comp->GetParent()->GetMaterial();
-				ResourceTexture* temp_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());				
-				Texture* temp_tex = temp_res->res_tex;
-				glEnable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, 0);
-				if (mat->GetAlphaTest() < 1.0f) {
-					glEnable(GL_ALPHA_TEST);
-					glAlphaFunc(GL_GREATER, mat->GetAlphaTest());
+				ResourceTexture* tex_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());	
+				if (tex_res != nullptr) {
+					Texture* temp_tex = tex_res->res_tex;
+					glEnable(GL_TEXTURE_2D);
+					glBindTexture(GL_TEXTURE_2D, 0);
+					if (mat->GetAlphaTest() < 1.0f) {
+						glEnable(GL_ALPHA_TEST);
+						glAlphaFunc(GL_GREATER, mat->GetAlphaTest());
+					}
+					glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
 				}
-				glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
-				
 			}
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);

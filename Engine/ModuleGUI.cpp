@@ -513,7 +513,8 @@ void ModuleGUI::Assets()
 			 ImGui::SetCursorPosX(BORDER_SEPARATION + BUTTON_H_SEPARATION*(i%max_number_elements));
 			 ImGui::SetCursorPosY(20 + BORDER_SEPARATION + BUTTON_V_SEPARATION*(i / max_number_elements));
 
-			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {				
+			 if (ImGui::ImageButton((void*)png_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {		
+				 if(comp->GetResource()!= nullptr)
 				 comp->GetResource()->EraseFromMemory();
 				 
 				 
