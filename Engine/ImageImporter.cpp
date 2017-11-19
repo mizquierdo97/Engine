@@ -35,7 +35,7 @@ bool ImageImporter::ImportImage(const char* path, std::string* file_path, bool f
 				FILE * pFile;
 
 
-				final_name = MESHES_PATH;
+				final_name = MATERIALS_PATH;
 				final_name += file_name.c_str(); final_name += ".dds";
 				file_path[0] = final_name;
 			

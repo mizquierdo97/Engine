@@ -20,15 +20,19 @@ void ComponentMaterial::ShowInspectorComponents()
 	static bool b_open = false;
 	if (ImGui::CollapsingHeader("Material")) {
 		
-		if (ImGui::Button("Texture")) {			
+		if (ImGui::Button("Change Texture")) {			
 			b_open = true;
+		}
+		if (GetResource() != nullptr) {
+			Texture* actual_tex = ((ResourceTexture*)GetResource())->res_tex;
+			ImGui::Image((void*)actual_tex->GetTexture(), ImVec2(256, 256), ImVec2(0, 1), ImVec2(1, 0));
 		}
 	}
 
 	if (b_open) {
 		ImGui::SetNextWindowPos(ImVec2(App->input->GetMousepositionX()-100, App->input->GetMousepositionY()), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowSize(ImVec2(300, 440), ImGuiCond_FirstUseEver);
-		ImGui::Begin("Texture", &b_open);
+		ImGui::Begin("Textures", &b_open);
 		App->gui->ShowTextureMenu(this);
 		ImGui::End();
 	}

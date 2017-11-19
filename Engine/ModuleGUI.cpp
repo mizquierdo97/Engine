@@ -128,6 +128,18 @@ update_status ModuleGUI::Update(float dt)
 		
 		ImGuiIO& io = ImGui::GetIO();
 
+		if (App->renderer3D->GetActiveCamera() == nullptr) {
+			float2 next_win_size = float2(350, 100);
+			ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
+			ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+
+			
+			ImGui::Begin("ALERT!");
+			ImGui::Text("You don't have a CAMERA COMPONENT in any object");
+			ImGui::Text("                                      CREATE ONE!");
+			ImGui::End();
+		}
+
 		if (ImGui::BeginMainMenuBar())
 		{
 			if (ImGui::BeginMenu("File"))

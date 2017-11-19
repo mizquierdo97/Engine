@@ -47,7 +47,7 @@ bool ModuleWorld::Start() {
 	//Create Camera
 	GameObject* obj = CreateObject();
 	
-	obj->AddComponentCamera();
+	//obj->AddComponentCamera();
 	obj->SetName("Camera");
 	
 	return true;
@@ -65,6 +65,8 @@ update_status ModuleWorld::PreUpdate(float dt)
 	if (App->input->file_dropped) {
 		FileDropped();
 	}
+
+	
 	
 	world_texture->Bind();
 	return UPDATE_CONTINUE;
@@ -165,7 +167,7 @@ void ModuleWorld::It_Render()
 		ComponentCamera* cam = App->renderer3D->GetActiveCamera();
 		
 		//COLLECT OBJECTS
-		if (cam->frustum_culling == true)
+		if (cam != nullptr && cam->frustum_culling == true)
 			quadtree.root->CollectIntersectionsFrus(objects, cam->cam_frustum);
 		else
 			quadtree.CollectObjects(objects);
@@ -181,7 +183,7 @@ void ModuleWorld::It_Render()
 
 		for (std::list<GameObject*>::reverse_iterator it = non_static_list.rbegin(); it != non_static_list.rend(); ++it) {
 			AABB bbox = (*it)->GetGlobalBBox();
-			if (active_camera->cam_frustum.ContainsAaBox(bbox) != -1 || !active_camera->frustum_culling) {
+			if (active_camera != nullptr &&(active_camera->cam_frustum.ContainsAaBox(bbox) != -1 || !active_camera->frustum_culling)) {
 				if ((*it)->IsEnabled())
 					(*it)->Draw();
 			}
@@ -487,7 +489,7 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 {
 	if (scene_data.EnterSection("Material")) {
 		std::string texture_path = scene_data.GetString("Texture Path");
-		std::string library_path = MESHES_PATH + GetFileName(texture_path) + ".dds";
+		std::string library_path = MATERIALS_PATH + GetFileName(texture_path) + ".dds";
 
 
 		if (ExistsFile(library_path)) {
@@ -529,6 +531,12 @@ void ModuleWorld::LoadSceneCamera(Data scene_data, GameObject * go )
 bool ModuleWorld::Options()
 {
 	if (ImGui::BeginDock("Scene", false, false/*, App->IsPlaying()*/, ImGuiWindowFlags_HorizontalScrollbar)) {
+
+
+		ImGui::Checkbox("Use Octree", &using_octree); ImGui::SameLine();
+		ImGui::Checkbox("See Octree", &see_octree); ImGui::SameLine();
+		if (App->renderer3D->GetActiveCamera() != nullptr)
+		ImGui::Checkbox("Frustum Culling", &App->renderer3D->GetActiveCamera()->frustum_culling);
 
 		ImVec2 size2 = ImGui::GetContentRegionAvail();
 		ImGui::SameLine(App->world->world_tex_vec.z / 2.5);
