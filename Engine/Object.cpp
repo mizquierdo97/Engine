@@ -110,7 +110,7 @@ void GameObject::Update() {
 
 void GameObject::Draw()
 {
-	if (GetMesh() != nullptr) {
+	if (GetMesh() != nullptr && GetMesh()->GetResource() != nullptr) {	
 		ComponentMesh* m = GetMesh();
 		if (App->renderer3D->render_fill) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

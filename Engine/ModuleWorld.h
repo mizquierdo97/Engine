@@ -97,6 +97,7 @@ public:
 private:
 	GameObject*		selected_object = nullptr;
 	bool			world_focus = false;
+	
 
 
 

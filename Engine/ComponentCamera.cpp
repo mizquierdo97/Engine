@@ -92,7 +92,7 @@ void ComponentCamera::UpdateComponent()
 	cam_frustum.up = col_1;
 	
 
-	float color[4] = { 0.7f, 0.7f, 0.7f, 1 };
+	float color[4] = {	1.0f, 0.0f, 1.0f, 1 };
 	cam_frustum.Draw(3.0f,color );
 
 }

@@ -99,6 +99,7 @@ update_status ModuleWorld::PostUpdate(float dt)
 	It_Update();
 	It_Render();
 
+	if(App->renderer3D->debug_draw)
 	DebugDraw();
 
 	world_texture->Unbind();

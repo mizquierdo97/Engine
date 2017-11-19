@@ -16,8 +16,8 @@ public:
 		comp_type = ComponentType::mesh;
 
 		ResourceMesh* res = (ResourceMesh*)GetResource();
+		if (res == nullptr)return;
 
-		
 		AABB temp;
 		temp.SetFrom((float3*)res->obj_mesh.vertexs, res->obj_mesh.num_vertexs);
 		GetParent()->SetLocalBox(temp);		

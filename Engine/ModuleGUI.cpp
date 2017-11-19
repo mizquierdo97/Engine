@@ -473,10 +473,9 @@ void ModuleGUI::Assets()
 		 App->world->GetSelectedObject()->AddComponentTransform();
 	 }
 
-	if (ImGui::MenuItem("Mesh")) 
-	{
+	if (ImGui::MenuItem("Mesh")) 	{
 
-		//Selected->AddComponentMesh(Mesh);
+		App->world->GetSelectedObject()->AddComponentMesh(IID_NULL);
 	}
 	if (ImGui::MenuItem("Material")) 
 	{
@@ -573,6 +572,7 @@ void ModuleGUI::Assets()
 			 ImGui::SetCursorPosY(20+BORDER_SEPARATION + BUTTON_V_SEPARATION*(i / max_number_elements));
 
 			 if (ImGui::ImageButton((void*)fbx_tex->GetTexture(), ImVec2(32, 32), ImVec2(0, 1), ImVec2(1, 0), frame_padding)) {
+				 if(comp->GetResource()!= nullptr)
 				 comp->GetResource()->EraseFromMemory();
 
 				 UUID obj_uuid = App->resources->FindImported(path.c_str());

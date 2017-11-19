@@ -58,6 +58,7 @@ public:
 
 	bool render_fill = true;
 	bool render_wireframe = false;
+	bool debug_draw = true;
 	
 	uint mTextureID = 0;
 

@@ -51,14 +51,16 @@ void ComponentMesh::ShowInspectorComponents()
 {
 	ResourceMesh* res = ((ResourceMesh*)GetResource());
 	if (ImGui::CollapsingHeader("Mesh")) {
-		ImGui::Text("Original File: "); ImGui::SameLine();
-		ImGui::Text(res->file.c_str());
 
-		ImGui::Text("Imported File: "); ImGui::SameLine();
-		ImGui::Text(res->exported_file.c_str());
+		if (res != nullptr) {
 
-		static bool b_open = false;
-	
+			ImGui::Text("Original File: "); ImGui::SameLine();
+			ImGui::Text(res->file.c_str());
+
+			ImGui::Text("Imported File: "); ImGui::SameLine();
+			ImGui::Text(res->exported_file.c_str());
+		}
+		static bool b_open = false;	
 		if (ImGui::Button("Change Mesh")) {
 				b_open = true;
 		}

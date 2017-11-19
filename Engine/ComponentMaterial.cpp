@@ -18,13 +18,21 @@ void ComponentMaterial::SaveComponentScene(Data * data)
 void ComponentMaterial::ShowInspectorComponents()
 {
 	static bool b_open = false;
+	ResourceTexture* res = (ResourceTexture*)GetResource();
 	if (ImGui::CollapsingHeader("Material")) {
-		
+
+		if (res != nullptr) {
+			ImGui::Text("Original File: "); ImGui::SameLine();
+			ImGui::Text(res->file.c_str());
+
+			ImGui::Text("Imported File: "); ImGui::SameLine();
+			ImGui::Text(res->exported_file.c_str());
+		}
 		if (ImGui::Button("Change Texture")) {			
 			b_open = true;
 		}
-		if (GetResource() != nullptr) {
-			Texture* actual_tex = ((ResourceTexture*)GetResource())->res_tex;
+		if (res != nullptr) {
+			Texture* actual_tex = res->res_tex;
 			ImGui::Image((void*)actual_tex->GetTexture(), ImVec2(256, 256), ImVec2(0, 1), ImVec2(1, 0));
 		}
 	}

@@ -266,12 +266,10 @@ bool ModuleRenderer3D::Options()
 		};
 	
 		if (ImGui::Checkbox("Texture", &texture));
-		
-
-		if (ImGui::Checkbox("Shaded", &render_fill));
-		
+		if (ImGui::Checkbox("Shaded", &render_fill));		
 		if (ImGui::Checkbox("Wireframe", &render_wireframe));
-		if (ImGui::Checkbox("Normals", &App->gui->show_normals));
+		if (ImGui::Checkbox("Normals", &App->gui->show_normals));		
+		if (ImGui::Checkbox("Debug Draw", &debug_draw));
 		
 		ImGui::EndDock();
 
@@ -281,9 +279,7 @@ bool ModuleRenderer3D::Options()
 }
 
 void ModuleRenderer3D::Render(ComponentMesh* comp)
-{
-	
-	
+{	
 	
 	float4x4 matrixfloat = comp->GetParent()->GetTransform()->GetMatrix();
 	GLfloat matrix[16] =
@@ -339,13 +335,15 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_ALPHA_TEST);
-	Color color = Color(0, 0, 1);
 
-	if (comp->GetParent() == App->world->GetSelectedObject())
-		color = Color(1, 0, 0);
-
-	App->renderer3D->DebugDraw(comp->GetParent()->GetGlobalBBox(), color);
-	
+	Color color = Color(0, 0, 1);	
+	if (App->renderer3D->debug_draw) {
+		
+		if (comp->GetParent() == App->world->GetSelectedObject())
+			color = Color(1, 0, 0);
+		App->renderer3D->DebugDraw(comp->GetParent()->GetGlobalBBox(), color);
+	}
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void ModuleRenderer3D::RenderMesh(Mesh * m)
