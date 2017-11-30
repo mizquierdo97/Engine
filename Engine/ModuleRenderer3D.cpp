@@ -11,6 +11,8 @@
 #include "Resource.h"
 #include "ResourceTexture.h"
 #include "ResourceMesh.h"
+
+
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -147,6 +149,8 @@ bool ModuleRenderer3D::Init()
 		return false;
 	}
 
+	temp_shader.loadProgram();
+
 	return ret;
 }
 
@@ -200,6 +204,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	
 	SDL_GL_SwapWindow(App->window->window);
+
+	
 
 	return UPDATE_CONTINUE;
 }

@@ -8,7 +8,7 @@ public:
 	virtual ~Shader();
 
 
-	virtual bool loadProgram() = 0;
+	virtual bool loadProgram();
 
 
 	virtual void freeProgram();

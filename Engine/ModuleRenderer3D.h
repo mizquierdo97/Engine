@@ -20,7 +20,7 @@
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib  */  
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib  */ 
 
-
+#include "Shader.h"
 
 #define MAX_LIGHTS 8
 
@@ -63,7 +63,7 @@ public:
 	uint mTextureID = 0;
 
 	
-
+	Shader temp_shader;
 
 	//OPTIONS
 	bool texture = true;
