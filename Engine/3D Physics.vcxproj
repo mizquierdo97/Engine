@@ -225,6 +225,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="ResourceTexture.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShadersManager.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
@@ -301,6 +303,8 @@
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShadersManager.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>

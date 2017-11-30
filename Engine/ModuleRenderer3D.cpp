@@ -132,6 +132,8 @@ bool ModuleRenderer3D::Init()
 		LOG("Glew initialized correctly");
 	}
 
+	
+
 	ilInit();
 	iluInit();
 	ilutInit();

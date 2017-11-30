@@ -46,6 +46,9 @@
     <Filter Include="Sources\MathGeo">
       <UniqueIdentifier>{fe76d37d-ea86-4f2b-a149-70d6bd07345f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Shaders">
+      <UniqueIdentifier>{5154f30a-da34-43d7-9383-e655e0a61933}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -507,6 +510,12 @@
     <ClInclude Include="ResourceMesh.h">
       <Filter>Sources\FileSystem\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Sources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadersManager.h">
+      <Filter>Sources\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -730,6 +739,12 @@
     </ClCompile>
     <ClCompile Include="ResourceMesh.cpp">
       <Filter>Sources\FileSystem\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Sources\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadersManager.cpp">
+      <Filter>Sources\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
