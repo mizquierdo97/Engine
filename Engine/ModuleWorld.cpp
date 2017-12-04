@@ -96,16 +96,10 @@ update_status ModuleWorld::PostUpdate(float dt)
 	
 	//Iterate Object List and Render
 
-
+	
 	App->renderer3D->temp_shader.bind();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-
-	//Reset transformations
-	glLoadIdentity();
-
-	//Solid cyan quad in the center
-	glTranslatef(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f, 0.f);
+	
 	glBegin(GL_QUADS);
 	glColor3f(0.f, 1.f, 1.f);
 	glVertex2f(-0.5f, -0.5f);

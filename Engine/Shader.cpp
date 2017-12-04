@@ -126,7 +126,7 @@ bool Shader::loadProgram()
 	//Get vertex source
 	const GLchar* vertexShaderSource[] =
 	{
-		"out vec3 gl_Position;void main() { gl_Position = gl_Vertex; }"
+		"void main() { gl_Position = gl_Vertex; }"
 	};
 
 	//Set vertex source
@@ -153,13 +153,36 @@ bool Shader::loadProgram()
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
 	//Get fragment source
-	const GLchar* fragmentShaderSource[] =
-	{
-		"in vec3 void main() { gl_FragColor = vec4( 1.0, 1.0, 0.0, 1.0 ); }"
-	};
+	FILE * pFile;
+	long lSize;
+	char * buffer;
+	size_t result;
+	std::string string_buffer;
+	pFile = fopen("Assets/Shader.txt", "rb");
+	if (pFile == NULL) { fputs("File error", stderr); exit(1); }
+
+	// obtain file size:
+	fseek(pFile, 0, SEEK_END);
+	lSize = ftell(pFile);
+	rewind(pFile);
+
+	// allocate memory to contain the whole file:
+	buffer = new char[lSize];// (char*)malloc(sizeof(char)*lSize);
+	if (buffer == NULL) { fputs("Memory error", stderr); exit(2); }
+
+	// copy the file into the buffer:
+	result = fread(buffer, 1, lSize, pFile);
+
+	fclose(pFile);
+
+	//IDK WHY I NEED TO DO THIS...
+	string_buffer = buffer;
+	string_buffer = string_buffer.substr(0, lSize);
+	if (result != lSize) { fputs("Reading error", stderr); exit(3); }
+	char* temp = (char*)string_buffer.c_str();
 
 	//Set fragment source
-	glShaderSource(fragmentShader, 1, fragmentShaderSource, NULL);
+	glShaderSource(fragmentShader, 1, (const GLchar* const *)&temp, NULL);
 
 	//Compile fragment source
 	glCompileShader(fragmentShader);
