@@ -510,10 +510,19 @@
     <ClInclude Include="ResourceMesh.h">
       <Filter>Sources\FileSystem\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="ShadersManager.h">
       <Filter>Sources\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="ShadersManager.h">
+    <ClInclude Include="ResourceShader.h">
+      <Filter>Sources\FileSystem\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderImporter.h">
+      <Filter>Sources\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram.h">
+      <Filter>Sources\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
       <Filter>Sources\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
@@ -740,10 +749,19 @@
     <ClCompile Include="ResourceMesh.cpp">
       <Filter>Sources\FileSystem\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="ShadersManager.cpp">
       <Filter>Sources\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="ShadersManager.cpp">
+    <ClCompile Include="ResourceShader.cpp">
+      <Filter>Sources\FileSystem\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderImporter.cpp">
+      <Filter>Sources\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>Sources\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
       <Filter>Sources\Shaders</Filter>
     </ClCompile>
   </ItemGroup>

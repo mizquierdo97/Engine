@@ -2,6 +2,7 @@
 #include "ModuleAssimp.h"
 #include "MeshImporter.h"
 #include "ImageImporter.h"
+#include "ShaderImporter.h"
 struct Mesh;
 
 class FileSystem {
@@ -25,5 +26,6 @@ public:
 public:
 	MeshImporter* mesh_importer;
 	ImageImporter* image_importer;
+	ShaderImporter* shader_importer;
 
 };

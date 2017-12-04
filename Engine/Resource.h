@@ -9,8 +9,10 @@ class Resource
 {
 public:
 	enum Type {
+
 		texture,
 		mesh,
+		shader,
 		audio,
 		scene,
 		bone,

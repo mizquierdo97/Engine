@@ -80,6 +80,9 @@ UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 		case Resource::mesh:
 			import_ok = App->assimp->ImportMesh(path, &file_path);
 			break;
+		case Resource::shader:
+			//import_ok = App->filesystem->shader_importer->ImportShader(path, &file_path);
+			break;
 	}
 
 		if (import_ok && strcmp(file_path.c_str(), "")) {
@@ -152,6 +155,8 @@ Resource::Type ModuleResourceManager::TypeFromExtension(const char * path)
 		return Resource::texture;
 	if (!strcmp(extension.c_str(), "fbx"))
 		return Resource::mesh;
+	if (!strcmp(extension.c_str(), "txt"))
+		return Resource::shader;
 
 	return Resource::Type();
 }

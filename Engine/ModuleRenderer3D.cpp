@@ -149,7 +149,7 @@ bool ModuleRenderer3D::Init()
 		return false;
 	}
 
-	temp_shader.loadProgram();
+	//temp_shader.loadProgram();
 
 	return ret;
 }
