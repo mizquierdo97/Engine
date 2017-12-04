@@ -12,6 +12,7 @@
 #include "ResourceTexture.h"
 #include <map>
 #include "ImGui\imgui_internal.h"
+#include "ShadersManager.h"
 
 #define CHECKERS_HEIGHT 128
 #define CHECKERS_WIDTH 128
@@ -97,7 +98,7 @@ update_status ModuleWorld::PostUpdate(float dt)
 	//Iterate Object List and Render
 
 	
-	App->renderer3D->temp_shader.bind();
+	App->shaders->shader_list[0]->bind();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
 	glBegin(GL_QUADS);

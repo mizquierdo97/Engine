@@ -41,8 +41,10 @@ void FileSystem::InitFileSystem()
 		const wchar_t* temp = p.path().c_str();
 		std::wstring ws(temp);
 		std::string str(ws.begin(), ws.end());
-		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+		str = NormalizePath(str.c_str());
+		//std::transform(str.begin(), str.end(), str.begin(), ::tolower);
 		//
+
 
 		//GET EXTENSION
 		std::string file_extension = GetExtension(str);		

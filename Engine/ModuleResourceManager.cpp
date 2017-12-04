@@ -39,7 +39,8 @@ update_status ModuleResourceManager::Update(float dt)
 
 UUID ModuleResourceManager::Find(const char * file_in_assets) const
 {	
-		std::string file(file_in_assets);
+		
+		std::string file = NormalizePath(file_in_assets).c_str();
 		
 		for (std::map<UUID, Resource*>::const_iterator it = resources.begin(); it != resources.end(); ++it)
 		{

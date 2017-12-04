@@ -34,6 +34,9 @@ protected:
 	void printShaderLog(uint shader);
 
 
+public:
+	std::string shader_name;
+
 	//Program ID
 	uint mProgramID = 0;
 	uint fragmentID = 0;

@@ -15,6 +15,7 @@
 #include "Config.h"
 #include "ModuleAssimp.h"
 #include "ModuleResourceManager.h"
+#include "ShadersManager.h"
 #include "FileSystem.h"
 #include <list>
 
@@ -65,6 +66,7 @@ public:
 	ModuleWorld* world;
 	ModuleAssimp* assimp;
 	ModuleResourceManager* resources;
+	ShadersManager* shaders;
 	Gamestatus gameStatus = STOP;
 	Gamestatus previousGameStatus = STOP;
 	Rtime rtime;

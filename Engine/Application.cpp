@@ -15,6 +15,7 @@ Application::Application()
 	assimp = new ModuleAssimp();
 	resources = new ModuleResourceManager();
 	filesystem = new FileSystem();
+	shaders = new ShadersManager();
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -29,7 +30,7 @@ Application::Application()
 	AddModule(world);
 	AddModule(resources);
 	
-	
+	AddModule(shaders);
 	// Renderer last!
 	AddModule(renderer3D);
 	//GUI Last, it should print on the top.
@@ -45,7 +46,7 @@ Application::Application()
 	world->name = "World";
 	assimp->name = "Assimp";
 	resources->name = "Resource Manager";
-
+	shaders->name = "Shaders";
 }
 
 Application::~Application()
@@ -140,6 +141,8 @@ bool Application::Init()
 	LOG("Application Start --------------");
 	item = list_modules.begin();
 
+	filesystem->InitFileSystem();
+
 	while(item != list_modules.end() && ret == true)
 	{
 		
@@ -147,7 +150,7 @@ bool Application::Init()
 		item++;
 	}
 
-filesystem->InitFileSystem();
+
 	
 
 	gtime.gtimer.Start();
