@@ -1,13 +1,18 @@
+#include "Application.h"
 #include "ShaderImporter.h"
 #include "ShaderProgram.h"
+
 #include "Glew\include\glew.h"
 
 
-bool ShaderImporter::ImportShader(const char * name, std::string path, ShaderType type, bool force)
+bool ShaderImporter::ImportShader(const char * path, Resource::Type type, bool force)
 {
-	Shader* new_shader = new Shader();
-
-	return false;
+	
+	//TODO probably change this
+	//CREATE RESOURCE HERE
+	App->resources->ImportShader(path, type);
+	
+	return true;
 }
 
 

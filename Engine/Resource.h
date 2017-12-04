@@ -12,7 +12,8 @@ public:
 
 		texture,
 		mesh,
-		shader,
+		vertex_shader,
+		fragment_shader,
 		audio,
 		scene,
 		bone,

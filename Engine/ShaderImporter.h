@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Shader.h"
-
+#include "Resource.h"
 
 class ShaderImporter {
 public:
@@ -14,7 +14,7 @@ public:
 
 	}
 
-	bool ImportShader(const char* name, std::string path,ShaderType type, bool force = false);
+	bool ImportShader(const char* name,Resource::Type type, bool force = false);
 	
 	uint loadShaderFromFile(std::string path, ShaderType type);
 	

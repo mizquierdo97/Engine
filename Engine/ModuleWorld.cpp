@@ -162,7 +162,7 @@ void ModuleWorld::FileDropped()
 	CopyFile(path.c_str(), file_name.c_str(),false);	
 	if (!file_exists) {
 		App->filesystem->ImportFile(App->filesystem->CreateMeta(file_name.c_str()));
-		}
+	}
 
 
 	App->input->file_dropped = false;

@@ -3,6 +3,7 @@
 #include "Resource.h"
 #include "ResourceTexture.h"
 #include "ResourceMesh.h"
+#include "ResourceShader.h"
 #include "Globals.h"
 
 ModuleResourceManager::ModuleResourceManager(bool start_enabled) : Module(start_enabled)
@@ -80,9 +81,12 @@ UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 		case Resource::mesh:
 			import_ok = App->assimp->ImportMesh(path, &file_path);
 			break;
-		case Resource::shader:
-			//import_ok = App->filesystem->shader_importer->ImportShader(path, &file_path);
+		/*case Resource::vertex_shader:
+			import_ok = App->filesystem->shader_importer->ImportShader(path, &file_path, ShaderType::vertex_shader);
 			break;
+		case Resource::fragment_shader:
+			import_ok = App->filesystem->shader_importer->ImportShader(path, &file_path, ShaderType::pixel_shader);
+			break;*/
 	}
 
 		if (import_ok && strcmp(file_path.c_str(), "")) {
@@ -95,6 +99,42 @@ UUID ModuleResourceManager::ImportFile(const char * path, bool force)
 		}
 	}
 	
+	return obj_uuid;
+}
+
+UUID ModuleResourceManager::ImportShader(const char * path, Resource::Type type)
+{
+
+	Shader* new_shader = new Shader();
+
+	ShaderType s_type;
+
+	switch (type) {
+	case Resource::fragment_shader:
+		s_type = ShaderType::pixel_shader;
+		break;
+	case Resource::vertex_shader:
+		s_type = ShaderType::vertex_shader;
+		break;
+	}
+	new_shader->shader_id = App->filesystem->shader_importer->loadShaderFromFile(path, s_type);
+
+	UUID obj_uuid = Find(path);
+	UUID null_uuid; UuidCreateNil(&null_uuid);
+	RPC_STATUS stat;
+
+	//TODO probably dont need
+	if (UuidCompare(&obj_uuid, &null_uuid, &stat) == 0) {
+		Resource* res = CreateNewResource(type);
+		res->file = path;
+		res->exported_file = path;
+		res->type = type;
+		obj_uuid = res->uuid;
+
+		((ResourceShader*)res)->res_shader = new_shader;
+	}
+	
+
 	return obj_uuid;
 }
 
@@ -135,7 +175,12 @@ Resource * ModuleResourceManager::CreateNewResource(Resource::Type type, UUID fo
 	case Resource::mesh:
 		ret = (Resource*) new ResourceMesh(uuid);
 		break;
-
+	case Resource::fragment_shader:
+		ret = (Resource*) new ResourceShader(uuid);
+		break;
+	case Resource::vertex_shader:
+		ret = (Resource*) new ResourceShader(uuid);
+		break;
 	}
 	
 	resources[uuid] = ret;	
@@ -155,8 +200,10 @@ Resource::Type ModuleResourceManager::TypeFromExtension(const char * path)
 		return Resource::texture;
 	if (!strcmp(extension.c_str(), "fbx"))
 		return Resource::mesh;
-	if (!strcmp(extension.c_str(), "txt"))
-		return Resource::shader;
+	if (!strcmp(extension.c_str(), "frsh"))
+		return Resource::fragment_shader;
+	if (!strcmp(extension.c_str(), "vrsh"))
+		return Resource::vertex_shader;
 
 	return Resource::Type();
 }

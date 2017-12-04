@@ -5,9 +5,6 @@
 #include "Resource.h"
 #include <map>
 
-
-
-
 class Application;
 
 class ModuleResourceManager : public Module
@@ -31,6 +28,7 @@ public:
 	UUID Find(const char* file_in_assets) const;
 	UUID FindImported(const char* file_in_library) const;
 	UUID ImportFile(const char* new_file_in_assets, bool force = false);
+	UUID ImportShader(const char * path, Resource::Type type);
 	UUID GenerateNewUID();
 	const Resource* Get(UUID uid) const;
 	Resource* Get(UUID uid);

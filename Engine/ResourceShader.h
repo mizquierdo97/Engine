@@ -16,16 +16,21 @@ public :
 
 	~ResourceShader() {};
 
+
+
 	bool LoadInMemory();
 	bool EraseInMemory() {
 		//TODO
+		return false;
+	};
+	bool UpdateRes() {
 		return false;
 	};
 
 
 
 public:
-	Shader res_shader;
+	Shader* res_shader;
 
 };
 
