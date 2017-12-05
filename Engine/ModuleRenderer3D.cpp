@@ -156,6 +156,31 @@ bool ModuleRenderer3D::Init()
 	return ret;
 }
 
+bool ModuleRenderer3D::Start()
+{
+	GLubyte defaultImage[128][128][4];
+	for (int i = 0; i < 128; i++) {
+		for (int j = 0; j < 128; j++) {
+			
+			defaultImage[i][j][0] = (GLubyte)255;
+			defaultImage[i][j][1] = (GLubyte)255;
+			defaultImage[i][j][2] = (GLubyte)255;
+			defaultImage[i][j][3] = (GLubyte)255;
+		}
+	}
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &DefaultTexture);
+	glBindTexture(GL_TEXTURE_2D, DefaultTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 128, 128,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, defaultImage);
+
+	return true;
+}
+
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
@@ -333,14 +358,16 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 				ResourceTexture* tex_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());
 				if (tex_res != nullptr) {
 					Texture* temp_tex = tex_res->res_tex;
-					glBindTexture(GL_TEXTURE_2D,0);
-					glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
-					uint tex_id = glGetUniformLocation(App->shaders->shader_list[0]->mProgramID, "ourTexture");
-					glUniform1i(tex_id, 0);
-					
-					
+					UseTexture(App->shaders->shader_list[0]->mProgramID, temp_tex->GetTexture());					
 				}
 			}
+			else {
+				UseTexture(App->shaders->shader_list[0]->mProgramID);
+				
+			}
+		}
+		else {
+			UseTexture(App->shaders->shader_list[0]->mProgramID);
 		}
 		
 		float modelview[16];
@@ -429,6 +456,17 @@ void ModuleRenderer3D::RenderMesh(Mesh * m)
 }
 
 
+
+void ModuleRenderer3D::UseTexture(uint shader_id,uint i)
+{
+	if (i == 0)
+		i = DefaultTexture;
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, i);
+	//change shader
+	uint tex_id = glGetUniformLocation(shader_id, "ourTexture");
+	glUniform1i(tex_id, 0);
+}
 
 ComponentCamera * ModuleRenderer3D::GetActiveCamera()
 {

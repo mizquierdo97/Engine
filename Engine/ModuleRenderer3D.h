@@ -34,6 +34,7 @@ public:
 	~ModuleRenderer3D();
 
 	bool Init();
+	bool Start();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
@@ -48,6 +49,7 @@ public:
 	void DebugDrawBox(const float3*,Color);
 	void DebugDraw(const AABB& aabb, Color color = White, const float4x4& transform = float4x4::identity);
 
+	void UseTexture(uint shader_id = 0, uint i = 0);
 	ComponentCamera* GetActiveCamera();
 public:
 
@@ -62,7 +64,7 @@ public:
 	
 	uint mTextureID = 0;
 
-	
+	uint DefaultTexture;
 	ShaderProgram temp_shader;
 
 	//OPTIONS

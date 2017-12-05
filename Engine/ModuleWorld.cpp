@@ -95,22 +95,7 @@ update_status ModuleWorld::Update(float dt)
 update_status ModuleWorld::PostUpdate(float dt)
 {
 	
-	//Iterate Object List and Render
-
 	
-	App->shaders->shader_list[0]->bind();
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	
-	glBegin(GL_QUADS);
-	glColor3f(0.f, 1.f, 1.f);
-	glVertex2f(-0.5f, -0.5f);
-	glVertex2f(0.5f, -0.5f);
-	glVertex2f(0.5f, 0.5f);
-	glVertex2f(-0.5f, 0.5f);
-
-	glEnd();
-
-	App->shaders->shader_list[0]->unbind();
 
 	It_Update();
 	App->shaders->shader_list[0]->bind();
