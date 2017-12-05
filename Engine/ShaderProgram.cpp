@@ -121,19 +121,16 @@ bool ShaderProgram::loadProgram(uint VertexID, uint FragmentID)
 	//Generate program
 	mProgramID = glCreateProgram();
 
-	//Create vertex shader
-	//GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
+	
 	//Get vertex source
 
-	GLuint vertexShader = VertexID;//loadShaderFromFile("Assets/VertexShader.txt", ShaderType::vertex_shader);
-	//GLuint vertexShader = VertexID;
+	GLuint vertexShader = VertexID;
+	
 	//Attach vertex shader to program
 	glAttachShader(mProgramID, vertexShader);
 	
-	GLuint fragmentShader = FragmentID;// loadShaderFromFile("Assets/Shader.txt", ShaderType::pixel_shader);
-	//GLuint fragmentShader = FragmentID;
-	
+	GLuint fragmentShader = FragmentID;
+		
 	//Attach fragment shader to program
 	glAttachShader(mProgramID, fragmentShader);
 

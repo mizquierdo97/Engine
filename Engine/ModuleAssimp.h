@@ -12,6 +12,8 @@
 
 struct Mesh {
 
+	uint id_buffer = 0;
+	uint id_attributes = 0;
 	
 	uint id_vertexs = 0;
 	uint num_vertexs = 0;

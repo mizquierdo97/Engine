@@ -110,10 +110,12 @@ update_status ModuleWorld::PostUpdate(float dt)
 
 	glEnd();
 
-	App->renderer3D->temp_shader.unbind();
+	App->shaders->shader_list[0]->unbind();
 
 	It_Update();
+	
 	It_Render();
+	
 
 	if(App->renderer3D->debug_draw)
 	DebugDraw();

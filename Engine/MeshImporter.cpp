@@ -593,15 +593,56 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 
 void GenGLBuffers(Mesh* m) {
 
-	glGenBuffers(1, (GLuint*)&(m->id_vertexs));
-	glBindBuffer(GL_ARRAY_BUFFER, m->id_vertexs);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 3, m->vertexs, GL_STATIC_DRAW);
 
+
+	uint size_buffer = m->num_vertexs * 3 * sizeof(float);
+	if (m->norms != nullptr)
+		size_buffer += m->num_vertexs * 3 * sizeof(float);
+	if (m->texture_coords != nullptr)
+		size_buffer += m->num_vertexs * 2 * sizeof(float);
+	
+	//Position - Color - UVS
+	char* buffer = new char[size_buffer];
+	memset(buffer, 0, size_buffer);
+	char* cursor = buffer;
+	uint bytes = 0;
+	for (int i = 0; i < m->num_vertexs; i++) {
+		bytes = 3 * sizeof(float);
+		memcpy(cursor, &m->vertexs[i * 3], bytes);
+		cursor += bytes;
+
+		if (m->norms != nullptr) {
+			bytes = 3 * sizeof(float);
+			memcpy(cursor, &m->norms[i * 3], bytes);
+			cursor += bytes;
+
+		}
+		if (m->texture_coords != nullptr) {
+			bytes = 2 * sizeof(float);
+			memcpy(cursor, &m->texture_coords[i * 2], bytes);
+			cursor += bytes;
+		}
+
+	}
+	int x = 0;
+
+
+	glGenBuffers(1, &m->id_buffer);	
+	glBindBuffer(GL_ARRAY_BUFFER, m->id_buffer);	
+	glBufferData(GL_ARRAY_BUFFER, size_buffer, buffer, GL_STATIC_DRAW);
 
 	glGenBuffers(1, (GLuint*)&m->id_indices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->id_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *m->num_indices, m->indices, GL_STATIC_DRAW);
 	LOG("Faces buffer created sucessfully");
+	/*
+
+	glGenBuffers(1, (GLuint*)&(m->id_vertexs));
+	glBindBuffer(GL_ARRAY_BUFFER, m->id_vertexs);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 3, m->vertexs, GL_STATIC_DRAW);
+
+
+	
 
 	glGenBuffers(1, (GLuint*)&m->id_textures);
 	glBindBuffer(GL_ARRAY_BUFFER, m->id_textures);
@@ -613,6 +654,6 @@ void GenGLBuffers(Mesh* m) {
 	glBindBuffer(GL_ARRAY_BUFFER, m->id_norms);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 3, m->norms, GL_STATIC_DRAW);
 	LOG("Normals buffer created sucessfully");
-
+	*/
 
 }

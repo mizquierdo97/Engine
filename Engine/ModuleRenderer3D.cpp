@@ -16,6 +16,8 @@
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
 ModuleRenderer3D::ModuleRenderer3D( bool start_enabled) : Module( start_enabled)
 {
 }
@@ -298,9 +300,26 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		matrixfloat[0][3],matrixfloat[1][3],matrixfloat[2][3],matrixfloat[3][3]
 	};
 	
-
+	uint offset = sizeof(float)* (3+3+2);	
 	Mesh m = ((ResourceMesh*)comp->GetResource())->obj_mesh;
+
+	if (m.texture_coords == nullptr)
+		offset -= sizeof(float) * 2;
+	if (m.norms == nullptr)
+		offset -= sizeof(float) * 3;
+
+	glBindBuffer(GL_ARRAY_BUFFER, m.id_buffer);
+	glEnableVertexAttribArray(0);    //We like submitting vertices on stream 0 for no special reason
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, offset, 0);   //The starting point of the VBO, for the vertices
+	glEnableVertexAttribArray(1);    //We like submitting normals on stream 1 for no special reason
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float)*3) );     //The starting point of normals, 12 bytes away
+	glEnableVertexAttribArray(2);    //We like submitting texcoords on stream 2 for no special reason
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float) * 3));   //The starting point of texcoords, 24 bytes away
+
+
+	
 	if (m.id_indices != NULL) {
+		/*
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -311,13 +330,16 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 			glNormalPointer(GL_FLOAT, 0, NULL);
 		}
 
-		
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-		if (m.id_textures != NULL) {
-		
+	*/
+	/*	if (m.texture_coords != nullptr) {
+
 			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
 				ComponentMaterial* mat = comp->GetParent()->GetMaterial();
-				ResourceTexture* tex_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());	
+				ResourceTexture* tex_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());
 				if (tex_res != nullptr) {
 					Texture* temp_tex = tex_res->res_tex;
 					glEnable(GL_TEXTURE_2D);
@@ -329,18 +351,17 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 					glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
 				}
 			}
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
-			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-		}
+
+		}*/
+
 		glPushMatrix();
 		glMultMatrixf(matrix);
-		if(m.id_indices != NULL)
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
+		if (m.id_indices != NULL)
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
 		glDrawElements(GL_TRIANGLES, m.num_indices, GL_UNSIGNED_INT, NULL);
 		glPopMatrix();
-	
-		}
+
+	}
 
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_ALPHA_TEST);
