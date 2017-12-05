@@ -1,4 +1,6 @@
-
+#include "Application.h"
+#include "ResourceShader.h"
+#include "ModuleResourceManager.h"
 #include "ShaderProgram.h"
 #include "Shader.h"
 #include "Glew\include\glew.h"
@@ -133,8 +135,49 @@ bool ShaderProgram::loadProgram(uint VertexID, uint FragmentID)
 		
 	//Attach fragment shader to program
 	glAttachShader(mProgramID, fragmentShader);
+	
+	//Link program
+	glLinkProgram(mProgramID);
 
+	//Check for errors
+	glGetProgramiv(mProgramID, GL_LINK_STATUS, &programSuccess);
+	if (programSuccess != GL_TRUE)
+	{
+		printf("Error linking program %d!\n", mProgramID);
+		printProgramLog(mProgramID);
+		return false;
+	}
+	vertexID = vertexShader;
+	fragmentID = fragmentShader;
 
+	return true;
+}
+
+bool ShaderProgram::UpdateShader(uint VertexID, uint FragmentID)
+{
+	//Success flag
+	GLint programSuccess = GL_TRUE;
+
+	//Generate program
+	
+	//Detach actual shaders
+
+	
+	//Get vertex source
+	if (VertexID != 0) {
+		GLuint vertexShader = VertexID;
+		glDetachShader(mProgramID, vertexID);
+		//Attach vertex shader to program
+		glAttachShader(mProgramID, vertexShader);
+	}
+
+	if (FragmentID != 0) {
+		GLuint fragmentShader = FragmentID;
+
+		glDetachShader(mProgramID, fragmentID);
+		//Attach fragment shader to program
+		glAttachShader(mProgramID, fragmentShader);
+	}
 	//Link program
 	glLinkProgram(mProgramID);
 
@@ -147,5 +190,25 @@ bool ShaderProgram::loadProgram(uint VertexID, uint FragmentID)
 		return false;
 	}
 
+	return true;
+}
+
+bool ShaderProgram::UpdateShader(std::string vs_path, std::string fs_path)
+{
+	uint vs_ID = 0;
+	uint fs_ID = 0;
+	if (strcmp(vs_path.c_str(), "")) {
+		UUID v_res_uuid = App->resources->Find(vs_path.c_str());
+		ResourceShader* v_res = (ResourceShader*)App->resources->Get(v_res_uuid);
+		vs_ID = v_res->res_shader->shader_id;
+	}
+
+	if (strcmp(fs_path.c_str(), "")) {
+		UUID f_res_uuid = App->resources->Find(fs_path.c_str());
+		ResourceShader* f_res = (ResourceShader*)App->resources->Get(f_res_uuid);
+		fs_ID = f_res->res_shader->shader_id;
+	}
+		
+	UpdateShader(vs_ID, fs_ID);
 	return true;
 }

@@ -315,7 +315,12 @@ bool ModuleRenderer3D::Options()
 
 void ModuleRenderer3D::Render(ComponentMesh* comp)
 {	
-	App->shaders->shader_list[0]->bind();
+
+	ShaderProgram* shader;
+	shader = &App->shaders->default_shader;
+	
+
+	
 	float4x4 matrixfloat = comp->GetParent()->GetTransform()->GetMatrix();
 	GLfloat matrix[16] =
 	{
@@ -325,9 +330,19 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		matrixfloat[0][3],matrixfloat[1][3],matrixfloat[2][3],matrixfloat[3][3]
 	};
 	
-	uint offset = sizeof(float)* (3+3+2+4);	
+
 	Mesh m = ((ResourceMesh*)comp->GetResource())->obj_mesh;
 
+	if (m.texture_coords != nullptr) {
+		if (texture && comp->GetParent()->GetMaterial() != nullptr) {
+			ComponentMaterial* mat = comp->GetParent()->GetMaterial();
+			if (mat->shader.mProgramID != 0) {
+				shader = &mat->shader;
+			}
+		}
+	}
+	shader->bind();
+	uint offset = sizeof(float)* (3 + 3 + 2 + 4);
 	if (m.texture_coords == nullptr)
 		offset -= sizeof(float) * 2;
 	if (m.norms == nullptr)
@@ -358,16 +373,16 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 				ResourceTexture* tex_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());
 				if (tex_res != nullptr) {
 					Texture* temp_tex = tex_res->res_tex;
-					UseTexture(App->shaders->shader_list[0]->mProgramID, temp_tex->GetTexture());					
+					UseTexture(shader->mProgramID, temp_tex->GetTexture());
 				}
 			}
 			else {
-				UseTexture(App->shaders->shader_list[0]->mProgramID);
+				UseTexture(shader->mProgramID);
 				
 			}
 		}
 		else {
-			UseTexture(App->shaders->shader_list[0]->mProgramID);
+			UseTexture(shader->mProgramID);
 		}
 		
 		float modelview[16];
@@ -376,13 +391,18 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		float projectview[16];
 		glGetFloatv(GL_PROJECTION_MATRIX, projectview);
 
-		GLint modelLoc = glGetUniformLocation(App->shaders->shader_list[0]->mProgramID, "model");
+
+
+
+		GLint modelLoc = glGetUniformLocation(shader->mProgramID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, matrix);
 
-		GLint viewLoc = glGetUniformLocation(App->shaders->shader_list[0]->mProgramID, "viewproj");
+		GLint viewLoc = glGetUniformLocation(shader->mProgramID, "viewproj");
 
 		glUniformMatrix4fv(viewLoc, 1, GL_TRUE,App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().ptr());
 
+
+		
 	
 
 		if (m.id_indices != NULL)
@@ -394,7 +414,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_ALPHA_TEST);
-	App->shaders->shader_list[0]->unbind();
+	shader->unbind();
 	Color color = Color(0, 0, 1);	
 	if (App->renderer3D->debug_draw) {
 		

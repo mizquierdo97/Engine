@@ -16,8 +16,6 @@ public :
 
 	~ResourceShader() {};
 
-
-
 	bool LoadInMemory();
 	bool EraseInMemory() {
 		//TODO

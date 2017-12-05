@@ -66,7 +66,6 @@ update_status ModuleWorld::PreUpdate(float dt)
 	if (App->input->file_dropped) {
 		FileDropped();
 	}
-		
 	
 	world_texture->Bind();
 	return UPDATE_CONTINUE;
@@ -98,9 +97,9 @@ update_status ModuleWorld::PostUpdate(float dt)
 	
 
 	It_Update();
-	App->shaders->shader_list[0]->bind();
+	
 	It_Render();
-	App->shaders->shader_list[0]->unbind();
+	
 
 	if(App->renderer3D->debug_draw)
 	DebugDraw();

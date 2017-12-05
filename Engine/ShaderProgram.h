@@ -2,21 +2,22 @@
 #define _SHADER_PROGRAM
 
 #include "Globals.h"
-
+#include <string>
 
 class ShaderProgram {
 public:
 	ShaderProgram();
 
-	virtual ~ShaderProgram();
+	~ShaderProgram();
 
 
-	virtual bool loadProgram(uint VertexID, uint FragmentID);
+	bool loadProgram(uint VertexID, uint FragmentID);
 
-	//virtual uint loadShaderFromFile(std::string path, ShaderType type);
+	bool UpdateShader(uint VertexID =0, uint FragmentID =0);
 
+	bool UpdateShader(std::string VertexID = "", std::string FragmentID = "");
 
-	virtual void freeProgram();
+	void freeProgram();
 
 
 	bool bind();

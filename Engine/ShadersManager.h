@@ -17,6 +17,7 @@ public:
 	};
 
 
+
 	bool Init();
 	bool Start();
 	bool CleanUp();
@@ -25,8 +26,11 @@ public:
 	update_status Update(float dt);
 	
 	void CreateShader(std::string vs_path, std::string fs_path, std::string name);
+	bool CreateDefaultShader();
 public:
 	std::vector<ShaderProgram*> shader_list;
+
+	ShaderProgram default_shader;
 };
 
 
