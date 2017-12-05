@@ -484,7 +484,7 @@ void ModuleRenderer3D::UseTexture(uint shader_id,uint i)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindTexture(GL_TEXTURE_2D, i);
 	//change shader
-	uint tex_id = glGetUniformLocation(shader_id, "ourTexture");
+	uint tex_id = glGetUniformLocation(shader_id, "_texture");
 	glUniform1i(tex_id, 0);
 }
 

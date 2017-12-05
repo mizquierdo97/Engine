@@ -40,8 +40,12 @@ void ComponentMaterial::ShowInspectorComponents()
 			
 			ImGui::ColorPicker4("##picker", (float*)&color,  ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
 
-			
-			GLint colorLoc = glGetUniformLocation(shader.mProgramID, "myColor");
+			static float time_dt = 0;
+			time_dt += App->rtime.dt;
+
+			GLint timeLoc = glGetUniformLocation(shader.mProgramID, "_time");
+			glUniform1f(timeLoc, sin(time_dt));
+			GLint colorLoc = glGetUniformLocation(shader.mProgramID, "_color");
 			glUniform4fv(colorLoc, 1, &color[0]);
 
 			shader.unbind();

@@ -75,16 +75,19 @@ bool ShadersManager::CreateDefaultShader()
 		"layout(location = 1) in vec3 normal;\n"
 		"layout(location = 2) in vec2 texCoord;\n"
 		"layout(location = 3) in vec4 color;\n"
+		"out float ourTime;\n"
 		"out vec4 ourColor;\n"
 		"out vec2 TexCoord;\n"
-		"uniform vec4 myColor;\n"
+		"uniform float _time;\n"
+		"uniform vec4 _color;\n"
 		"uniform mat4 model;\n"
 		"uniform mat4 viewproj;\n"
 		"void main()\n"
 		"{\n"
 			"gl_Position = viewproj *  model * vec4(position, 1.0f);\n"
-		"ourColor = myColor;\n"
+			"ourColor = _color;\n"
 			"TexCoord = texCoord;\n"
+			"ourTime = _time;\n"
 		"}\n"
 	};
 
@@ -115,12 +118,13 @@ bool ShadersManager::CreateDefaultShader()
 	{
 		"#version 330 core\n"
 		"in vec4 ourColor;\n"
+		"in float ourTime;"
 		"in vec2 TexCoord;\n"
 		"out vec4 color;\n"
-		"uniform sampler2D ourTexture;\n"
+		"uniform sampler2D _texture;\n"
 		"void main()\n"
 		"{\n"
-			"color = texture(ourTexture, TexCoord) * ourColor;\n"
+		"color = texture(_texture, TexCoord) * vec4(ourColor.r * ourTime,ourColor.g,ourColor.b,ourColor.a);\n"
 		"}\n"
 	};
 
