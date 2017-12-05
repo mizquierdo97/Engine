@@ -635,25 +635,6 @@ void GenGLBuffers(Mesh* m) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m->id_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *m->num_indices, m->indices, GL_STATIC_DRAW);
 	LOG("Faces buffer created sucessfully");
-	/*
-
-	glGenBuffers(1, (GLuint*)&(m->id_vertexs));
-	glBindBuffer(GL_ARRAY_BUFFER, m->id_vertexs);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 3, m->vertexs, GL_STATIC_DRAW);
-
-
 	
-
-	glGenBuffers(1, (GLuint*)&m->id_textures);
-	glBindBuffer(GL_ARRAY_BUFFER, m->id_textures);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 2, &m->texture_coords[0], GL_STATIC_DRAW);
-	LOG("Texture coords: buffer created sucessfully");
-
-
-	glGenBuffers(1, (GLuint*)&(m->id_norms));
-	glBindBuffer(GL_ARRAY_BUFFER, m->id_norms);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->num_vertexs * 3, m->norms, GL_STATIC_DRAW);
-	LOG("Normals buffer created sucessfully");
-	*/
 
 }

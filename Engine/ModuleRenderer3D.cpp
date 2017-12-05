@@ -290,7 +290,7 @@ bool ModuleRenderer3D::Options()
 
 void ModuleRenderer3D::Render(ComponentMesh* comp)
 {	
-	
+	App->shaders->shader_list[0]->bind();
 	float4x4 matrixfloat = comp->GetParent()->GetTransform()->GetMatrix();
 	GLfloat matrix[16] =
 	{
@@ -314,58 +314,54 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	glEnableVertexAttribArray(1);    //We like submitting normals on stream 1 for no special reason
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float)*3) );     //The starting point of normals, 12 bytes away
 	glEnableVertexAttribArray(2);    //We like submitting texcoords on stream 2 for no special reason
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float) * 3));   //The starting point of texcoords, 24 bytes away
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float) * 3*2));   //The starting point of texcoords, 24 bytes away
 
 
 	
 	if (m.id_indices != NULL) {
-		/*
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glBindBuffer(GL_ARRAY_BUFFER, m.id_vertexs);
-		glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-		if (m.id_norms != NULL) {
-			glEnableClientState(GL_NORMAL_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, m.id_norms);
-			glNormalPointer(GL_FLOAT, 0, NULL);
-		}
-
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER,m.id_textures);
-			glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-
-	*/
-	/*	if (m.texture_coords != nullptr) {
-
+	
+		
+		if (m.texture_coords != nullptr) {
 			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
 				ComponentMaterial* mat = comp->GetParent()->GetMaterial();
 				ResourceTexture* tex_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());
 				if (tex_res != nullptr) {
 					Texture* temp_tex = tex_res->res_tex;
-					glEnable(GL_TEXTURE_2D);
-					glBindTexture(GL_TEXTURE_2D, 0);
-					if (mat->GetAlphaTest() < 1.0f) {
-						glEnable(GL_ALPHA_TEST);
-						glAlphaFunc(GL_GREATER, mat->GetAlphaTest());
-					}
+					glBindTexture(GL_TEXTURE_2D,0);
 					glBindTexture(GL_TEXTURE_2D, temp_tex->GetTexture());
+					uint tex_id = glGetUniformLocation(App->shaders->shader_list[0]->mProgramID, "ourTexture");
+					glUniform1i(tex_id, 0);
+					
+					
 				}
 			}
+		}
+		
+		float modelview[16];
+		glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
 
-		}*/
+		float projectview[16];
+		glGetFloatv(GL_PROJECTION_MATRIX, projectview);
 
-		glPushMatrix();
-		glMultMatrixf(matrix);
+		GLint modelLoc = glGetUniformLocation(App->shaders->shader_list[0]->mProgramID, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, matrix);
+
+		GLint viewLoc = glGetUniformLocation(App->shaders->shader_list[0]->mProgramID, "viewproj");
+
+		glUniformMatrix4fv(viewLoc, 1, GL_TRUE,App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().ptr());
+
+	
+
 		if (m.id_indices != NULL)
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
 		glDrawElements(GL_TRIANGLES, m.num_indices, GL_UNSIGNED_INT, NULL);
 		glPopMatrix();
 
 	}
-
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_ALPHA_TEST);
-
+	App->shaders->shader_list[0]->unbind();
 	Color color = Color(0, 0, 1);	
 	if (App->renderer3D->debug_draw) {
 		

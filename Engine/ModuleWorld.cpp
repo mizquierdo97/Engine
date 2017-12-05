@@ -113,9 +113,9 @@ update_status ModuleWorld::PostUpdate(float dt)
 	App->shaders->shader_list[0]->unbind();
 
 	It_Update();
-	
+	App->shaders->shader_list[0]->bind();
 	It_Render();
-	
+	App->shaders->shader_list[0]->unbind();
 
 	if(App->renderer3D->debug_draw)
 	DebugDraw();

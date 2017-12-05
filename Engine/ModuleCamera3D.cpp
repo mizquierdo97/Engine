@@ -330,8 +330,7 @@ void ModuleCamera3D::CalculateViewMatrix()
 	dummyfrustum->cam_frustum.front = -Z;
 	dummyfrustum->cam_frustum.up = Y;
 
-	//	ViewMatrix = float4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -X.Dot(Position), -Y.Dot(Position), -Z.Dot(Position), 1.0f);
-	//ViewMatrixInverse = ViewMatrix.Inverted();
+	
 }
 
 GameObject * ModuleCamera3D::Raycast(const LineSegment & segment, float  &dist)const
