@@ -300,7 +300,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		matrixfloat[0][3],matrixfloat[1][3],matrixfloat[2][3],matrixfloat[3][3]
 	};
 	
-	uint offset = sizeof(float)* (3+3+2);	
+	uint offset = sizeof(float)* (3+3+2+4);	
 	Mesh m = ((ResourceMesh*)comp->GetResource())->obj_mesh;
 
 	if (m.texture_coords == nullptr)
@@ -311,12 +311,18 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	glBindBuffer(GL_ARRAY_BUFFER, m.id_buffer);
 	glEnableVertexAttribArray(0);    //We like submitting vertices on stream 0 for no special reason
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, offset, 0);   //The starting point of the VBO, for the vertices
-	glEnableVertexAttribArray(1);    //We like submitting normals on stream 1 for no special reason
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float)*3) );     //The starting point of normals, 12 bytes away
-	glEnableVertexAttribArray(2);    //We like submitting texcoords on stream 2 for no special reason
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float) * 3*2));   //The starting point of texcoords, 24 bytes away
-
-
+	
+	if (m.norms != nullptr) {
+		glEnableVertexAttribArray(1);    //We like submitting normals on stream 1 for no special reason
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float) * 3));     //The starting point of normals, 12 bytes away
+	}
+	if (m.texture_coords != nullptr) {
+		glEnableVertexAttribArray(2);    //We like submitting texcoords on stream 2 for no special reason
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float) * (3 + 3)));   //The starting point of texcoords, 24 bytes away
+	}
+	glEnableVertexAttribArray(3);    //We like submitting texcoords on stream 2 for no special reason
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, offset, BUFFER_OFFSET(sizeof(float) *(3 + 3 + 2)));
+	
 	
 	if (m.id_indices != NULL) {
 	

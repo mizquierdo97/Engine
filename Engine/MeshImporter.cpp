@@ -77,9 +77,9 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 		m = scene->mMeshes[i];
 
 		//GET SIZE AND ALLOVATE MEMORY
-		uint ranges[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+		uint ranges[5] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() ,m->HasVertexColors(0) };
 
-		size += sizeof(uint) * 4;
+		size += sizeof(uint) * 5;
 
 		size += sizeof(float)* m->mNumVertices * 3 + sizeof(uint);
 
@@ -91,6 +91,9 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 		}
 		if (m->HasNormals()) {
 			size += sizeof(float)*m->mNumVertices * 3;
+		}
+		if (m->HasVertexColors(0)) {
+			size += sizeof(float)*m->mNumVertices * 4;
 		}
 		data_mesh = new char[size];
 		cursor = data_mesh;
@@ -124,7 +127,7 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 			continue;			
 		}
 
-		bytes = sizeof(uint) * 4;
+		bytes = sizeof(uint) * 5;
 		memcpy(cursor, ranges, bytes);
 		cursor += bytes;
 
@@ -153,6 +156,11 @@ void CreateBinary(aiScene* scene, const char * dir_path, const char* name) {
 		if (m->HasNormals()) {
 			bytes = sizeof(float) *m->mNumVertices * 3;
 			memcpy(cursor, m->mNormals, bytes);
+			cursor += bytes;
+		}
+		if (m->HasVertexColors(0)) {
+			bytes = sizeof(float) *m->mNumVertices * 4;
+			memcpy(cursor, m->mColors, bytes);
 			cursor += bytes;
 		}
 
@@ -239,7 +247,7 @@ uint GetRecursiveSize(aiNode* root, aiScene* scene) {
 
 	do {
 		
-		uint ranges[4] = { 0,0,0,0 };
+		uint ranges[5] = { 0,0,0,0,0 };
 		size += sizeof(ranges);
 		
 
@@ -273,10 +281,10 @@ bool MeshImporter::CreateMesh(const char * path,ResourceMesh* res)
 
 	uint bytes;
 	Mesh m;
-	uint ranges[4];
+	uint ranges[5];
 	
 
-	bytes = sizeof(uint) * 4;
+	bytes = sizeof(uint) * 5;
 	memcpy(ranges, cursor_mesh, bytes);
 	cursor_mesh += bytes;
 
@@ -304,6 +312,12 @@ bool MeshImporter::CreateMesh(const char * path,ResourceMesh* res)
 		bytes = sizeof(float) * m.num_vertexs * 3;
 		m.norms = new float[m.num_vertexs * 3];
 		memcpy(m.norms, cursor_mesh, bytes);
+		cursor_mesh += bytes;
+	}
+	if (ranges[4]) {
+		bytes = sizeof(float) * m.num_vertexs * 3;
+		m.colors = new float[m.num_vertexs * 4];
+		memcpy(m.colors, cursor_mesh, bytes);
 		cursor_mesh += bytes;
 	}
 
@@ -343,7 +357,7 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 	aiVector3D translation = { 0,0,0 };
 	aiVector3D scaling = { 1,1,1 };
 	aiQuaternion rotation = { 0,0,0,0 };
-	uint ranges[4] = { 0,0,0,0 };
+	uint ranges[5] = { 0,0,0,0,0 };
 	int num_mesh = 0;
 
 	bytes = sizeof(uint);
@@ -354,7 +368,7 @@ void TransformMeshToBinary(aiNode* root, char** cursor, aiScene* scene, int i, c
 		
 		if (root->mNumMeshes > 0) {
 			m = scene->mMeshes[root->mMeshes[num_mesh]];
-			uint temp[4] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals() };
+			uint temp[5] = { m->mNumVertices, m->mNumFaces * 3,m->HasTextureCoords(0),m->HasNormals(), m->HasVertexColors(0) };
 			memcpy(ranges, temp, sizeof(ranges));
 			
 			for (uint i = 0; i < m->mNumFaces; ++i)
@@ -482,7 +496,7 @@ void RecursiveLoad(char** cursor, GameObject* parent) {
 
 GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_childs) {
 
-	uint ranges[4];
+	uint ranges[5];
 	Mesh m;
 	aiVector3D translation;
 	aiQuaternion rotation;
@@ -536,7 +550,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 		UUID obj_uuid = IID_NULL;
 		ResourceMesh* res = nullptr;
 
-		memcpy(&App->filesystem->mesh_importer->actual_ranges, &ranges, 4 * sizeof(uint));
+		memcpy(&App->filesystem->mesh_importer->actual_ranges, &ranges, 5 * sizeof(uint));
 		//App->filesystem->mesh_importer->actual_ranges = ranges;
 
 
@@ -595,7 +609,7 @@ void GenGLBuffers(Mesh* m) {
 
 
 
-	uint size_buffer = m->num_vertexs * 3 * sizeof(float);
+	uint size_buffer = m->num_vertexs * 3 * sizeof(float) + m->num_vertexs*4*sizeof(float);
 	if (m->norms != nullptr)
 		size_buffer += m->num_vertexs * 3 * sizeof(float);
 	if (m->texture_coords != nullptr)
@@ -622,7 +636,17 @@ void GenGLBuffers(Mesh* m) {
 			memcpy(cursor, &m->texture_coords[i * 2], bytes);
 			cursor += bytes;
 		}
-
+		if (m->colors != nullptr) {
+			bytes = 4 * sizeof(float);
+			memcpy(cursor, &m->colors[i * 4], bytes);
+			cursor += bytes;
+		}
+		else {
+			float color[4] = { 1.0f,1.0f,1.0f,1.0f };
+			bytes = 4 * sizeof(float);
+			memcpy(cursor, &color[0], bytes);
+			cursor += bytes;
+		}
 	}
 	int x = 0;
 

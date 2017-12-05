@@ -22,5 +22,5 @@ public:
 
 public:
 
-	uint actual_ranges[4] = {0,0,0,0};
+	uint actual_ranges[5] = {0,0,0,0,0};
 };
