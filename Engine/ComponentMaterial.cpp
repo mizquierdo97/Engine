@@ -44,7 +44,7 @@ void ComponentMaterial::ShowInspectorComponents()
 			time_dt += App->rtime.dt;
 
 			GLint timeLoc = glGetUniformLocation(shader.mProgramID, "_time");
-			glUniform1f(timeLoc, sin(time_dt));
+			glUniform1f(timeLoc, time_dt);
 			GLint colorLoc = glGetUniformLocation(shader.mProgramID, "_color");
 			glUniform4fv(colorLoc, 1, &color[0]);
 

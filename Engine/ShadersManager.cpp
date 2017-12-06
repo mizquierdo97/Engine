@@ -33,6 +33,23 @@ update_status ShadersManager::PreUpdate(float dt)
 
 update_status ShadersManager::Update(float dt)
 {
+	std::vector<ShaderProgram*>::iterator item = shader_list.begin();
+	static float time_dt = 0;
+	time_dt += dt;
+	while (item != shader_list.end()) {
+		(*item)->bind();
+
+		//TIME
+		
+		GLint timeLoc = glGetUniformLocation((*item)->mProgramID, "_time");
+		glUniform1f(timeLoc, sin(time_dt));
+
+		(*item)->unbind();
+
+
+		item++;
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -84,7 +101,7 @@ bool ShadersManager::CreateDefaultShader()
 		"uniform mat4 viewproj;\n"
 		"void main()\n"
 		"{\n"
-			"gl_Position = viewproj *  model * vec4(position, 1.0f);\n"
+		"gl_Position = viewproj *  model * vec4(position.x,position.y,position.z, 1.0f);\n"
 			"ourColor = _color;\n"
 			"TexCoord = texCoord;\n"
 			"ourTime = _time;\n"
@@ -124,7 +141,7 @@ bool ShadersManager::CreateDefaultShader()
 		"uniform sampler2D _texture;\n"
 		"void main()\n"
 		"{\n"
-		"color = texture(_texture, TexCoord) * vec4(ourColor.r * ourTime,ourColor.g,ourColor.b,ourColor.a);\n"
+		"color = texture(_texture, TexCoord) * vec4(ourColor.r,ourColor.g,ourColor.b,0.5f);\n"
 		"}\n"
 	};
 

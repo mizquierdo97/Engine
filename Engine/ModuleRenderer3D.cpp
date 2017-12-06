@@ -348,6 +348,10 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	if (m.norms == nullptr)
 		offset -= sizeof(float) * 3;
 
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glBindBuffer(GL_ARRAY_BUFFER, m.id_buffer);
 	glEnableVertexAttribArray(0);    //We like submitting vertices on stream 0 for no special reason
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, offset, 0);   //The starting point of the VBO, for the vertices
@@ -414,6 +418,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_BLEND);
 	shader->unbind();
 	Color color = Color(0, 0, 1);	
 	if (App->renderer3D->debug_draw) {
