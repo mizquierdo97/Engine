@@ -51,6 +51,40 @@ update_status ShadersManager::Update(float dt)
 		item++;
 	}
 
+	if (shaders_window) {
+
+		float2 next_win_size = float2(500, 600);
+		ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
+		ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+
+		if (ImGui::Begin("Shaders", &shaders_window)) {
+
+			ImGui::Columns(2, "shader_type");
+			ImGui::Separator();
+
+			if (!vertex_shader_window) {
+				if (ImGui::Button("Load")) {
+					vertex_shader_window = true;
+
+				}; ImGui::SameLine();
+				ImGui::Button("New");
+				if (vertex_shader_window) {
+					ShowVertexShadersFolder();
+				}
+				
+			}
+			else {
+				ShowVertexShadersFolder();
+			}
+			
+			ImGui::NextColumn();
+			ImGui::Button("Load"); ImGui::SameLine();
+			ImGui::Button("New");
+		}
+		ImGui::End();
+	}
+	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -181,5 +215,66 @@ bool ShadersManager::CreateDefaultShader()
 	shader_list.push_back(&default_shader);
 	return true;
 	
+}
+
+void ShadersManager::ShowVertexShadersFolder()
+{
+	std::vector<std::string> path_vect;
+	std::string popupElements;
+	std::string path = ASSETS_PATH;
+	for (auto & p : fs::directory_iterator(path)) {
+
+		//GET STRING
+		const wchar_t* temp = p.path().c_str();
+		std::wstring ws(temp);
+		std::string str(ws.begin(), ws.end());
+		str = NormalizePath(str.c_str());
+
+		std::string file_extension = GetExtension(str);
+		if (!strcmp(file_extension.c_str(), "vrsh")) {
+
+			path_vect.push_back(str);
+			popupElements += GetFileName(str);
+			popupElements += '\0';
+		}
+		
+		std::reverse(path_vect.begin(), path_vect.end());
+	}
+	int shader_pos = 0;
+	if (ImGui::Combo("Inputs Mode", &shader_pos, popupElements.c_str())) {
+
+
+	}
+	static char* shader_text = GetShaderText(path_vect[shader_pos]);
+	ImGui::Text(shader_text);
+
+}
+
+char * ShadersManager::GetShaderText(std::string path)
+{
+	FILE * pFile;
+	long lSize;
+	char * buffer;
+	size_t result;
+	std::string string_buffer;
+	pFile = fopen(path.c_str(), "rb");
+	if (pFile == NULL) { fputs("File error", stderr); exit(1); }
+
+	// obtain file size:
+	fseek(pFile, 0, SEEK_END);
+	lSize = ftell(pFile);
+	rewind(pFile);
+
+	// allocate memory to contain the whole file:
+	buffer = new char[lSize + 1];// (char*)malloc(sizeof(char)*lSize);
+	memset(buffer, 0, lSize + 1);
+	if (buffer == NULL) { fputs("Memory error", stderr); exit(2); }
+
+	// copy the file into the buffer:
+	result = fread(buffer, 1, lSize, pFile);
+
+	fclose(pFile);
+
+	return buffer;
 }
 

@@ -204,6 +204,10 @@ update_status ModuleGUI::Update(float dt)
 					CreateObject();
 
 				}
+				if (ImGui::MenuItem("Shader")) {
+					App->shaders->shaders_window = true;
+
+				}
 				ImGui::EndMenu();
 			}
 

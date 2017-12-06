@@ -28,10 +28,16 @@ public:
 	void CreateShader(std::string vs_path, std::string fs_path, std::string name);
 	bool CreateDefaultShader();
 	ShaderProgram Find(std::string name);
+	void ShowVertexShadersFolder();
+
+	char* GetShaderText(std::string path);
 public:
 	std::vector<ShaderProgram*> shader_list;
 
 	ShaderProgram default_shader;
+
+	bool shaders_window = false;
+	bool vertex_shader_window = false;
 };
 
 

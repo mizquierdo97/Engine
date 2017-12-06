@@ -7,8 +7,12 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string>
+#include <iostream>
+#include <filesystem>
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
+
+namespace fs = std::experimental::filesystem;
 
 void log(const char file[], int line, const char* format, ...);
 std::string GetExtension(std::string path);

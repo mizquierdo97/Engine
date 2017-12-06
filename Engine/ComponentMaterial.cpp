@@ -47,11 +47,7 @@ void ComponentMaterial::ShowInspectorComponents()
 
 			shader.bind();
 
-			static float4 color = float4(1.0f, 0.0f, 0.0f, 1.0f);
-		
-
-			
-
+			static float4 color = float4(1.0f, 1.0f, 1.0f, 1.0f);
 
 			ImGui::ColorPicker4("##picker", (float*)&color,  ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
 
@@ -64,9 +60,6 @@ void ComponentMaterial::ShowInspectorComponents()
 			glUniform4fv(colorLoc, 1, &color[0]);
 
 			shader.unbind();
-
-
-
 		}
 	}
 
