@@ -163,7 +163,7 @@ void ModuleWorld::It_Render()
 	}
 	
 	if (using_octree) {
-		std::vector<GameObject*> objects;
+		std::map<float, GameObject*> objects;
 
 		//GetThe camera Camera
 		ComponentCamera* cam = App->renderer3D->GetActiveCamera();
@@ -172,12 +172,12 @@ void ModuleWorld::It_Render()
 		if (cam != nullptr && cam->frustum_culling == true)
 			quadtree.root->CollectIntersectionsFrus(objects, cam->cam_frustum);
 		else
-			quadtree.CollectObjects(objects);
+			quadtree.CollectObjects(objects,cam->cam_frustum.pos);
 
 		//RENDER STATIC OBJECTS
-		for (std::vector<GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it) {
-			if ((*it)->IsEnabled())
-				(*it)->Draw();
+		for (std::map<float,GameObject*>::reverse_iterator it = objects.rbegin(); it != objects.rend(); ++it) {
+			if ((*it).second->IsEnabled())
+				(*it).second->Draw();
 		}
 
 		//RENDER NON-STATIC OBJECTS

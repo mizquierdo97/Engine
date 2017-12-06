@@ -522,7 +522,7 @@ void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color)
 {
 	glColor4f(color.r, color.g, color.b,1.0f);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDisable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE);
 	glBegin(GL_QUADS);
 	
 	
@@ -557,5 +557,5 @@ void ModuleRenderer3D::DebugDrawBox(const float3* corners, Color color)
 	glVertex3fv((GLfloat*)&corners[1]); //glVertex3f(-sx, -sy,  sz);
 	
 	glEnd();
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 }

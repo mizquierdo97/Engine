@@ -22,7 +22,7 @@ public:
 	template<typename TYPE>
 	void CollectIntersections(std::map<float, GameObject*>& objects, const TYPE & primitive) const;
 	void CollectObjects(std::map<float, GameObject*>& objects, const float3& origin) const;
-	void CollectIntersectionsFrus(std::vector<GameObject*>& objects, const math::Frustum & primitive) const;
+	void CollectIntersectionsFrus(std::map<float, GameObject*>& objects, const math::Frustum & primitive) const;
 
 public:
 	

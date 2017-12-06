@@ -200,7 +200,7 @@ void QuadtreeNode::CollectObjects(std::map<float, GameObject*>& objects, const f
 
 }
 
-void QuadtreeNode::CollectIntersectionsFrus(std::vector<GameObject*>& objects, const math::Frustum & primitive) const
+void QuadtreeNode::CollectIntersectionsFrus(std::map<float,GameObject*>& objects, const math::Frustum & primitive) const
 {
 
 	int temp = primitive.ContainsAaBox(bounds);
@@ -208,13 +208,14 @@ void QuadtreeNode::CollectIntersectionsFrus(std::vector<GameObject*>& objects, c
 	{
 		float hit_near, hit_far;
 		if (temp == 1) {
-			CollectObjects(objects);
+			CollectObjects(objects, App->renderer3D->GetActiveCamera()->cam_frustum.pos);
 		}
 		if (temp == 0) {
 			for (std::list<GameObject*>::const_iterator it = this->objects.begin(); it != this->objects.end(); ++it)
 			{
 				if (primitive.Intersects((*it)->GetGlobalBBox(), hit_near, hit_far))
-					objects.push_back(*it);
+					objects[hit_near] = *it;
+					//objects.push_back(*it);
 			}
 			if (nodes[0] != nullptr) {
 				if (temp == 0) {

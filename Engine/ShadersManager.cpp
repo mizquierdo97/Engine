@@ -141,7 +141,7 @@ bool ShadersManager::CreateDefaultShader()
 		"uniform sampler2D _texture;\n"
 		"void main()\n"
 		"{\n"
-		"color = texture(_texture, TexCoord) * vec4(ourColor.r,ourColor.g,ourColor.b,0.5f);\n"
+		"color = texture(_texture, TexCoord) * vec4(ourColor.r,ourColor.g,ourColor.b,ourColor.a);\n"
 		"}\n"
 	};
 
