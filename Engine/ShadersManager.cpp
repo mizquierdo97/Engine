@@ -52,36 +52,8 @@ update_status ShadersManager::Update(float dt)
 	}
 
 	if (shaders_window) {
+		shader_editor.Enable(shaders_window);
 
-		float2 next_win_size = float2(500, 600);
-		ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
-		ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
-
-		if (ImGui::Begin("Shaders", &shaders_window)) {
-
-			ImGui::Columns(2, "shader_type");
-			ImGui::Separator();
-
-			if (!vertex_shader_window) {
-				if (ImGui::Button("Load")) {
-					vertex_shader_window = true;
-
-				}; ImGui::SameLine();
-				ImGui::Button("New");
-				if (vertex_shader_window) {
-					ShowVertexShadersFolder();
-				}
-				
-			}
-			else {
-				ShowVertexShadersFolder();
-			}
-			
-			ImGui::NextColumn();
-			ImGui::Button("Load"); ImGui::SameLine();
-			ImGui::Button("New");
-		}
-		ImGui::End();
 	}
 	
 

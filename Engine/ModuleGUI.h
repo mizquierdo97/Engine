@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Module.h"
 #include "Globals.h"
 #include "ImGui\imgui_impl_sdl_gl3.h"
@@ -49,7 +48,7 @@ private:
 		bool show_menu = false;
 		bool show_help = false;
 		bool show_hardware = false;
-	
+		
 
 
 		int Det_RAM;
