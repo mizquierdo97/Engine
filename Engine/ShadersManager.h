@@ -27,6 +27,7 @@ public:
 	
 	void CreateShader(std::string vs_path, std::string fs_path, std::string name);
 	bool CreateDefaultShader();
+	ShaderProgram Find(std::string name);
 public:
 	std::vector<ShaderProgram*> shader_list;
 

@@ -17,7 +17,8 @@ bool ShadersManager::Init()
 bool ShadersManager::Start()
 {
 	CreateDefaultShader();
-	CreateShader("Assets/VertexShader.vrsh", "Assets/Shader.frsh", "shader_test");
+	CreateShader("Assets/VertexShader.vrsh", "Assets/Shader.frsh", "DefaultTest");
+	CreateShader("Assets/VertexShader.vrsh", "Assets/Red.frsh", "Red");
 	return true;
 }
 

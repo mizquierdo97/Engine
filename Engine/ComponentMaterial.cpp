@@ -34,10 +34,25 @@ void ComponentMaterial::ShowInspectorComponents()
 			if (ImGui::Button("Change Shader")) {
 				shader.UpdateShader("", "Assets/Red.frsh");
 			}
+			int shader_pos = 0;
+			std::string shaders_names;
+			for (int i = 0; i < App->shaders->shader_list.size(); i++) {
+				shaders_names += App->shaders->shader_list[i]->shader_name;
+				shaders_names += '\0';
+			}
+			if (ImGui::Combo("Inputs Mode", &shader_pos, shaders_names.c_str())) {
+				shader = *App->shaders->shader_list[shader_pos];
+
+			}
+
 			shader.bind();
 
 			static float4 color = float4(1.0f, 0.0f, 0.0f, 1.0f);
+		
+
 			
+
+
 			ImGui::ColorPicker4("##picker", (float*)&color,  ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
 
 			static float time_dt = 0;
