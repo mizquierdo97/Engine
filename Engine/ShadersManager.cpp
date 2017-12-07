@@ -61,25 +61,24 @@ update_status ShadersManager::Update(float dt)
 			ImGui::Columns(2, "shader_type");
 			ImGui::Separator();
 
+			ImGui::Text("Vertex Shader");
 
 			if (!App->shaders->vertex_shader_window) {
 				if (ImGui::Button("Load")) {
+					App->shaders->ShowVertexShadersFolder("vrsh");
 					App->shaders->vertex_shader_window = true;
-
-					//shader_editor.InsertText("//This is meant to be an editor of shaders");
-					//shader_editor.InsertText("\n");
 				}
 
 				ImGui::SameLine();
 				ImGui::Button("New");
 				if (App->shaders->vertex_shader_window) {
-					App->shaders->ShowVertexShadersFolder();
+					App->shaders->vertex_shader_window = true;
 				}
 
 			}
 			else {
 
-				ShowVertexShadersFolder();
+				ShowVertexShadersFolder("vrsh");
 			}
 
 			ImGuiIO& io = ImGui::GetIO();
@@ -87,9 +86,7 @@ update_status ShadersManager::Update(float dt)
 			shader_editor.Render("VertexShader");
 			ImGui::PopFont();
 
-			ImGui::NextColumn();
-			ImGui::Button("Load"); ImGui::SameLine();
-			ImGui::Button("New");
+			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) shader_editor.InsertText("\n");
 
 		}
 		ImGui::End();
@@ -228,7 +225,7 @@ bool ShadersManager::CreateDefaultShader()
 	
 }
 
-void ShadersManager::ShowVertexShadersFolder()
+void ShadersManager::ShowVertexShadersFolder(char* file_type)
 {
 	std::vector<std::string> path_vect;
 	std::string popupElements;
@@ -242,7 +239,7 @@ void ShadersManager::ShowVertexShadersFolder()
 		str = NormalizePath(str.c_str());
 
 		std::string file_extension = GetExtension(str);
-		if (!strcmp(file_extension.c_str(), "vrsh")) {
+		if (!strcmp(file_extension.c_str(), file_type)) {
 
 			path_vect.push_back(str);
 			popupElements += GetFileName(str);

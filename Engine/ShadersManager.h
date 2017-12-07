@@ -29,7 +29,7 @@ public:
 	void CreateShader(std::string vs_path, std::string fs_path, std::string name);
 	bool CreateDefaultShader();
 	ShaderProgram Find(std::string name);
-	void ShowVertexShadersFolder();
+	void ShowVertexShadersFolder( char* file_type);
 
 	char* GetShaderText(std::string path);
 public:
