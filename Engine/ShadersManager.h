@@ -40,7 +40,8 @@ public:
 	TextEditor vertex_editor;
 	TextEditor fragment_editor;
 	bool shaders_window = false;
-	bool vertex_shader_window[2] = { false,false };
+	bool load_shader[2] = { false,false };
+	bool new_shader[2] = { false,false };
 };
 
 

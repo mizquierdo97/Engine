@@ -1,0 +1,7 @@
+{
+    "Material": {
+        "Name": "dummyeee",
+        "Vertex_shader": "assets/hola.vrsh",
+        "Fractal_shader": "assets/carton.frsh"
+    }
+}

@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ResourceShader.h"
 #include "ShadersManager.h"
+#include "FileSystem.h"
 
 ShadersManager::ShadersManager(bool start_enabled) : Module(start_enabled)
 {
@@ -230,6 +231,7 @@ void ShadersManager::ShowVertexShadersFolder(char* file_type, TextEditor* shader
 		
 		
 	}
+
 	int shader_pos = 0;
 	static char* shader_text = GetShaderText(path_vect[shader_pos]);
 	if (ImGui::Combo(shaders_list, &shader_pos, popupElements.c_str())) {
@@ -253,40 +255,64 @@ void ShadersManager::CreateShaderWindow()
 
 		ImGui::Columns(2, "shader_type");
 		ImGui::Separator();
-
+		static char temp_name[32] = "dummy";
+		static char temp_name2[32] = "dummy";
+		char* names[2];
+		names[0] = temp_name;
+		names[1] = temp_name2;
 		char* type = "vrsh";
 		char* name = "VertexShader";
 		TextEditor* shader_editor = &vertex_editor;
 		
 		for (int i = 0; i < 2; i++) {
-
+			ImGui::PushID(i);
 			ImGui::Text(name);
-			if (!App->shaders->vertex_shader_window[i]) {
+			if (!load_shader[i] && !new_shader[i]) {
 
-				ImGui::PushID(i);
+				
 				if (ImGui::Button("Load")) {
 					
-					App->shaders->vertex_shader_window[i] = true;
+					App->shaders->load_shader[i] = true;
 				}
 
 				ImGui::SameLine();
-				ImGui::Button("New");
-				ImGui::PopID();
+				
+				
+				if (ImGui::Button("New")) {
+
+					//ImGui::InputText("Name", temp_name[i], IM_ARRAYSIZE(temp_name));
+					new_shader[i] = true;
+				
+				}
+				
 			}
-			else {
+			else if(load_shader[i] && !new_shader[i]) {
 
 				ShowVertexShadersFolder(type, shader_editor);
 				ImGuiIO& io = ImGui::GetIO();
 				ImGui::PushFont(io.Fonts->Fonts[1]);
-				
 				shader_editor->Render(name, ImVec2(ImGui::GetColumnWidth(i)-16,440));
 				ImGui::PopFont();
+			
 			}
-					
+			else if (!load_shader[i] && new_shader[i]) {
+
+
+				ImGui::InputText("Name", names[i], IM_ARRAYSIZE(temp_name));
+				ImGuiIO& io = ImGui::GetIO();
+				ImGui::PushFont(io.Fonts->Fonts[1]);
+				shader_editor->Render(name, ImVec2(ImGui::GetColumnWidth(i) - 16, 440));
+				ImGui::PopFont();
+
+			}
+			ImGui::PopID();
+
+
 			type = "frsh";
 			name = "FragmentShader";
 			ImGui::NextColumn();
 			shader_editor = &fragment_editor;
+		
 		}
 		ImGui::SetCursorPosY(532);
 		ImGui::Columns(1);
@@ -296,11 +322,38 @@ void ShadersManager::CreateShaderWindow()
 		ImGui::SetCursorPosX(16);
 		
 		static char buf[32] = "dummy";
-		ImGui::InputText("Name", buf, IM_ARRAYSIZE(buf));
+		ImGui::InputText("Material_Name", buf, IM_ARRAYSIZE(buf));
 		ImGui::SetCursorPosX(16);
 		if (ImGui::Button("CreateShader", ImVec2(128, 32))) {
 			std::string name = &buf[0];
 			CreateShaderFromArray((char*)vertex_editor.GetText().c_str(), (char*)fragment_editor.GetText().c_str(),name);
+			
+
+			Data json_shader;
+			std::string vertex_path = ASSETS_PATH + std::string(temp_name) + ".vrsh";
+			std::string fragment_path = ASSETS_PATH + std::string(temp_name2) + ".frsh";
+			json_shader.CreateSection("Material");
+			json_shader.AddString("Name", name);
+			json_shader.AddString("Vertex_shader",vertex_path);
+			json_shader.AddString("Fragment_shader", fragment_path);
+			json_shader.CloseSection();
+			json_shader.SaveAsJSON(std::string(ASSETS_PATH + name + ".material"));
+
+			uint vertex_buffer_size = strlen(vertex_editor.GetText().c_str());
+			uint fragment_buffer_size = strlen(fragment_editor.GetText().c_str());
+			char* vertex_buffer = new char[vertex_buffer_size];
+			char* fragment_buffer = new char[fragment_buffer_size];
+			
+			memcpy(vertex_buffer, vertex_editor.GetText().c_str(), vertex_buffer_size);
+			memcpy(fragment_buffer, fragment_editor.GetText().c_str(), fragment_buffer_size);
+			FILE* pFile = fopen(vertex_path.c_str(), "wb");
+			fwrite(vertex_buffer, sizeof(char), vertex_buffer_size, pFile);
+			fclose(pFile);
+
+			pFile = fopen(fragment_path.c_str(), "wb");
+			fwrite(fragment_buffer, sizeof(char), fragment_buffer_size, pFile);
+			fclose(pFile);
+
 		}
 		ImGui::Columns(1);
 		
