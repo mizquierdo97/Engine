@@ -36,12 +36,12 @@ void ComponentMaterial::ShowInspectorComponents()
 			}
 			int shader_pos = 0;
 			std::string shaders_names;
-			for (int i = 0; i < App->shaders->shader_list.size(); i++) {
-				shaders_names += App->shaders->shader_list[i]->shader_name;
+			for (int i = 0; i < App->shaders->shader_vect.size(); i++) {
+				shaders_names += App->shaders->shader_vect[i]->shader_name;
 				shaders_names += '\0';
 			}
 			if (ImGui::Combo("Inputs Mode", &shader_pos, shaders_names.c_str())) {
-				shader = *App->shaders->shader_list[shader_pos];
+				shader = *App->shaders->shader_vect[shader_pos];
 
 			}
 

@@ -29,16 +29,17 @@ public:
 	void CreateShader(std::string vs_path, std::string fs_path, std::string name);
 	bool CreateDefaultShader();
 	ShaderProgram Find(std::string name);
-	void ShowVertexShadersFolder( char* file_type);
-
+	void ShowVertexShadersFolder( char* file_type, TextEditor*);
+	void CreateShaderWindow();
 	char* GetShaderText(std::string path);
 public:
-	std::vector<ShaderProgram*> shader_list;
+	std::vector<ShaderProgram*> shader_vect;
 
 	ShaderProgram default_shader;
-	TextEditor shader_editor;
+	TextEditor vertex_editor;
+	TextEditor fragment_editor;
 	bool shaders_window = false;
-	bool vertex_shader_window = false;
+	bool vertex_shader_window[2] = { false,false };
 };
 
 

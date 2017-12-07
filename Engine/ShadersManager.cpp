@@ -34,10 +34,10 @@ update_status ShadersManager::PreUpdate(float dt)
 
 update_status ShadersManager::Update(float dt)
 {
-	std::vector<ShaderProgram*>::iterator item = shader_list.begin();
+	std::vector<ShaderProgram*>::iterator item = shader_vect.begin();
 	static float time_dt = 0;
 	time_dt += dt;
-	while (item != shader_list.end()) {
+	while (item != shader_vect.end()) {
 		(*item)->bind();
 
 		//TIME
@@ -45,51 +45,16 @@ update_status ShadersManager::Update(float dt)
 		GLint timeLoc = glGetUniformLocation((*item)->mProgramID, "_time");
 		glUniform1f(timeLoc, sin(time_dt));
 
+
+
 		(*item)->unbind();
-
-
 		item++;
 	}
 
+
+
 	if (shaders_window) {
-		float2 next_win_size = float2(1200, 600);
-		ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
-		ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
-
-		if (ImGui::Begin("Shaders", &shaders_window)) {
-
-			ImGui::Columns(2, "shader_type");
-			ImGui::Separator();
-
-			ImGui::Text("Vertex Shader");
-
-			if (!App->shaders->vertex_shader_window) {
-				if (ImGui::Button("Load")) {
-					App->shaders->ShowVertexShadersFolder("vrsh");
-					App->shaders->vertex_shader_window = true;
-				}
-
-				ImGui::SameLine();
-				ImGui::Button("New");
-				if (App->shaders->vertex_shader_window) {
-					App->shaders->vertex_shader_window = true;
-				}
-
-			}
-			else {
-
-				ShowVertexShadersFolder("vrsh");
-			}
-
-			ImGuiIO& io = ImGui::GetIO();
-			ImGui::PushFont(io.Fonts->Fonts[1]);
-			shader_editor.Render("VertexShader");
-			ImGui::PopFont();
-
-			if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) shader_editor.InsertText("\n");
-
-		}
-		ImGui::End();
+		CreateShaderWindow();
 	}
 	
 
@@ -109,7 +74,7 @@ void ShadersManager::CreateShader(std::string vs_path, std::string fs_path, std:
 	ShaderProgram* shader_program = new ShaderProgram();
 	shader_program->shader_name = name;
 	shader_program->loadProgram(vs_ID, fs_ID);
-	shader_list.push_back(shader_program);
+	shader_vect.push_back(shader_program);
 
 
 }
@@ -220,13 +185,22 @@ bool ShadersManager::CreateDefaultShader()
 	}
 	default_shader.fragmentID = fragmentShader;
 	default_shader.vertexID = vertexShader; 
-	shader_list.push_back(&default_shader);
+	shader_vect.push_back(&default_shader);
 	return true;
 	
 }
 
-void ShadersManager::ShowVertexShadersFolder(char* file_type)
+void ShadersManager::ShowVertexShadersFolder(char* file_type, TextEditor* shader_editor)
 {
+
+	char* shaders_list = "Vertex_Shaders";
+	if (strcmp(file_type, "vrsh") == 0) {
+		shaders_list = "Vertex_Shaders";
+	}
+	else if (strcmp(file_type, "frsh") == 0) {
+		shaders_list = "Fragment_Shaders";
+	}
+
 	std::vector<std::string> path_vect;
 	std::string popupElements;
 	std::string path = ASSETS_PATH;
@@ -246,16 +220,85 @@ void ShadersManager::ShowVertexShadersFolder(char* file_type)
 			popupElements += '\0';
 		}
 		
-		std::reverse(path_vect.begin(), path_vect.end());
+		
 	}
 	int shader_pos = 0;
 	static char* shader_text = GetShaderText(path_vect[shader_pos]);
-	if (ImGui::Combo("Inputs Mode", &shader_pos, popupElements.c_str())) {
-		shader_editor.SetText("");
-		shader_editor.InsertText(shader_text);
+	if (ImGui::Combo(shaders_list, &shader_pos, popupElements.c_str())) {
+		shader_text = GetShaderText(path_vect[shader_pos]);
+		shader_editor->SetText("");
+		shader_editor->InsertText(shader_text);
 	}
 	
 	
+}
+
+void ShadersManager::CreateShaderWindow()
+{
+	float2 next_win_size = float2(1200, 616);
+	ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
+	ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+	ImGuiStyle& style = ImGui::GetStyle();
+	style.Colors[ImGuiCol_Separator] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.50f, 0.5f, 0.5f, 1.0f);
+	if (ImGui::Begin("Shaders", &shaders_window)) {
+
+		ImGui::Columns(2, "shader_type");
+		ImGui::Separator();
+
+		char* type = "vrsh";
+		char* name = "VertexShader";
+		TextEditor* shader_editor = &vertex_editor;
+		
+		for (int i = 0; i < 2; i++) {
+
+			ImGui::Text(name);
+			if (!App->shaders->vertex_shader_window[i]) {
+
+				ImGui::PushID(i);
+				if (ImGui::Button("Load")) {
+					
+					App->shaders->vertex_shader_window[i] = true;
+				}
+
+				ImGui::SameLine();
+				ImGui::Button("New");
+				ImGui::PopID();
+			}
+			else {
+
+				ShowVertexShadersFolder(type, shader_editor);
+				ImGuiIO& io = ImGui::GetIO();
+				ImGui::PushFont(io.Fonts->Fonts[1]);
+				
+				shader_editor->Render(name, ImVec2(ImGui::GetColumnWidth(i)-16,440));
+				ImGui::PopFont();
+			}
+					
+			type = "frsh";
+			name = "FragmentShader";
+			ImGui::NextColumn();
+			shader_editor = &fragment_editor;
+		}
+		ImGui::SetCursorPosY(532);
+		ImGui::Columns(1);
+		ImGui::Separator();
+		ImGui::Columns(2, "", false);
+
+		ImGui::SetCursorPosX(16);
+		
+		static char buf[32] = "dummy";
+		ImGui::InputText("Name", buf, IM_ARRAYSIZE(buf));
+		ImGui::SetCursorPosX(16);
+		ImGui::Button("CreateShader",ImVec2(128,32));
+		ImGui::Columns(1);
+		
+	}
+	style.Colors[ImGuiCol_Separator] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+	ImGui::End();
+	
+	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.68f, 0.69f, 0.69f, 0.91f);
+
 }
 
 char * ShadersManager::GetShaderText(std::string path)
