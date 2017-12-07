@@ -94,13 +94,10 @@ update_status ModuleWorld::Update(float dt)
 update_status ModuleWorld::PostUpdate(float dt)
 {
 	
-	
-
 	It_Update();
 	
 	It_Render();
 	
-
 	if(App->renderer3D->debug_draw)
 	DebugDraw();
 
@@ -191,10 +188,8 @@ void ModuleWorld::It_Render()
 			}
 		}
 		
-	}
-	
+	}	
 	glColor3f(1.0f, 1.0f, 1.0f);
-
 }
 
 void ModuleWorld::It_Update()

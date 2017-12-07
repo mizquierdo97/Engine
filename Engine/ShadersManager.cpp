@@ -51,8 +51,6 @@ update_status ShadersManager::Update(float dt)
 		item++;
 	}
 
-
-
 	if (shaders_window) {
 		CreateShaderWindow();
 	}
@@ -79,6 +77,16 @@ void ShadersManager::CreateShader(std::string vs_path, std::string fs_path, std:
 
 }
 
+void ShadersManager::CreateShaderFromArray(char* vert_buffer,char* frag_buffer, std::string name)
+{
+
+	ShaderProgram* shader_program = new ShaderProgram();
+	shader_program->shader_name = name;
+	shader_program->loadProgram(vert_buffer, frag_buffer);
+	shader_vect.push_back(shader_program);
+
+
+}
 bool ShadersManager::CreateDefaultShader()
 {
 	
@@ -290,7 +298,10 @@ void ShadersManager::CreateShaderWindow()
 		static char buf[32] = "dummy";
 		ImGui::InputText("Name", buf, IM_ARRAYSIZE(buf));
 		ImGui::SetCursorPosX(16);
-		ImGui::Button("CreateShader",ImVec2(128,32));
+		if (ImGui::Button("CreateShader", ImVec2(128, 32))) {
+			std::string name = &buf[0];
+			CreateShaderFromArray((char*)vertex_editor.GetText().c_str(), (char*)fragment_editor.GetText().c_str(),name);
+		}
 		ImGui::Columns(1);
 		
 	}

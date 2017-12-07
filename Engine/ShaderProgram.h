@@ -12,6 +12,7 @@ public:
 
 
 	bool loadProgram(uint VertexID, uint FragmentID);
+	bool loadProgram(char* Vertex_buffer, char* Fragment_buffer);
 
 	bool UpdateShader(uint VertexID =0, uint FragmentID =0);
 

@@ -153,6 +153,78 @@ bool ShaderProgram::loadProgram(uint VertexID, uint FragmentID)
 	return true;
 }
 
+bool ShaderProgram::loadProgram(char * Vertex_buffer, char * Fragment_buffer)
+{
+	//Success flag
+	GLint programSuccess = GL_TRUE;
+
+	//Generate program
+	mProgramID = glCreateProgram();
+
+	//Create vertex shader
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+	//Get vertex source
+	const GLchar* vertexShaderSource[] = { Vertex_buffer };
+
+	//Set vertex source
+	glShaderSource(vertexShader, 1, vertexShaderSource, NULL);
+
+	//Compile vertex source
+	glCompileShader(vertexShader);
+
+	//Check vertex shader for errors
+	GLint vShaderCompiled = GL_FALSE;
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vShaderCompiled);
+	if (vShaderCompiled != GL_TRUE)
+	{
+		printf("Unable to compile vertex shader %d!\n", vertexShader);
+		printShaderLog(vertexShader);
+		return false;
+	}
+
+	//Attach vertex shader to program
+	glAttachShader(mProgramID, vertexShader);
+
+
+	//Create fragment shader
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	//Get fragment source
+	const GLchar* fragmentShaderSource[] = { Fragment_buffer };
+	//Set fragment source
+	glShaderSource(fragmentShader, 1, fragmentShaderSource, NULL);
+
+	//Compile fragment source
+	glCompileShader(fragmentShader);
+
+	//Check fragment shader for errors
+	GLint fShaderCompiled = GL_FALSE;
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fShaderCompiled);
+	if (fShaderCompiled != GL_TRUE)
+	{
+		printf("Unable to compile fragment shader %d!\n", fragmentShader);
+		printShaderLog(fragmentShader);
+		return false;
+	}
+
+	//Attach fragment shader to program
+	glAttachShader(mProgramID, fragmentShader);
+	//Link program
+	glLinkProgram(mProgramID);
+
+	//Check for errors
+	glGetProgramiv(mProgramID, GL_LINK_STATUS, &programSuccess);
+	if (programSuccess != GL_TRUE)
+	{
+		printf("Error linking program %d!\n", mProgramID);
+		printProgramLog(mProgramID);
+		return false;
+	}
+
+	return true;
+}
+
 bool ShaderProgram::UpdateShader(uint VertexID, uint FragmentID)
 {
 	//Success flag
