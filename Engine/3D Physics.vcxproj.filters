@@ -528,9 +528,6 @@
     <ClInclude Include="TextEditor.h">
       <Filter>Sources\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="Shader_Editor.h">
-      <Filter>Sources\Shaders</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -771,9 +768,6 @@
       <Filter>Sources\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="TextEditor.cpp">
-      <Filter>Sources\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader_Editor.cpp">
       <Filter>Sources\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
