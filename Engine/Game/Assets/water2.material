@@ -1,0 +1,7 @@
+{
+    "Material": {
+        "Name": "water2",
+        "Vertex_shader": "assets/dummy.vrsh",
+        "Fragment_shader": "assets/dummy.frsh"
+    }
+}

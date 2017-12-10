@@ -107,6 +107,39 @@ Mesh CreateCube()
 	return m;
 }
 
+
+Mesh CreatePlane(float3 pos,float2 size, int num = 1) {
+	std::vector<float> plane_vertices;
+	std::vector<uint> indices;
+	float start_x = pos.x - size.x / 2;
+	float start_y = pos.y - size.y / 2;
+	plane_vertices.push_back(start_x);
+	plane_vertices.push_back(start_y);
+	plane_vertices.push_back(pos.z);
+
+	for (int i = 0; i < num ; i++) {
+		for (int n = 0; n < num ; n++) {
+
+
+			float _x = start_x + (size.x / num)*n;
+			float _y = start_y + (size.y / num)*i;
+
+			plane_vertices.push_back(_x);
+			plane_vertices.push_back(_y);
+			plane_vertices.push_back(pos.z);
+		}
+	}
+
+	for (int i = 0; i < plane_vertices.size(); i++) {
+
+
+
+	}
+	Mesh m;
+	return m;
+
+}
+
 Mesh CreateCylinder()
 {
 	float rad = 1;

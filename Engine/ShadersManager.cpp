@@ -78,15 +78,15 @@ void ShadersManager::CreateShader(std::string vs_path, std::string fs_path, std:
 
 }
 
-void ShadersManager::CreateShaderFromArray(char* vert_buffer,char* frag_buffer, std::string name)
+bool ShadersManager::CreateShaderFromArray(char* vert_buffer,char* frag_buffer, std::string name)
 {
 
 	ShaderProgram* shader_program = new ShaderProgram();
 	shader_program->shader_name = name;
-	shader_program->loadProgram(vert_buffer, frag_buffer);
+	bool ret = shader_program->loadProgram(vert_buffer, frag_buffer);
 	shader_vect.push_back(shader_program);
 
-
+	return ret;
 }
 bool ShadersManager::CreateDefaultShader()
 {
@@ -245,6 +245,8 @@ void ShadersManager::ShowVertexShadersFolder(char* file_type, TextEditor* shader
 
 void ShadersManager::CreateShaderWindow()
 {
+	static bool cant_create_shader = false;
+
 	float2 next_win_size = float2(1200, 616);
 	ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
 	ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
@@ -325,38 +327,55 @@ void ShadersManager::CreateShaderWindow()
 		ImGui::InputText("Material_Name", buf, IM_ARRAYSIZE(buf));
 		ImGui::SetCursorPosX(16);
 		if (ImGui::Button("CreateShader", ImVec2(128, 32))) {
+
+
 			std::string name = &buf[0];
-			CreateShaderFromArray((char*)vertex_editor.GetText().c_str(), (char*)fragment_editor.GetText().c_str(),name);
-			
+			if (CreateShaderFromArray((char*)vertex_editor.GetText().c_str(), (char*)fragment_editor.GetText().c_str(), name)) {
 
-			Data json_shader;
-			std::string vertex_path = ASSETS_PATH + std::string(temp_name) + ".vrsh";
-			std::string fragment_path = ASSETS_PATH + std::string(temp_name2) + ".frsh";
-			json_shader.CreateSection("Material");
-			json_shader.AddString("Name", name);
-			json_shader.AddString("Vertex_shader",vertex_path);
-			json_shader.AddString("Fragment_shader", fragment_path);
-			json_shader.CloseSection();
-			json_shader.SaveAsJSON(std::string(ASSETS_PATH + name + ".material"));
 
-			uint vertex_buffer_size = strlen(vertex_editor.GetText().c_str());
-			uint fragment_buffer_size = strlen(fragment_editor.GetText().c_str());
-			char* vertex_buffer = new char[vertex_buffer_size];
-			char* fragment_buffer = new char[fragment_buffer_size];
-			
-			memcpy(vertex_buffer, vertex_editor.GetText().c_str(), vertex_buffer_size);
-			memcpy(fragment_buffer, fragment_editor.GetText().c_str(), fragment_buffer_size);
-			FILE* pFile = fopen(vertex_path.c_str(), "wb");
-			fwrite(vertex_buffer, sizeof(char), vertex_buffer_size, pFile);
-			fclose(pFile);
+				Data json_shader;
+				std::string vertex_path = ASSETS_PATH + std::string(temp_name) + ".vrsh";
+				std::string fragment_path = ASSETS_PATH + std::string(temp_name2) + ".frsh";
+				json_shader.CreateSection("Material");
+				json_shader.AddString("Name", name);
+				json_shader.AddString("Vertex_shader", vertex_path);
+				json_shader.AddString("Fragment_shader", fragment_path);
+				json_shader.CloseSection();
+				json_shader.SaveAsJSON(std::string(ASSETS_PATH + name + ".material"));
 
-			pFile = fopen(fragment_path.c_str(), "wb");
-			fwrite(fragment_buffer, sizeof(char), fragment_buffer_size, pFile);
-			fclose(pFile);
+				uint vertex_buffer_size = strlen(vertex_editor.GetText().c_str());
+				uint fragment_buffer_size = strlen(fragment_editor.GetText().c_str());
+				char* vertex_buffer = new char[vertex_buffer_size];
+				char* fragment_buffer = new char[fragment_buffer_size];
+
+				memcpy(vertex_buffer, vertex_editor.GetText().c_str(), vertex_buffer_size);
+				memcpy(fragment_buffer, fragment_editor.GetText().c_str(), fragment_buffer_size);
+				FILE* pFile = fopen(vertex_path.c_str(), "wb");
+				fwrite(vertex_buffer, sizeof(char), vertex_buffer_size, pFile);
+				fclose(pFile);
+
+				pFile = fopen(fragment_path.c_str(), "wb");
+				fwrite(fragment_buffer, sizeof(char), fragment_buffer_size, pFile);
+				fclose(pFile);
+			}
+			else {
+				cant_create_shader = true;
+			}
 
 		}
 		ImGui::Columns(1);
 		
+		if (cant_create_shader) {
+			float2 next_win_size = float2(500, 200);
+			style.Colors[ImGuiCol_WindowBg] = ImVec4(0.68f, 0.69f, 0.69f, 0.91f);
+			ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
+			ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+			if (ImGui::Begin("ERROR!", &cant_create_shader)) {
+				ImGui::Text("Can't compile or link the shaders");
+				ImGui::End();
+			}
+		}
+
 	}
 	style.Colors[ImGuiCol_Separator] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
 	ImGui::End();
