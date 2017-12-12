@@ -62,12 +62,12 @@ void FileSystem::InitFileSystem()
 		if (!strcmp(file_extension.c_str(), "vrsh")) {
 
 			App->filesystem->shader_importer->ImportShader(str.c_str(), Resource::vertex_shader);
-			//CreateMeta(str);
+			CreateMeta(str);
 		}
 
 		if (!strcmp(file_extension.c_str(), "frsh")) {
 			App->filesystem->shader_importer->ImportShader(str.c_str(), Resource::fragment_shader);
-			//CreateMeta(str);
+			CreateMeta(str);
 		}
 	}
 	for (auto & p : fs::directory_iterator(path)) {

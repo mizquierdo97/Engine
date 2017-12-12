@@ -17,9 +17,12 @@ bool ShadersManager::Init()
 
 bool ShadersManager::Start()
 {
+
+
 	CreateDefaultShader();
-	CreateShader("Assets/VertexShader.vrsh", "Assets/Shader.frsh", "DefaultTest");
-	CreateShader("Assets/VertexShader.vrsh", "Assets/Red.frsh", "Red");
+	LoadMaterials();
+	//CreateShader("Assets/VertexShader.vrsh", "Assets/Shader.frsh", "DefaultTest");
+	//CreateShader("Assets/VertexShader.vrsh", "Assets/Red.frsh", "Red");
 	return true;
 }
 
@@ -410,5 +413,36 @@ char * ShadersManager::GetShaderText(std::string path)
 	fclose(pFile);
 
 	return buffer;
+}
+
+void ShadersManager::LoadMaterials(){
+
+	std::vector<std::string> path_vect;
+	std::string popupElements;
+	std::string path = ASSETS_PATH;
+	for (auto & p : fs::directory_iterator(path)) {
+		const wchar_t* temp = p.path().c_str();
+		std::wstring ws(temp);
+		std::string str(ws.begin(), ws.end());
+		str = NormalizePath(str.c_str());
+
+		std::string file_extension = GetExtension(str);
+		if (!strcmp(file_extension.c_str(), "material")) {
+			Data material_data;
+			int i = 0;
+			//LOAD JSON FILE
+			if (material_data.LoadJSON(str)) {
+				material_data.EnterSection("Material");
+				std::string vertex_shader = material_data.GetString("Vertex_shader");
+				std::string fragment_shader = material_data.GetString("Fragment_shader");
+				std::string name = material_data.GetString("Name");
+
+				CreateShader(vertex_shader.c_str(), fragment_shader.c_str(), name.c_str());
+
+			}
+
+		}
+	}
+
 }
 

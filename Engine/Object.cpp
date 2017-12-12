@@ -123,8 +123,8 @@ void GameObject::Draw()
 			glColor3f(1.0f, 1.0f, 1.0f);
 		}
 		Mesh mesh = ((ResourceMesh*)GetMesh()->GetResource())->obj_mesh;
-		if (mesh.norms != nullptr && App->gui->show_normals)
-			App->physics->DrawNormals(m);
+		//if (mesh.norms != nullptr && App->gui->show_normals)
+			//App->physics->DrawNormals(m);
 		
 	}
 

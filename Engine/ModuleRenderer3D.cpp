@@ -419,6 +419,11 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_BLEND);
+
+	if (m.norms != nullptr && App->gui->show_normals)
+		App->physics->DrawNormals(comp);
+
+
 	shader->unbind();
 	Color color = Color(0, 0, 1);	
 	if (App->renderer3D->debug_draw) {

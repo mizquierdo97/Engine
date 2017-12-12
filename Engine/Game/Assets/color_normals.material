@@ -1,0 +1,7 @@
+{
+    "Material": {
+        "Name": "color_normals",
+        "Vertex_shader": "assets/dummy.vrsh",
+        "Fragment_shader": "assets/dummy.frsh"
+    }
+}

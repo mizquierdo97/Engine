@@ -1,0 +1,36 @@
+#version 330 core
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoord;
+layout (location = 3) in vec4 color;
+
+
+out vec4 ourColor;
+out vec2 TexCoord;
+out float ourTime;
+out vec3 new_normal;
+uniform vec4 _color;
+uniform float _time;
+uniform mat4 model;
+uniform mat4 viewproj;
+out vec3 pos;
+vec3 CalcNormal(in float x, in float y){
+
+float A = x* cos(x*y + _time);
+float B = y*cos(x*y+ _time);
+
+return vec3(A,B,0);
+}
+
+void main()
+{
+
+vec3 asd = mat3(model) * normal;
+gl_Position =  viewproj *  model * vec4(position.x,position.y,position.z + sin(position.x*position.y + _time), 1.0f);
+vec3 new_norm = CalcNormal(position.x, position.y);
+ourColor = _color;
+new_normal = CalcNormal(position.x, position.y);
+TexCoord = texCoord;
+pos = position;
+}
+

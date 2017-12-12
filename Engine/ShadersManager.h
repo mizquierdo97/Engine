@@ -33,6 +33,8 @@ public:
 	void ShowVertexShadersFolder( char* file_type, TextEditor*);
 	void CreateShaderWindow();
 	char* GetShaderText(std::string path);
+
+	void LoadMaterials();
 public:
 	std::vector<ShaderProgram*> shader_vect;
 
