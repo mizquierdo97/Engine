@@ -42,6 +42,7 @@ public:
 	//Program ID
 	uint mProgramID = 0;
 	uint fragmentID = 0;
+	uint geometryID = 0;
 	uint vertexID = 0;
 	//ShaderType type = ShaderType::null_shader;
 };

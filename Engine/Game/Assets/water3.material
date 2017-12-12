@@ -1,7 +1,0 @@
-{
-    "Material": {
-        "Name": "water3",
-        "Vertex_shader": "assets/dummy.vrsh",
-        "Fragment_shader": "assets/dummy.frsh"
-    }
-}

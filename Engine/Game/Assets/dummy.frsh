@@ -1,8 +1,8 @@
 #version 330 core
-in vec4 ourColor;
+in vec4 GColor;
 in vec2 TexCoord;
-in vec3 new_normal;
-in float ourTime;
+in vec3 GNormal;
+in float GTime;
 out vec4 color;
 uniform sampler2D _texture;
 in vec3 pos;
@@ -21,7 +21,7 @@ vec2 blinnPhongDir(vec3 lightDir, float lightInt, float Ka, float Kd, float Ks, 
 {
 vec3 s = normalize(lightDir);
 vec3 v = normalize(-pos);
-vec3 n = normalize(new_normal);
+vec3 n = normalize(GNormal);
 vec3 h = normalize(v+s);
 float diffuse = Ka + Kd * lightInt * max(0.0, dot(n, s));
 float spec = Ks * pow(max(0.0, dot(n,h)), shininess);
@@ -32,13 +32,13 @@ void main()
 {
 
  // light data
- vec3 lightdir = vec3(0.0, 1.0, 0.0);
+ vec3 lightdir = vec3(0.0, 0.0, 1.0);
  vec3 ambient = vec3(0, 0, 0.2);
- vec3 diffuse = ourColor.xyz;
- vec3 specular = vec3(0.9, 0.9, 0.9);
+ vec3 diffuse = GColor.xyz;
+ vec3 specular = vec3(1, 1, 1);
  float shiny = 500.0;
 
- vec3 specularity = vec3(0.0);
+ vec3 specularity = vec3(1);
 
   // calculate intensity
 // float intensity = dot(new_normal, lightdir);
@@ -54,12 +54,12 @@ void main()
  }
 
  // Output the final color
- vec3 new_color = intensity * diffuse + specularity;*/
-//color = vec4(new_color,1);
-vec3 lcolor =ourColor.xyz;
-vec2 inten = blinnPhongDir(vec3(1,0,0), 0.5, 0.2, 0.8, 0.8, 80.0);
+ vec3 new_color = intensity * diffuse + specularity;
+color = vec4(new_color,1);*/
+vec3 lcolor =GColor.xyz;
+vec2 inten = blinnPhongDir(lightdir, 1, 0.2, 0.8, 0.8, 1.0);
 color = vec4(lcolor * inten.x + vec3(1.0) * inten.y, 1.0);
-
+//color = GColor;
 }
 
 

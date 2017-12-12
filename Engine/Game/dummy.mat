@@ -1,7 +1,0 @@
-{
-    "Material": {
-        "Name": "dummy",
-        "Vertex_shader": "assets/dummyrtrr.vrsh",
-        "Fractal_shader": "assets/dummy4455t.frsh"
-    }
-}

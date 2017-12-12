@@ -8,7 +8,7 @@ layout (location = 3) in vec4 color;
 out vec4 ourColor;
 out vec2 TexCoord;
 out float ourTime;
-out vec3 new_normal;
+out vec3 ourNormal;
 uniform vec4 _color;
 uniform float _time;
 uniform mat4 model;
@@ -29,7 +29,8 @@ vec3 asd = mat3(model) * normal;
 gl_Position =  viewproj *  model * vec4(position.x,position.y,position.z + sin(position.x*position.y + _time), 1.0f);
 vec3 new_norm = CalcNormal(position.x, position.y);
 ourColor = _color;
-new_normal = CalcNormal(position.x, position.y);
+//new_normal = CalcNormal(position.x, position.y);
+ourNormal = normalize(asd);
 TexCoord = texCoord;
 pos = position;
 }
