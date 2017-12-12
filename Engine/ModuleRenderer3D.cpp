@@ -403,10 +403,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 
 		GLint viewLoc = glGetUniformLocation(shader->mProgramID, "viewproj");
 
-		glUniformMatrix4fv(viewLoc, 1, GL_TRUE,App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().ptr());
-
-
-		
+		glUniformMatrix4fv(viewLoc, 1, GL_TRUE,App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().ptr());		
 	
 
 		if (m.id_indices != NULL)

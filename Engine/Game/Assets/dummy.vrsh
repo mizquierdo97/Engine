@@ -30,7 +30,7 @@ gl_Position =  viewproj *  model * vec4(position.x,position.y,position.z + sin(p
 vec3 new_norm = CalcNormal(position.x, position.y);
 ourColor = _color;
 //new_normal = CalcNormal(position.x, position.y);
-ourNormal = normalize(asd);
+ourNormal = asd;
 TexCoord = texCoord;
 pos = position;
 }
