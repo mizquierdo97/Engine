@@ -8,7 +8,7 @@
 class ComponentMaterial :public Component {
 	public:
 		ComponentMaterial() {
-			shader = App->shaders->default_shader;
+			shader = &App->shaders->default_shader;
 		};
 		ComponentMaterial(UUID uid, GameObject* obj) {
 			res_uuid = uid;			
@@ -34,7 +34,7 @@ class ComponentMaterial :public Component {
 
 public:
 	std::string path_texture;
-	ShaderProgram shader = App->shaders->default_shader;
+	ShaderProgram* shader = &App->shaders->default_shader;
 	UUID material_tex;
 private:
 	float alpha_test = 0.5f;

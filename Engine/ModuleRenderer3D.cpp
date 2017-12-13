@@ -336,8 +336,8 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 	if (m.texture_coords != nullptr) {
 		if (texture && comp->GetParent()->GetMaterial() != nullptr) {
 			ComponentMaterial* mat = comp->GetParent()->GetMaterial();
-			if (mat->shader.mProgramID != 0) {
-				shader = &mat->shader;
+			if (mat->shader->mProgramID != 0) {
+				shader = mat->shader;
 			}
 		}
 	}

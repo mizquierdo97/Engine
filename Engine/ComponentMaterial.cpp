@@ -32,7 +32,7 @@ void ComponentMaterial::ShowInspectorComponents()
 		}
 		if (ImGui::CollapsingHeader("Shader")) {
 			if (ImGui::Button("Change Shader")) {
-				shader.UpdateShader("", "Assets/Red.frsh");
+				shader->UpdateShaderProgram("", "Assets/Red.frsh");
 			}
 			int shader_pos = 0;
 			std::string shaders_names;
@@ -41,11 +41,11 @@ void ComponentMaterial::ShowInspectorComponents()
 				shaders_names += '\0';
 			}
 			if (ImGui::Combo("Inputs Mode", &shader_pos, shaders_names.c_str())) {
-				shader = *App->shaders->shader_vect[shader_pos];
+				shader = App->shaders->shader_vect[shader_pos];
 
 			}
 
-			shader.bind();
+			shader->bind();
 
 			static float4 color = float4(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -54,12 +54,22 @@ void ComponentMaterial::ShowInspectorComponents()
 			static float time_dt = 0;
 			time_dt += App->rtime.dt;
 
-			GLint timeLoc = glGetUniformLocation(shader.mProgramID, "_time");
-			glUniform1f(timeLoc, time_dt);
-			GLint colorLoc = glGetUniformLocation(shader.mProgramID, "_color");
+			/*GLint timeLoc = glGetUniformLocation(shader.mProgramID, "_time");
+			glUniform1f(timeLoc, time_dt);*/
+			GLint colorLoc = glGetUniformLocation(shader->mProgramID, "_color");
 			glUniform4fv(colorLoc, 1, &color[0]);
 
-			shader.unbind();
+			shader->unbind();
+
+			
+			if (ImGui::Button("Change Vertex")) {
+				App->shaders->shader_change = true;
+				App->shaders->set_editor_text = true;
+			}
+			if (App->shaders->shader_change) {				
+					App->shaders->UpdateShaderWindow(this, ShaderType::vertex_shader);
+			}
+
 		}
 	}
 

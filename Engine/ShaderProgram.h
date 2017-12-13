@@ -14,9 +14,9 @@ public:
 	bool loadProgram(uint VertexID, uint FragmentID);
 	bool loadProgram(char* Vertex_buffer, char* Fragment_buffer);
 
-	bool UpdateShader(uint VertexID =0, uint FragmentID =0);
+	bool UpdateShaderProgram(uint VertexID =0, uint FragmentID =0);
 
-	bool UpdateShader(std::string VertexID = "", std::string FragmentID = "");
+	bool UpdateShaderProgram(std::string VertexID = "", std::string FragmentID = "");
 
 	void freeProgram();
 

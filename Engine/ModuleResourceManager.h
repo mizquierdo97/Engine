@@ -36,7 +36,10 @@ public:
 	Resource* CreateNewResource(Resource::Type type, UUID force_uid = IID_NULL);
 
 	Resource::Type TypeFromExtension(const char*);
+
+public:
+	std::map<UUID, Resource*> resources;
 private:
 	UUID last_uid = IID_NULL;
-	std::map<UUID, Resource*> resources;
+
 };

@@ -229,7 +229,7 @@ bool ShaderProgram::loadProgram(char * Vertex_buffer, char * Fragment_buffer)
 	return true;
 }
 
-bool ShaderProgram::UpdateShader(uint VertexID, uint FragmentID)
+bool ShaderProgram::UpdateShaderProgram(uint VertexID, uint FragmentID)
 {
 	//Success flag
 	GLint programSuccess = GL_TRUE;
@@ -242,9 +242,11 @@ bool ShaderProgram::UpdateShader(uint VertexID, uint FragmentID)
 	//Get vertex source
 	if (VertexID != 0) {
 		GLuint vertexShader = VertexID;
+		
 		glDetachShader(mProgramID, vertexID);
 		//Attach vertex shader to program
 		glAttachShader(mProgramID, vertexShader);
+		vertexID = vertexShader;
 	}
 
 	if (FragmentID != 0) {
@@ -253,6 +255,7 @@ bool ShaderProgram::UpdateShader(uint VertexID, uint FragmentID)
 		glDetachShader(mProgramID, fragmentID);
 		//Attach fragment shader to program
 		glAttachShader(mProgramID, fragmentShader);
+		fragmentID = fragmentShader;
 	}
 	//Link program
 	glLinkProgram(mProgramID);
@@ -266,10 +269,12 @@ bool ShaderProgram::UpdateShader(uint VertexID, uint FragmentID)
 		return false;
 	}
 
+	
+
 	return true;
 }
 
-bool ShaderProgram::UpdateShader(std::string vs_path, std::string fs_path)
+bool ShaderProgram::UpdateShaderProgram(std::string vs_path, std::string fs_path)
 {
 	uint vs_ID = 0;
 	uint fs_ID = 0;
@@ -285,6 +290,6 @@ bool ShaderProgram::UpdateShader(std::string vs_path, std::string fs_path)
 		fs_ID = f_res->res_shader->shader_id;
 	}
 		
-	UpdateShader(vs_ID, fs_ID);
+	UpdateShaderProgram(vs_ID, fs_ID);
 	return true;
 }

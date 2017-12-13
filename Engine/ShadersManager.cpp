@@ -1,6 +1,8 @@
 #include "Application.h"
+#include "Resource.h"
 #include "ResourceShader.h"
 #include "ShadersManager.h"
+#include "ComponentMaterial.h"
 #include "FileSystem.h"
 
 ShadersManager::ShadersManager(bool start_enabled) : Module(start_enabled)
@@ -296,6 +298,7 @@ void ShadersManager::CreateShaderWindow()
 				if (ImGui::Button("Load")) {
 					
 					App->shaders->load_shader[i] = true;
+
 				}
 
 				ImGui::SameLine();
@@ -403,6 +406,103 @@ void ShadersManager::CreateShaderWindow()
 	
 	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.68f, 0.69f, 0.69f, 0.91f);
 
+}
+
+void ShadersManager::UpdateShaderWindow(ComponentMaterial* comp,ShaderType type)
+{
+	static uint i;
+	static uint n;
+	static char* path;
+	static char* buffer;
+	static TextEditor shader_editor;
+	if (type == ShaderType::vertex_shader) {
+		i = comp->shader->vertexID;
+		n = comp->shader->fragmentID;
+		
+		
+	}
+	if (type == ShaderType::pixel_shader) {
+		i = comp->shader->fragmentID;
+		n = comp->shader->vertexID;
+		
+	}
+
+	float2 next_win_size = float2(600, 616);
+	ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
+	ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+	ImGuiStyle& style = ImGui::GetStyle();
+	style.Colors[ImGuiCol_Separator] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.50f, 0.5f, 0.5f, 1.0f);
+	if(ImGui::Begin("Change Shader", &shader_change) ){
+
+		if (ImGui::Button("Save")) {
+			uint buffer_size = strlen(shader_editor.GetText().c_str());
+			FILE* pFile = fopen(path, "w");
+			fwrite(shader_editor.GetText().c_str(), sizeof(char), buffer_size, pFile);
+			fclose(pFile);
+
+			uint new_shader_id = App->filesystem->shader_importer->loadShaderFromFile(path, type);
+
+			for (std::vector<ShaderProgram*>::iterator item = shader_vect.begin(); item != shader_vect.end(); item++) {
+
+				switch (type) {
+				case ShaderType::vertex_shader:
+					if ((*item)->vertexID == i) {
+						(*item)->UpdateShaderProgram(new_shader_id,0);
+						//(*item)->vertexID = new_shader_id;
+
+					}
+					break;
+
+				case ShaderType::pixel_shader:
+					if ((*item)->fragmentID == i) {						
+						(*item)->UpdateShaderProgram(0,new_shader_id);
+						
+					}
+					break;
+
+				}
+			
+			}
+			glDeleteShader(i);
+			UUID shader_uuid = App->resources->Find(path);
+			((ResourceShader*)App->resources->Get(shader_uuid))->res_shader->shader_id = new_shader_id;
+		}
+		
+		if (set_editor_text) {
+		
+			path = GetShaderPath(i);
+			buffer = GetShaderText(path);
+			set_editor_text = false;
+			shader_editor.SetText(buffer);
+		}
+
+
+		
+		ImGuiIO& io = ImGui::GetIO();
+		ImGui::PushFont(io.Fonts->Fonts[1]);
+		shader_editor.Render("Shader Editor");
+		ImGui::PopFont();
+
+
+	}
+	style.Colors[ImGuiCol_Separator] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
+	ImGui::End();
+
+	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.68f, 0.69f, 0.69f, 0.91f);
+}
+
+char * ShadersManager::GetShaderPath(uint ID)
+{
+	for (std::map<UUID, Resource*>::const_iterator it = App->resources->resources.begin(); it != App->resources->resources.end(); ++it)
+	{
+		if (it->first != IID_NULL && it->second != nullptr &&(it->second->type == Resource::fragment_shader || it->second->type == Resource::vertex_shader)) {
+			if (((ResourceShader*)it->second)->res_shader->shader_id == ID)
+				return (char*)it->second->file.c_str();
+		}
+	}
+
+	return nullptr;
 }
 
 char * ShadersManager::GetShaderText(std::string path)
