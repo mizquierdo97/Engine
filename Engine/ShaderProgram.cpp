@@ -132,82 +132,6 @@ bool ShaderProgram::loadProgram(uint VertexID, uint FragmentID)
 	glAttachShader(mProgramID, vertexShader);
 	
 
-	GLuint geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
-
-	const GLchar* geometryShaderSource[] =
-	{
-		//GEOMETRY SHADER
-		"#version 330\n"
-		"#extension GL_ARB_geometry_shader4 : enable\n"
-
-		"in float ourTime[];\n"
-		"out float GTime;\n"
-		"in vec3 pos[];\n"
-		"out vec3 GPos;\n"
-		"in vec4 ourColor[];\n"
-		"out vec4 GColor;\n"
-		"in vec3 ourNormal[];\n"
-		"out vec3 GNormal;\n"
-		"layout(triangles) in;\n"
-		"layout(triangle_strip, max_vertices = 3) out;\n"
-		"uniform "
-		///////////////////////
-		"void main()\n"
-		"{\n"
-
-
-		"int i;\n"
-		"vec4 vertex;\n"
-		"vec3 p1 = (gl_PositionIn[1] - gl_PositionIn[0]).xyz;\n"
-		"vec3 p2 = (gl_PositionIn[2] - gl_PositionIn[0]).xyz;\n"
-		"vec3 X = normalize(p1);\n"
-		"vec3 Y = normalize(cross(p1,p2));\n"
-		"vec3 Z = cross(X,Y);\n"
-		"mat3 rot =  mat3(X.xyz,Y.xyz,Z.xyz);\n //rotation matrix\n"
-
-		"for (i = 0; i < gl_VerticesIn; i++)\n"
-		"{\n"
-		"	gl_Position = gl_PositionIn[i];\n"
-		"	GColor = ourColor[i];\n"
-		"	GTime = ourTime[i];\n"
-		"	GNormal = rot *ourNormal[i];\n"
-		"	GPos = pos[i];\n"
-		"	EmitVertex();\n"
-		"}\n"
-		"EndPrimitive();\n"
-		//New piece of geometry!
-		"for (i = 0; i < gl_VerticesIn; i++)\n"
-		"{\n"
-		"	vertex = gl_PositionIn[i];\n"
-		"	vertex.z = -vertex.z;\n"
-		"	gl_Position = vertex;\n"
-		"GColor =  ourColor[i];\n"
-		"	EmitVertex();\n"
-		"}\n"
-		"EndPrimitive();\n"
-		"}\n"
-	};
-
-
-
-	//Set fragment source
-	glShaderSource(geometryShader, 1, geometryShaderSource, NULL);
-
-	//Compile fragment source
-	glCompileShader(geometryShader);
-
-	//Check fragment shader for errors
-	GLint gShaderCompiled = GL_FALSE;
-	glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &gShaderCompiled);
-	if (gShaderCompiled != GL_TRUE)
-	{
-		printf("Unable to compile geometry shader %d!\n", geometryShader);
-		printShaderLog(geometryShader);
-		return false;
-	}
-
-	glAttachShader(mProgramID, geometryShader);
-
 
 	GLuint fragmentShader = FragmentID;
 		
@@ -227,7 +151,7 @@ bool ShaderProgram::loadProgram(uint VertexID, uint FragmentID)
 	}
 	vertexID = vertexShader;
 	fragmentID = fragmentShader;
-	geometryID = geometryShader;
+	
 	return true;
 }
 
@@ -263,83 +187,6 @@ bool ShaderProgram::loadProgram(char * Vertex_buffer, char * Fragment_buffer)
 
 	//Attach vertex shader to program
 	glAttachShader(mProgramID, vertexShader);
-
-
-	GLuint geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
-
-	const GLchar* geometryShaderSource[] =
-	{
-		//GEOMETRY SHADER
-		"#version 330\n"
-		"#extension GL_ARB_geometry_shader4 : enable\n"
-
-		"in float ourTime[];\n"
-		"out float GTime;\n"
-		"in vec3 pos[];\n"
-		"out vec3 GPos;\n"
-		"in vec4 ourColor[];\n"
-		"out vec4 GColor;\n"
-		"in vec3 ourNormal[];\n"
-		"out vec3 GNormal;\n"
-		"layout(triangles) in;\n"
-		"layout(triangle_strip, max_vertices = 3) out;\n"
-		"uniform "
-		///////////////////////
-		"void main()\n"
-		"{\n"
-		
-
-		"int i;\n"
-		"vec4 vertex;\n"
-		"vec3 p1 = (gl_PositionIn[1] - gl_PositionIn[0]).xyz;\n"
-		"vec3 p2 = (gl_PositionIn[2] - gl_PositionIn[0]).xyz;\n"
-		"vec3 X = normalize(p1);\n"
-		"vec3 Y = normalize(cross(p1,p2));\n"
-		"vec3 Z = cross(X,Y);\n"
-		"mat3 rot =  mat3(X.xyz,Y.xyz,Z.xyz);\n //rotation matrix\n"
-		
-		"for (i = 0; i < gl_VerticesIn; i++)\n"
-		"{\n"
-		"	gl_Position = gl_PositionIn[i];\n"
-		"	GColor = ourColor[i];\n"
-		"	GTime = ourTime[i];\n"
-		"	GPos = pos[i];\n"
-		"	GNormal = rot * ourNormal[i];\n"
-		"	EmitVertex();\n"
-		"}\n"
-		"EndPrimitive();\n"
-		//New piece of geometry!
-		"for (i = 0; i < gl_VerticesIn; i++)\n"
-		"{\n"
-		"	vertex = gl_PositionIn[i];\n"
-		"	vertex.z = -vertex.z;\n"
-		"	gl_Position = vertex;\n"
-		"GColor =  ourColor[i];\n"
-		"	EmitVertex();\n"
-		"}\n"
-		"EndPrimitive();\n"
-		"}\n"
-	};
-
-
-
-	//Set fragment source
-	glShaderSource(geometryShader, 1, geometryShaderSource, NULL);
-
-	//Compile fragment source
-	glCompileShader(geometryShader);
-
-	//Check fragment shader for errors
-	GLint gShaderCompiled = GL_FALSE;
-	glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &gShaderCompiled);
-	if (gShaderCompiled != GL_TRUE)
-	{
-		printf("Unable to compile geometry shader %d!\n", geometryShader);
-		printShaderLog(geometryShader);
-		return false;
-	}
-
-	glAttachShader(mProgramID, geometryShader);
 
 	//Create fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);

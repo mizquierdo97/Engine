@@ -184,64 +184,6 @@ bool ShadersManager::CreateDefaultShader()
 	//Attach fragment shader to program
 	glAttachShader(default_shader.mProgramID, fragmentShader);
 
-	GLuint geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
-
-	const GLchar* geometryShaderSource[] =
-	{
-		//GEOMETRY SHADER
-		"#version 330\n"
-		"#extension GL_ARB_geometry_shader4 : enable\n"
-
-		"layout(triangles) in;\n"
-		"layout(triangle_strip, max_vertices = 3) out;\n"
-		/*"layout(location = 0) in vec3 position;\n"
-		"layout(location = 1) in vec3 normal;\n"
-		"layout(location = 2) in vec2 texCoord;\n"
-		"layout(location = 3) in vec4 color;\n"*/
-		///////////////////////
-		"void main()\n"
-	"{\n"
-		//increment variable
-		"int i;\n"
-		"vec4 vertex;\n"
-		"for (i = 0; i < gl_VerticesIn; i++)\n"
-		"{\n"
-		"	gl_Position = gl_PositionIn[i];\n"
-		"	EmitVertex();\n"
-		"}\n"
-		"EndPrimitive();\n"
-		//New piece of geometry!
-		"for (i = 0; i < gl_VerticesIn; i++)\n"
-		"{\n"
-		"	vertex = gl_PositionIn[i];\n"
-		"	vertex.z = -vertex.z;\n"
-		"	gl_Position = vertex;\n"
-		"	EmitVertex();\n"
-		"}\n"
-		"EndPrimitive();\n"
-	"}\n"
-	};
-
-
-	
-	//Set fragment source
-	glShaderSource(geometryShader, 1, geometryShaderSource, NULL);
-
-	//Compile fragment source
-	glCompileShader(geometryShader);
-
-	//Check fragment shader for errors
-	GLint gShaderCompiled = GL_FALSE;
-	glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &gShaderCompiled);
-	if (gShaderCompiled != GL_TRUE)
-	{
-		printf("Unable to compile geometry shader %d!\n", geometryShader);
-		//printShaderLog(fragmentShader);
-		return false;
-	}
-
-	glAttachShader(default_shader.mProgramID, geometryShader);
-
 	//Link program
 	glLinkProgram(default_shader.mProgramID);
 
@@ -255,7 +197,7 @@ bool ShadersManager::CreateDefaultShader()
 	}
 	default_shader.fragmentID = fragmentShader;
 	default_shader.vertexID = vertexShader; 
-	default_shader.geometryID = geometryShader;
+	
 	shader_vect.push_back(&default_shader);
 	return true;
 	
