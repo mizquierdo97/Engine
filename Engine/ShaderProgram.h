@@ -39,6 +39,8 @@ protected:
 public:
 	std::string shader_name;
 
+	uint textureID = 0;
+	uint normalsID = 0;
 	//Program ID
 	uint mProgramID = 0;
 	uint fragmentID = 0;

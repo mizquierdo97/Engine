@@ -17,7 +17,7 @@ public:
 	bool ImportShader(const char* name,Resource::Type type, bool force = false);
 	
 	uint loadShaderFromFile(std::string path, ShaderType type);
-	
+	uint CreateResourceFromMaterial(std::string path);
 	/*bool loadTextureFromFile(const char* path, Texture**, bool is_texture = true);
 	bool UpdateTextureFromFile(const char* path, Texture**, bool is_texture = true);
 	bool loadTextureFromPixels32(GLuint* pixels, GLuint width, GLuint height, Texture**);*/

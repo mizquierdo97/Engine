@@ -4,6 +4,7 @@
 #include "ResourceTexture.h"
 #include "ResourceMesh.h"
 #include "ResourceShader.h"
+#include "ResourceShaderProgram.h"
 #include "Globals.h"
 
 ModuleResourceManager::ModuleResourceManager(bool start_enabled) : Module(start_enabled)
@@ -139,6 +140,26 @@ UUID ModuleResourceManager::ImportShader(const char * path, Resource::Type type)
 	return obj_uuid;
 }
 
+UUID ModuleResourceManager::ImportMaterial(const char * path)
+{
+	
+	UUID obj_uuid = Find(path);
+	UUID null_uuid; UuidCreateNil(&null_uuid);
+	RPC_STATUS stat;
+
+	//TODO probably dont need
+	if (UuidCompare(&obj_uuid, &null_uuid, &stat) == 0) {
+		Resource* res = CreateNewResource(Resource::shader_program);
+		res->file = path;
+		res->exported_file = path;
+		res->type = Resource::shader_program;
+		obj_uuid = res->uuid;
+
+	}
+
+	return obj_uuid;
+}
+
 bool operator>(UUID l,  UUID r) {
 	RPC_STATUS stat;
 	int i = UuidCompare(&l, &r,&stat);
@@ -182,7 +203,11 @@ Resource * ModuleResourceManager::CreateNewResource(Resource::Type type, UUID fo
 	case Resource::vertex_shader:
 		ret = (Resource*) new ResourceShader(uuid);
 		break;
+	case Resource::shader_program:
+		ret = (Resource*) new ResourceShaderProgram(uuid);
+		break;
 	}
+
 	
 	resources[uuid] = ret;	
 

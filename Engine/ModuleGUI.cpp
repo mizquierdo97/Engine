@@ -495,7 +495,8 @@ void ModuleGUI::Assets()
 				 
 				 UUID obj_uuid = App->resources->FindImported(path.c_str());
 				 Resource* res = App->resources->Get(obj_uuid); res->LoadToMemory();
-				 comp->SetResource(res);
+				 comp->material_tex = obj_uuid;
+				// comp->SetResource(res);
 				 }
 
 			 int image_height = 32;

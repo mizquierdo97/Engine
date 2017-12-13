@@ -151,17 +151,11 @@ bool ModuleRenderer3D::Init()
 		return false;
 	}
 
-	//temp_shader.loadProgram();
 
-	return ret;
-}
-
-bool ModuleRenderer3D::Start()
-{
 	GLubyte defaultImage[128][128][4];
 	for (int i = 0; i < 128; i++) {
 		for (int j = 0; j < 128; j++) {
-			
+
 			defaultImage[i][j][0] = (GLubyte)255;
 			defaultImage[i][j][1] = (GLubyte)255;
 			defaultImage[i][j][2] = (GLubyte)255;
@@ -178,6 +172,12 @@ bool ModuleRenderer3D::Start()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 128, 128,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, defaultImage);
 
+
+	return ret;
+}
+
+bool ModuleRenderer3D::Start()
+{
 	return true;
 }
 
@@ -374,19 +374,22 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		if (m.texture_coords != nullptr) {
 			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
 				ComponentMaterial* mat = comp->GetParent()->GetMaterial();
-				ResourceTexture* tex_res = ((ResourceTexture*)comp->GetParent()->GetMaterial()->GetResource());
+				UUID texture_uuid = comp->GetParent()->GetMaterial()->material_tex;
+				ResourceTexture* tex_res = (ResourceTexture*)App->resources->Get(texture_uuid);
 				if (tex_res != nullptr) {
 					Texture* temp_tex = tex_res->res_tex;
 					UseTexture(shader->mProgramID, temp_tex->GetTexture());
 				}
+				else
+					UseTexture(DefaultTexture);
 			}
 			else {
-				UseTexture(shader->mProgramID);
+				UseTexture(DefaultTexture);
 				
 			}
 		}
 		else {
-			UseTexture(shader->mProgramID);
+			UseTexture(DefaultTexture);
 		}
 		
 		float modelview[16];

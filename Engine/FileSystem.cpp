@@ -69,6 +69,7 @@ void FileSystem::InitFileSystem()
 			App->filesystem->shader_importer->ImportShader(str.c_str(), Resource::fragment_shader);
 			CreateMeta(str);
 		}
+		
 	}
 	for (auto & p : fs::directory_iterator(path)) {
 		//GET STRING

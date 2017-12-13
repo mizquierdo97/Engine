@@ -12,6 +12,7 @@ public:
 
 		texture,
 		mesh,
+		shader_program,
 		vertex_shader,
 		fragment_shader,
 		audio,

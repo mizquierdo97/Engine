@@ -20,7 +20,7 @@ void ComponentMaterial::SaveComponentScene(Data * data)
 void ComponentMaterial::ShowInspectorComponents()
 {
 	static bool b_open = false;
-	ResourceTexture* res = (ResourceTexture*)GetResource();
+	ResourceTexture* res = (ResourceTexture*)App->resources->Get(material_tex);
 	if (ImGui::CollapsingHeader("Material")) {
 				
 		if (ImGui::Button("Change Texture")) {			

@@ -71,3 +71,8 @@ uint ShaderImporter::loadShaderFromFile(std::string path, ShaderType type)
 
 	return id;
 }
+
+uint ShaderImporter::CreateResourceFromMaterial(std::string path)
+{
+	return uint();
+}

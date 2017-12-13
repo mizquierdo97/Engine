@@ -74,8 +74,11 @@ void ShadersManager::CreateShader(std::string vs_path, std::string fs_path, std:
 	uint fs_ID = f_res->res_shader->shader_id;
 
 	ShaderProgram* shader_program = new ShaderProgram();
-	shader_program->shader_name = name;
+	shader_program->shader_name = GetFileName(name);
 	shader_program->loadProgram(vs_ID, fs_ID);
+
+	App->resources->ImportMaterial(name.c_str());
+
 	shader_vect.push_back(shader_program);
 
 
@@ -198,6 +201,20 @@ bool ShadersManager::CreateDefaultShader()
 	default_shader.fragmentID = fragmentShader;
 	default_shader.vertexID = vertexShader; 
 	
+	UUID obj_uuid = IID_NULL;
+	UUID null_uuid; UuidCreateNil(&null_uuid);
+	RPC_STATUS stat;
+
+	//TODO probably dont need
+	if (UuidCompare(&obj_uuid, &null_uuid, &stat) == 0) {
+		Resource* res = App->resources->CreateNewResource(Resource::shader_program);
+		res->file = "default.material";
+		res->exported_file = "default.material";
+		res->type = Resource::shader_program;
+		obj_uuid = res->uuid;
+
+	}
+
 	shader_vect.push_back(&default_shader);
 	return true;
 	
@@ -438,7 +455,7 @@ void ShadersManager::LoadMaterials(){
 				std::string fragment_shader = material_data.GetString("Fragment_shader");
 				std::string name = material_data.GetString("Name");
 
-				CreateShader(vertex_shader.c_str(), fragment_shader.c_str(), name.c_str());
+				CreateShader(vertex_shader.c_str(), fragment_shader.c_str(), str.c_str());
 
 			}
 

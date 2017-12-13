@@ -4,6 +4,7 @@
 
 #include "Component.h"
 #include "ShaderProgram.h"
+#include "ResourceTexture.h"
 class ComponentMaterial :public Component {
 	public:
 		ComponentMaterial() {
@@ -34,6 +35,7 @@ class ComponentMaterial :public Component {
 public:
 	std::string path_texture;
 	ShaderProgram shader = App->shaders->default_shader;
+	UUID material_tex;
 private:
 	float alpha_test = 0.5f;
 };

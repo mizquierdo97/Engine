@@ -26,7 +26,12 @@ void main()
 {
 
 vec3 asd = mat3(model) * normal;
-gl_Position =  viewproj *  model * vec4(position.x,position.y + sin(_time),position.z + 2*sin(position.x + _time) + 0.5*cos(position.y*0.3+position.x*0.3 + _time), 1.0f);
+float x = position.x;
+float y = position.y;
+float t = _time;
+float distortion_x = (sin(x + t) + sin(2.2*x + 5.52 + t) + sin(2.9*x + 0.93 + t) + sin(4.46*x + 9.94 + t));
+float distortion_y = (sin(y + t) + sin(2.2*y + 5.52 + t) + sin(2.9*y + 0.93 + t) + sin(4.46*y + 9.94 + t))/2;
+gl_Position =  viewproj *  model * vec4(position.x,position.y + sin(_time),position.z + distortion_x + distortion_y , 1.0f);
 vec3 new_norm = CalcNormal(position.x, position.y);
 ourColor = _color;
 ourNormal = CalcNormal(position.x, position.y);
