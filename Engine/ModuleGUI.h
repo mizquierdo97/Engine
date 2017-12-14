@@ -36,7 +36,7 @@ public:
 	void ShowConsole(bool* p_open);
 	void ShowHardware();
     void ShowAddComponent();
-	void ShowTextureMenu(ComponentMaterial*);
+	void ShowTextureMenu(ComponentMaterial*, int type);
 	void ShowMeshMenu(ComponentMesh*);
 	bool ShowLoadMenu(std::string str);
 	//

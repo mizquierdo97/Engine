@@ -587,7 +587,7 @@ GameObject* CreateObjectFromMesh(char** cursor, GameObject* parent, int* num_chi
 					UUID texture_uuid = App->resources->Find(texture_path.c_str());
 					if (!App->resources->Get(texture_uuid)->LoadToMemory())
 						LOG("TEXTURE_LOADED");
-					temp_obj->GetMaterial()->material_tex = texture_uuid;
+					temp_obj->GetMaterial()->diffuse_tex = texture_uuid;
 					//((ComponentMaterial*)temp_obj->GetMaterial());
 
 				}

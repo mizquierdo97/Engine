@@ -49,7 +49,7 @@ update_status ShadersManager::Update(float dt)
 		//TIME
 		
 		GLint timeLoc = glGetUniformLocation((*item)->mProgramID, "_time");
-		glUniform1f(timeLoc, sin(time_dt));
+		glUniform1f(timeLoc, time_dt);
 
 
 
@@ -428,12 +428,14 @@ void ShadersManager::UpdateShaderWindow(ComponentMaterial* comp,ShaderType type)
 	}
 
 	float2 next_win_size = float2(600, 616);
-	ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
-	ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+	ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2), ImGuiCond_Appearing);
+	ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y), ImGuiCond_Appearing);
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.Colors[ImGuiCol_Separator] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
 	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.50f, 0.5f, 0.5f, 1.0f);
-	if(ImGui::Begin("Change Shader", &shader_change) ){
+	ImGuiWindowFlags window_flags = 0;
+
+	if(ImGui::Begin("Change Shader", &shader_change, window_flags) ){
 
 		if (ImGui::Button("Save")) {
 			uint buffer_size = strlen(shader_editor.GetText().c_str());

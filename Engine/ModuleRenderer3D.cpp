@@ -318,8 +318,9 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 
 	ShaderProgram* shader;
 	shader = &App->shaders->default_shader;
+	uint diffuse_id = DefaultTexture;
+	uint normal_map_id = 0;
 	
-
 	
 	float4x4 matrixfloat = comp->GetParent()->GetTransform()->GetMatrix();
 	GLfloat matrix[16] =
@@ -374,32 +375,32 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		if (m.texture_coords != nullptr) {
 			if (texture && comp->GetParent()->GetMaterial() != nullptr) {
 				ComponentMaterial* mat = comp->GetParent()->GetMaterial();
-				UUID texture_uuid = comp->GetParent()->GetMaterial()->material_tex;
+				UUID texture_uuid = comp->GetParent()->GetMaterial()->diffuse_tex;
 				ResourceTexture* tex_res = (ResourceTexture*)App->resources->Get(texture_uuid);
+				UUID normal_map_uuid = comp->GetParent()->GetMaterial()->normal_tex;
+				ResourceTexture* norm_res = (ResourceTexture*)App->resources->Get(normal_map_uuid);
 				if (tex_res != nullptr) {
 					Texture* temp_tex = tex_res->res_tex;
-					UseTexture(shader->mProgramID, temp_tex->GetTexture());
+					diffuse_id = temp_tex->GetTexture();
+					
+				}	
+				if (norm_res != nullptr) {
+					normal_map_id = norm_res->res_tex->GetTexture();
 				}
-				else
-					UseTexture(DefaultTexture);
-			}
-			else {
-				UseTexture(DefaultTexture);
-				
-			}
+			}			
 		}
-		else {
-			UseTexture(DefaultTexture);
-		}
-		
+		glActiveTexture(GL_TEXTURE0);		
+		UseTexture(shader->mProgramID, diffuse_id, 0);
+		glActiveTexture(GL_TEXTURE1);
+		UseTexture(shader->mProgramID, normal_map_id, 1);
+
 		float modelview[16];
 		glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
 
 		float projectview[16];
 		glGetFloatv(GL_PROJECTION_MATRIX, projectview);
 
-
-
+		
 
 		GLint modelLoc = glGetUniformLocation(shader->mProgramID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, matrix);
@@ -487,15 +488,21 @@ void ModuleRenderer3D::RenderMesh(Mesh * m)
 
 
 
-void ModuleRenderer3D::UseTexture(uint shader_id,uint i)
+void ModuleRenderer3D::UseTexture(uint shader_id,uint i, uint num)
 {
+	char* var_name = nullptr;
+	if (num == 0)
+		var_name = "_texture";
+	else if (num == 1)
+		var_name = "_normal_map";
+	else return;
 	if (i == 0)
 		i = DefaultTexture;
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindTexture(GL_TEXTURE_2D, i);
 	//change shader
-	uint tex_id = glGetUniformLocation(shader_id, "_texture");
-	glUniform1i(tex_id, 0);
+	uint tex_id = glGetUniformLocation(shader_id, var_name);
+	glUniform1i(tex_id, num);
 }
 
 ComponentCamera * ModuleRenderer3D::GetActiveCamera()

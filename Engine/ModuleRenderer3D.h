@@ -49,7 +49,7 @@ public:
 	void DebugDrawBox(const float3*,Color);
 	void DebugDraw(const AABB& aabb, Color color = White, const float4x4& transform = float4x4::identity);
 
-	void UseTexture(uint shader_id = 0, uint i = 0);
+	void UseTexture(uint shader_id = 0, uint i = 0, uint num =0);
 	ComponentCamera* GetActiveCamera();
 public:
 

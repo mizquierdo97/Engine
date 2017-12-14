@@ -19,12 +19,19 @@ void ComponentMaterial::SaveComponentScene(Data * data)
 
 void ComponentMaterial::ShowInspectorComponents()
 {
+	static int type = 0;
 	static bool b_open = false;
-	ResourceTexture* res = (ResourceTexture*)App->resources->Get(material_tex);
+	ResourceTexture* res = (ResourceTexture*)App->resources->Get(diffuse_tex);
 	if (ImGui::CollapsingHeader("Material")) {
 				
-		if (ImGui::Button("Change Texture")) {			
+		if (ImGui::Button("Change Diffuse")) {			
 			b_open = true;
+			type = 0;
+		}
+
+		if (ImGui::Button("Change Normal")) {
+			b_open = true;
+			type = 1;
 		}
 		if (res != nullptr) {
 			Texture* actual_tex = res->res_tex;
@@ -61,13 +68,20 @@ void ComponentMaterial::ShowInspectorComponents()
 
 			shader->unbind();
 
-			
+			static ShaderType type;
 			if (ImGui::Button("Change Vertex")) {
 				App->shaders->shader_change = true;
 				App->shaders->set_editor_text = true;
+				type = ShaderType::vertex_shader;
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Change Fragment")) {
+				App->shaders->shader_change = true;
+				App->shaders->set_editor_text = true;
+				type = ShaderType::pixel_shader;
 			}
 			if (App->shaders->shader_change) {				
-					App->shaders->UpdateShaderWindow(this, ShaderType::vertex_shader);
+					App->shaders->UpdateShaderWindow(this,type);
 			}
 
 		}
@@ -77,7 +91,7 @@ void ComponentMaterial::ShowInspectorComponents()
 		ImGui::SetNextWindowPos(ImVec2(App->input->GetMousepositionX()-100, App->input->GetMousepositionY()), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowSize(ImVec2(300, 440), ImGuiCond_FirstUseEver);
 		ImGui::Begin("Textures", &b_open);
-		App->gui->ShowTextureMenu(this);
+		App->gui->ShowTextureMenu(this, type);
 		ImGui::End();
 	}
 

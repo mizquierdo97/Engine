@@ -465,8 +465,10 @@ void ModuleGUI::Assets()
 }
 
 
- void ModuleGUI::ShowTextureMenu(ComponentMaterial * comp)
+ void ModuleGUI::ShowTextureMenu(ComponentMaterial * comp, int type =0)
  {
+
+
 	 std::list<std::string>::iterator item = path_list.begin();
 	 int i = 0;
 	 while (item != path_list.end())
@@ -495,7 +497,11 @@ void ModuleGUI::Assets()
 				 
 				 UUID obj_uuid = App->resources->FindImported(path.c_str());
 				 Resource* res = App->resources->Get(obj_uuid); res->LoadToMemory();
-				 comp->material_tex = obj_uuid;
+
+				 if(type ==0)
+					 comp->diffuse_tex = obj_uuid;
+				 if(type ==1)
+					 comp->normal_tex = obj_uuid;
 				// comp->SetResource(res);
 				 }
 
