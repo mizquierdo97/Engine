@@ -1,38 +1,60 @@
-#version 330 core
-in vec4 ourColor;
-in vec2 TexCoord;
-in vec3 ourNormal;
-in vec3 ourPos;
-uniform float _time;
-out vec4 color;
-uniform sampler2D _texture;
-uniform sampler2D _normal_map;
+#version 330 core
+in vec4 ourColor;
+in vec2 TexCoord;
+in vec3 ourNormal;
+in vec3 ourPos;
+uniform float _time;
+out vec4 color;
+uniform sampler2D _texture;
+uniform sampler2D _normal_map;
+uniform  mat4 viewproj;
+uniform mat4 model;
+/*
+vec2 blinnPhongDir(vec3 lightDir, float lightInt, float Ka, float Kd, float Ks, float shininess)
+{
+vec3 s = normalize(lightDir);
+vec3 v = -ourPos +vec3(100,0,0);
+vec3 n = texture( _normal_map,TexCoord ).rgb * dot(ourNormal, vec3(0,1,1));//ourNormal * texture(_normal_map, TexCoord).xyz;
+vec3 h = normalize(v+s);
+float diffuse = Ka + Kd * lightInt * max(0.0, dot(n, s));
+float spec = Ks * pow(max(0.0, dot(n,h)), shininess);
+return vec2(diffuse, spec);
+}*/
+
+void main()
+{
+
+ // light data
+ vec3 lightdir = normalize(vec3(1.0,0.0, 1.0));
+ vec3 ambient = ourColor.xyz/15;
+ vec3 diffuse = ourColor.xyz;
+ vec3 specular = vec3(1, 1, 1);
+
+vec3 lcolor =ourColor.xyz;
+vec3 viewDirection = normalize(vec3(viewproj * vec4(0.0, 0.0, 0.0, 1.0) -model * vec4(ourPos,1)));
 
+//vec2 inten = blinnPhongDir(lightdir, 1, 0.2, 1, 1, 0.9);
+vec3 color_texture = texture(_texture, TexCoord).xyz * diffuse;
+vec3 normal = texture(_normal_map, TexCoord).xyz * ourNormal;
 
-vec2 blinnPhongDir(vec3 lightDir, float lightInt, float Ka, float Kd, float Ks, float shininess)
-{
-vec3 s = normalize(lightDir);
-vec3 v = -ourPos +vec3(100,0,0);
-vec3 n = ourNormal * texture(_normal_map, TexCoord).xyz;
-vec3 h = normalize(v+s);
-float diffuse = Ka + Kd * lightInt * max(0.0, dot(n, s));
-float spec = Ks * pow(max(0.0, dot(n,h)), shininess);
-return vec2(diffuse, spec);
-}
-
-void main()
-{
-
- // light data
- vec3 lightdir = vec3(0.0,1.0, 1.0);
- vec3 ambient = vec3(0, 0, 0.1);
- vec3 diffuse = ourColor.xyz;
- vec3 specular = vec3(1, 1, 1);
- 
-vec3 lcolor =ourColor.xyz;
-vec2 inten = blinnPhongDir(lightdir, 1, 0.2, 1, 1, 0.9);
-color = vec4(lcolor * inten.x + vec3(1.0) * inten.y, 1) * texture(_texture, TexCoord) ;
-//color = vec4(ourNormal,1);
-}
-
-
+vec3 specularReflection;
+float attenuation = 1;
+float temp  = (dot(normal, lightdir)+0.3);
+
+ if (dot(normal, lightdir) < 0.0) // light source on the wrong side?
+    {
+      specularReflection = vec3(0.0, 0.0, 0.0); // no specular reflection
+    }
+  else
+    {
+      specularReflection = attenuation * specular 
+	* pow(max(0, dot(reflect(-lightdir,  texture(_normal_map, TexCoord).xyz), viewDirection)),
+	      1000.0);
+    }
+
+vec3 final_color = max(color_texture *temp  + specularReflection,ambient);
+color = vec4(final_color,1) ;
+//color = vec4(ourNormal,1);
+}
+
+
