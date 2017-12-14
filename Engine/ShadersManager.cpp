@@ -124,6 +124,7 @@ bool ShadersManager::CreateDefaultShader()
 		"uniform vec4 _color;\n"
 		"uniform mat4 model;\n"
 		"uniform mat4 viewproj;\n"
+		"uniform mat4 view;\n"
 		"void main()\n"
 		"{\n"
 		"gl_Position = viewproj *  model * vec4(position.x,position.y,position.z, 1.0f);\n"

@@ -409,6 +409,10 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 
 		glUniformMatrix4fv(viewLoc, 1, GL_TRUE,App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().ptr());		
 	
+		GLint view = glGetUniformLocation(shader->mProgramID, "view");
+
+		glUniformMatrix4fv(view, 1, GL_TRUE, App->camera->dummyfrustum->cam_frustum.ViewMatrix().ptr());
+
 
 		if (m.id_indices != NULL)
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
