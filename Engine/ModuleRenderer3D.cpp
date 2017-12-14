@@ -394,13 +394,10 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		glActiveTexture(GL_TEXTURE1);
 		UseTexture(shader->mProgramID, normal_map_id, 1);
 
-		float modelview[16];
-		glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
-
-		float projectview[16];
-		glGetFloatv(GL_PROJECTION_MATRIX, projectview);
-
 		
+		GLint view2Loc = glGetUniformLocation(shader->mProgramID, "view");
+		float4x4 temp = App->camera->dummyfrustum->cam_frustum.ViewMatrix();
+		glUniformMatrix4fv(view2Loc, 1, GL_TRUE, temp.Inverted().ptr());
 
 		GLint modelLoc = glGetUniformLocation(shader->mProgramID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, matrix);
@@ -409,10 +406,7 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 
 		glUniformMatrix4fv(viewLoc, 1, GL_TRUE,App->camera->dummyfrustum->cam_frustum.ViewProjMatrix().ptr());		
 	
-		GLint view = glGetUniformLocation(shader->mProgramID, "view");
-
-		glUniformMatrix4fv(view, 1, GL_TRUE, App->camera->dummyfrustum->cam_frustum.ViewMatrix().ptr());
-
+	
 
 		if (m.id_indices != NULL)
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.id_indices);
