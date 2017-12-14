@@ -440,7 +440,7 @@ void ShadersManager::UpdateShaderWindow(ComponentMaterial* comp,ShaderType type)
 
 		if (ImGui::Button("Save")) {
 			uint buffer_size = strlen(shader_editor.GetText().c_str());
-			FILE* pFile = fopen(path, "w");
+			FILE* pFile = fopen(path, "wb");
 			fwrite(shader_editor.GetText().c_str(), sizeof(char), buffer_size, pFile);
 			fclose(pFile);
 
