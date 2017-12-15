@@ -7,6 +7,7 @@ uniform float _time;
 out vec4 color;
 uniform sampler2D _texture;
 uniform sampler2D _normal_map;
+
 uniform  mat4 viewproj;
 uniform mat4 model;
 uniform mat4 view;
@@ -54,7 +55,7 @@ vec3 normal =normalize(ourNormal) + normal_map.x * vec3(1,0,0) + normal_map.y* v
 vec3 specularReflection;
 
 float spec;
-float attenuation = 1;
+float attenuation = 0.6;
 float temp  = dot(normal, lightdir);
 
 //spec = max(0,dot(normal_map, viewDirection));

@@ -92,6 +92,9 @@ bool ShadersManager::CreateShaderFromArray(char* vert_buffer,char* frag_buffer, 
 	ShaderProgram* shader_program = new ShaderProgram();
 	shader_program->shader_name = name;
 	bool ret = shader_program->loadProgram(vert_buffer, frag_buffer);
+	name = "assets/" + name + ".material";
+	App->resources->ImportMaterial(name.c_str());
+
 	shader_vect.push_back(shader_program);
 
 	return ret;
@@ -99,7 +102,7 @@ bool ShadersManager::CreateShaderFromArray(char* vert_buffer,char* frag_buffer, 
 bool ShadersManager::CreateDefaultShader()
 {
 	
-	default_shader.shader_name = name;
+	default_shader.shader_name = "Default Shader";
 	//Success flag
 	GLint programSuccess = GL_TRUE;
 
@@ -416,6 +419,7 @@ void ShadersManager::UpdateShaderWindow(ComponentMaterial* comp,ShaderType type)
 	static char* path;
 	static char* buffer;
 	static TextEditor shader_editor;
+	static bool is_default_shader = false;
 	if (type == ShaderType::vertex_shader) {
 		i = comp->shader->vertexID;
 		n = comp->shader->fragmentID;
@@ -438,7 +442,7 @@ void ShadersManager::UpdateShaderWindow(ComponentMaterial* comp,ShaderType type)
 
 	if(ImGui::Begin("Change Shader", &shader_change, window_flags) ){
 
-		if (ImGui::Button("Save")) {
+		if (ImGui::Button("Save") && ! is_default_shader) {
 			uint buffer_size = strlen(shader_editor.GetText().c_str());
 			FILE* pFile = fopen(path, "wb");
 			fwrite(shader_editor.GetText().c_str(), sizeof(char), buffer_size, pFile);
@@ -475,9 +479,16 @@ void ShadersManager::UpdateShaderWindow(ComponentMaterial* comp,ShaderType type)
 		if (set_editor_text) {
 		
 			path = GetShaderPath(i);
-			buffer = GetShaderText(path);
-			set_editor_text = false;
-			shader_editor.SetText(buffer);
+			if (path != nullptr) {
+				buffer = GetShaderText(path);
+				set_editor_text = false;
+				shader_editor.SetText(buffer);
+				is_default_shader = false;
+			}
+			else {
+				is_default_shader = true;
+				shader_editor.SetText("YOU CAN'T MODIFY THE DEFAULT SHADER");
+			}
 		}
 
 
