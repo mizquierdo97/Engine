@@ -2,6 +2,9 @@
 #ifndef _COMPONENT_MATERIAL
 #define _COMPONENT_MATERIAL
 
+
+#define MAX_TEXTURES 5
+
 #include "Component.h"
 #include "ShaderProgram.h"
 #include "ResourceTexture.h"
@@ -11,6 +14,10 @@ class ComponentMaterial :public Component {
 			shader = &App->shaders->default_shader;
 			diffuse_tex = IID_NULL;
 			normal_tex = IID_NULL;
+
+			for (int i = 0; i < MAX_TEXTURES; i++) {
+				extra_textures[i] = IID_NULL;
+			}
 		};
 		ComponentMaterial(UUID uid, GameObject* obj) {
 			res_uuid = uid;			
@@ -19,6 +26,9 @@ class ComponentMaterial :public Component {
 			alpha_test = 0.5f;
 			diffuse_tex = IID_NULL;
 			normal_tex = IID_NULL;
+			for (int i = 0; i < MAX_TEXTURES; i++) {
+				extra_textures[i] = IID_NULL;
+			}
 
 		};
 		~ComponentMaterial() {
@@ -42,7 +52,9 @@ public:
 	ShaderProgram* shader = &App->shaders->default_shader;
 	UUID diffuse_tex = IID_NULL;
 	UUID normal_tex = IID_NULL;
-	//float4 color = float4(1.0f, 1.0f, 1.0f, 1.0f);
+
+	UUID extra_textures[MAX_TEXTURES];
+	
 
 private:
 	float alpha_test = 0.5f;

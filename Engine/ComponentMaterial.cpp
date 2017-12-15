@@ -40,7 +40,7 @@ void ComponentMaterial::SaveComponentScene(Data * data)
 void ComponentMaterial::ShowInspectorComponents()
 {
 	shader->bind();
-	static int type = 0;
+	static int tex_num = 0;
 	static bool b_open = false;
 	ResourceTexture* res = (ResourceTexture*)App->resources->Get(diffuse_tex);
 	if (ImGui::CollapsingHeader("Material")) {
@@ -48,12 +48,12 @@ void ComponentMaterial::ShowInspectorComponents()
 		
 		if (ImGui::Button("Change Diffuse")) {			
 			b_open = true;
-			type = 0;
+			tex_num = 0;
 		}
 
 		if (ImGui::Button("Change Normal")) {
 			b_open = true;
-			type = 1;
+			tex_num = 1;
 		}
 
 		for (int i = 3; i < 8; i++) {
@@ -63,12 +63,14 @@ void ComponentMaterial::ShowInspectorComponents()
 			char num = i + '0';
 			name += num;
 			var_name += num;
-			uint tex_id = glGetUniformLocation(shader->mProgramID, var_name.c_str());
+			int tex_id = glGetUniformLocation(shader->mProgramID, var_name.c_str());
 			
 			if (tex_id == -1)
 				continue;
 			if (ImGui::Button(name.c_str())) {
-
+				b_open = true;
+				tex_num = i-1;
+				int x = 0;
 			}
 		}
 		
@@ -132,7 +134,7 @@ void ComponentMaterial::ShowInspectorComponents()
 		ImGui::SetNextWindowPos(ImVec2(App->input->GetMousepositionX()-100, App->input->GetMousepositionY()), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowSize(ImVec2(300, 440), ImGuiCond_FirstUseEver);
 		ImGui::Begin("Textures", &b_open);
-		App->gui->ShowTextureMenu(this, type);
+		App->gui->ShowTextureMenu(this, tex_num);
 		ImGui::End();
 	}
 

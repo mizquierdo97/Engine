@@ -394,7 +394,21 @@ void ModuleRenderer3D::Render(ComponentMesh* comp)
 		glActiveTexture(GL_TEXTURE1);
 		UseTexture(shader->mProgramID, normal_map_id, 1);
 
-		
+		for (int i = 0; i < MAX_TEXTURES; i++) {
+			auto asd = GL_TEXTURE2 + i;
+
+			UUID texture_uuid = comp->GetParent()->GetMaterial()->extra_textures[i];
+			auto temp_array = comp->GetParent()->GetMaterial()->extra_textures;
+			ResourceTexture* tex_res = (ResourceTexture*)App->resources->Get(texture_uuid);
+
+			if (tex_res != nullptr) {
+				int extra_texture_id = tex_res->res_tex->GetTexture();
+				glActiveTexture(GL_TEXTURE2 + i);
+				UseTexture(shader->mProgramID, extra_texture_id, 3+i);
+
+			}
+
+		}
 		GLint view2Loc = glGetUniformLocation(shader->mProgramID, "view");
 		float4x4 temp = App->camera->dummyfrustum->cam_frustum.ViewMatrix();
 		glUniformMatrix4fv(view2Loc, 1, GL_TRUE, temp.Inverted().ptr());
@@ -488,19 +502,25 @@ void ModuleRenderer3D::RenderMesh(Mesh * m)
 
 void ModuleRenderer3D::UseTexture(uint shader_id,uint i, uint num)
 {
-	char* var_name = nullptr;
+	std::string var_name = "";
 	if (num == 0)
 		var_name = "_texture";
 	else if (num == 1)
 		var_name = "_normal_map";
+	else if (num > 1 && num <= MAX_TEXTURES) {
+		char number = num + '0';
+		std::string temp_name = "_texture";
+		temp_name += number;
+		var_name = temp_name;
+	}
 	else return;
 	if (i == 0)
 		i = DefaultTexture;
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindTexture(GL_TEXTURE_2D, i);
 	//change shader
-	uint tex_id = glGetUniformLocation(shader_id, var_name);
-	glUniform1i(tex_id, num);
+	int tex_id = glGetUniformLocation(shader_id, var_name.c_str());
+	glUniform1i(tex_id, num-1);
 }
 
 ComponentCamera * ModuleRenderer3D::GetActiveCamera()

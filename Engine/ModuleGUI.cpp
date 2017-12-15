@@ -502,7 +502,9 @@ void ModuleGUI::Assets()
 					 comp->diffuse_tex = obj_uuid;
 				 if(type ==1)
 					 comp->normal_tex = obj_uuid;
-				// comp->SetResource(res);
+				 
+				 if (type >= 2)
+					 comp->extra_textures[type-2] = obj_uuid;
 				 }
 
 			 int image_height = 32;
