@@ -13,6 +13,7 @@ public:
 	ResourceShaderProgram() {};
 	ResourceShaderProgram(UUID uid) {
 		uuid = uid;
+		res_shader_program = nullptr;
 	};
 
 	~ResourceShaderProgram() {};
@@ -28,11 +29,8 @@ public:
 		return false;
 	};
 
-
-
 public:
-	ShaderProgram* res_shader = nullptr;
-	ResourceTexture* res_texture = nullptr;
+	ShaderProgram* res_shader_program = nullptr;
 
 };
 

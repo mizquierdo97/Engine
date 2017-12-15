@@ -51,6 +51,8 @@ update_status ShadersManager::Update(float dt)
 		GLint timeLoc = glGetUniformLocation((*item)->mProgramID, "_time");
 		glUniform1f(timeLoc, time_dt);
 
+		GLint colorLoc = glGetUniformLocation((*item)->mProgramID, "_color");
+		glUniform4fv(colorLoc, 1, &(*item)->color[0]);
 
 
 		(*item)->unbind();
@@ -79,7 +81,7 @@ void ShadersManager::CreateShader(std::string vs_path, std::string fs_path, std:
 	shader_program->shader_name = GetFileName(name);
 	shader_program->loadProgram(vs_ID, fs_ID);
 
-	App->resources->ImportMaterial(name.c_str());
+	App->resources->ImportMaterial(name.c_str(), shader_program);
 
 	shader_vect.push_back(shader_program);
 
@@ -93,7 +95,7 @@ bool ShadersManager::CreateShaderFromArray(char* vert_buffer,char* frag_buffer, 
 	shader_program->shader_name = name;
 	bool ret = shader_program->loadProgram(vert_buffer, frag_buffer);
 	name = "assets/" + name + ".material";
-	App->resources->ImportMaterial(name.c_str());
+	App->resources->ImportMaterial(name.c_str(),shader_program);
 
 	shader_vect.push_back(shader_program);
 

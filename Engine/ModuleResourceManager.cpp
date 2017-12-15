@@ -135,7 +135,7 @@ UUID ModuleResourceManager::ImportShader(const char * path, Resource::Type type)
 	return obj_uuid;
 }
 
-UUID ModuleResourceManager::ImportMaterial(const char * path)
+UUID ModuleResourceManager::ImportMaterial(const char * path , ShaderProgram* program)
 {
 	
 	UUID obj_uuid = Find(path);
@@ -144,10 +144,12 @@ UUID ModuleResourceManager::ImportMaterial(const char * path)
 
 	//TODO probably dont need
 	if (UuidCompare(&obj_uuid, &null_uuid, &stat) == 0) {
-		Resource* res = CreateNewResource(Resource::shader_program);
+		ResourceShaderProgram* res = (ResourceShaderProgram*)CreateNewResource(Resource::shader_program);
+		
 		res->file = path;
 		res->exported_file = path;
 		res->type = Resource::shader_program;
+		res->res_shader_program = program;
 		obj_uuid = res->uuid;
 
 	}

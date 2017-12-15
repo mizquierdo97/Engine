@@ -46,6 +46,7 @@ public:
 	uint fragmentID = 0;
 	uint geometryID = 0;
 	uint vertexID = 0;
+	float4 color = float4(1, 1, 1, 1);
 	//ShaderType type = ShaderType::null_shader;
 };
 

@@ -9,12 +9,17 @@ class ComponentMaterial :public Component {
 	public:
 		ComponentMaterial() {
 			shader = &App->shaders->default_shader;
+			diffuse_tex = IID_NULL;
+			normal_tex = IID_NULL;
 		};
 		ComponentMaterial(UUID uid, GameObject* obj) {
 			res_uuid = uid;			
 			SetParent(obj);
 			comp_type = ComponentType::material;
 			alpha_test = 0.5f;
+			diffuse_tex = IID_NULL;
+			normal_tex = IID_NULL;
+
 		};
 		~ComponentMaterial() {
 			
@@ -35,8 +40,10 @@ class ComponentMaterial :public Component {
 public:
 	std::string path_texture;
 	ShaderProgram* shader = &App->shaders->default_shader;
-	UUID diffuse_tex;
-	UUID normal_tex;
+	UUID diffuse_tex = IID_NULL;
+	UUID normal_tex = IID_NULL;
+	//float4 color = float4(1.0f, 1.0f, 1.0f, 1.0f);
+
 private:
 	float alpha_test = 0.5f;
 };

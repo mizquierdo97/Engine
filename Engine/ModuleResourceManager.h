@@ -29,7 +29,7 @@ public:
 	UUID FindImported(const char* file_in_library) const;
 	UUID ImportFile(const char* new_file_in_assets, bool force = false);
 	UUID ImportShader(const char * path, Resource::Type type);
-	UUID ImportMaterial(const char* path);
+	UUID ImportMaterial(const char* path, ShaderProgram* program);
 	UUID GenerateNewUID();
 	const Resource* Get(UUID uid) const;
 	Resource* Get(UUID uid);

@@ -4,6 +4,7 @@
 #include "imgui_dock.h"
 #include "Object.h"
 #include "ComponentMesh.h"
+#include "ComponentMaterial.h"
 #include <string>
 #include "Data.h"
 #include "ComponentTransform.h"
@@ -13,6 +14,7 @@
 #include <map>
 #include "ImGui\imgui_internal.h"
 #include "ShadersManager.h"
+#include "ResourceShaderProgram.h"
 
 #define CHECKERS_HEIGHT 128
 #define CHECKERS_WIDTH 128
@@ -484,22 +486,73 @@ void ModuleWorld::LoadSceneMesh(Data scene_data, GameObject* go)
 
 void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 {
+
+	UUID obj_uuid;
 	if (scene_data.EnterSection("Material")) {
-		std::string texture_path = scene_data.GetString("Texture Path");
-		std::string library_path = MATERIALS_PATH + GetFileName(texture_path) + ".dds";
 
-
-		if (ExistsFile(library_path)) {
-			UUID obj_uuid = App->resources->FindImported(library_path.c_str());
-			ResourceTexture* res = (ResourceTexture*)App->resources->Get(obj_uuid);
+		std::string shader_path = scene_data.GetString("Shader Path");
+	
+		if (ExistsFile(shader_path)) {
+			obj_uuid = App->resources->Find(shader_path.c_str());
+			ResourceShaderProgram* res = (ResourceShaderProgram*)App->resources->Get(obj_uuid);
 			if (res != nullptr) {
-				res->LoadToMemory();
 				go->AddComponentMaterial(obj_uuid);
-			}		
+				((ComponentMaterial*)go->GetMaterial())->shader = res->res_shader_program;
+			}
+			else {
+				go->AddComponentMaterial(IID_NULL);
+				((ComponentMaterial*)go->GetMaterial())->shader = &App->shaders->default_shader;
+			}
 		}
 		else {
-			LOG("CANT FIND %s TEXTURE", texture_path.c_str());
+			go->AddComponentMaterial(IID_NULL);
+			((ComponentMaterial*)go->GetMaterial())->shader = &App->shaders->default_shader;
+			
 		}
+
+
+		std::string diffuse_path = scene_data.GetString("Diffuse Path");
+		if (diffuse_path != "") {
+			std::string diffuse_library_path = MATERIALS_PATH + GetFileName(diffuse_path) + ".dds";
+
+			if (ExistsFile(diffuse_library_path)) {
+				obj_uuid = App->resources->FindImported(diffuse_library_path.c_str());
+				ResourceTexture* res = (ResourceTexture*)App->resources->Get(obj_uuid);
+				if (res != nullptr) {
+					res->LoadToMemory();
+					((ComponentMaterial*)go->GetMaterial())->diffuse_tex = obj_uuid;
+				}
+			}
+			else {
+				LOG("CANT FIND %s TEXTURE", diffuse_path.c_str());
+			}
+
+		}
+		std::string normals_path = scene_data.GetString("Normals Path");
+
+		if (normals_path != "") {
+			std::string normals_library_path = MATERIALS_PATH + GetFileName(normals_path) + ".dds";
+
+			if (ExistsFile(normals_library_path)) {
+				obj_uuid = App->resources->FindImported(normals_library_path.c_str());
+				ResourceTexture* res = (ResourceTexture*)App->resources->Get(obj_uuid);
+				if (res != nullptr) {
+					res->LoadToMemory();
+					((ComponentMaterial*)go->GetMaterial())->normal_tex = obj_uuid;
+				}
+			}
+			else {
+				LOG("CANT FIND %s TEXTURE", normals_path.c_str());
+			}
+		}
+		float4 color = scene_data.GetVector4f("Color");
+
+
+		//((ComponentMaterial*)go->GetMaterial())->normal_tex = obj_uuid;
+
+
+
+		
 		scene_data.LeaveSection();
 
 	}
