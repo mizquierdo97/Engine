@@ -47,7 +47,7 @@ struct Rtime
 struct Gtime
 {
 	Timer gtimer;
-	float timeScale = 1.0f;
+	float timeScale = 0.0f;
 	bool nextF;
 
 

@@ -104,10 +104,7 @@ void ComponentMaterial::ShowInspectorComponents()
 		
 		ImGui::ColorPicker4("##picker", (float*)&shader->color, ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_NoSmallPreview);
 
-		static float time_dt = 0;
-		time_dt += App->rtime.dt;
 		
-
 		static ShaderType type;
 		if (ImGui::Button("Change Vertex")) {
 			App->shaders->shader_change = true;

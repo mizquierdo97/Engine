@@ -42,7 +42,7 @@ update_status ShadersManager::Update(float dt)
 {
 	std::vector<ShaderProgram*>::iterator item = shader_vect.begin();
 	static float time_dt = 0;
-	time_dt += dt;
+	time_dt += dt*App->gtime.timeScale;
 	while (item != shader_vect.end()) {
 		(*item)->bind();
 

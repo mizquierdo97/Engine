@@ -101,7 +101,7 @@ void Application::SetGameMode( Gamestatus st)
 		break;
 
 	case STOP:
-		gtime.timeScale = 1.0f;
+		gtime.timeScale = 0.0f;
 		gtime.gtimer.Stop();
 		
 		if (previousGameStatus == PLAY)
@@ -112,7 +112,7 @@ void Application::SetGameMode( Gamestatus st)
 		break;
 
 	case NEXT_FRAME:
-		gtime.timeScale = 0.0f;
+		gtime.timeScale = 1.0f;
 		break;
 	}
 }
@@ -168,7 +168,7 @@ void Application::PrepareUpdate()
 {
 	rtime.frame_count++;
 	rtime.last_sec_frame_count++;
-	rtime.dt = ((float)rtime.ms_timer.Read() / 1000.0f) * gtime.timeScale;
+	rtime.dt = ((float)rtime.ms_timer.Read() / 1000.0f);
 	rtime.ms_timer.Start();
 }
 

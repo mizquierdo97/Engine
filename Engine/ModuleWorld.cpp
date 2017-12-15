@@ -603,8 +603,16 @@ bool ModuleWorld::Options()
 
 		ImGui::SameLine();
 
-		if (ImGui::ImageButton((void*)nframe_tex->GetTexture(), ImVec2(35, 26)))
+		static bool wait_to_next_frame = false;
+		if (wait_to_next_frame) {
+			wait_to_next_frame = false;
+			App->gtime.timeScale = 0.0f;
+		}
+		if (ImGui::ImageButton((void*)nframe_tex->GetTexture(), ImVec2(35, 26))) {
 			App->SetGameMode(NEXT_FRAME);
+			wait_to_next_frame = true;
+		}
+		
 
 		ImVec2 size = ImGui::GetContentRegionAvail();
 		ImVec2 pos = ImGui::GetCurrentWindow()->Pos;
