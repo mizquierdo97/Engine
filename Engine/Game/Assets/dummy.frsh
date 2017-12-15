@@ -3,6 +3,7 @@ in vec4 ourColor;
 in vec2 TexCoord;
 in vec3 ourNormal;
 in vec3 ourPos;
+in float wave_height;
 uniform float _time;
 out vec4 color;
 uniform sampler2D _texture;
@@ -11,6 +12,7 @@ uniform sampler2D _normal_map;
 uniform  mat4 viewproj;
 uniform mat4 model;
 uniform mat4 view;
+
 
 
 vec2 blinnPhongDir(vec3 lightDir, float lightInt, float Ka, float Kd, float Ks, float shininess)
@@ -57,6 +59,7 @@ vec3 specularReflection;
 float spec;
 float attenuation = 0.6;
 float temp  = dot(normal, lightdir);
+float height =wave_height - ourPos.z ;
 
 //spec = max(0,dot(normal_map, viewDirection));
 
@@ -67,6 +70,14 @@ specularReflection = vec3(1,1,1) * spec * attenuation;
 
 vec3 final_color = max((color_texture)*temp ,ambient);
 vec2 inten = blinnPhongDir(lightdir, 1, 0.5, 1, 1, 5.0);
-color = vec4(color_texture * inten.x + specularReflection, 1.0);
+if(height >2.3 )
+{
+ height = height/2;
+color = vec4(mix(color_texture * inten.x + specularReflection,color_texture * inten.x + specularReflection + vec3(height/3), 0.4 ) ,0.9);
+}
+else 
+{
+color = vec4(color_texture * inten.x + specularReflection, 0.9);
+}
 //color = vec4(normal_map.x,normal_map.y,normal_map.z,0);
 }
