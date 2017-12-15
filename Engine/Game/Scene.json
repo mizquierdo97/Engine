@@ -1,14 +1,14 @@
 {
     "GameObjects": {
         "Object_0": {
-            "UUID": "6a02ca09-dbfb-48d1-ae66-d986eeb44f97",
+            "UUID": "96a3156e-405e-4b2a-9ef3-ae43fce24a6c",
             "Static": "0",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "Camera",
             "Translation": {
-                "value_X": "0.000000",
-                "value_Y": "0.000000",
-                "value_Z": "0.000000"
+                "value_X": "57.680000",
+                "value_Y": "-55.570000",
+                "value_Z": "57.280000"
             },
             "Rotation": {
                 "value_X": "0.000000",
@@ -24,9 +24,9 @@
             "Components": {
                 "Camera": {
                     "Position": {
-                        "value_X": "0.000000",
-                        "value_Y": "0.000000",
-                        "value_Z": "0.000000"
+                        "value_X": "57.680000",
+                        "value_Y": "-55.570000",
+                        "value_Z": "57.280000"
                     },
                     "Front": {
                         "value_X": "0.000000",
@@ -46,7 +46,7 @@
             }
         },
         "Object_1": {
-            "UUID": "790f2de6-d8e9-4cd6-a79d-16de8b55a986",
+            "UUID": "d869179e-becf-4db9-9766-1478d6e772e2",
             "Static": "0",
             "Parent_UUID": "00000000-0000-0000-0000-000000000000",
             "Name": "root_plane",
@@ -69,9 +69,9 @@
             "Components": {}
         },
         "Object_2": {
-            "UUID": "7d876d51-1bb9-4421-8641-f90ccc6796b1",
+            "UUID": "d1f21651-9c23-4603-95d6-20294fd7f8be",
             "Static": "0",
-            "Parent_UUID": "790f2de6-d8e9-4cd6-a79d-16de8b55a986",
+            "Parent_UUID": "d869179e-becf-4db9-9766-1478d6e772e2",
             "Name": "root_plane",
             "Translation": {
                 "value_X": "0.000000",
@@ -92,9 +92,9 @@
             "Components": {}
         },
         "Object_3": {
-            "UUID": "a9113d99-f273-480e-b1fe-5f733ff8b504",
+            "UUID": "dba0c8af-d4c3-463a-94b9-00707154babf",
             "Static": "0",
-            "Parent_UUID": "7d876d51-1bb9-4421-8641-f90ccc6796b1",
+            "Parent_UUID": "d1f21651-9c23-4603-95d6-20294fd7f8be",
             "Name": "Plane001",
             "Translation": {
                 "value_X": "0.000000",
@@ -121,13 +121,13 @@
                     "Mesh_Path": "Library/Meshes/plane_0.mesh"
                 },
                 "Material": {
-                    "Shader_Path": "assets/dummy.material",
+                    "Shader_Path": "assets/water_test.material",
                     "Diffuse_Path": "assets/water-texture-backgrounds-wallpapers.jpg",
                     "Normals_Path": "assets/luc-as-seamless-nrm.jpg",
                     "Color": {
-                        "value_X": "1.000000",
-                        "value_Y": "0.000000",
-                        "value_Z": "0.000000",
+                        "value_X": "0.061970",
+                        "value_Y": "0.401408",
+                        "value_Z": "0.594907",
                         "value_W": "1.000000"
                     }
                 }

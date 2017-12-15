@@ -509,6 +509,7 @@ void ModuleRenderer3D::UseTexture(uint shader_id,uint i, uint num)
 		var_name = "_normal_map";
 	else if (num > 1 && num <= MAX_TEXTURES) {
 		char number = num + '0';
+		num -= 1;
 		std::string temp_name = "_texture";
 		temp_name += number;
 		var_name = temp_name;
@@ -520,7 +521,7 @@ void ModuleRenderer3D::UseTexture(uint shader_id,uint i, uint num)
 	glBindTexture(GL_TEXTURE_2D, i);
 	//change shader
 	int tex_id = glGetUniformLocation(shader_id, var_name.c_str());
-	glUniform1i(tex_id, num-1);
+	glUniform1i(tex_id, num);
 }
 
 ComponentCamera * ModuleRenderer3D::GetActiveCamera()
