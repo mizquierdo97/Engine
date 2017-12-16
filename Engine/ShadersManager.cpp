@@ -267,7 +267,9 @@ void ShadersManager::ShowVertexShadersFolder(char* file_type, TextEditor* shader
 	}
 
 	int shader_pos = 0;
+	
 	static char* shader_text = GetShaderText(path_vect[shader_pos]);
+	
 	if (ImGui::Combo(shaders_list, &shader_pos, popupElements.c_str())) {
 		shader_text = GetShaderText(path_vect[shader_pos]);
 		shader_editor->SetText("");
@@ -325,23 +327,41 @@ void ShadersManager::CreateShaderWindow()
 			}
 			else if(load_shader[i] && !new_shader[i]) {
 
+				
 				ShowVertexShadersFolder(type, shader_editor);
+				ImGui::InputText("Name", names[i], IM_ARRAYSIZE(temp_name));
+				if (ImGui::Button("Back")) {
+					new_shader[i] = false;
+					App->shaders->load_shader[i] = false;
+				}
 				ImGuiIO& io = ImGui::GetIO();
 				ImGui::PushFont(io.Fonts->Fonts[1]);
 				shader_editor->Render(name, ImVec2(ImGui::GetColumnWidth(i)-16,440));
 				ImGui::PopFont();
+
+			
 			
 			}
 			else if (!load_shader[i] && new_shader[i]) {
 
 
 				ImGui::InputText("Name", names[i], IM_ARRAYSIZE(temp_name));
+
+				if (ImGui::Button("Back")) {
+					new_shader[i] = false;
+					App->shaders->load_shader[i] = false;
+				}
+
 				ImGuiIO& io = ImGui::GetIO();
 				ImGui::PushFont(io.Fonts->Fonts[1]);
 				shader_editor->Render(name, ImVec2(ImGui::GetColumnWidth(i) - 16, 440));
 				ImGui::PopFont();
 
+				
+
 			}
+			
+			
 			ImGui::PopID();
 
 
@@ -360,7 +380,7 @@ void ShadersManager::CreateShaderWindow()
 		
 		static char buf[32] = "dummy";
 		ImGui::InputText("Material_Name", buf, IM_ARRAYSIZE(buf));
-		ImGui::SetCursorPosX(16);
+		ImGui::SetCursorPosX(16); 
 		if (ImGui::Button("CreateShader", ImVec2(128, 32))) {
 
 
