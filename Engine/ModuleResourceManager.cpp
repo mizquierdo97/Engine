@@ -151,7 +151,6 @@ UUID ModuleResourceManager::ImportMaterial(const char * path , ShaderProgram* pr
 		res->type = Resource::shader_program;
 		res->res_shader_program = program;
 		obj_uuid = res->uuid;
-
 	}
 
 	return obj_uuid;

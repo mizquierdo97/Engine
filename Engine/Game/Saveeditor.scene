@@ -1,0 +1,2196 @@
+{
+    "GameObjects": {
+        "Object_0": {
+            "UUID": "0857239d-ad7b-4aba-8579-f57f4114abd5",
+            "Static": "0",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "root_plane",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_1": {
+            "UUID": "f4adc812-33e3-42b1-a51b-657f5ec9cf34",
+            "Static": "0",
+            "Parent_UUID": "0857239d-ad7b-4aba-8579-f57f4114abd5",
+            "Name": "root_plane",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_2": {
+            "UUID": "ee7bfb0a-ed19-4065-9f57-eebbcd755932",
+            "Static": "0",
+            "Parent_UUID": "f4adc812-33e3-42b1-a51b-657f5ec9cf34",
+            "Name": "Plane001",
+            "Translation": {
+                "value_X": "-100.670000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "441",
+                    "Num_Indices": "2400",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/plane_0.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "assets/water.material",
+                    "Diffuse_Path": "assets/water-texture-backgrounds-wallpapers.jpg",
+                    "Normals_Path": "assets/luc-as-seamless-nrm.jpg",
+                    "Extra_Texture_0": "assets/13843.jpg",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "0.089191",
+                        "value_Y": "0.296773",
+                        "value_Z": "0.468254",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_3": {
+            "UUID": "c510d216-d719-4183-b495-b98cf4fbcc48",
+            "Static": "0",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "Object_2",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "53.670000",
+                "value_Z": "-204.730000"
+            },
+            "Rotation": {
+                "value_X": "0.185914",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.982566"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Camera": {
+                    "Position": {
+                        "value_X": "0.000000",
+                        "value_Y": "53.670000",
+                        "value_Z": "-204.730000"
+                    },
+                    "Front": {
+                        "value_X": "0.000000",
+                        "value_Y": "-0.370000",
+                        "value_Z": "0.930000"
+                    },
+                    "Up": {
+                        "value_X": "0.000000",
+                        "value_Y": "0.930000",
+                        "value_Z": "0.370000"
+                    },
+                    "Near": "0.100000",
+                    "Far": "1000.000000",
+                    "Vertical_FOV": "1.047198",
+                    "Horizontal_FOV": "1.561283"
+                }
+            }
+        },
+        "Object_4": {
+            "UUID": "d3cba4d5-8b17-4736-8201-77c274f0785c",
+            "Static": "0",
+            "Parent_UUID": "00000000-0000-0000-0000-000000000000",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_5": {
+            "UUID": "d081987d-ad6e-4f89-a2e0-3ca6bef846b0",
+            "Static": "0",
+            "Parent_UUID": "d3cba4d5-8b17-4736-8201-77c274f0785c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "18.150000",
+                "value_Y": "0.000000",
+                "value_Z": "58.960000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_6": {
+            "UUID": "8711b8aa-e207-4ddd-b201-adbc3d2e3e3a",
+            "Static": "0",
+            "Parent_UUID": "d081987d-ad6e-4f89-a2e0-3ca6bef846b0",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_7": {
+            "UUID": "068f6143-b91c-4e29-81ef-85ba6ed8d6ad",
+            "Static": "0",
+            "Parent_UUID": "8711b8aa-e207-4ddd-b201-adbc3d2e3e3a",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_8": {
+            "UUID": "672695bf-07b3-4cfe-b5d7-33a6710be361",
+            "Static": "0",
+            "Parent_UUID": "068f6143-b91c-4e29-81ef-85ba6ed8d6ad",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_9": {
+            "UUID": "5c9288de-90de-409f-bf82-de0d81c46a18",
+            "Static": "0",
+            "Parent_UUID": "d3cba4d5-8b17-4736-8201-77c274f0785c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_10": {
+            "UUID": "bc0e80ae-e569-4165-a6a3-eac9da040b2f",
+            "Static": "0",
+            "Parent_UUID": "5c9288de-90de-409f-bf82-de0d81c46a18",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_11": {
+            "UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Static": "0",
+            "Parent_UUID": "bc0e80ae-e569-4165-a6a3-eac9da040b2f",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_12": {
+            "UUID": "7a151505-0b11-4488-ba87-2293aa8f50cc",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_004",
+            "Translation": {
+                "value_X": "-41.480000",
+                "value_Y": "21.010000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "3850",
+                    "Num_Indices": "5988",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_0.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building03_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_13": {
+            "UUID": "9b34e3eb-074d-4c95-a943-d6669bb1efcd",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_001",
+            "Translation": {
+                "value_X": "17.710000",
+                "value_Y": "20.050000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "2129",
+                    "Num_Indices": "4176",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_1.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v02_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_14": {
+            "UUID": "1ae1c2c4-3154-4d84-9cfc-cfc07c74e77d",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_007",
+            "Translation": {
+                "value_X": "16.010000",
+                "value_Y": "37.490000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "436",
+                    "Num_Indices": "684",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_2.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_016_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_15": {
+            "UUID": "4107b2bd-6b99-425a-8a84-073f7a743186",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_008",
+            "Translation": {
+                "value_X": "40.980000",
+                "value_Y": "18.270000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "419",
+                    "Num_Indices": "864",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_3.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_025_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_16": {
+            "UUID": "e59f2aec-9dcb-4671-9b9d-c609dcdd3b2d",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "Line002",
+            "Translation": {
+                "value_X": "-2.160000",
+                "value_Y": "1.850000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "48",
+                    "Num_Indices": "72",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_8.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_17": {
+            "UUID": "44f96c5c-586c-40a4-be7a-8520413822cc",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "Plane001",
+            "Translation": {
+                "value_X": "-0.030000",
+                "value_Y": "0.030000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "0.970000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "25",
+                    "Num_Indices": "96",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_9.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_18": {
+            "UUID": "2b22c1d5-ff40-4135-9a9e-cefbea13b82a",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_010",
+            "Translation": {
+                "value_X": "25.150000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_19": {
+            "UUID": "231a79b1-1403-41a8-a0f2-84fb7671a140",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_010",
+            "Translation": {
+                "value_X": "25.150000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "3268",
+                    "Num_Indices": "4998",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_5.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building 01_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_20": {
+            "UUID": "2e7950ad-f9e7-4c21-acc0-fd6c560bd4ae",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_011",
+            "Translation": {
+                "value_X": "30.130000",
+                "value_Y": "37.490000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "436",
+                    "Num_Indices": "684",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_2.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_016_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_21": {
+            "UUID": "1cc8a675-9c6c-4b89-be20-0ef505dcbbe0",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_013",
+            "Translation": {
+                "value_X": "-42.290000",
+                "value_Y": "33.200000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "2452",
+                    "Num_Indices": "4197",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_6.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building 06_ c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_22": {
+            "UUID": "62f7c638-c14d-47c9-b41e-f197f45e3e55",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_014",
+            "Translation": {
+                "value_X": "-19.440000",
+                "value_Y": "32.060000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "-0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "4218",
+                    "Num_Indices": "6636",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_10.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building03_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_23": {
+            "UUID": "02d14404-600c-4fc0-8332-82dd6524d6f9",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_016",
+            "Translation": {
+                "value_X": "34.270000",
+                "value_Y": "-41.970000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "-0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_24": {
+            "UUID": "eb3cebbe-7b22-4e0f-99b3-9527973bf926",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_016",
+            "Translation": {
+                "value_X": "34.270000",
+                "value_Y": "-41.970000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "-0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "3268",
+                    "Num_Indices": "4998",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_5.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building 01_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_25": {
+            "UUID": "3bfa2424-e68e-4dea-92e5-700e231dfe4e",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_017",
+            "Translation": {
+                "value_X": "44.260000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_26": {
+            "UUID": "867b3af6-9a84-4e7e-9a1d-6d15fef3e0f9",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_017",
+            "Translation": {
+                "value_X": "44.260000",
+                "value_Y": "-39.150000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "3268",
+                    "Num_Indices": "4998",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_5.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building 01_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_27": {
+            "UUID": "8dd57b9f-f708-419b-b0a1-566f48053a13",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_022",
+            "Translation": {
+                "value_X": "-20.830000",
+                "value_Y": "-27.430000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "4670",
+                    "Num_Indices": "8496",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_11.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building05 _c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_28": {
+            "UUID": "c37a06b7-e423-460d-8ca6-b1bc1e3f88d2",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_023",
+            "Translation": {
+                "value_X": "42.130000",
+                "value_Y": "37.490000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "436",
+                    "Num_Indices": "684",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_2.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_016_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_29": {
+            "UUID": "44317558-3375-416e-86f2-ff567d3ad608",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_024",
+            "Translation": {
+                "value_X": "-20.570000",
+                "value_Y": "43.060000",
+                "value_Z": "-0.070000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "419",
+                    "Num_Indices": "864",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_3.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_025_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_30": {
+            "UUID": "756c3cda-edd1-455a-bb8c-ffbe16cf24c1",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_026",
+            "Translation": {
+                "value_X": "31.510000",
+                "value_Y": "-16.450000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "4523",
+                    "Num_Indices": "8232",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_12.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building05 _c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_31": {
+            "UUID": "163d0252-57c0-46bc-8046-349f0ec987a5",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_028",
+            "Translation": {
+                "value_X": "13.390000",
+                "value_Y": "-33.760000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v01_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_32": {
+            "UUID": "89529929-af4a-444d-8b24-1b1180328ba4",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "Object010",
+            "Translation": {
+                "value_X": "-2.500000",
+                "value_Y": "15.800000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "1440",
+                    "Num_Indices": "2160",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_13.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_33": {
+            "UUID": "b6e5d34f-68cf-4fb8-ad9f-8d6f24f450bb",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_030",
+            "Translation": {
+                "value_X": "-42.810000",
+                "value_Y": "-41.840000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v01_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_34": {
+            "UUID": "8891ace5-9738-4cb4-986e-8d188f701b67",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_031",
+            "Translation": {
+                "value_X": "-34.680000",
+                "value_Y": "-41.840000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v01_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_35": {
+            "UUID": "b319a24f-6984-4124-9c68-c6636ae38981",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_032",
+            "Translation": {
+                "value_X": "-29.480000",
+                "value_Y": "21.010000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "3850",
+                    "Num_Indices": "5988",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_0.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building03_c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_36": {
+            "UUID": "5f1d8749-3a72-4288-af29-a55303203c25",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_033",
+            "Translation": {
+                "value_X": "-32.360000",
+                "value_Y": "42.370000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "4772",
+                    "Num_Indices": "7986",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_14.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building 06_ c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_37": {
+            "UUID": "f3e795d6-34b9-4d12-b310-0f472e4dbdd7",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_034",
+            "Translation": {
+                "value_X": "16.050000",
+                "value_Y": "-16.700000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "3481",
+                    "Num_Indices": "6378",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_15.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building05 _c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_38": {
+            "UUID": "881e95a2-301c-4759-887b-9fa7ee7d2cbb",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_035",
+            "Translation": {
+                "value_X": "13.390000",
+                "value_Y": "-40.800000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v01_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_39": {
+            "UUID": "39c04075-4575-48ab-ab2c-69a0b66bf60c",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_036",
+            "Translation": {
+                "value_X": "-31.220000",
+                "value_Y": "33.200000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "2452",
+                    "Num_Indices": "4197",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_6.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building 06_ c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_40": {
+            "UUID": "dc8e76ed-4a2e-445b-a67f-de2d72435e4c",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_037",
+            "Translation": {
+                "value_X": "-20.320000",
+                "value_Y": "-16.160000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "1.000000",
+                "value_W": "0.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "2548",
+                    "Num_Indices": "4530",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_16.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building05 _c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_41": {
+            "UUID": "6a1c6dfd-502e-4932-9002-9bd574feca80",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_038",
+            "Translation": {
+                "value_X": "-41.650000",
+                "value_Y": "-16.500000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "3972",
+                    "Num_Indices": "7392",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_17.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building05 _c.tga",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_42": {
+            "UUID": "c33691ca-5bb1-4808-bc49-cd19ce993f93",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_039",
+            "Translation": {
+                "value_X": "-42.810000",
+                "value_Y": "-30.640000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v01_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_43": {
+            "UUID": "3b825039-f894-4b99-99bd-2bfe4d2ca39d",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_040",
+            "Translation": {
+                "value_X": "-34.680000",
+                "value_Y": "-30.640000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "-0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "6069",
+                    "Num_Indices": "8292",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_7.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v01_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_44": {
+            "UUID": "888f0cff-4776-4edb-99db-05095a8270e6",
+            "Static": "0",
+            "Parent_UUID": "d26b2940-cbb2-4488-a0a2-644b6c0a64c4",
+            "Name": "City_building_041",
+            "Translation": {
+                "value_X": "30.700000",
+                "value_Y": "21.610000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.707107",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {
+                "Mesh": {
+                    "Num_Vertexs": "2129",
+                    "Num_Indices": "4176",
+                    "Norms": "0",
+                    "Texture": "0",
+                    "Mesh_Path": "Library/Meshes/street environment_v01_1.mesh"
+                },
+                "Material": {
+                    "Shader_Path": "default.material",
+                    "Diffuse_Path": "assets/building_v02_c.png",
+                    "Normals_Path": "",
+                    "Extra_Texture_0": "",
+                    "Extra_Texture_1": "",
+                    "Extra_Texture_2": "",
+                    "Extra_Texture_3": "",
+                    "Extra_Texture_4": "",
+                    "Color": {
+                        "value_X": "1.000000",
+                        "value_Y": "1.000000",
+                        "value_Z": "1.000000",
+                        "value_W": "1.000000"
+                    }
+                }
+            }
+        },
+        "Object_45": {
+            "UUID": "a84b8137-25e4-45e4-b8c7-919f73fe387c",
+            "Static": "0",
+            "Parent_UUID": "d3cba4d5-8b17-4736-8201-77c274f0785c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "-78.310000",
+                "value_Y": "45.250000",
+                "value_Z": "-97.030000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_46": {
+            "UUID": "7bc63e5b-b011-4769-bebc-8a29301f3437",
+            "Static": "0",
+            "Parent_UUID": "a84b8137-25e4-45e4-b8c7-919f73fe387c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_47": {
+            "UUID": "e51c7efd-7fed-44f9-8260-3dc203d0517e",
+            "Static": "0",
+            "Parent_UUID": "7bc63e5b-b011-4769-bebc-8a29301f3437",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.198556",
+                "value_Y": "0.560705",
+                "value_Z": "0.757749",
+                "value_W": "-0.268333"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_48": {
+            "UUID": "1e9100ee-e76b-4e1c-9082-85876337c9f0",
+            "Static": "0",
+            "Parent_UUID": "e51c7efd-7fed-44f9-8260-3dc203d0517e",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_49": {
+            "UUID": "55cdad96-becf-4f7a-ac88-84392c6fe0c9",
+            "Static": "0",
+            "Parent_UUID": "d3cba4d5-8b17-4736-8201-77c274f0785c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "-28.130000",
+                "value_Y": "20.870000",
+                "value_Z": "-35.060000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_50": {
+            "UUID": "efcefd4e-aaa1-472a-8b7c-2e0366d5fe21",
+            "Static": "0",
+            "Parent_UUID": "55cdad96-becf-4f7a-ac88-84392c6fe0c9",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_51": {
+            "UUID": "b230cd27-35e0-49c2-a034-b22c5a251c8c",
+            "Static": "0",
+            "Parent_UUID": "efcefd4e-aaa1-472a-8b7c-2e0366d5fe21",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.198556",
+                "value_Y": "0.560705",
+                "value_Z": "0.757749",
+                "value_W": "-0.268333"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_52": {
+            "UUID": "938b92a1-6f68-4515-b51c-1b468c62ed75",
+            "Static": "0",
+            "Parent_UUID": "b230cd27-35e0-49c2-a034-b22c5a251c8c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_53": {
+            "UUID": "1e28b6cc-b0e9-4ca2-a489-636397737190",
+            "Static": "0",
+            "Parent_UUID": "d3cba4d5-8b17-4736-8201-77c274f0785c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "-66.720000",
+                "value_Y": "141.930000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_54": {
+            "UUID": "f90c50d8-f64c-4bd1-85f4-282f993de7d4",
+            "Static": "0",
+            "Parent_UUID": "1e28b6cc-b0e9-4ca2-a489-636397737190",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_55": {
+            "UUID": "bce75261-312c-4579-a34a-436a340e78e6",
+            "Static": "0",
+            "Parent_UUID": "f90c50d8-f64c-4bd1-85f4-282f993de7d4",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.154439",
+                "value_Y": "-0.154439",
+                "value_Z": "-0.690035",
+                "value_W": "0.690035"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_56": {
+            "UUID": "bbd2f2bb-97db-4d52-bfa3-9c98be46a79e",
+            "Static": "0",
+            "Parent_UUID": "bce75261-312c-4579-a34a-436a340e78e6",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_57": {
+            "UUID": "d89c07ec-8021-4a8c-b7f6-f5d0911f5b40",
+            "Static": "0",
+            "Parent_UUID": "bbd2f2bb-97db-4d52-bfa3-9c98be46a79e",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_58": {
+            "UUID": "5e3e5cf5-9838-4b36-a5e5-99d3de6fdac0",
+            "Static": "0",
+            "Parent_UUID": "d3cba4d5-8b17-4736-8201-77c274f0785c",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "28.890000",
+                "value_Y": "-60.960000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_59": {
+            "UUID": "119a2f3e-bfa3-4c71-ae84-a75790cfa0bd",
+            "Static": "0",
+            "Parent_UUID": "5e3e5cf5-9838-4b36-a5e5-99d3de6fdac0",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "-0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_60": {
+            "UUID": "1e7449fd-7831-4478-b928-752946418450",
+            "Static": "0",
+            "Parent_UUID": "119a2f3e-bfa3-4c71-ae84-a75790cfa0bd",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.707107",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "0.707107"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        },
+        "Object_61": {
+            "UUID": "47b416d8-a90c-4632-b9bb-d1e9d7fc6aeb",
+            "Static": "0",
+            "Parent_UUID": "1e7449fd-7831-4478-b928-752946418450",
+            "Name": "root_street environment_v01",
+            "Translation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000"
+            },
+            "Rotation": {
+                "value_X": "0.000000",
+                "value_Y": "0.000000",
+                "value_Z": "0.000000",
+                "value_W": "1.000000"
+            },
+            "Scale": {
+                "value_X": "1.000000",
+                "value_Y": "1.000000",
+                "value_Z": "1.000000"
+            },
+            "Components": {}
+        }
+    }
+}

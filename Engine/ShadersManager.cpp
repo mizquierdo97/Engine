@@ -124,6 +124,7 @@ bool ShadersManager::CreateDefaultShader()
 		"layout(location = 3) in vec4 color;\n"
 		"out float ourTime;\n"
 		"out vec4 ourColor;\n"
+		"out vec3 ourNormal;\n"
 		"out vec2 TexCoord;\n"
 		"uniform float _time;\n"
 		"uniform vec4 _color;\n"
@@ -136,6 +137,7 @@ bool ShadersManager::CreateDefaultShader()
 			"ourColor = _color;\n"
 			"TexCoord = texCoord;\n"
 			"ourTime = _time;\n"
+			"ourNormal = mat3(model) * normal;"
 		"}\n"
 	};
 
@@ -168,11 +170,14 @@ bool ShadersManager::CreateDefaultShader()
 		"in vec4 ourColor;\n"
 		"in float ourTime;\n"
 		"in vec2 TexCoord;\n"
+		"in vec3 ourNormal;\n"
 		"out vec4 color;\n"
 		"uniform sampler2D _texture;\n"
 		"void main()\n"
 		"{\n"
-		"color = texture(_texture, TexCoord) * ourColor;\n"
+		"vec3 lightDir = vec3(1);\n"
+		"float angle = dot(lightDir, ourNormal);\n"
+		"color = texture(_texture, TexCoord) * ourColor * vec4(angle,angle,angle,1);\n"
 		"}\n"
 	};
 

@@ -249,7 +249,7 @@ void ModuleWorld::LoadScene(const char* name) {
 	Data scene_data;
 	int i = 0;
 	//LOAD JSON FILE
-	if (scene_data.LoadJSON(scene_name + ".json")) {
+	if (scene_data.LoadJSON(scene_name + ".scene")) {
 		scene_data.EnterSection("GameObjects");
 
 		//FOR EVERY GAME_OBJECT...
@@ -324,7 +324,7 @@ void ModuleWorld::SaveScene(const char* name) const
 	scene_data.CreateSection("GameObjects");
 	App->world->RecursiveSaveScene(obj_vector, &scene_data, &i);
 	scene_data.CloseSection();
-	scene_data.SaveAsJSON(scene_name + ".json");
+	scene_data.SaveAsJSON(scene_name + ".scene");
 }
 
 
@@ -545,16 +545,34 @@ void ModuleWorld::LoadSceneMaterial(Data scene_data, GameObject* go)
 				LOG("CANT FIND %s TEXTURE", normals_path.c_str());
 			}
 		}
+
+		for (int i = 0; i < MAX_TEXTURES; i++) {
+			char num = i + '0';
+			std::string variable_name = "Extra Texture ";
+			variable_name += num;
+
+			std::string extraTexture_path = scene_data.GetString(variable_name);
+
+			if (extraTexture_path != "") {
+				std::string extraTexture_library_path = MATERIALS_PATH + GetFileName(extraTexture_path) + ".dds";
+
+				if (ExistsFile(extraTexture_library_path)) {
+					obj_uuid = App->resources->FindImported(extraTexture_library_path.c_str());
+					ResourceTexture* res = (ResourceTexture*)App->resources->Get(obj_uuid);
+					if (res != nullptr) {
+						res->LoadToMemory();
+						((ComponentMaterial*)go->GetMaterial())->extra_textures[i] = obj_uuid;
+					}
+				}
+				else {
+					LOG("CANT FIND %s TEXTURE", extraTexture_path.c_str());
+				}
+			}
+		}
+
 		float4 color = scene_data.GetVector4f("Color");
-
-
-		//((ComponentMaterial*)go->GetMaterial())->normal_tex = obj_uuid;
-
-
-
-		
+		((ComponentMaterial*)go->GetMaterial())->shader->color = color;
 		scene_data.LeaveSection();
-
 	}
 
 }

@@ -154,18 +154,63 @@ update_status ModuleGUI::Update(float dt)
 				ImGui::EndMenu();
 			}
 
+			static bool open_save_scene = false;
+			static bool open_load_scene = false;
+
 			if (ImGui::BeginMenu("Edit"))
 			{
 				if (ImGui::MenuItem("SaveScene")) {
-					App->world->SaveScene("Scene");
+					open_save_scene = true;
+					
 
 				}
 				if (ImGui::MenuItem("LoadScene")) {
+					open_load_scene = true;
 					
-					App->world->LoadScene("Scene");
 
 				}
-				ImGui::EndMenu();
+				ImGui::EndMenu();				
+			}
+
+			if(open_save_scene) {
+				float2 next_win_size = float2(400, 200);
+				ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
+				ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+				if(ImGui::Begin("Save Scene", &open_save_scene)) {
+					static char sceneName[32] = "NewScene";
+					ImGui::InputText("Name", sceneName, IM_ARRAYSIZE(sceneName));
+					if (ImGui::Button("Save")) {
+						open_save_scene = false;
+						App->world->SaveScene(sceneName);
+					}
+					ImGui::End();
+				}
+			}
+			if (open_load_scene) {
+				float2 next_win_size = float2(500, 400);
+				ImGui::SetNextWindowPos(ImVec2((App->window->width / 2) - next_win_size.x / 2, (App->window->height / 2) - next_win_size.y / 2));
+				ImGui::SetNextWindowSize(ImVec2(next_win_size.x, next_win_size.y));
+
+				if (ImGui::Begin("Load Scene", &open_load_scene)) {
+					
+
+					for (auto & p : fs::directory_iterator(".")) {
+						//GET STRING
+						const wchar_t* temp = p.path().c_str();
+						std::wstring ws(temp);
+						std::string str(ws.begin(), ws.end());
+						str = NormalizePath(str.c_str());
+						bool selected = false;
+						if (strcmp(GetExtension(str).c_str(), "scene") == 0 && strcmp(GetFileName(str).c_str(),"saveeditor") !=0) {
+							if (ImGui::Selectable(GetFileName(str).c_str())) {
+								App->world->LoadScene(GetFileName(str).c_str());
+								open_load_scene = false;
+							}
+						}
+					}
+
+					ImGui::End();
+				}
 			}
 
 			if (ImGui::BeginMenu("Window"))

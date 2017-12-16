@@ -33,6 +33,18 @@ void ComponentMaterial::SaveComponentScene(Data * data)
 	else
 		data->AddString("Normals Path", "");
 
+	for (int i = 0; i < MAX_TEXTURES; i++) {
+		char num = i + '0';
+		std::string variable_name = "Extra Texture ";
+		variable_name += num;
+
+		if (UuidCompare(&extra_textures[i], &null_uuid, &stat) != 0)
+			data->AddString(variable_name, App->resources->Get(extra_textures[i])->file);
+		else
+			data->AddString(variable_name, "");
+
+	}
+
 	data->AddVector4("Color", shader->color);
 	data->CloseSection();
 }
