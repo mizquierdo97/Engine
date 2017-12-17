@@ -8,8 +8,6 @@
 bool ShaderImporter::ImportShader(const char * path, Resource::Type type, bool force)
 {
 	
-	//TODO probably change this
-	//CREATE RESOURCE HERE
 	App->resources->ImportShader(path, type);
 	
 	return true;
@@ -63,8 +61,8 @@ uint ShaderImporter::loadShaderFromFile(std::string path, ShaderType type)
 	glGetShaderiv(id, GL_COMPILE_STATUS, &fShaderCompiled);
 	if (fShaderCompiled != GL_TRUE)
 	{
-		//printf("Unable to compile fragment shader %d!\n", id);
-		//printShaderLog(id);
+		
+		ShaderLog(id);
 		return 0;
 	}
 

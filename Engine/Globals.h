@@ -13,6 +13,7 @@
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
 namespace fs = std::experimental::filesystem;
+typedef unsigned int uint;
 
 void log(const char file[], int line, const char* format, ...);
 std::string GetExtension(std::string path);
@@ -23,6 +24,8 @@ void NormalizePath(char * full_path);
 std::string NormalizePath(std::string full_path);
 bool ExistsFile(const std::string& name);
 std::string GetFolderPath(std::string path);
+void ShaderLog(uint shader);
+void ProgramLog(uint program);
 #define CAP(n) ((n <= 0.0f) ? n=0.0f : (n >= 1.0f) ? n=1.0f : n=n)
 
 
@@ -52,7 +55,7 @@ std::string GetFolderPath(std::string path);
 #define HAVE_M_PI
 
 
-typedef unsigned int uint;
+
 
 enum update_status
 {

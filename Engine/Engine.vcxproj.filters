@@ -758,9 +758,6 @@
     <ClCompile Include="ShadersManager.cpp">
       <Filter>Sources\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceShader.cpp">
-      <Filter>Sources\FileSystem\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderImporter.cpp">
       <Filter>Sources\FileSystem</Filter>
     </ClCompile>
@@ -772,9 +769,6 @@
     </ClCompile>
     <ClCompile Include="TextEditor.cpp">
       <Filter>Sources\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceShaderProgram.cpp">
-      <Filter>Sources\FileSystem\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

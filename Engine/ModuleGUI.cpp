@@ -497,10 +497,12 @@ void ModuleGUI::Assets()
 
 	if (ImGui::MenuItem("Mesh")) 	{
 
+		if(App->world->GetSelectedObject()->GetMesh()== nullptr)
 		App->world->GetSelectedObject()->AddComponentMesh(IID_NULL);
 	}
 	if (ImGui::MenuItem("Material")) 
 	{
+		if (App->world->GetSelectedObject()->GetMaterial() == nullptr)
 		App->world->GetSelectedObject()->AddComponentMaterial(IID_NULL);
 	}
 	if (ImGui::MenuItem("Camera"))

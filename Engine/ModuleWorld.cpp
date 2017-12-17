@@ -75,11 +75,6 @@ update_status ModuleWorld::PreUpdate(float dt)
 
 update_status ModuleWorld::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN){
-		for (int i = 0; i < obj_vector.size(); i++) {
-			obj_vector[i]->SetStatic(!obj_vector[i]->IsStatic());
-		}
-	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 		Operation = ImGuizmo::TRANSLATE;
@@ -156,11 +151,7 @@ void ModuleWorld::FileDropped()
 
 void ModuleWorld::It_Render()
 {
-	//Render polygons
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
-		using_octree = !using_octree;
-	}
-	
+
 	if (using_octree) {
 		std::map<float, GameObject*> objects;
 

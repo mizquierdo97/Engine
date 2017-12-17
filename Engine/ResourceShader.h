@@ -16,7 +16,10 @@ public :
 
 	~ResourceShader() {};
 
-	bool LoadInMemory();
+	bool LoadInMemory() {
+
+		return false;
+	};
 	bool EraseInMemory() {
 		//TODO
 		return false;
@@ -24,6 +27,7 @@ public :
 	bool UpdateRes() {
 		return false;
 	};
+	
 
 
 
