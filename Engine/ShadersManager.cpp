@@ -87,7 +87,7 @@ bool ShadersManager::CreateShaderFromArray(char* vert_buffer,char* frag_buffer, 
 {
 
 	ShaderProgram* shader_program = new ShaderProgram();
-	shader_program->shader_name = name;
+	shader_program->shader_name = name;	
 	bool ret = shader_program->loadProgram(vert_buffer, frag_buffer);
 	name = "assets/" + name + ".material";
 	App->resources->ImportMaterial(name.c_str(),shader_program);
@@ -365,6 +365,12 @@ void ShadersManager::CreateShaderWindow()
 			if (CreateShaderFromArray((char*)vertex_editor.GetText().c_str(), (char*)fragment_editor.GetText().c_str(), name)) {
 
 				Data json_shader;
+
+				std::vector<ShaderProgram*>::iterator item = shader_vect.end();
+				item--;
+				uint new_fragment_id = (*item)->fragmentID;
+				uint new_vertex_id = (*item)->vertexID;
+
 				std::string vertex_path = ASSETS_PATH + std::string(temp_name) + ".vrsh";
 				std::string fragment_path = ASSETS_PATH + std::string(temp_name2) + ".frsh";
 
@@ -395,6 +401,48 @@ void ShadersManager::CreateShaderWindow()
 				pFile = fopen(fragment_path.c_str(), "wb");
 				fwrite(fragment_buffer, sizeof(char), fragment_buffer_size, pFile);
 				fclose(pFile);
+
+				UUID vert_uuid = App->resources->Find(vertex_path.c_str());
+				UUID null_uuid; UuidCreateNil(&null_uuid);
+				RPC_STATUS stat;
+
+				//TODO probably dont need
+				Shader* new_vertex = new Shader();
+				if (UuidCompare(&vert_uuid, &null_uuid, &stat) == 0) {
+					Resource* res = App->resources->CreateNewResource(Resource::vertex_shader);
+					res->file = vertex_path;
+					res->exported_file = vertex_path;
+					res->type = Resource::vertex_shader;					
+					new_vertex->shader_id = new_vertex_id;
+					((ResourceShader*)res)->res_shader = new_vertex;
+				}
+				else {
+					new_vertex->shader_id = new_vertex_id;
+					((ResourceShader*)App->resources->Get(vert_uuid))->res_shader = new_vertex;
+				}
+
+				App->filesystem->CreateMeta(vertex_path);
+
+				UUID obj_uuid = App->resources->Find(fragment_path.c_str());
+			
+
+				//TODO probably dont need
+				Shader* new_fragment = new Shader();
+				if (UuidCompare(&obj_uuid, &null_uuid, &stat) == 0) {
+					Resource* res = App->resources->CreateNewResource(Resource::fragment_shader);
+					res->file = fragment_path;
+					res->exported_file = fragment_path;
+					res->type = Resource::fragment_shader;
+					
+					new_fragment->shader_id = new_fragment_id;
+					((ResourceShader*)res)->res_shader = new_fragment;
+				}
+				else {
+					new_fragment->shader_id = new_fragment_id;
+					((ResourceShader*)App->resources->Get(vert_uuid))->res_shader = new_fragment;
+				}
+				
+				App->filesystem->CreateMeta(fragment_path);
 			}
 
 			else {
@@ -528,7 +576,6 @@ char * ShadersManager::GetShaderPath(uint ID)
 
 			if (((ResourceShader*)it->second)->res_shader->shader_id == ID)
 				return (char*)it->second->file.c_str();
-
 		}
 	}
 

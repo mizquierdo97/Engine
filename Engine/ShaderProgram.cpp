@@ -182,6 +182,8 @@ bool ShaderProgram::loadProgram(char * Vertex_buffer, char * Fragment_buffer)
 	vertexID = vertexShader;
 	fragmentID = fragmentShader;
 
+
+
 	return true;
 }
 

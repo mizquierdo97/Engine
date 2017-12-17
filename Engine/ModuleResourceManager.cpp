@@ -128,7 +128,8 @@ UUID ModuleResourceManager::ImportShader(const char * path, Resource::Type type)
 		res->type = type;
 		obj_uuid = res->uuid;
 
-		((ResourceShader*)res)->res_shader = new_shader;
+		((ResourceShader*)res)->res_shader = new_shader;	
+		
 	}
 	
 

@@ -268,9 +268,7 @@ void FileSystem::LoadByExtension(std::string path)
 {
 	std::string extension = GetExtension(path);
 
-	/*if(!extension.compare("dds"))
-		App->filesystem->image_importer->loadTextureFromFile((char*)path.c_str(), &((ResourceTexture*)App->resources->Get(App->world->GetSelectedObject()->GetMaterial()->diffuse_tex))->res_tex);
-*/
+
 	if (!extension.compare("bin"))
 		App->filesystem->mesh_importer->LoadMesh(path.c_str());
 }
