@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _COMPONENTTRANSFORM
+#define _COMPONENTTRANSFORM
 
 #include "Module.h"
 #include "Globals.h"
@@ -31,3 +32,4 @@ public:
 
 	bool lock_scale_prop;
 };
+#endif

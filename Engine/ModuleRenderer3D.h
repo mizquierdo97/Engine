@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MODULERENDERER
+#define _MODULERENDERER
+
 #include "Module.h"
 #include "Globals.h"
 
@@ -71,3 +73,5 @@ public:
 	bool texture = true;
 
 };
+
+#endif

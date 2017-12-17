@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULEWORLD
+#define _MODULEWORLD
 
 #include "Module.h"
 #include "Globals.h"
@@ -102,3 +103,6 @@ private:
 
 
 };
+
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _APPLICATION
+#define _APPLICATION
 
 
 #include "Globals.h"
@@ -102,3 +103,4 @@ private:
 extern Application* App;
 
 
+#endif

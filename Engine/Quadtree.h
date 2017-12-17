@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _QUADTREE
+#define _QUADTREE
 #include "MathGeoLib.h"
 #include "Object.h"
 #include <list>
@@ -103,3 +104,5 @@ public:
 				if (nodes[i] != nullptr) nodes[i]->CollectIntersections(objects, primitive);
 		}
 	};
+
+#endif

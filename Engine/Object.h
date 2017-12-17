@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _OBJECT
+#define _OBJECT
+
 #include "ModuleAssimp.h"
 #include "Texture.h"
 #include "MathGeoLib.h"
@@ -124,3 +126,5 @@ public:
 	std::vector<GameObject*> obj_childs;
 	bool to_delete = false;
 };
+
+#endif

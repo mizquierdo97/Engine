@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _MODULE
+#define _MODULE
 class Application;
 struct PhysBody3D;
 
@@ -85,3 +85,5 @@ public:
 	int performance_offset = 0;
 
 };
+
+#endif

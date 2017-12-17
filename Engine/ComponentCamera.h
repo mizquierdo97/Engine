@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _COMPONENTCAMERA
+#define _COMPONENTCAMERA
+
 #include "Component.h"
 #include "MathGeo/Geometry/Frustum.h"
 #include "ComponentTransform.h"
@@ -24,3 +26,5 @@ public:
 
 
 };
+
+#endif

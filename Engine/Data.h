@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _DATA
+#define _DATA
 
 #include "Globals.h"
 #include "imgui\imgui.h"
@@ -95,3 +96,4 @@ private:
 	bool getting_from_section = false;
 };
 
+#endif

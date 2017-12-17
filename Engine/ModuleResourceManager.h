@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULERESOURCE
+#define _MODULERESOURCE
 
 #include "Module.h"
 #include "SDL/include/SDL.h"
@@ -43,3 +44,5 @@ private:
 	UUID last_uid = IID_NULL;
 
 };
+
+#endif

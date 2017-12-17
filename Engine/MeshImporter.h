@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MESHIMPORTER
+#define _MESHIMPORTER
 #include <map>
 #include "Glew/include/glew.h" 
 
@@ -24,3 +25,4 @@ public:
 
 	uint actual_ranges[5] = {0,0,0,0,0};
 };
+#endif

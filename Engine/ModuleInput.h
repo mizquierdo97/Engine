@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULEINPUT
+#define _MODULEINPUT
 #include "Module.h"
 #include "Globals.h"
 
@@ -79,3 +80,5 @@ private:
 
 	
 };
+
+#endif

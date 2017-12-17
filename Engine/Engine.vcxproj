@@ -142,7 +142,6 @@
     <ClInclude Include="ImGui\stb_textedit.h" />
     <ClInclude Include="ImGui\stb_truetype.h" />
     <ClInclude Include="imgui_dock.h" />
-    <ClInclude Include="Importer.h" />
     <ClInclude Include="Json\parson.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MathGeoLib.h" />

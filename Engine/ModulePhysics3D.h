@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MODULEPHYSICS
+#define _MODULEPHYSICS
+
 #include "Module.h"
 #include "Globals.h"
 
@@ -74,3 +76,5 @@ public:
 
 	
 };
+
+#endif

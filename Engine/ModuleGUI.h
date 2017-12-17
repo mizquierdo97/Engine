@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MODULEGUI
+#define _MODULEGUI
+
 #include "Module.h"
 #include "Globals.h"
 #include "ImGui\imgui_impl_sdl_gl3.h"
@@ -75,4 +77,5 @@ public:
 	//
 };
 
+#endif
 

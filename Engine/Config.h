@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _CONFIG
+#define _CONFIG
 
 
 #include "Globals.h"
@@ -26,3 +26,5 @@ public:
 
 	char* file_name = FILE_NAME;
 };
+
+#endif

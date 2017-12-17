@@ -300,9 +300,6 @@
     <ClInclude Include="MeshImporter.h">
       <Filter>Sources\FileSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Importer.h">
-      <Filter>Sources\FileSystem</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentCamera.h">
       <Filter>Sources\Object\Components</Filter>
     </ClInclude>

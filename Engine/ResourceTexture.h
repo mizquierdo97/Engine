@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef _RESOURCE_TEXTURE
+#define _RESOURCE_TEXTURE
 #include "Resource.h"
 
 class ResourceTexture : public Resource {
@@ -21,3 +21,4 @@ public:
 	Texture* res_tex = nullptr;
 	
 };
+#endif

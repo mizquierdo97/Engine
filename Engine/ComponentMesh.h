@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _COMPONENTMESH
+#define _COMPONENTMESH
+
 #include "Component.h"
 #include "ModuleAssimp.h"
 #include <string>
@@ -39,3 +41,4 @@ public:
 
 	math::AABB box;
 };
+#endif

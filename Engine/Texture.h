@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _TEXTURE
+#define _TEXTURE
 
 #include <Windows.h>
 #include "Glew/include/glew.h" // extension lib
@@ -41,3 +42,4 @@ private:
 	
 };
 
+#endif

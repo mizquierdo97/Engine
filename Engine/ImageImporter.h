@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _IMAGEIMPORTER
+#define _IMAGEIMPORTER
+
 #include <string>
 #include "Texture.h"
 
@@ -19,3 +21,4 @@ public:
 public:
 	
 };
+#endif

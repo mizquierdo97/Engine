@@ -1,4 +1,7 @@
-#pragma once
+#ifndef _COMPONENT
+#define _COMPONENT
+
+
 #include "Globals.h"
 #include "Module.h"
 #include "Data.h"
@@ -59,3 +62,4 @@ private:
 
 
 };
+#endif

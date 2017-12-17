@@ -1,5 +1,5 @@
-#pragma once
-#pragma once
+#ifndef _RESOURCE_MESH
+#define _RESOURCE_MESH
 
 #include "Resource.h"
 #include "ModuleAssimp.h"
@@ -40,3 +40,5 @@ public:
 
 
 };
+
+#endif

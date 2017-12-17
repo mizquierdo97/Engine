@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _GLOBALS
+#define _GLOBALS
 
 // Warning disabled ---
 #pragma warning( disable : 4577 ) // Warning that exceptions are disabled
@@ -78,3 +79,6 @@ enum update_status
 #define LIBRARY_PATH "Library/"
 #define MESHES_PATH "Library/Meshes/"
 #define MATERIALS_PATH "Library/Materials/"
+
+
+#endif

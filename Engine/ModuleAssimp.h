@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULEASSIMP
+#define _MODULEASSIMP
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
@@ -66,3 +67,4 @@ public:
 
 };
 
+#endif

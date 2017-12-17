@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MODULECAMERA
+#define _MODULECAMERA
 #include "Module.h"
 #include "Globals.h"
 
@@ -53,3 +54,5 @@ private:
 	float4x4 ViewMatrix, ViewMatrixInverse;
 	float2 mouse_pos = float2(0, 0);
 };
+
+#endif

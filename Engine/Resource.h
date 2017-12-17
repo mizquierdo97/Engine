@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _RESOURCE
+#define _RESOURCE
 #include "Object.h"
 #include <string>
 
@@ -53,3 +54,4 @@ public :
 	uint loaded = 0;
 	Data meta_data;
 };
+#endif

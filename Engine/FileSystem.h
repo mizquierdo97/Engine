@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _FILESYSTEM
+#define _FILESYSTEM
+
 #include "ModuleAssimp.h"
 #include "MeshImporter.h"
 #include "ImageImporter.h"
@@ -29,3 +31,4 @@ public:
 	ShaderImporter* shader_importer;
 
 };
+#endif
